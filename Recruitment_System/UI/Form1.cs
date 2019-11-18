@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Recruitment_System
+namespace Recruitment_System.UI
 {
     public partial class Form1 : Form
     {
