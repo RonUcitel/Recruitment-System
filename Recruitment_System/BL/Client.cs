@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Data;
 using System.Reflection;
+using System.IO;
 
 namespace Recruitment_System.BL
 {
@@ -63,7 +64,6 @@ namespace Recruitment_System.BL
         private int m_Professionalism;
 
         private int m_GeneralAssessment;
-
         #endregion
 
 
@@ -79,6 +79,10 @@ namespace Recruitment_System.BL
         public int Match { get => m_Match; set => m_Match = value; }
         public int Professionalism { get => m_Professionalism; set => m_Professionalism = value; }
         public int GeneralAssessment { get => m_GeneralAssessment; set => m_GeneralAssessment = value; }
+
+        public bool HaveCV { get => File.Exists(); }
+
+        public string CV { get => (HaveCV) ? @"\CVS\" + m_Id + @"\" + m_Id + ".pdf" : ""; }
 
 
         public static Client Empty = new Client();
