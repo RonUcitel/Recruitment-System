@@ -12,7 +12,7 @@ namespace Recruitment_System.BL
         /// </summary>
         public Job()
         {
-            m_Id = 0;
+            m_Id = -1;
             m_Name = "";
         }
         public Job(DataRow job_prop)

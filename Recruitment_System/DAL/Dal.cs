@@ -75,7 +75,7 @@ namespace Recruitment_System.DAL
             //בניית מחרוזת הקישור
             SqlConnectionStringBuilder cString = new SqlConnectionStringBuilder();
             cString.DataSource = @"(localdb)\.";
-            cString.AttachDBFilename = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + @"\DB_proj.mdf";
+            cString.AttachDBFilename = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + @"\Recruiment_System.mdf";
             cString.IntegratedSecurity = true;
 
             return cString.ToString();

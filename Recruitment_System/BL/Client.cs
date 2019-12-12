@@ -29,8 +29,8 @@ namespace Recruitment_System.BL
         public Client(DataRow client_prop)
         {
             m_DBId = (int)client_prop["ID"];
-            m_FirstName = client_prop["FirstName"].ToString();
-            m_LastName = client_prop["LastName"].ToString();
+            m_FirstName = client_prop["FirstName"].ToString().Replace("$", "'");
+            m_LastName = client_prop["LastName"].ToString().Replace("$", "'");
             m_Id = client_prop["ID_Num"].ToString();
             m_CellAreaCode = client_prop["CellAreaCode"].ToString();
             m_CellPhoneNumber = client_prop["CellPhoneNumber"].ToString();
@@ -80,7 +80,7 @@ namespace Recruitment_System.BL
         public int Professionalism { get => m_Professionalism; set => m_Professionalism = value; }
         public int GeneralAssessment { get => m_GeneralAssessment; set => m_GeneralAssessment = value; }
 
-        public bool HaveCV { get => File.Exists(); }
+        public bool HaveCV { get => File.Exists(""); }
 
         public string CV { get => (HaveCV) ? @"\CVS\" + m_Id + @"\" + m_Id + ".pdf" : ""; }
 
@@ -145,26 +145,65 @@ namespace Recruitment_System.BL
             {
                 if (item.PropertyType == typeof(string))
                 {
-                    item.SetValue(this, "");
+                    try
+                    {
+                        item.SetValue(this, "");
+                    }
+                    catch
+                    {
+
+                    }
+
                 }
                 else if (item.PropertyType == typeof(int))
                 {
                     if (item.Name == "Match" || item.Name == "Professionalism" || item.Name == "GeneralAssessment")
                     {
-                        item.SetValue(this, 1);
+                        try
+                        {
+                            item.SetValue(this, 1);
+                        }
+                        catch
+                        {
+
+                        }
+
                     }
                     else
                     {
-                        item.SetValue(this, 0);
+                        try
+                        {
+                            item.SetValue(this, 0);
+                        }
+                        catch
+                        {
+
+                        }
                     }
                 }
                 else if (item.PropertyType == typeof(City))
                 {
-                    item.SetValue(this, City.Empty);
+                    try
+                    {
+                        item.SetValue(this, City.Empty);
+                    }
+                    catch
+                    {
+
+                    }
+
                 }
                 else if (item.PropertyType == typeof(Job))
                 {
-                    item.SetValue(this, Job.Empty);
+                    try
+                    {
+                        item.SetValue(this, Job.Empty);
+                    }
+                    catch
+                    {
+
+                    }
+
                 }
             }
         }

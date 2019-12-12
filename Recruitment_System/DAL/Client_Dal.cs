@@ -33,8 +33,8 @@ namespace Recruitment_System.DAL
 
                 + " VALUES "
                 + "("
-                      + "'" + firstName + "'"
-                + "," + "'" + lastName + "'"
+                      + "N'" + firstName.Replace("'", "$") + "'"
+                + "," + "N'" + lastName.Replace("'", "$") + "'"
                 + "," + "'" + iDNum + "'"
                 + "," + "'" + cellPhoneAreaCode + "'"
                 + "," + "'" + cellPhoneNumber + "'"
@@ -56,13 +56,13 @@ namespace Recruitment_System.DAL
             //מעדכנת את הלקוח במסד הנתונים
 
             string str = "UPDATE Table_Client SET"
-            + " " + "[FirstName] = " + "'" + firstName + "'"
-            + "," + "[LastName] = " + "'" + lastName + "'"
+            + " " + "[FirstName] = " + "N'" + firstName.Replace("'", "$") + "'"
+            + "," + "[LastName] = " + "N'" + lastName.Replace("'", "$") + "'"
             + "," + "[ID_Num] = " + "'" + iDNum + "'"
             + "," + "[CellAreaCode] = " + "'" + cellPhoneAreaCode + "'"
             + "," + "[CellPhoneNumber] = " + "'" + cellPhoneNumber + "'"
             + "," + "[City] = " + "" + city + ""
-            + "," + "[JobType] = " + "'" + jobType + "'"
+            + "," + "[JobType] = " + "" + jobType + ""
             + "," + "[Match] = " + "'" + match + "'"
             + "," + "[Professionalism] = " + "'" + professionalism + "'"
             + "," + "[GeneralAssessment] = " + "'" + generalAssessment + "'"
@@ -96,7 +96,7 @@ namespace Recruitment_System.DAL
 
             DataRelation dataRelationClientCity = new DataRelation(
                 "ClientCity"
-                , dataSet.Tables["Table_City"].Columns["ID"]
+                , dataSet.Tables["Table_City"].Columns["Id"]
                 , dataSet.Tables["Table_Client"].Columns["City"]);
 
 

@@ -17,6 +17,7 @@ namespace Recruitment_System.UI
         public Form1()
         {
             InitializeComponent();
+            ClientArrToForm();
         }
 
 
@@ -41,6 +42,14 @@ namespace Recruitment_System.UI
                     if (client.Insert())//Try to insert the new Client to the database.
                     {
                         //The insertion of the client data was successfull.
+
+                        //Check the cv file:
+                        if (!File.Exists(Properties.Resources.Server_Path + Properties.Resources.CVS_path + client.Id + ".pdf") && !File.Exists(Properties.Resources.Server_Path + Properties.Resources.CVS_path + client.Id + ".docx"))
+                        {
+                            File.Copy(PDF_CV_Viewer.Tag as string, Properties.Resources.Server_Path + Properties.Resources.CVS_path + client.Id, true);
+                        }
+
+
                         ClientArrToForm();
                         dialogResult = MessageBox.Show("The Client was ADDED successfully", "Yay!", MessageBoxButtons.OK);
                         listBox_Client.SelectedItem = listBox_Client.Items[listBox_Client.Items.Count - 1];
@@ -119,11 +128,17 @@ namespace Recruitment_System.UI
                 if (paths[i].EndsWith(".docx") || paths[i].EndsWith(".pdf"))
                 {
                     //file accepted
-                    button_File.Tag = paths[i];
-                    button_File.BackColor = Color.Green;
+                    button_Add_CV.Tag = paths[i];
+                    button_Add_CV.BackColor = Color.Green;
                     return;
                 }
             }
+        }
+
+
+        private void listBox_Client_DoubleClick(object sender, EventArgs e)
+        {
+            ClientToForm((Client)listBox_Client.SelectedValue);
         }
         #endregion
 
@@ -143,8 +158,8 @@ namespace Recruitment_System.UI
             client.Id = textBox_ID.Text;
             client.CellAreaCode = comboBox_CellAreaCode.Text;
             client.CellPhone = textBox_Cel.Text;
-            client.City = (comboBox_City.SelectedItem as City);
-            client.JobType = (comboBox_Position.SelectedItem as Job);
+            client.City = (comboBox_City.SelectedItem as City) != null ? comboBox_City.SelectedItem as City : City.Empty;
+            client.JobType = (comboBox_Position.SelectedItem as Job) != null ? comboBox_Position.SelectedItem as Job : Job.Empty;
             client.Match = (int)numericUpDown_Match.Value;
             client.Professionalism = (int)numericUpDown_Professionalism.Value;
             client.GeneralAssessment = (int)numericUpDown_GA.Value;
@@ -305,9 +320,52 @@ namespace Recruitment_System.UI
 
         #endregion
 
-        private void button_File_Click(object sender, EventArgs e)
+
+        private void button_Search_Click(object sender, EventArgs e)
+        {
+            Client filter = FormToClient();
+            ClientArr clientArr = new ClientArr();
+            clientArr.Fill();
+            clientArr = clientArr.Filter(filter);
+            listBox_Client.DataSource = clientArr;
+            if (clientArr.Count > 0)
+            {
+                //There is a client standing by the filter
+                ClientToForm(clientArr[0] as Client);
+            }
+            else
+            {
+                //No client was found by the filter
+                ClientToForm(null);
+            }
+        }
+
+        private void button_Clear_Click(object sender, EventArgs e)
         {
 
+        }
+
+
+        private void button_Add_CV_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = @"C:\Users\" + Environment.UserName + @"\Desktop";
+                openFileDialog.Filter = "pdf files (*.pdf)|*.pdf|word files (*.docx)|*.docx";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    PDF_CV_Viewer.Tag = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void button_Remove_CV_Click(object sender, EventArgs e)
+        {
+            PDF_CV_Viewer.Tag = null;
         }
     }
 }
