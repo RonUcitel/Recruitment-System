@@ -44,6 +44,8 @@ namespace Recruitment_System.BL
                     (filter.FirstName == "" || client.FirstName.StartsWith(filter.FirstName)) &&
                     (filter.LastName == "" || client.LastName.StartsWith(filter.LastName)) &&
                     (filter.Id == "" || client.Id.StartsWith(filter.Id)) &&
+                    (filter.Email == "" || client.Email.Contains(filter.Email)) &&
+                    (filter.BirthYear == 0 || client.BirthYear == filter.BirthYear) &&
                     (filter.CellPhone == "" || (client.CellAreaCode + client.CellPhone).Contains(filter.CellPhone)) &&
                     (filter.City.ToString() == "" || client.City.Name.StartsWith(filter.City.ToString())) &&
                     (filter.JobType.ToString() == "" || client.JobType.Name.StartsWith(filter.JobType.ToString()))
@@ -54,6 +56,21 @@ namespace Recruitment_System.BL
             }
 
             return clientArr;
+        }
+
+
+        public Client GetClientByDBId(int dbId)
+        {
+            Client check;
+            for (int i = 0; i < this.Count; i++)
+            {
+                check = this[i] as Client;
+                if (check.DBId == dbId)
+                {
+                    return check;
+                }
+            }
+            return Client.Empty;
         }
 
 
@@ -99,6 +116,17 @@ namespace Recruitment_System.BL
                 }
             }
             return false;
+        }
+
+
+        public Client MaxClientDBId()
+        {
+            Client max = Client.Empty;
+            for (int i = 0; i < this.Count; i++)
+            {
+                max = (this[i] as Client).DBId > max.DBId ? this[i] as Client : max;
+            }
+            return max;
         }
     }
 }

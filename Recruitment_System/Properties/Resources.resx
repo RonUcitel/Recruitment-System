@@ -117,10 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="allnet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\allnet.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="CVS path" xml:space="preserve">
     <value>\CVS\</value>
   </data>
   <data name="Server Path" xml:space="preserve">
-    <value>192.178.1.1</value>
+    <value>C:\Users\ronuc\Source\Repos\RonUcitel\Recruitment-System\Recruitment_System</value>
+    <comment>C:\Users\ronuc\Desktop\rs</comment>
   </data>
 </root>

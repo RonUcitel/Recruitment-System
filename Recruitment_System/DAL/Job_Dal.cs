@@ -9,6 +9,8 @@ namespace Recruitment_System.DAL
 {
     class Job_Dal
     {
+        public const string tableName = "Table_Job";
+
         /// <summary>
         /// Inserts the information to the database
         /// </summary>
@@ -17,7 +19,7 @@ namespace Recruitment_System.DAL
         {
 
             //Building the SQL command
-            string str = "INSERT INTO Table_Job"
+            string str = "INSERT INTO " + tableName
                 + "("
                 + "[Name]"
                 + ")"
@@ -37,7 +39,7 @@ namespace Recruitment_System.DAL
 
             //מעדכנת את הלקוח במסד הנתונים
 
-            string str = "UPDATE Table_Job SET"
+            string str = "UPDATE " + tableName + " SET"
             + " " + "[Name] = " + "'" + jobName + "'"
 
             + " WHERE ID = " + id;
@@ -54,7 +56,7 @@ namespace Recruitment_System.DAL
             DataSet dataSet = new DataSet();
 
             FillDataSet(dataSet);
-            dataTable = dataSet.Tables["Table_Job"];
+            dataTable = dataSet.Tables[tableName];
 
             return dataTable;
         }
@@ -62,9 +64,9 @@ namespace Recruitment_System.DAL
 
         public static void FillDataSet(DataSet dataSet)
         {
-            if (!dataSet.Tables.Contains("Table_Job"))
+            if (!dataSet.Tables.Contains(tableName))
             {
-                Dal.FillDataSet(dataSet, "Table_Job", "[Name]");
+                Dal.FillDataSet(dataSet, tableName, "[Name]");
             }
 
         }
@@ -79,7 +81,7 @@ namespace Recruitment_System.DAL
         {
 
             //מוחקת את הלקוח ממסד הנתונים
-            string str = "DELETE FROM Table_job"
+            string str = "DELETE FROM " + tableName
             + " WHERE ID = " + id;
 
             //הפעלת פעולת הSQL -תוך שימוש בפעולה המוכנה ExecuteSql במחלקה Dal והחזרה האם הפעולה הצליחה

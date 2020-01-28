@@ -9,19 +9,22 @@ namespace Recruitment_System.DAL
 {
     class Client_Dal
     {
+        public const string tableName = "Table_Client";
         /// <summary>
         /// Inserts the information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
-        public static bool Insert(string firstName, string lastName, string iDNum, string cellPhoneAreaCode, string cellPhoneNumber, int city, int jobType, int match, int professionalism, int generalAssessment)
+        public static bool Insert(string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city, int jobType, int match, int professionalism, int generalAssessment)
         {
 
             //Building the SQL command
-            string str = "INSERT INTO Table_Client"
+            string str = "INSERT INTO " + tableName
                 + "("
                 + "[FirstName]"
                 + ",[LastName]"
                 + ",[ID_Num]"
+                + ",[Email]"
+                + ",[BirthYear]"
                 + ",[CellAreaCode]"
                 + ",[CellPhoneNumber]"
                 + ",[City]"
@@ -36,6 +39,8 @@ namespace Recruitment_System.DAL
                       + "N'" + firstName.Replace("'", "$") + "'"
                 + "," + "N'" + lastName.Replace("'", "$") + "'"
                 + "," + "'" + iDNum + "'"
+                + "," + "'" + email + "'"
+                + "," + "" + birthYear + ""
                 + "," + "'" + cellPhoneAreaCode + "'"
                 + "," + "'" + cellPhoneNumber + "'"
                 + "," + "" + city + ""
@@ -50,15 +55,17 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool Update(int id, string firstName, string lastName, string iDNum, string cellPhoneAreaCode, string cellPhoneNumber, int city, int jobType, int match, int professionalism, int generalAssessment)
+        public static bool Update(int id, string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city, int jobType, int match, int professionalism, int generalAssessment)
         {
 
             //מעדכנת את הלקוח במסד הנתונים
 
-            string str = "UPDATE Table_Client SET"
+            string str = "UPDATE " + tableName + " SET"
             + " " + "[FirstName] = " + "N'" + firstName.Replace("'", "$") + "'"
             + "," + "[LastName] = " + "N'" + lastName.Replace("'", "$") + "'"
             + "," + "[ID_Num] = " + "'" + iDNum + "'"
+            + "," + "[Email] = " + "'" + email + "'"
+            + "," + "[BirthYear] = " + "" + birthYear + ""
             + "," + "[CellAreaCode] = " + "'" + cellPhoneAreaCode + "'"
             + "," + "[CellPhoneNumber] = " + "'" + cellPhoneNumber + "'"
             + "," + "[City] = " + "" + city + ""
@@ -89,15 +96,15 @@ namespace Recruitment_System.DAL
 
         public static void FillDataSet(DataSet dataSet)
         {
-            Dal.FillDataSet(dataSet, "Table_Client", "[lastName],[FirstName]");
+            Dal.FillDataSet(dataSet, tableName, "[lastName],[FirstName]");
 
             City_Dal.FillDataSet(dataSet);
 
 
             DataRelation dataRelationClientCity = new DataRelation(
                 "ClientCity"
-                , dataSet.Tables["Table_City"].Columns["Id"]
-                , dataSet.Tables["Table_Client"].Columns["City"]);
+                , dataSet.Tables[City_Dal.tableName].Columns["Id"]
+                , dataSet.Tables[tableName].Columns["City"]);
 
 
             dataSet.Relations.Add(dataRelationClientCity);
@@ -109,8 +116,8 @@ namespace Recruitment_System.DAL
 
             DataRelation dataRelationClientJob = new DataRelation(
                 "ClientJob"
-                , dataSet.Tables["Table_Job"].Columns["ID"]
-                , dataSet.Tables["Table_Client"].Columns["JobType"]);
+                , dataSet.Tables[Job_Dal.tableName].Columns["ID"]
+                , dataSet.Tables[tableName].Columns["JobType"]);
 
 
             dataSet.Relations.Add(dataRelationClientJob);
@@ -126,7 +133,7 @@ namespace Recruitment_System.DAL
         {
 
             //מוחקת את הלקוח ממסד הנתונים
-            string str = "DELETE FROM Table_Client"
+            string str = "DELETE FROM " + tableName
             + " WHERE ID = " + id;
 
             //הפעלת פעולת הSQL -תוך שימוש בפעולה המוכנה ExecuteSql במחלקה Dal והחזרה האם הפעולה הצליחה

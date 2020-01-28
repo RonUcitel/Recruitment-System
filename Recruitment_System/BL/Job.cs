@@ -21,6 +21,11 @@ namespace Recruitment_System.BL
             m_Name = job_prop["Name"].ToString();
 
         }
+        private Job(bool unused)
+        {
+            m_Id = -1;
+            m_Name = "+";
+        }
 
         #endregion
 
@@ -38,6 +43,7 @@ namespace Recruitment_System.BL
         public string Name { get => m_Name; set => m_Name = value; }
 
         public static Job Empty = new Job();
+        public static Job AddingFormButton = new Job(true);
 
         #endregion
 

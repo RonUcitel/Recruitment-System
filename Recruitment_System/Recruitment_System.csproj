@@ -64,26 +64,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\LogEntryArr.cs" />
+    <Compile Include="BL\LogEntry.cs" />
+    <Compile Include="BL\Job_RequirementArr.cs" />
+    <Compile Include="BL\Job_Requirement.cs" />
     <Compile Include="BL\City.cs" />
     <Compile Include="BL\CityArr.cs" />
     <Compile Include="BL\Client.cs" />
     <Compile Include="BL\ClientArr.cs" />
     <Compile Include="BL\Job.cs" />
     <Compile Include="BL\JobArr.cs" />
+    <Compile Include="DAL\LogEntry_Dal.cs" />
+    <Compile Include="DAL\Job_Requirement_Dal.cs" />
     <Compile Include="DAL\City_Dal.cs" />
     <Compile Include="DAL\Client_Dal.cs" />
     <Compile Include="DAL\Dal.cs" />
     <Compile Include="DAL\Job_Dal.cs" />
-    <Compile Include="UI\Form1.cs">
+    <Compile Include="UI\City_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="UI\City_Form.Designer.cs">
+      <DependentUpon>City_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Job_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Job_Form.Designer.cs">
+      <DependentUpon>Job_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Log_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Log_Form.Designer.cs">
+      <DependentUpon>Log_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Main_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Main_Form.Designer.cs">
+      <DependentUpon>Main_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="UI\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Log_Form.resx">
+      <DependentUpon>Log_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Main_Form.resx">
+      <DependentUpon>Main_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -136,6 +163,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Recruiment_System.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\allnet.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

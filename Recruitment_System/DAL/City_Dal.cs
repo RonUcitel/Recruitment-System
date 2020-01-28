@@ -9,6 +9,7 @@ namespace Recruitment_System.DAL
 {
     class City_Dal
     {
+        public const string tableName = "Table_City";
         /// <summary>
         /// Inserts the information to the database
         /// </summary>

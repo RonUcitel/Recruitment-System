@@ -12,7 +12,7 @@ namespace Recruitment_System.BL
         /// </summary>
         public City()
         {
-            m_Id = -1;
+            m_Id = 0;
             m_Name = "";
         }
         public City(DataRow city_prop)
@@ -20,6 +20,12 @@ namespace Recruitment_System.BL
             m_Id = (int)city_prop["ID"];
             m_Name = city_prop["Name"].ToString();
 
+        }
+
+        private City(bool unused)
+        {
+            m_Id = -1;
+            m_Name = "+";
         }
 
         #endregion
@@ -38,6 +44,7 @@ namespace Recruitment_System.BL
         public string Name { get => m_Name; set => m_Name = value; }
 
         public static City Empty = new City();
+        public static City AddingFormButton = new City(true);
 
         #endregion
 

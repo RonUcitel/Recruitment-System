@@ -61,6 +61,16 @@ namespace Recruitment_System.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon allnet {
+            get {
+                object obj = ResourceManager.GetObject("allnet", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to \CVS\.
         /// </summary>
         internal static string CVS_path {
@@ -70,7 +80,7 @@ namespace Recruitment_System.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 192.178.1.1.
+        ///   Looks up a localized string similar to C:\Users\ronuc\Source\Repos\RonUcitel\Recruitment-System\Recruitment_System.
         /// </summary>
         internal static string Server_Path {
             get {

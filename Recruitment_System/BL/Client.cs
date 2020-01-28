@@ -3,6 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Reflection;
 using System.IO;
+using System;
 
 namespace Recruitment_System.BL
 {
@@ -32,6 +33,8 @@ namespace Recruitment_System.BL
             m_FirstName = client_prop["FirstName"].ToString().Replace("$", "'");
             m_LastName = client_prop["LastName"].ToString().Replace("$", "'");
             m_Id = client_prop["ID_Num"].ToString();
+            Email = client_prop["Email"].ToString();
+            m_BirthYear = (int)client_prop["BirthYear"];
             m_CellAreaCode = client_prop["CellAreaCode"].ToString();
             m_CellPhoneNumber = client_prop["CellPhoneNumber"].ToString();
             m_City = new City(client_prop.GetParentRow("ClientCity"));
@@ -50,6 +53,10 @@ namespace Recruitment_System.BL
         private string m_LastName;
 
         private string m_Id;
+
+        private string m_Email;
+
+        private int m_BirthYear;
 
         private string m_CellAreaCode;
 
@@ -83,7 +90,8 @@ namespace Recruitment_System.BL
         public bool HaveCV { get => File.Exists(""); }
 
         public string CV { get => (HaveCV) ? @"\CVS\" + m_Id + @"\" + m_Id + ".pdf" : ""; }
-
+        public int BirthYear { get => m_BirthYear; set => m_BirthYear = value; }
+        public string Email { get => m_Email; set => m_Email = value; }
 
         public static Client Empty = new Client();
         #endregion
@@ -97,12 +105,33 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            return Client_Dal.Insert(m_FirstName, m_LastName, m_Id, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_JobType.Id, m_Match, m_Professionalism, m_GeneralAssessment);
+            if (Client_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_JobType.Id, m_Match, m_Professionalism, m_GeneralAssessment))
+            {
+                ClientArr clientArr = new ClientArr();
+                clientArr.Fill();
+
+                LogEntry logEntry = new LogEntry(DateTime.Now, "המועמד " + m_FirstName + " " + m_LastName + " נוסף בהצלחה", clientArr.MaxClientDBId());
+
+                logEntry.Insert();
+                return true;
+            }
+
+            return false;
         }
 
         public bool Update()
         {
-            return Client_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_JobType.Id, m_Match, m_Professionalism, m_GeneralAssessment);
+            if (Client_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_JobType.Id, m_Match, m_Professionalism, m_GeneralAssessment))
+            {
+                ClientArr clientArr = new ClientArr();
+                clientArr.Fill();
+
+                LogEntry logEntry = new LogEntry(DateTime.Now, "המועמד " + m_FirstName + " " + m_LastName + " עודכן בהצלחה", clientArr.MaxClientDBId());
+
+                logEntry.Insert();
+                return true;
+            }
+            return false;
         }
 
 
