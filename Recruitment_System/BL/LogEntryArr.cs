@@ -30,7 +30,7 @@ namespace Recruitment_System.BL
             }
         }
 
-        public LogEntryArr Filter(int clientDBId, DateTime dateTime, string entry)
+        public LogEntryArr Filter(int nomineeDBId, DateTime dateTime, string entry)
         {
             LogEntryArr logEntryArr = new LogEntryArr();
 
@@ -38,7 +38,7 @@ namespace Recruitment_System.BL
             for (int i = 0; i < this.Count; i++)
             {
                 logEntry = (this[i] as LogEntry);
-                if ((clientDBId <= 0 || logEntry.Client.DBId == clientDBId) &
+                if ((nomineeDBId <= 0 || logEntry.Nominee.DBId == nomineeDBId) &
                     (dateTime == DateTime.MinValue || logEntry.DateTime.ToString("dd-MM-yyyy") == dateTime.ToString("dd-MM-yyyy")) &&
                     (entry == null || entry == "" || logEntry.Entry.Contains(entry)))
                 {

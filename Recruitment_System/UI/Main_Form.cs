@@ -17,13 +17,18 @@ namespace Recruitment_System.UI
     {
         private City lastSelectedcomboBox_CityIndex = City.Empty;
         private Job lastSelectedcomboBox_JobIndex = Job.Empty;
+        //private NomineeArrState showNomineeArrCurState = NomineeArrState.ShowEnabledOnly;
         public MainForm()
         {
             InitializeComponent();
+            label_ShowDisabled.Hide();
             Icon = Properties.Resources.allnet;
-            ClientArrToForm();
+            SetUpNomineeArrShowMenu();
+            ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
+            NomineeArrToForm();
             CityArrToForm(null);
             JobArrToForm(null);
+            SetButton_ChangeDisabled(true);
         }
 
 
@@ -166,53 +171,53 @@ namespace Recruitment_System.UI
             {
                 //The information was valid
 
-                Client client = FormToClient();//Make a Client object from the information on the form.
+                Nominee nominee = FormToNominee();//Make a Nominee object from the information on the form.
 
-                if (client.DBId == 0)
+                if (nominee.DBId == 0)
                 {
-                    if (client.Insert())//Try to insert the new Client to the database.
+                    if (nominee.Insert())//Try to insert the new Nominee to the database.
                     {
-                        //The insertion of the client data was successfull.
+                        //The insertion of the nominee data was successfull.
 
                         //Check the cv file:
-                        ClientArr clientarr = new ClientArr();
-                        clientarr.Fill();
-                        SetCV(clientarr.MaxClientDBId().DBId);
+                        NomineeArr nomineearr = new NomineeArr();
+                        nomineearr.Fill(GetCurNomineeArrState());
+                        SetCV(nomineearr.MaxNomineeDBId().DBId);
 
 
-                        ClientArrToForm();
+                        NomineeArrToForm();
 
-                        SetLastChangedTextbox(client.DBId);
+                        SetLastChangedTextbox(nominee.DBId);
 
-                        dialogResult = MessageBox.Show("The Client was ADDED successfully", "Yay!", MessageBoxButtons.OK);
-                        listBox_Client.SelectedItem = listBox_Client.Items[listBox_Client.Items.Count - 1];
+                        dialogResult = MessageBox.Show("The Nominee was ADDED successfully", "Yay!", MessageBoxButtons.OK);
+                        listBox_Nominee.SelectedItem = listBox_Nominee.Items[listBox_Nominee.Items.Count - 1];
                     }
                     else
                     {
                         //There was a problem insreting the data to the database.
-                        dialogResult = MessageBox.Show("There was a problem ADDING the client to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                        dialogResult = MessageBox.Show("There was a problem ADDING the nominee to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
                     //it is an update
 
-                    ClientArr dbClients = new ClientArr();
-                    dbClients.Fill();
-                    Client dbClient = dbClients.GetClientByDBId(client.DBId);
+                    NomineeArr dbNominees = new NomineeArr();
+                    dbNominees.Fill(GetCurNomineeArrState());
+                    Nominee dbNominee = dbNominees.GetNomineeByDBId(nominee.DBId);
 
-                    if (!client.Equals(dbClient))
+                    if (!nominee.Equals(dbNominee))
                     {
                         //if there is a change in the data
 
-                        if (client.Update())
+                        if (nominee.Update())
                         {
                             //Check the cv file:
 
-                            dialogResult = MessageBox.Show("The Client was UPDATED successfully", "Yay!", MessageBoxButtons.OK);
+                            dialogResult = MessageBox.Show("The Nominee was UPDATED successfully", "Yay!", MessageBoxButtons.OK);
                         }
                         else
-                            dialogResult = MessageBox.Show("There was a problem UPDATING the client to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                            dialogResult = MessageBox.Show("There was a problem UPDATING the nominee to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
                     }
                     else
                     {
@@ -229,7 +234,7 @@ namespace Recruitment_System.UI
 
                 case DialogResult.Cancel://Clear all of the text and "restart".
                     {
-                        ClientToForm(null);
+                        NomineeToForm(null);
                         break;
                     }
 
@@ -252,7 +257,7 @@ namespace Recruitment_System.UI
                     break;
             }
 
-            ClientArrToForm();
+            NomineeArrToForm();
         }
 
 
@@ -281,9 +286,9 @@ namespace Recruitment_System.UI
                 {
                     //file accepted
                     button_Add_CV.Tag = paths[i];
-                    if (FormToClient().DBId != 0)
+                    if (FormToNominee().DBId != 0)
                     {
-                        SetCV(FormToClient().DBId);
+                        SetCV(FormToNominee().DBId);
                     }
                     button_Add_CV.BackColor = Color.Green;
                     button_Add_CV.Text = "ישנם קורות חיים";
@@ -293,30 +298,30 @@ namespace Recruitment_System.UI
         }
 
 
-        private void listBox_Client_DoubleClick(object sender, EventArgs e)
+        private void listBox_Nominee_DoubleClick(object sender, EventArgs e)
         {
-            ClientToForm((Client)listBox_Client.SelectedValue);
+            NomineeToForm((Nominee)listBox_Nominee.SelectedValue);
         }
 
 
         private void button_Search_Click(object sender, EventArgs e)
         {
-            Client filter = FormToClient();
-            ClientArr clientArr = new ClientArr();
-            clientArr.Fill();
-            clientArr = clientArr.Filter(filter);
-            listBox_Client.DataSource = clientArr;
-            if (clientArr.Count > 0)
+            Nominee filter = FormToNominee();
+            NomineeArr nomineeArr = new NomineeArr();
+            nomineeArr.Fill(GetCurNomineeArrState());
+            nomineeArr = nomineeArr.Filter(filter);
+            listBox_Nominee.DataSource = nomineeArr;
+            if (nomineeArr.Count > 0)
             {
-                //There is a client standing by the filter
-                ClientToForm(clientArr[0] as Client);
+                //There is a nominee standing by the filter
+                NomineeToForm(nomineeArr[0] as Nominee);
             }
             else
             {
-                //No client was found by the filter
-                if (MessageBox.Show("There is no client matching the fields you filled. please check the values you entered.", "No Client was found", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) != DialogResult.OK)
+                //No nominee was found by the filter
+                if (MessageBox.Show("There is no nominee matching the fields you filled. please check the values you entered.", "No Nominee was found", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) != DialogResult.OK)
                 {
-                    ClientToForm(null);
+                    NomineeToForm(null);
                 }
 
             }
@@ -325,10 +330,11 @@ namespace Recruitment_System.UI
 
         private void button_Clear_Click(object sender, EventArgs e)
         {
-            ClientToForm(null);
-            ClientArr clientArr = new ClientArr();
-            clientArr.Fill();
-            listBox_Client.DataSource = clientArr;
+            NomineeToForm(null);
+            NomineeArr nomineeArr = new NomineeArr();
+            nomineeArr.Fill(GetCurNomineeArrState());
+
+            listBox_Nominee.DataSource = nomineeArr;
         }
 
 
@@ -348,9 +354,9 @@ namespace Recruitment_System.UI
 
                 //Get the path of specified file
                 button_Add_CV.Tag = openFileDialog.FileName;
-                if (FormToClient().DBId != 0)
+                if (FormToNominee().DBId != 0)
                 {
-                    SetCV(FormToClient().DBId);
+                    SetCV(FormToNominee().DBId);
                 }
             }
         }
@@ -359,7 +365,7 @@ namespace Recruitment_System.UI
         private void button_Remove_CV_Click(object sender, EventArgs e)
         {
             button_Add_CV.Tag = null;
-            int dbid = FormToClient().DBId;
+            int dbid = FormToNominee().DBId;
             SetCV(dbid);
             button_Add_CV.Text = "הוסף קורות חיים";
             button_Add_CV.BackColor = SystemColors.ButtonFace;
@@ -370,7 +376,7 @@ namespace Recruitment_System.UI
 
         private void button_Delete_Click(object sender, EventArgs e)
         {
-            Client delete = FormToClient();
+            Nominee delete = FormToNominee();
             if (delete.DBId == 0)
             {
                 MessageBox.Show("לא נבחר לקוח למחיקה!", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -379,7 +385,7 @@ namespace Recruitment_System.UI
             {
                 if (MessageBox.Show("פעולה זאת הינה בלתי ניתנת לשיחזור!\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
-                    //delete this client from the database
+                    //delete this nominee from the database
 
                     delete.Delete();
 
@@ -392,11 +398,11 @@ namespace Recruitment_System.UI
                         (logToDelete[i] as LogEntry).Delete();
                     }
 
-                    ClientArr clientarr = new ClientArr();
-                    clientarr.Fill();
+                    NomineeArr nomineearr = new NomineeArr();
+                    nomineearr.Fill(GetCurNomineeArrState());
 
-                    listBox_Client.DataSource = clientarr;
-                    ClientToForm(null);
+                    listBox_Nominee.DataSource = nomineearr;
+                    NomineeToForm(null);
                 }
             }
         }
@@ -412,26 +418,27 @@ namespace Recruitment_System.UI
 
 
         #region public methods
-        public Client FormToClient()
+        public Nominee FormToNominee()
         {
-            Client client = new Client();//Create a new instance of the Client class.
+            Nominee nominee = new Nominee();//Create a new instance of the Nominee class.
 
             //insert the data to the object
-            client.DBId = int.Parse(label_DBID.Text);
-            client.FirstName = textBox_FirstName.Text;
-            client.LastName = textBox_LastName.Text;
-            client.Id = textBox_ID.Text;
-            client.Email = textBox_Email.Text;
-            client.BirthYear = textBox_BirthYear.Text == "" ? 0 : int.Parse(textBox_BirthYear.Text);
-            client.CellAreaCode = comboBox_CellAreaCode.Text;
-            client.CellPhone = textBox_Cel.Text;
-            client.City = (comboBox_City.SelectedItem as City) != null ? comboBox_City.SelectedItem as City : City.Empty;
-            client.JobType = (comboBox_Job.SelectedItem as Job) != null ? comboBox_Job.SelectedItem as Job : Job.Empty;
-            client.Match = (int)numericUpDown_Match.Value;
-            client.Professionalism = (int)numericUpDown_Professionalism.Value;
-            client.GeneralAssessment = (int)numericUpDown_GA.Value;
+            nominee.DBId = int.Parse(label_DBID.Text);
+            nominee.Disabled = label_ShowDisabled.Visible;
+            nominee.FirstName = textBox_FirstName.Text;
+            nominee.LastName = textBox_LastName.Text;
+            nominee.Id = textBox_ID.Text;
+            nominee.Email = textBox_Email.Text;
+            nominee.BirthYear = textBox_BirthYear.Text == "" ? 0 : int.Parse(textBox_BirthYear.Text);
+            nominee.CellAreaCode = comboBox_CellAreaCode.Text;
+            nominee.CellPhone = textBox_Cel.Text;
+            nominee.City = (comboBox_City.SelectedItem as City) != null ? comboBox_City.SelectedItem as City : City.Empty;
+            nominee.JobType = (comboBox_Job.SelectedItem as Job) != null ? comboBox_Job.SelectedItem as Job : Job.Empty;
+            nominee.Match = (int)numericUpDown_Match.Value;
+            nominee.Professionalism = (int)numericUpDown_Professionalism.Value;
+            nominee.GeneralAssessment = (int)numericUpDown_GA.Value;
 
-            return client;
+            return nominee;
         }
 
 
@@ -449,7 +456,7 @@ namespace Recruitment_System.UI
             comboBox_City.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboBox_City.AutoCompleteSource = AutoCompleteSource.ListItems;
             comboBox_City.SelectedIndexChanged += comboBox_City_SelectedIndexChanged;
-            if (curCity != null && lastSelectedcomboBox_CityIndex != null && lastSelectedcomboBox_CityIndex != City.Empty)
+            if (curCity != null)
             {
                 comboBox_City.SelectedValue = curCity.Id;
             }
@@ -489,13 +496,20 @@ namespace Recruitment_System.UI
 
         #region private methods
 
-        private void SetLastChangedTextbox(int clientDBId)
+        private void SetUpNomineeArrShowMenu()
         {
-            if (clientDBId > 0)
+            מועמדיםזמיניםToolStripMenuItem.Tag = NomineeArrState.ShowEnabledOnly;
+            מועמדיםלאזמיניםToolStripMenuItem.Tag = NomineeArrState.ShowDisabledOnly;
+            כלהמועמדיםToolStripMenuItem.Tag = NomineeArrState.ShowAll;
+        }
+
+        private void SetLastChangedTextbox(int nomineeDBId)
+        {
+            if (nomineeDBId > 0)
             {
                 LogEntryArr logEntryArr = new LogEntryArr();
                 logEntryArr.Fill();
-                logEntryArr = logEntryArr.Filter(clientDBId, DateTime.MinValue, "");
+                logEntryArr = logEntryArr.Filter(nomineeDBId, DateTime.MinValue, "");
 
                 LogEntry logEntry = logEntryArr.GetLogEntryWithMaxId();
                 textBox_Last_Change.Text = logEntry.DateTime.ToString();
@@ -600,27 +614,29 @@ namespace Recruitment_System.UI
         }
 
 
-        private void ClientToForm(Client client)
+        private void NomineeToForm(Nominee nominee)
         {
-            if (client != null)
+            if (nominee != null)
             {
-                SetLastChangedTextbox(client.DBId);
-                label_DBID.Text = client.DBId.ToString();
-                textBox_FirstName.Text = client.FirstName;
-                textBox_LastName.Text = client.LastName;
-                textBox_ID.Text = client.Id;
-                textBox_Email.Text = client.Email;
-                textBox_BirthYear.Text = client.BirthYear.ToString();
-                comboBox_CellAreaCode.Text = client.CellAreaCode;
-                textBox_Cel.Text = client.CellPhone;
-                comboBox_City.SelectedValue = client.City.Id;
-                comboBox_Job.SelectedValue = client.JobType.Id;
-                numericUpDown_Match.Value = client.Match;
-                numericUpDown_Professionalism.Value = client.Professionalism;
-                numericUpDown_GA.Value = client.GeneralAssessment;
+                SetLastChangedTextbox(nominee.DBId);
+                label_ShowDisabled.Visible = nominee.Disabled;
+                textBox_FirstName.Text = nominee.FirstName;
+                textBox_LastName.Text = nominee.LastName;
+                textBox_ID.Text = nominee.Id;
+                textBox_Email.Text = nominee.Email;
+                textBox_BirthYear.Text = nominee.BirthYear.ToString();
+                comboBox_CellAreaCode.Text = nominee.CellAreaCode;
+                textBox_Cel.Text = nominee.CellPhone;
+                comboBox_City.SelectedValue = nominee.City.Id;
+                comboBox_Job.SelectedValue = nominee.JobType.Id;
+                numericUpDown_Match.Value = nominee.Match;
+                numericUpDown_Professionalism.Value = nominee.Professionalism;
+                numericUpDown_GA.Value = nominee.GeneralAssessment;
+
+                label_DBID.Text = nominee.DBId.ToString();
 
 
-                (string path, string type) cv = GetCV(client.DBId);
+                (string path, string type) cv = GetCV(nominee.DBId);
                 if (cv.path != "")
                 {
                     button_Add_CV.BackColor = Color.Green;
@@ -657,7 +673,11 @@ namespace Recruitment_System.UI
                     if (item is TextBox || item is ComboBox)
                     {
                         item.Text = "";
-                        item.BackColor = Color.White;
+                        if (item.Name != "textBox_Last_Change")
+                        {
+                            item.BackColor = Color.White;
+                        }
+                        
                     }
                 }
 
@@ -675,16 +695,18 @@ namespace Recruitment_System.UI
                     }
                 }
                 PDF_CV_Viewer.src = null;
+                label_ShowDisabled.Visible = false;
                 label_DBID.Text = "0";
             }
         }
 
 
-        private void ClientArrToForm()
+        private void NomineeArrToForm()
         {
-            ClientArr clientarr = new ClientArr();
-            clientarr.Fill();
-            listBox_Client.DataSource = clientarr;
+            NomineeArr nomineearr = new NomineeArr();
+            nomineearr.Fill(GetCurNomineeArrState());
+
+            listBox_Nominee.DataSource = nomineearr;
         }
 
 
@@ -698,12 +720,12 @@ namespace Recruitment_System.UI
                 string fileName = pathParts[pathParts.Length - 1];
                 //There is a file selected for CV
 
-                //if there is no directory for this client, create one
+                //if there is no directory for this nominee, create one
                 Directory.CreateDirectory(path);
                 string[] files = Directory.GetFiles(path);
                 if (files.Length == 0)
                 {
-                    //There is no CV in the client's directory
+                    //There is no CV in the nominee's directory
                     File.Copy(button_Add_CV.Tag as string, path + fileName, true);
                 }
                 else
@@ -719,7 +741,7 @@ namespace Recruitment_System.UI
             }
             else
             {
-                //you want to remove the cv or the client is brand new with no directory
+                //you want to remove the cv or the nominee is brand new with no directory
                 if (Directory.Exists(path))
                 {
                     //you want to remove the cv
@@ -742,7 +764,7 @@ namespace Recruitment_System.UI
             string path = Properties.Resources.Server_Path + Properties.Resources.CVS_path + DBId + @"\";
 
 
-            //if there is no directory for this client, return empty
+            //if there is no directory for this nominee, return empty
             if (!Directory.Exists(path))
             {
                 return ("", "");
@@ -752,7 +774,7 @@ namespace Recruitment_System.UI
             string[] files = Directory.GetFiles(path);
             if (files.Length == 0)
             {
-                //There is no CV in the client's directory
+                //There is no CV in the nominee's directory
                 return ("", "");
             }
             else
@@ -803,6 +825,119 @@ namespace Recruitment_System.UI
             {
                 e.KeyChar = char.MinValue;
             }
+        }
+
+        private void button_ChangeDisabled_Click(object sender, EventArgs e)
+        {
+            Nominee nom = FormToNominee();
+            if (nom.DBId == 0)
+            {
+                MessageBox.Show("לא נבחר לקוח תקין!", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            else if (!nom.Disabled)
+            {
+                if (MessageBox.Show("האם אתה בטוח שאתה רוצה להפוך את המועמד ללא זמין?\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                {
+                    //make this nominee disabled
+
+                    nom.Disable();
+
+                    NomineeArr nomineearr = new NomineeArr();
+                    nomineearr.Fill(GetCurNomineeArrState());
+
+                    listBox_Nominee.DataSource = nomineearr;
+                    NomineeToForm(null);
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("האם אתה בטוח שאתה רוצה להפוך את המועמד לזמין?\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                {
+                    //make this nominee enabled
+
+                    nom.Enable();
+
+                    NomineeArr nomineearr = new NomineeArr();
+                    nomineearr.Fill(GetCurNomineeArrState());
+
+                    listBox_Nominee.DataSource = nomineearr;
+                    NomineeToForm(null);
+                }
+            }
+        }
+
+        private void View_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem x = sender as ToolStripMenuItem;
+
+            ChangeShowNomineeArrCurState((NomineeArrState)x.Tag);
+        }
+
+        private void ChangeShowNomineeArrCurState(NomineeArrState state)
+        {
+            ToolStripMenuItem tool;
+            for (int i = 0; i < הצגToolStripMenuItem.DropDownItems.Count; i++)
+            {
+                if (הצגToolStripMenuItem.DropDownItems[i] is ToolStripSeparator)
+                {
+                    break;
+                }
+                else if (הצגToolStripMenuItem.DropDownItems[i] is ToolStripMenuItem)
+                {
+                    tool = הצגToolStripMenuItem.DropDownItems[i] as ToolStripMenuItem;
+                    if ((NomineeArrState)tool.Tag == state)
+                    {
+                        tool.Checked = true;
+                    }
+                    else
+                    {
+                        tool.Checked = false;
+                    }
+                }
+            }
+            NomineeArrToForm();
+
+        }
+
+        private NomineeArrState GetCurNomineeArrState()
+        {
+            foreach (ToolStripMenuItem item in הצגToolStripMenuItem.DropDownItems)
+            {
+                if (item.Checked)
+                {
+                    return (NomineeArrState)item.Tag;
+                }
+            }
+
+            ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
+            return NomineeArrState.ShowEnabledOnly;
+        }
+
+        private void label_DBID_TextChanged(object sender, EventArgs e)
+        {
+            //the selected nominee had changed
+            SetButton_ChangeDisabled(label_ShowDisabled.Visible);
+        }
+
+        private void SetButton_ChangeDisabled(bool isDisabled)
+        {
+            if (isDisabled)
+            {
+                button_ChangeDisabled.Text = "הפוך לזמין";
+                button_ChangeDisabled.BackColor = Color.FromArgb(128, 255, 128);
+            }
+            else
+            {
+                button_ChangeDisabled.Text = "הפוך ללא זמין";
+                button_ChangeDisabled.BackColor = Color.FromArgb(255, 128, 128);
+            }
+        }
+
+        private void רשימותלוגToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Log_Form log_Form = new Log_Form(int.Parse(label_DBID.Text));
+            log_Form.Show();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Recruitment_System.DAL
         {
 
             //Building the SQL command
-            string str = "INSERT INTO Table_City"
+            string str = "INSERT INTO " + tableName
                 + "("
                 + "[Name]"
                 + ")"
@@ -38,7 +38,7 @@ namespace Recruitment_System.DAL
 
             //מעדכנת את הלקוח במסד הנתונים
 
-            string str = "UPDATE Table_City SET"
+            string str = "UPDATE " + tableName + " SET"
             + " " + "[Name] = " + "'" + cityName + "'"
 
             + " WHERE ID = " + id;
@@ -55,7 +55,7 @@ namespace Recruitment_System.DAL
             DataSet dataSet = new DataSet();
 
             FillDataSet(dataSet);
-            dataTable = dataSet.Tables["Table_City"];
+            dataTable = dataSet.Tables[tableName];
 
             return dataTable;
         }
@@ -63,9 +63,9 @@ namespace Recruitment_System.DAL
 
         public static void FillDataSet(DataSet dataSet)
         {
-            if (!dataSet.Tables.Contains("Table_City"))
+            if (!dataSet.Tables.Contains(tableName))
             {
-                Dal.FillDataSet(dataSet, "Table_City", "[Name]");
+                Dal.FillDataSet(dataSet, tableName, "[Name]");
             }
 
         }
@@ -80,7 +80,7 @@ namespace Recruitment_System.DAL
         {
 
             //מוחקת את הלקוח ממסד הנתונים
-            string str = "DELETE FROM Table_City"
+            string str = "DELETE FROM " + tableName
             + " WHERE ID = " + id;
 
             //הפעלת פעולת הSQL -תוך שימוש בפעולה המוכנה ExecuteSql במחלקה Dal והחזרה האם הפעולה הצליחה

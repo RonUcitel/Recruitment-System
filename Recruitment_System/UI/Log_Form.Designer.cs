@@ -37,7 +37,6 @@
             this.listView_Log.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_Log.FullRowSelect = true;
             this.listView_Log.HideSelection = false;
-            this.listView_Log.HoverSelection = true;
             this.listView_Log.Location = new System.Drawing.Point(0, 0);
             this.listView_Log.Name = "listView_Log";
             this.listView_Log.RightToLeft = System.Windows.Forms.RightToLeft.Yes;

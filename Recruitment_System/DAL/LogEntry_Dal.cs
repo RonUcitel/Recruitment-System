@@ -15,20 +15,20 @@ namespace Recruitment_System.DAL
         /// Inserts the information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
-        public static bool Insert(int clientDBId, DateTime dateTime, string entry)
+        public static bool Insert(int nomineeDBId, DateTime dateTime, string entry)
         {
 
             //Building the SQL command
             string str = "INSERT INTO " + tableName
                 + "("
-                + "[Client]"
+                + "[Nominee]"
                 + ",[DateTime]"
                 + ",[Entry]"
                 + ")"
 
                 + " VALUES "
                 + "("
-                     + "" + clientDBId + ""
+                     + "" + nomineeDBId + ""
                 + "," + "'" + dateTime.ToString("yyyy-MM-dd HH:mm:ss") + "'"
                 + "," + "N'" + entry.Replace("'", "$") + "'"
                 + ")";
@@ -38,13 +38,13 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool Update(int id, int clientDBId, DateTime dateTime, string entry)
+        public static bool Update(int id, int nomineeDBId, DateTime dateTime, string entry)
         {
 
             //מעדכנת את הלקוח במסד הנתונים
 
             string str = "UPDATE " + tableName + " SET"
-            + " " + "[Client] = " + "" + clientDBId + ""
+            + " " + "[Nominee] = " + "" + nomineeDBId + ""
             + "," + "[DateTime] = " + "'" + dateTime.ToString("yyyy-MM-dd HH:mm:ss") + "'"
             + "," + "[Entry] = " + "N'" + entry + "'"
 
@@ -70,18 +70,18 @@ namespace Recruitment_System.DAL
 
         public static void FillDataSet(DataSet dataSet)
         {
-            Dal.FillDataSet(dataSet, tableName, "[DateTime], [Client]");
+            Dal.FillDataSet(dataSet, tableName, "[DateTime], [Nominee]");
 
-            Client_Dal.FillDataSet(dataSet);
-
-
-            DataRelation dataRelationLogEntryClient = new DataRelation(
-                "LogEntryClient"
-                , dataSet.Tables[Client_Dal.tableName].Columns["Id"]
-                , dataSet.Tables[tableName].Columns["Client"]);
+            Nominee_Dal.FillDataSet(dataSet);
 
 
-            dataSet.Relations.Add(dataRelationLogEntryClient);
+            DataRelation dataRelationLogEntryNominee = new DataRelation(
+                "LogEntryNominee"
+                , dataSet.Tables[Nominee_Dal.tableName].Columns["Id"]
+                , dataSet.Tables[tableName].Columns["Nominee"]);
+
+
+            dataSet.Relations.Add(dataRelationLogEntryNominee);
 
 
 

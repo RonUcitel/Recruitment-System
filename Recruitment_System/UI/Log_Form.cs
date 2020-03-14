@@ -13,10 +13,10 @@ namespace Recruitment_System.UI
 {
     public partial class Log_Form : Form
     {
-        public Log_Form(int clientDBId)
+        public Log_Form(int nomineeDBId)
         {
             InitializeComponent();
-            if (clientDBId > 0)
+            if (nomineeDBId > 0)
             {
                 listView_Log.Columns.Add("תאריך");
                 listView_Log.Columns.Add("שעה");
@@ -24,7 +24,7 @@ namespace Recruitment_System.UI
 
                 LogEntryArr logEntryArr = new LogEntryArr();
                 logEntryArr.Fill();
-                logEntryArr = logEntryArr.Filter(clientDBId, DateTime.MinValue, "");
+                logEntryArr = logEntryArr.Filter(nomineeDBId, DateTime.MinValue, "");
 
                 ListViewItem listViewItem;
                 LogEntry logEntry;
@@ -54,7 +54,7 @@ namespace Recruitment_System.UI
                     logEntry = logEntryArr[i] as LogEntry;
                     listViewItem = new ListViewItem(logEntry.DateTime.ToString("dd-MM-yyyy"));
                     listViewItem.SubItems.Add(logEntry.DateTime.ToString("HH:mm:ss"));
-                    listViewItem.SubItems.Add(logEntry.Client.ToString());
+                    listViewItem.SubItems.Add(logEntry.Nominee.ToString());
                     listViewItem.SubItems.Add(logEntry.Entry);
                     listView_Log.Items.Add(listViewItem);
                 }

@@ -30,16 +30,17 @@ namespace Recruitment_System.BL
             }
         }
 
-        public CityArr Filter(string arg)
+        public CityArr Filter(string name, int id = 0)
         {
-            arg = arg.ToLower();
             CityArr cityArr = new CityArr();
 
             City city;
+
+            name = name.ToLower();
             for (int i = 0; i < this.Count; i++)
             {
                 city = (this[i] as City);
-                if (arg == "" || city.Name.ToLower().StartsWith(arg))
+                if ((name == "" || city.Name.ToLower().StartsWith(name)) && (id == 0 || city.Id == id))
                 {
                     cityArr.Add(city);
                 }
@@ -54,6 +55,17 @@ namespace Recruitment_System.BL
             for (int i = 0; i < this.Count; i++)
             {
                 if ((this[i] as City).ToString() == cityName)
+                    return true;
+            }
+            return false;
+        }
+
+
+        public bool IsContains(int cityId)
+        {
+            for (int i = 0; i < this.Count; i++)
+            {
+                if ((this[i] as City).Id == cityId)
                     return true;
             }
             return false;

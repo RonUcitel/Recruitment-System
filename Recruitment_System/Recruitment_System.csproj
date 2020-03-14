@@ -70,14 +70,17 @@
     <Compile Include="BL\Job_Requirement.cs" />
     <Compile Include="BL\City.cs" />
     <Compile Include="BL\CityArr.cs" />
-    <Compile Include="BL\Client.cs" />
-    <Compile Include="BL\ClientArr.cs" />
+    <Compile Include="BL\JobNominee.cs" />
+    <Compile Include="BL\Nominee.cs" />
+    <Compile Include="BL\JobNomineeArr.cs" />
+    <Compile Include="BL\NomineeArr.cs" />
     <Compile Include="BL\Job.cs" />
     <Compile Include="BL\JobArr.cs" />
+    <Compile Include="DAL\JobNominee_Dal.cs" />
     <Compile Include="DAL\LogEntry_Dal.cs" />
     <Compile Include="DAL\Job_Requirement_Dal.cs" />
     <Compile Include="DAL\City_Dal.cs" />
-    <Compile Include="DAL\Client_Dal.cs" />
+    <Compile Include="DAL\Nominee_Dal.cs" />
     <Compile Include="DAL\Dal.cs" />
     <Compile Include="DAL\Job_Dal.cs" />
     <Compile Include="UI\City_Form.cs">
@@ -106,6 +109,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="UI\City_Form.resx">
+      <DependentUpon>City_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Log_Form.resx">
       <DependentUpon>Log_Form.cs</DependentUpon>
     </EmbeddedResource>

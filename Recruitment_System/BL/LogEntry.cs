@@ -14,15 +14,15 @@ namespace Recruitment_System.BL
         public LogEntry()
         {
             m_Id = 0;
-            m_Client = Client.Empty;
+            m_Nominee = Nominee.Empty;
             m_DateTime = DateTime.MinValue;
             m_Entry = "";
         }
 
-        public LogEntry(DateTime dateTime, string entry, Client client, int id = 0)
+        public LogEntry(DateTime dateTime, string entry, Nominee nominee, int id = 0)
         {
             m_Id = id;
-            m_Client = client;
+            m_Nominee = nominee;
             m_DateTime = dateTime;
             m_Entry = entry;
         }
@@ -30,7 +30,7 @@ namespace Recruitment_System.BL
         public LogEntry(DataRow logEntry_prop)
         {
             m_Id = (int)logEntry_prop["Id"];
-            m_Client = new Client(logEntry_prop.GetParentRow("LogEntryClient"));
+            m_Nominee = new Nominee(logEntry_prop.GetParentRow("LogEntryNominee"));
             m_DateTime = (DateTime)logEntry_prop["DateTime"];
             m_Entry = logEntry_prop["Entry"].ToString().Replace("$", "'");
         }
@@ -41,7 +41,7 @@ namespace Recruitment_System.BL
         #region Private containers
 
         private int m_Id;
-        private Client m_Client;
+        private Nominee m_Nominee;
         private DateTime m_DateTime;
         private string m_Entry;
 
@@ -52,7 +52,7 @@ namespace Recruitment_System.BL
         public int Id { get => m_Id; set => m_Id = value; }
         public DateTime DateTime { get => m_DateTime; set => m_DateTime = value; }
         public string Entry { get => m_Entry; set => m_Entry = value; }
-        public Client Client { get => m_Client; set => m_Client = value; }
+        public Nominee Nominee { get => m_Nominee; set => m_Nominee = value; }
 
         public static LogEntry Empty = new LogEntry();
 
@@ -67,12 +67,12 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            return LogEntry_Dal.Insert(m_Client.DBId, m_DateTime, m_Entry);
+            return LogEntry_Dal.Insert(m_Nominee.DBId, m_DateTime, m_Entry);
         }
 
         public bool Update()
         {
-            return LogEntry_Dal.Update(m_Id, m_Client.DBId, m_DateTime, m_Entry);
+            return LogEntry_Dal.Update(m_Id, m_Nominee.DBId, m_DateTime, m_Entry);
         }
 
 
