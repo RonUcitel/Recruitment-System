@@ -58,13 +58,13 @@ namespace Recruitment_System.UI
 
             City city = listBox_City.SelectedItem as City;
 
-            if (MessageBox.Show("Are you sure you want to delete this city?\nThis action cannot be undone!", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show("האם אתה בטוח שאתה רוצה למחוק את העיר שבחרת?\nפעולה זאת הינה בלתי הפיכה!", "אזהרה", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 NomineeArr clientArr = new NomineeArr();
                 clientArr.Fill();
-                if (clientArr.DoesExist(city))
+                if (clientArr.DoesCityExist(city))
                 {
-                    MessageBox.Show("You can't delete a city that is related to a client!", "We have a problem...", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("לא ניתן למחוק את העיר.\n העיר שנבחרה משוייכת למועמדים קיימים במערכת.", "בעיה", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                 }
                 else
                 {
@@ -72,11 +72,11 @@ namespace Recruitment_System.UI
                     {
                         CityToForm(null);
                         CityArrToForm(null);
-                        MessageBox.Show("The City had been deleted.", "Success", MessageBoxButtons.OK);
+                        MessageBox.Show("העיר נמחקה בהצלחה", "הצלחה", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                     }
                     else
                     {
-                        MessageBox.Show("There was a problem deleting the city from the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                        MessageBox.Show("ישנה תקלה במחיקת העיר מבסיס הנתונים.\n העיר לא נמחקה כלל.", "תקלה!", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                     }
                 }
             }
@@ -156,8 +156,6 @@ namespace Recruitment_System.UI
                 //The information was valid
 
                 City city = FormToCity();//Make a city object from the information on the form.
-
-
 
                 if (city.Id == 0)
                 {
@@ -505,6 +503,53 @@ namespace Recruitment_System.UI
             {
                 SelectedCity = City.Empty;
             }
+        }
+
+        private void button_Delete_Click(object sender, EventArgs e)
+        {
+            if (label_Id.Text == "0")
+            {
+                MessageBox.Show("לא נבחרה עיר למחיקה.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                return;
+            }
+
+
+            //remove the city
+            CityArr cityArr = new CityArr();
+            cityArr.Fill();
+            cityArr = cityArr.Filter("", int.Parse(label_Id.Text));
+
+            if (cityArr.Count == 0)
+            {
+                MessageBox.Show("קרתה תקלה במציאת העיר בבסיס הנתונים.\nאנא סגור והדלק את התוכנה.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                return;
+            }
+
+            City city = cityArr[0] as City;
+
+            if (MessageBox.Show("האם אתה בטוח שאתה רוצה למחוק את העיר שבחרת?\nפעולה זאת הינה בלתי הפיכה!", "אזהרה", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                NomineeArr clientArr = new NomineeArr();
+                clientArr.Fill();
+                if (clientArr.DoesCityExist(city))
+                {
+                    MessageBox.Show("לא ניתן למחוק את העיר.\n העיר שנבחרה משוייכת למועמדים קיימים במערכת.", "בעיה", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                }
+                else
+                {
+                    if (city.Delete())
+                    {
+                        CityToForm(null);
+                        CityArrToForm(null);
+                        MessageBox.Show("העיר נמחקה בהצלחה", "הצלחה", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                    }
+                    else
+                    {
+                        MessageBox.Show("ישנה תקלה במחיקת העיר מבסיס הנתונים.\n העיר לא נמחקה כלל.", "תקלה!", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                    }
+                }
+            }
+
         }
     }
 }

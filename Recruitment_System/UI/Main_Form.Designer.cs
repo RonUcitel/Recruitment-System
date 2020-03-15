@@ -82,6 +82,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_ChangeDisabled = new System.Windows.Forms.Button();
             this.toolTip_Last_Changed = new System.Windows.Forms.ToolTip(this.components);
+            this.עזרהToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_PD.SuspendLayout();
             this.groupBox_Ranking.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_GA)).BeginInit();
@@ -128,6 +129,7 @@
             // 
             this.button_Show_Log.Location = new System.Drawing.Point(65, 37);
             this.button_Show_Log.Name = "button_Show_Log";
+            this.button_Show_Log.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.button_Show_Log.Size = new System.Drawing.Size(44, 44);
             this.button_Show_Log.TabIndex = 19;
             this.button_Show_Log.Text = "+";
@@ -202,7 +204,7 @@
             "059"});
             this.comboBox_CellAreaCode.Location = new System.Drawing.Point(65, 285);
             this.comboBox_CellAreaCode.Name = "comboBox_CellAreaCode";
-            this.comboBox_CellAreaCode.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.comboBox_CellAreaCode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.comboBox_CellAreaCode.Size = new System.Drawing.Size(121, 45);
             this.comboBox_CellAreaCode.TabIndex = 5;
             this.comboBox_CellAreaCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBox_CellAreaCode_KeyPress);
@@ -259,7 +261,7 @@
             this.textBox_Cel.Location = new System.Drawing.Point(192, 285);
             this.textBox_Cel.MaxLength = 7;
             this.textBox_Cel.Name = "textBox_Cel";
-            this.textBox_Cel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBox_Cel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_Cel.Size = new System.Drawing.Size(333, 44);
             this.textBox_Cel.TabIndex = 6;
             this.textBox_Cel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Cel_KeyPress);
@@ -280,7 +282,7 @@
             this.textBox_Email.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_Email.Location = new System.Drawing.Point(65, 235);
             this.textBox_Email.Name = "textBox_Email";
-            this.textBox_Email.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBox_Email.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_Email.Size = new System.Drawing.Size(460, 44);
             this.textBox_Email.TabIndex = 4;
             this.textBox_Email.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Email_KeyPress);
@@ -374,6 +376,7 @@
             this.label_ShowDisabled.ForeColor = System.Drawing.Color.Red;
             this.label_ShowDisabled.Location = new System.Drawing.Point(33, 389);
             this.label_ShowDisabled.Name = "label_ShowDisabled";
+            this.label_ShowDisabled.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_ShowDisabled.Size = new System.Drawing.Size(338, 55);
             this.label_ShowDisabled.TabIndex = 21;
             this.label_ShowDisabled.Text = "המועמד לא זמין";
@@ -595,7 +598,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.פתחToolStripMenuItem,
-            this.הצגToolStripMenuItem});
+            this.הצגToolStripMenuItem,
+            this.עזרהToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -610,6 +614,7 @@
             this.משרותToolStripMenuItem,
             this.דרישותמשרהToolStripMenuItem});
             this.פתחToolStripMenuItem.Name = "פתחToolStripMenuItem";
+            this.פתחToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.פתחToolStripMenuItem.RightToLeftAutoMirrorImage = true;
             this.פתחToolStripMenuItem.Size = new System.Drawing.Size(144, 57);
             this.פתחToolStripMenuItem.Text = "עריכה";
@@ -617,18 +622,22 @@
             // עריםToolStripMenuItem
             // 
             this.עריםToolStripMenuItem.Name = "עריםToolStripMenuItem";
-            this.עריםToolStripMenuItem.Size = new System.Drawing.Size(435, 66);
+            this.עריםToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.עריםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
             this.עריםToolStripMenuItem.Text = "ערים";
+            this.עריםToolStripMenuItem.Click += new System.EventHandler(this.עריםToolStripMenuItem_Click);
             // 
             // משרותToolStripMenuItem
             // 
             this.משרותToolStripMenuItem.Name = "משרותToolStripMenuItem";
+            this.משרותToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.משרותToolStripMenuItem.Size = new System.Drawing.Size(435, 66);
             this.משרותToolStripMenuItem.Text = "משרות";
             // 
             // דרישותמשרהToolStripMenuItem
             // 
             this.דרישותמשרהToolStripMenuItem.Name = "דרישותמשרהToolStripMenuItem";
+            this.דרישותמשרהToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.דרישותמשרהToolStripMenuItem.Size = new System.Drawing.Size(435, 66);
             this.דרישותמשרהToolStripMenuItem.Text = "דרישות משרה";
             // 
@@ -641,7 +650,8 @@
             this.toolStripSeparator1,
             this.רשימותלוגToolStripMenuItem});
             this.הצגToolStripMenuItem.Name = "הצגToolStripMenuItem";
-            this.הצגToolStripMenuItem.Size = new System.Drawing.Size(109, 57);
+            this.הצגToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.הצגToolStripMenuItem.Size = new System.Drawing.Size(109, 68);
             this.הצגToolStripMenuItem.Text = "הצג";
             // 
             // מועמדיםזמיניםToolStripMenuItem
@@ -649,21 +659,24 @@
             this.מועמדיםזמיניםToolStripMenuItem.Checked = true;
             this.מועמדיםזמיניםToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.מועמדיםזמיניםToolStripMenuItem.Name = "מועמדיםזמיניםToolStripMenuItem";
-            this.מועמדיםזמיניםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.מועמדיםזמיניםToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.מועמדיםזמיניםToolStripMenuItem.Size = new System.Drawing.Size(508, 66);
             this.מועמדיםזמיניםToolStripMenuItem.Text = "מועמדים זמינים";
             this.מועמדיםזמיניםToolStripMenuItem.Click += new System.EventHandler(this.View_ToolStripMenuItem_Click);
             // 
             // כלהמועמדיםToolStripMenuItem
             // 
             this.כלהמועמדיםToolStripMenuItem.Name = "כלהמועמדיםToolStripMenuItem";
-            this.כלהמועמדיםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.כלהמועמדיםToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.כלהמועמדיםToolStripMenuItem.Size = new System.Drawing.Size(508, 66);
             this.כלהמועמדיםToolStripMenuItem.Text = "כל המועמדים";
             this.כלהמועמדיםToolStripMenuItem.Click += new System.EventHandler(this.View_ToolStripMenuItem_Click);
             // 
             // מועמדיםלאזמיניםToolStripMenuItem
             // 
             this.מועמדיםלאזמיניםToolStripMenuItem.Name = "מועמדיםלאזמיניםToolStripMenuItem";
-            this.מועמדיםלאזמיניםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.מועמדיםלאזמיניםToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.מועמדיםלאזמיניםToolStripMenuItem.Size = new System.Drawing.Size(508, 66);
             this.מועמדיםלאזמיניםToolStripMenuItem.Text = "מועמדים לא זמינים";
             this.מועמדיםלאזמיניםToolStripMenuItem.Click += new System.EventHandler(this.View_ToolStripMenuItem_Click);
             // 
@@ -671,12 +684,14 @@
             // 
             this.toolStripSeparator1.AutoSize = false;
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(535, 15);
+            this.toolStripSeparator1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.toolStripSeparator1.Size = new System.Drawing.Size(505, 15);
             // 
             // רשימותלוגToolStripMenuItem
             // 
             this.רשימותלוגToolStripMenuItem.Name = "רשימותלוגToolStripMenuItem";
-            this.רשימותלוגToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.רשימותלוגToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.רשימותלוגToolStripMenuItem.Size = new System.Drawing.Size(508, 66);
             this.רשימותלוגToolStripMenuItem.Text = "תיעוד אירועים";
             this.רשימותלוגToolStripMenuItem.Click += new System.EventHandler(this.רשימותלוגToolStripMenuItem_Click);
             // 
@@ -695,6 +710,7 @@
             this.panel1.Controls.Add(this.button_Search);
             this.panel1.Location = new System.Drawing.Point(12, 80);
             this.panel1.Name = "panel1";
+            this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.panel1.Size = new System.Drawing.Size(2266, 932);
             this.panel1.TabIndex = 20;
             // 
@@ -723,6 +739,12 @@
             this.button_ChangeDisabled.UseVisualStyleBackColor = false;
             this.button_ChangeDisabled.Click += new System.EventHandler(this.button_ChangeDisabled_Click);
             // 
+            // עזרהToolStripMenuItem
+            // 
+            this.עזרהToolStripMenuItem.Name = "עזרהToolStripMenuItem";
+            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 57);
+            this.עזרהToolStripMenuItem.Text = "עזרה";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
@@ -734,7 +756,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Recruitment System";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RightToLeftLayout = true;
+            this.Text = "מערכת גיוס עובדים";
             this.groupBox_PD.ResumeLayout(false);
             this.groupBox_PD.PerformLayout();
             this.groupBox_Ranking.ResumeLayout(false);
@@ -806,6 +830,7 @@
         private System.Windows.Forms.Label label_ShowDisabled;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem רשימותלוגToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem עזרהToolStripMenuItem;
     }
 }
 

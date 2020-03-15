@@ -58,7 +58,6 @@ namespace Recruitment_System.BL
         {
             JobArr ca = new JobArr();
             ca.Fill();
-            ca = ca.Filter("+");
 
             if (Job_Dal.Update((ca[0] as Job).Id, m_Name))
             {

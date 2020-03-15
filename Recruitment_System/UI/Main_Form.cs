@@ -677,7 +677,7 @@ namespace Recruitment_System.UI
                         {
                             item.BackColor = Color.White;
                         }
-                        
+
                     }
                 }
 
@@ -938,6 +938,16 @@ namespace Recruitment_System.UI
         {
             Log_Form log_Form = new Log_Form(int.Parse(label_DBID.Text));
             log_Form.Show();
+        }
+
+        private void עריםToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            City_Form fc = new City_Form(lastSelectedcomboBox_CityIndex);
+            fc.StartPosition = FormStartPosition.CenterParent;
+            fc.ShowDialog();
+            CityArrToForm(fc.SelectedCity);
+
+            lastSelectedcomboBox_CityIndex = (comboBox_City.SelectedItem as City);
         }
     }
 }

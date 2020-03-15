@@ -112,6 +112,9 @@
     <EmbeddedResource Include="UI\City_Form.resx">
       <DependentUpon>City_Form.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Job_Form.resx">
+      <DependentUpon>Job_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Log_Form.resx">
       <DependentUpon>Log_Form.cs</DependentUpon>
     </EmbeddedResource>

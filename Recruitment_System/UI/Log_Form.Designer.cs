@@ -54,8 +54,9 @@
             this.ClientSize = new System.Drawing.Size(1004, 650);
             this.Controls.Add(this.listView_Log);
             this.Name = "Log_Form";
-            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Text = "Log_Form";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RightToLeftLayout = true;
+            this.Text = "תיעוד אירועים";
             this.ResumeLayout(false);
 
         }

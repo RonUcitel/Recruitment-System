@@ -167,7 +167,7 @@ namespace Recruitment_System.BL
         }
 
 
-        public bool DoesExist(City curCity)
+        public bool DoesCityExist(City curCity)
         {
             //return whether curCity exists in a nominee on this NomineeArr.
             for (int i = 0; i < this.Count; i++)

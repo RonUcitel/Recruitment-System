@@ -59,11 +59,10 @@ namespace Recruitment_System.BL
         {
             CityArr ca = new CityArr();
             ca.Fill();
-            ca = ca.Filter("+");
 
             if (City_Dal.Update((ca[0] as City).Id, m_Name))
             {
-                return City_Dal.Insert("+");
+                
             }
             return false;
         }
