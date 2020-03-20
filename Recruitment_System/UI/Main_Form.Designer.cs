@@ -78,11 +78,11 @@
             this.מועמדיםלאזמיניםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.רשימותלוגToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.עזרהToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_ChangeDisabled = new System.Windows.Forms.Button();
             this.toolTip_Last_Changed = new System.Windows.Forms.ToolTip(this.components);
-            this.עזרהToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_PD.SuspendLayout();
             this.groupBox_Ranking.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_GA)).BeginInit();
@@ -594,7 +594,6 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.פתחToolStripMenuItem,
@@ -603,7 +602,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.menuStrip1.Size = new System.Drawing.Size(2290, 61);
+            this.menuStrip1.Size = new System.Drawing.Size(2290, 72);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -616,14 +615,14 @@
             this.פתחToolStripMenuItem.Name = "פתחToolStripMenuItem";
             this.פתחToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.פתחToolStripMenuItem.RightToLeftAutoMirrorImage = true;
-            this.פתחToolStripMenuItem.Size = new System.Drawing.Size(144, 57);
+            this.פתחToolStripMenuItem.Size = new System.Drawing.Size(144, 68);
             this.פתחToolStripMenuItem.Text = "עריכה";
             // 
             // עריםToolStripMenuItem
             // 
             this.עריםToolStripMenuItem.Name = "עריםToolStripMenuItem";
             this.עריםToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.עריםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.עריםToolStripMenuItem.Size = new System.Drawing.Size(435, 66);
             this.עריםToolStripMenuItem.Text = "ערים";
             this.עריםToolStripMenuItem.Click += new System.EventHandler(this.עריםToolStripMenuItem_Click);
             // 
@@ -695,6 +694,12 @@
             this.רשימותלוגToolStripMenuItem.Text = "תיעוד אירועים";
             this.רשימותלוגToolStripMenuItem.Click += new System.EventHandler(this.רשימותלוגToolStripMenuItem_Click);
             // 
+            // עזרהToolStripMenuItem
+            // 
+            this.עזרהToolStripMenuItem.Name = "עזרהToolStripMenuItem";
+            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 68);
+            this.עזרהToolStripMenuItem.Text = "עזרה";
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
@@ -739,16 +744,10 @@
             this.button_ChangeDisabled.UseVisualStyleBackColor = false;
             this.button_ChangeDisabled.Click += new System.EventHandler(this.button_ChangeDisabled_Click);
             // 
-            // עזרהToolStripMenuItem
-            // 
-            this.עזרהToolStripMenuItem.Name = "עזרהToolStripMenuItem";
-            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 57);
-            this.עזרהToolStripMenuItem.Text = "עזרה";
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(288F, 288F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(2290, 1049);
             this.Controls.Add(this.panel1);

@@ -57,14 +57,7 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            CityArr ca = new CityArr();
-            ca.Fill();
-
-            if (City_Dal.Update((ca[0] as City).Id, m_Name))
-            {
-                
-            }
-            return false;
+            return City_Dal.Insert(m_Name);
         }
 
         public bool Update()
@@ -82,6 +75,18 @@ namespace Recruitment_System.BL
         public override string ToString()
         {
             return m_Name;
+        }
+
+
+        static public bool operator ==(City right, City left)
+        {
+            return right.Name == left.Name && right.Id == left.Id;
+        }
+
+
+        static public bool operator !=(City right, City left)
+        {
+            return right.Name != left.Name && right.Id != left.Id;
         }
 
         #endregion

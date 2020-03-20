@@ -66,8 +66,6 @@
   <ItemGroup>
     <Compile Include="BL\LogEntryArr.cs" />
     <Compile Include="BL\LogEntry.cs" />
-    <Compile Include="BL\Job_RequirementArr.cs" />
-    <Compile Include="BL\Job_Requirement.cs" />
     <Compile Include="BL\City.cs" />
     <Compile Include="BL\CityArr.cs" />
     <Compile Include="BL\JobNominee.cs" />
@@ -78,7 +76,6 @@
     <Compile Include="BL\JobArr.cs" />
     <Compile Include="DAL\JobNominee_Dal.cs" />
     <Compile Include="DAL\LogEntry_Dal.cs" />
-    <Compile Include="DAL\Job_Requirement_Dal.cs" />
     <Compile Include="DAL\City_Dal.cs" />
     <Compile Include="DAL\Nominee_Dal.cs" />
     <Compile Include="DAL\Dal.cs" />

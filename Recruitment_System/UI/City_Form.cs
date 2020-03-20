@@ -92,8 +92,12 @@ namespace Recruitment_System.UI
 
         private void listBox_City_DoubleClick(object sender, EventArgs e)
         {
-            if (CheckForm())
+            CityArr cityarr = new CityArr();
+            cityarr.Fill();
+
+            if (!cityarr.IsContains(textBox_Name.Text) && CheckForm())
             {
+
                 //There is a valid city to insert that will be erased.
                 DialogResult dr = MessageBox.Show("The data you provided can be added as a city.\nDo you want to save it?", "Warning!", MessageBoxButtons.YesNoCancel);
                 if (dr == DialogResult.No)
@@ -104,16 +108,6 @@ namespace Recruitment_System.UI
                 else if (dr == DialogResult.Yes)
                 {
                     Button_Save_Click(button_Save, EventArgs.Empty);
-                    CityToForm(listBox_City.SelectedItem as City);
-                    CheckForm();
-                }
-            }
-            else if (textBox_Name.Text != "")
-            {
-                //Not all the fields are empty but you cant build the city with them.
-                DialogResult dr = MessageBox.Show("The name field is not empty!\nIf you wish to continue, this data will be deleted.\nAre you sure you want to continue?", "Warning!", MessageBoxButtons.YesNo);
-                if (dr == DialogResult.Yes)
-                {
                     CityToForm(listBox_City.SelectedItem as City);
                     CheckForm();
                 }
@@ -189,6 +183,9 @@ namespace Recruitment_System.UI
                     {
                         if (city.Update())
                         {
+                            CityArr cityArr = new CityArr();
+                            cityArr.Fill();
+                            CityArrToForm(cityArr.GetCityWithMaxId());
                             dialogResult = MessageBox.Show("The city was UPDATED successfully", "Yay!", MessageBoxButtons.OK);
                         }
                         else
@@ -321,6 +318,7 @@ namespace Recruitment_System.UI
             {
                 label_Id.Text = city.Id.ToString();
                 textBox_Name.Text = city.Name;
+                SelectedCity = 
             }
             else
             {
@@ -344,6 +342,7 @@ namespace Recruitment_System.UI
             {
                 listBox_City.SelectedValue = curCity.Id;
             }
+            CityToForm(curCity);
         }
 
 

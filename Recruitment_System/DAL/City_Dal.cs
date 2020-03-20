@@ -25,7 +25,7 @@ namespace Recruitment_System.DAL
 
                 + " VALUES "
                 + "("
-                      + "'" + cityName + "'"
+                      + "N'" + cityName + "'"
                 + ")";
 
             //Running the SQL command by using the ExecuteSql method from the Dal class and return if the command succeeded
@@ -39,7 +39,7 @@ namespace Recruitment_System.DAL
             //מעדכנת את הלקוח במסד הנתונים
 
             string str = "UPDATE " + tableName + " SET"
-            + " " + "[Name] = " + "'" + cityName + "'"
+            + " " + "[Name] = " + "N'" + cityName + "'"
 
             + " WHERE ID = " + id;
 
