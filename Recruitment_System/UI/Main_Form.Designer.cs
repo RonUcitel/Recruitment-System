@@ -36,7 +36,7 @@
             this.textBox_Last_Change = new System.Windows.Forms.TextBox();
             this.textBox_BirthYear = new System.Windows.Forms.TextBox();
             this.label_Position = new System.Windows.Forms.Label();
-            this.comboBox_Job = new System.Windows.Forms.ComboBox();
+            this.comboBox_Position = new System.Windows.Forms.ComboBox();
             this.comboBox_CellAreaCode = new System.Windows.Forms.ComboBox();
             this.label_DBID = new System.Windows.Forms.Label();
             this.label_City = new System.Windows.Forms.Label();
@@ -83,6 +83,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_ChangeDisabled = new System.Windows.Forms.Button();
             this.toolTip_Last_Changed = new System.Windows.Forms.ToolTip(this.components);
+            this.tabControl_Nominee = new System.Windows.Forms.TabControl();
+            this.tabPage_EditNominee = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.listView_Nominee = new System.Windows.Forms.ListView();
             this.groupBox_PD.SuspendLayout();
             this.groupBox_Ranking.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_GA)).BeginInit();
@@ -92,6 +96,9 @@
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabControl_Nominee.SuspendLayout();
+            this.tabPage_EditNominee.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox_PD
@@ -102,7 +109,7 @@
             this.groupBox_PD.Controls.Add(this.textBox_Last_Change);
             this.groupBox_PD.Controls.Add(this.textBox_BirthYear);
             this.groupBox_PD.Controls.Add(this.label_Position);
-            this.groupBox_PD.Controls.Add(this.comboBox_Job);
+            this.groupBox_PD.Controls.Add(this.comboBox_Position);
             this.groupBox_PD.Controls.Add(this.comboBox_CellAreaCode);
             this.groupBox_PD.Controls.Add(this.label_DBID);
             this.groupBox_PD.Controls.Add(this.label_City);
@@ -117,7 +124,7 @@
             this.groupBox_PD.Controls.Add(this.textBox_LastName);
             this.groupBox_PD.Controls.Add(this.label_FirstName);
             this.groupBox_PD.Controls.Add(this.textBox_FirstName);
-            this.groupBox_PD.Location = new System.Drawing.Point(787, 35);
+            this.groupBox_PD.Location = new System.Drawing.Point(781, 35);
             this.groupBox_PD.Name = "groupBox_PD";
             this.groupBox_PD.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.groupBox_PD.Size = new System.Drawing.Size(731, 509);
@@ -178,15 +185,15 @@
             this.label_Position.TabIndex = 15;
             this.label_Position.Text = "משרה:";
             // 
-            // comboBox_Job
+            // comboBox_Position
             // 
-            this.comboBox_Job.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_Job.FormattingEnabled = true;
-            this.comboBox_Job.Location = new System.Drawing.Point(65, 386);
-            this.comboBox_Job.Name = "comboBox_Job";
-            this.comboBox_Job.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.comboBox_Job.Size = new System.Drawing.Size(460, 45);
-            this.comboBox_Job.TabIndex = 8;
+            this.comboBox_Position.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_Position.FormattingEnabled = true;
+            this.comboBox_Position.Location = new System.Drawing.Point(65, 386);
+            this.comboBox_Position.Name = "comboBox_Position";
+            this.comboBox_Position.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.comboBox_Position.Size = new System.Drawing.Size(460, 45);
+            this.comboBox_Position.TabIndex = 8;
             // 
             // comboBox_CellAreaCode
             // 
@@ -360,7 +367,7 @@
             this.groupBox_Ranking.Controls.Add(this.label_Professionalism);
             this.groupBox_Ranking.Controls.Add(this.numericUpDown_Match);
             this.groupBox_Ranking.Controls.Add(this.label_Match);
-            this.groupBox_Ranking.Location = new System.Drawing.Point(354, 35);
+            this.groupBox_Ranking.Location = new System.Drawing.Point(348, 35);
             this.groupBox_Ranking.Name = "groupBox_Ranking";
             this.groupBox_Ranking.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.groupBox_Ranking.Size = new System.Drawing.Size(409, 509);
@@ -491,7 +498,7 @@
             // 
             this.button_Add_CV.AllowDrop = true;
             this.button_Add_CV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Add_CV.Location = new System.Drawing.Point(1337, 550);
+            this.button_Add_CV.Location = new System.Drawing.Point(1331, 550);
             this.button_Add_CV.Name = "button_Add_CV";
             this.button_Add_CV.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.button_Add_CV.Size = new System.Drawing.Size(181, 221);
@@ -507,7 +514,7 @@
             // 
             this.button_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Save.BackColor = System.Drawing.Color.Green;
-            this.button_Save.Location = new System.Drawing.Point(649, 724);
+            this.button_Save.Location = new System.Drawing.Point(643, 724);
             this.button_Save.Name = "button_Save";
             this.button_Save.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.button_Save.Size = new System.Drawing.Size(289, 94);
@@ -519,7 +526,7 @@
             // button_Clear
             // 
             this.button_Clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Clear.Location = new System.Drawing.Point(1071, 550);
+            this.button_Clear.Location = new System.Drawing.Point(1065, 550);
             this.button_Clear.Name = "button_Clear";
             this.button_Clear.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.button_Clear.Size = new System.Drawing.Size(198, 69);
@@ -531,7 +538,7 @@
             // button_Search
             // 
             this.button_Search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Search.Location = new System.Drawing.Point(49, 564);
+            this.button_Search.Location = new System.Drawing.Point(43, 564);
             this.button_Search.Name = "button_Search";
             this.button_Search.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.button_Search.Size = new System.Drawing.Size(299, 94);
@@ -546,7 +553,7 @@
             this.listBox_Nominee.Cursor = System.Windows.Forms.Cursors.Hand;
             this.listBox_Nominee.FormattingEnabled = true;
             this.listBox_Nominee.ItemHeight = 37;
-            this.listBox_Nominee.Location = new System.Drawing.Point(49, 36);
+            this.listBox_Nominee.Location = new System.Drawing.Point(43, 36);
             this.listBox_Nominee.Name = "listBox_Nominee";
             this.listBox_Nominee.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.listBox_Nominee.Size = new System.Drawing.Size(299, 522);
@@ -558,7 +565,7 @@
             // 
             this.PDF_CV_Viewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PDF_CV_Viewer.Enabled = true;
-            this.PDF_CV_Viewer.Location = new System.Drawing.Point(1524, 36);
+            this.PDF_CV_Viewer.Location = new System.Drawing.Point(1518, 36);
             this.PDF_CV_Viewer.Name = "PDF_CV_Viewer";
             this.PDF_CV_Viewer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("PDF_CV_Viewer.OcxState")));
             this.PDF_CV_Viewer.Size = new System.Drawing.Size(707, 843);
@@ -570,7 +577,7 @@
             this.button_Remove_CV.AllowDrop = true;
             this.button_Remove_CV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Remove_CV.BackColor = System.Drawing.Color.DarkOrange;
-            this.button_Remove_CV.Location = new System.Drawing.Point(1337, 777);
+            this.button_Remove_CV.Location = new System.Drawing.Point(1331, 777);
             this.button_Remove_CV.Name = "button_Remove_CV";
             this.button_Remove_CV.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.button_Remove_CV.Size = new System.Drawing.Size(181, 93);
@@ -594,6 +601,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.פתחToolStripMenuItem,
@@ -713,10 +721,11 @@
             this.panel1.Controls.Add(this.button_Clear);
             this.panel1.Controls.Add(this.listBox_Nominee);
             this.panel1.Controls.Add(this.button_Search);
-            this.panel1.Location = new System.Drawing.Point(12, 80);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.panel1.Size = new System.Drawing.Size(2266, 932);
+            this.panel1.Size = new System.Drawing.Size(2260, 901);
             this.panel1.TabIndex = 20;
             // 
             // groupBox1
@@ -744,14 +753,61 @@
             this.button_ChangeDisabled.UseVisualStyleBackColor = false;
             this.button_ChangeDisabled.Click += new System.EventHandler(this.button_ChangeDisabled_Click);
             // 
+            // tabControl_Nominee
+            // 
+            this.tabControl_Nominee.Controls.Add(this.tabPage_EditNominee);
+            this.tabControl_Nominee.Controls.Add(this.tabPage2);
+            this.tabControl_Nominee.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl_Nominee.Location = new System.Drawing.Point(0, 72);
+            this.tabControl_Nominee.Name = "tabControl_Nominee";
+            this.tabControl_Nominee.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.tabControl_Nominee.RightToLeftLayout = true;
+            this.tabControl_Nominee.SelectedIndex = 0;
+            this.tabControl_Nominee.Size = new System.Drawing.Size(2290, 977);
+            this.tabControl_Nominee.TabIndex = 21;
+            // 
+            // tabPage_EditNominee
+            // 
+            this.tabPage_EditNominee.Controls.Add(this.panel1);
+            this.tabPage_EditNominee.Location = new System.Drawing.Point(12, 58);
+            this.tabPage_EditNominee.Name = "tabPage_EditNominee";
+            this.tabPage_EditNominee.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_EditNominee.Size = new System.Drawing.Size(2266, 907);
+            this.tabPage_EditNominee.TabIndex = 0;
+            this.tabPage_EditNominee.Text = "עריכת מועמדים";
+            this.tabPage_EditNominee.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.listView_Nominee);
+            this.tabPage2.Location = new System.Drawing.Point(12, 58);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(2266, 923);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "מועמדים כנגד משרות";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // listView_Nominee
+            // 
+            this.listView_Nominee.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_Nominee.HideSelection = false;
+            this.listView_Nominee.Location = new System.Drawing.Point(3, 3);
+            this.listView_Nominee.Name = "listView_Nominee";
+            this.listView_Nominee.RightToLeftLayout = true;
+            this.listView_Nominee.Size = new System.Drawing.Size(2260, 917);
+            this.listView_Nominee.TabIndex = 0;
+            this.listView_Nominee.UseCompatibleStateImageBehavior = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(288F, 288F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(2290, 1049);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tabControl_Nominee);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -770,6 +826,9 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.tabControl_Nominee.ResumeLayout(false);
+            this.tabPage_EditNominee.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -801,7 +860,7 @@
         private System.Windows.Forms.ListBox listBox_Nominee;
         private AxAcroPDFLib.AxAcroPDF PDF_CV_Viewer;
         private System.Windows.Forms.Label label_Position;
-        private System.Windows.Forms.ComboBox comboBox_Job;
+        private System.Windows.Forms.ComboBox comboBox_Position;
         private System.Windows.Forms.NumericUpDown numericUpDown_GA;
         private System.Windows.Forms.Label label_GA;
         private System.Windows.Forms.NumericUpDown numericUpDown_Professionalism;
@@ -830,6 +889,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem רשימותלוגToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem עזרהToolStripMenuItem;
+        private System.Windows.Forms.TabControl tabControl_Nominee;
+        private System.Windows.Forms.TabPage tabPage_EditNominee;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ListView listView_Nominee;
     }
 }
 

@@ -318,7 +318,7 @@ namespace Recruitment_System.UI
             {
                 label_Id.Text = city.Id.ToString();
                 textBox_Name.Text = city.Name;
-                SelectedCity = 
+                //SelectedCity = 
             }
             else
             {

@@ -13,7 +13,7 @@ namespace Recruitment_System.BL
     {
         ShowDisabledOnly, ShowEnabledOnly, ShowAll
     }
-    class NomineeArr : ArrayList
+    public class NomineeArr : ArrayList
     {
         public void FillEnabled()
         {
@@ -124,7 +124,7 @@ namespace Recruitment_System.BL
                     (filter.BirthYear == 0 || nominee.BirthYear == filter.BirthYear) &&
                     (filter.CellPhone == "" || (nominee.CellAreaCode + nominee.CellPhone).Contains(filter.CellPhone)) &&
                     (filter.City.ToString() == "" || nominee.City.Name.StartsWith(filter.City.ToString())) &&
-                    (filter.JobType.ToString() == "" || nominee.JobType.Name.StartsWith(filter.JobType.ToString()))
+                    (filter.PositionType.ToString() == "" || nominee.PositionType.Name.StartsWith(filter.PositionType.ToString()))
                     )
                 {
                     nomineeArr.Add(nominee);
@@ -181,12 +181,12 @@ namespace Recruitment_System.BL
         }
 
 
-        public bool DoesExist(Job curJob)
+        public bool DoesExist(Position curPosition)
         {
-            //return whether curJob exists in a nominee on this NomineeArr.
+            //return whether curPosition exists in a nominee on this NomineeArr.
             for (int i = 0; i < this.Count; i++)
             {
-                if ((this[i] as Nominee).JobType.Id == curJob.Id)
+                if ((this[i] as Nominee).PositionType.Id == curPosition.Id)
                 {
                     return true;
                 }

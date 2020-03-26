@@ -22,7 +22,7 @@ namespace Recruitment_System.BL
             //m_CellAreaCode = "";
             //m_CellPhoneNumber = "";
             //m_City = City.Empty;
-            //m_JobType = Job.Empty;
+            //m_PositionType = Position.Empty;
             //m_Match = 0;
             //m_Professionalism = 0;
             //m_GeneralAssessment = 0;
@@ -39,7 +39,7 @@ namespace Recruitment_System.BL
             m_CellAreaCode = nominee_prop["CellAreaCode"].ToString();
             m_CellPhoneNumber = nominee_prop["CellPhoneNumber"].ToString();
             m_City = new City(nominee_prop.GetParentRow("NomineeCity"));
-            m_JobType = new Job(nominee_prop.GetParentRow("NomineeJob"));
+            m_PositionType = new Position(nominee_prop.GetParentRow("NomineePosition"));
             m_Match = (byte)nominee_prop["Match"];
             m_Professionalism = (byte)nominee_prop["Professionalism"];
             m_GeneralAssessment = (byte)nominee_prop["GeneralAssessment"];
@@ -67,7 +67,7 @@ namespace Recruitment_System.BL
 
         private City m_City;
 
-        private Job m_JobType;
+        private Position m_PositionType;
 
         private int m_Match;
 
@@ -85,7 +85,7 @@ namespace Recruitment_System.BL
         public string CellAreaCode { get => m_CellAreaCode; set => m_CellAreaCode = value; }
         public string CellPhone { get => m_CellPhoneNumber; set => m_CellPhoneNumber = value; }
         public City City { get => m_City; set => m_City = value; }
-        public Job JobType { get => m_JobType; set => m_JobType = value; }
+        public Position PositionType { get => m_PositionType; set => m_PositionType = value; }
         public int Match { get => m_Match; set => m_Match = value; }
         public int Professionalism { get => m_Professionalism; set => m_Professionalism = value; }
         public int GeneralAssessment { get => m_GeneralAssessment; set => m_GeneralAssessment = value; }
@@ -109,7 +109,7 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            if (Nominee_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_JobType.Id, m_Match, m_Professionalism, m_GeneralAssessment))
+            if (Nominee_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_PositionType.Id, m_Match, m_Professionalism, m_GeneralAssessment))
             {
                 NomineeArr nomineeArr = new NomineeArr();
                 nomineeArr.FillEnabled();
@@ -125,7 +125,7 @@ namespace Recruitment_System.BL
 
         public bool Update()
         {
-            if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_JobType.Id, m_Match, m_Professionalism, m_GeneralAssessment))
+            if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_PositionType.Id, m_Match, m_Professionalism, m_GeneralAssessment))
             {
                 NomineeArr nomineeArr = new NomineeArr();
                 nomineeArr.FillEnabled();
@@ -252,11 +252,11 @@ namespace Recruitment_System.BL
                     }
 
                 }
-                else if (item.PropertyType == typeof(Job))
+                else if (item.PropertyType == typeof(Position))
                 {
                     try
                     {
-                        item.SetValue(this, Job.Empty);
+                        item.SetValue(this, Position.Empty);
                     }
                     catch
                     {

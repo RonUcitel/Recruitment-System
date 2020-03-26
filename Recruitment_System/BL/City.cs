@@ -80,12 +80,32 @@ namespace Recruitment_System.BL
 
         static public bool operator ==(City right, City left)
         {
+            if ((object)right == null)
+            {
+                return (object)left == null;
+            }
+            else if ((object)left == null)
+            {
+                return false;
+            }
+
+
             return right.Name == left.Name && right.Id == left.Id;
         }
 
 
         static public bool operator !=(City right, City left)
         {
+            if ((object)right == null)
+            {
+                return (object)left != null;
+            }
+            else if ((object)left == null)
+            {
+                return true;
+            }
+
+
             return right.Name != left.Name && right.Id != left.Id;
         }
 

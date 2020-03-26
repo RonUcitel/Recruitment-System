@@ -85,7 +85,7 @@ namespace Recruitment_System.DAL
 
 
 
-            Job_Dal.FillDataSet(dataSet);
+            Position_Dal.FillDataSet(dataSet);
         }
 
 

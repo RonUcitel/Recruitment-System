@@ -68,29 +68,38 @@
     <Compile Include="BL\LogEntry.cs" />
     <Compile Include="BL\City.cs" />
     <Compile Include="BL\CityArr.cs" />
-    <Compile Include="BL\JobNominee.cs" />
+    <Compile Include="BL\PositionNominee.cs" />
     <Compile Include="BL\Nominee.cs" />
-    <Compile Include="BL\JobNomineeArr.cs" />
+    <Compile Include="BL\PositionNomineeArr.cs" />
     <Compile Include="BL\NomineeArr.cs" />
-    <Compile Include="BL\Job.cs" />
-    <Compile Include="BL\JobArr.cs" />
-    <Compile Include="DAL\JobNominee_Dal.cs" />
+    <Compile Include="BL\Position.cs" />
+    <Compile Include="BL\PositionArr.cs" />
+    <Compile Include="DAL\PositionNominee_Dal.cs" />
     <Compile Include="DAL\LogEntry_Dal.cs" />
     <Compile Include="DAL\City_Dal.cs" />
     <Compile Include="DAL\Nominee_Dal.cs" />
     <Compile Include="DAL\Dal.cs" />
-    <Compile Include="DAL\Job_Dal.cs" />
+    <Compile Include="DAL\_Dal.cs" />
     <Compile Include="UI\City_Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\City_Form.Designer.cs">
       <DependentUpon>City_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Job_Form.cs">
+    <Compile Include="UI\MainFormExtendedClass.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Job_Form.Designer.cs">
-      <DependentUpon>Job_Form.cs</DependentUpon>
+    <Compile Include="UI\NomineesPosition_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\NomineesPosition_Form.Designer.cs">
+      <DependentUpon>NomineesPosition_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Position_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Position_Form.Designer.cs">
+      <DependentUpon>Position_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Log_Form.cs">
       <SubType>Form</SubType>
@@ -109,8 +118,11 @@
     <EmbeddedResource Include="UI\City_Form.resx">
       <DependentUpon>City_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Job_Form.resx">
-      <DependentUpon>Job_Form.cs</DependentUpon>
+    <EmbeddedResource Include="UI\NomineesPosition_Form.resx">
+      <DependentUpon>NomineesPosition_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Position_Form.resx">
+      <DependentUpon>Position_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Log_Form.resx">
       <DependentUpon>Log_Form.cs</DependentUpon>
@@ -169,6 +181,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Recruiment_System.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\Cancel.png" />
+    <None Include="Resources\Search.png" />
     <None Include="Resources\allnet.ico" />
   </ItemGroup>
   <ItemGroup>

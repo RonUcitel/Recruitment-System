@@ -14,7 +14,7 @@ namespace Recruitment_System.DAL
         /// Inserts the information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
-        public static bool Insert(string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city, int jobType, int match, int professionalism, int generalAssessment)
+        public static bool Insert(string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city, int PositionType, int match, int professionalism, int generalAssessment)
         {
 
             //Building the SQL command
@@ -28,7 +28,7 @@ namespace Recruitment_System.DAL
                 + ",[CellAreaCode]"
                 + ",[CellPhoneNumber]"
                 + ",[City]"
-                + ",[JobType]"
+                + ",[PositionType]"
                 + ",[Match]"
                 + ",[Professionalism]"
                 + ",[GeneralAssessment]"
@@ -44,7 +44,7 @@ namespace Recruitment_System.DAL
                 + "," + "'" + cellPhoneAreaCode + "'"
                 + "," + "'" + cellPhoneNumber + "'"
                 + "," + "" + city + ""
-                + "," + "" + jobType + ""
+                + "," + "" + PositionType + ""
                 + "," + "'" + match + "'"
                 + "," + "'" + professionalism + "'"
                 + "," + "'" + generalAssessment + "'"
@@ -55,7 +55,7 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool Update(int id, string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city, int jobType, int match, int professionalism, int generalAssessment)
+        public static bool Update(int id, string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city, int PositionType, int match, int professionalism, int generalAssessment)
         {
 
             //מעדכנת את הלקוח במסד הנתונים
@@ -69,7 +69,7 @@ namespace Recruitment_System.DAL
             + "," + "[CellAreaCode] = " + "'" + cellPhoneAreaCode + "'"
             + "," + "[CellPhoneNumber] = " + "'" + cellPhoneNumber + "'"
             + "," + "[City] = " + "" + city + ""
-            + "," + "[JobType] = " + "" + jobType + ""
+            + "," + "[PositionType] = " + "" + PositionType + ""
             + "," + "[Match] = " + "'" + match + "'"
             + "," + "[Professionalism] = " + "'" + professionalism + "'"
             + "," + "[GeneralAssessment] = " + "'" + generalAssessment + "'"
@@ -127,16 +127,16 @@ namespace Recruitment_System.DAL
 
 
 
-            Job_Dal.FillDataSet(dataSet);
+            Position_Dal.FillDataSet(dataSet);
 
 
-            DataRelation dataRelationNomineeJob = new DataRelation(
-                "NomineeJob"
-                , dataSet.Tables[Job_Dal.tableName].Columns["ID"]
-                , dataSet.Tables[tableName].Columns["JobType"]);
+            DataRelation dataRelationNomineePosition = new DataRelation(
+                "NomineePosition"
+                , dataSet.Tables[Position_Dal.tableName].Columns["ID"]
+                , dataSet.Tables[tableName].Columns["PositionType"]);
 
 
-            dataSet.Relations.Add(dataRelationNomineeJob);
+            dataSet.Relations.Add(dataRelationNomineePosition);
         }
 
 

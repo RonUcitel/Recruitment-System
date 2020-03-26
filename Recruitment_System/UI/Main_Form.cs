@@ -16,7 +16,7 @@ namespace Recruitment_System.UI
     public partial class MainForm : Form
     {
         private City lastSelectedcomboBox_CityIndex = City.Empty;
-        private Job lastSelectedcomboBox_JobIndex = Job.Empty;
+        private Position lastSelectedcomboBox_PositionIndex = Position.Empty;
         //private NomineeArrState showNomineeArrCurState = NomineeArrState.ShowEnabledOnly;
         public MainForm()
         {
@@ -27,7 +27,7 @@ namespace Recruitment_System.UI
             ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
             NomineeArrToForm();
             CityArrToForm(null);
-            JobArrToForm(null);
+            PositionArrToForm(null);
             SetButton_ChangeDisabled(true);
         }
 
@@ -55,18 +55,18 @@ namespace Recruitment_System.UI
         }
 
 
-        private void comboBox_Job_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBox_Position_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox_Job.SelectedItem != null)
+            if (comboBox_Position.SelectedItem != null)
             {
-                if (comboBox_Job.SelectedItem.ToString() == "+")
+                if (comboBox_Position.SelectedItem.ToString() == "+")
                 {
-                    if (comboBox_Job.Focused)
+                    if (comboBox_Position.Focused)
                     {
-                        Job_Form fc = new Job_Form(lastSelectedcomboBox_JobIndex);
+                        Position_Form fc = new Position_Form(lastSelectedcomboBox_PositionIndex);
                         fc.StartPosition = FormStartPosition.CenterParent;
                         fc.ShowDialog();
-                        JobArrToForm(fc.SelectedJob);
+                        PositionArrToForm(fc.SelectedPosition);
                     }
                 }
 
@@ -432,8 +432,8 @@ namespace Recruitment_System.UI
             nominee.BirthYear = textBox_BirthYear.Text == "" ? 0 : int.Parse(textBox_BirthYear.Text);
             nominee.CellAreaCode = comboBox_CellAreaCode.Text;
             nominee.CellPhone = textBox_Cel.Text;
-            nominee.City = (comboBox_City.SelectedItem as City) != null ? comboBox_City.SelectedItem as City : City.Empty;
-            nominee.JobType = (comboBox_Job.SelectedItem as Job) != null ? comboBox_Job.SelectedItem as Job : Job.Empty;
+            nominee.City = comboBox_City.SelectedItem != null ? comboBox_City.SelectedItem as City : City.Empty;
+            nominee.PositionType = (comboBox_Position.SelectedItem as Position) != null ? comboBox_Position.SelectedItem as Position : Position.Empty;
             nominee.Match = (int)numericUpDown_Match.Value;
             nominee.Professionalism = (int)numericUpDown_Professionalism.Value;
             nominee.GeneralAssessment = (int)numericUpDown_GA.Value;
@@ -467,27 +467,27 @@ namespace Recruitment_System.UI
         }
 
 
-        public void JobArrToForm(Job curJob)
+        public void PositionArrToForm(Position curPosition)
         {
-            JobArr jobArr = new JobArr();
-            jobArr.Fill();
-            jobArr.Insert(0, Job.Empty);
-            jobArr.Insert(1, Job.AddingFormButton);
+            PositionArr positionArr = new PositionArr();
+            positionArr.Fill();
+            positionArr.Insert(0, Position.Empty);
+            positionArr.Insert(1, Position.AddingFormButton);
 
-            comboBox_Job.SelectedIndexChanged -= comboBox_Job_SelectedIndexChanged;
-            comboBox_Job.DataSource = jobArr;
-            comboBox_Job.ValueMember = "Id";
-            comboBox_Job.DisplayMember = "Name";
-            comboBox_Job.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_Job.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBox_Job.SelectedIndexChanged += comboBox_Job_SelectedIndexChanged;
-            if (curJob != null && lastSelectedcomboBox_JobIndex != null && lastSelectedcomboBox_JobIndex != Job.Empty)
+            comboBox_Position.SelectedIndexChanged -= comboBox_Position_SelectedIndexChanged;
+            comboBox_Position.DataSource = positionArr;
+            comboBox_Position.ValueMember = "Id";
+            comboBox_Position.DisplayMember = "Name";
+            comboBox_Position.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_Position.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_Position.SelectedIndexChanged += comboBox_Position_SelectedIndexChanged;
+            if (curPosition != null && lastSelectedcomboBox_PositionIndex != null && lastSelectedcomboBox_PositionIndex != Position.Empty)
             {
-                comboBox_Job.SelectedValue = curJob.Id;
+                comboBox_Position.SelectedValue = curPosition.Id;
             }
             else
             {
-                comboBox_Job.Text = "";
+                comboBox_Position.Text = "";
             }
         }
 
@@ -600,14 +600,14 @@ namespace Recruitment_System.UI
                 flag &= false;
 
 
-            //Job type - 7
-            if (comboBox_Job.Text.Length == 0)
+            //Position type - 7
+            if (comboBox_Position.Text.Length == 0)
             {
                 flag &= false;
-                comboBox_Job.BackColor = Color.Red;
+                comboBox_Position.BackColor = Color.Red;
             }
             else
-                comboBox_Job.BackColor = Color.White;
+                comboBox_Position.BackColor = Color.White;
 
 
             return flag;
@@ -628,7 +628,7 @@ namespace Recruitment_System.UI
                 comboBox_CellAreaCode.Text = nominee.CellAreaCode;
                 textBox_Cel.Text = nominee.CellPhone;
                 comboBox_City.SelectedValue = nominee.City.Id;
-                comboBox_Job.SelectedValue = nominee.JobType.Id;
+                comboBox_Position.SelectedValue = nominee.PositionType.Id;
                 numericUpDown_Match.Value = nominee.Match;
                 numericUpDown_Professionalism.Value = nominee.Professionalism;
                 numericUpDown_GA.Value = nominee.GeneralAssessment;
@@ -666,7 +666,7 @@ namespace Recruitment_System.UI
             else
             {
                 comboBox_City.SelectedItem = null;
-                comboBox_Job.SelectedItem = null;
+                comboBox_Position.SelectedItem = null;
                 //Reset the text and flags of the input fields.
                 foreach (Control item in groupBox_PD.Controls)
                 {

@@ -9,7 +9,7 @@ using Recruitment_System.DAL;
 
 namespace Recruitment_System.BL
 {
-    class CityArr : ArrayList
+    public class CityArr : ArrayList
     {
         public void Fill()
         {
