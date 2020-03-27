@@ -31,12 +31,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox_PD = new System.Windows.Forms.GroupBox();
+            this.panel_Positions = new System.Windows.Forms.Panel();
+            this.textBox_Positions = new System.Windows.Forms.TextBox();
+            this.button_ShowPositions = new System.Windows.Forms.Button();
             this.button_Show_Log = new System.Windows.Forms.Button();
             this.label_BirthYear = new System.Windows.Forms.Label();
             this.textBox_Last_Change = new System.Windows.Forms.TextBox();
             this.textBox_BirthYear = new System.Windows.Forms.TextBox();
             this.label_Position = new System.Windows.Forms.Label();
-            this.comboBox_Position = new System.Windows.Forms.ComboBox();
             this.comboBox_CellAreaCode = new System.Windows.Forms.ComboBox();
             this.label_DBID = new System.Windows.Forms.Label();
             this.label_City = new System.Windows.Forms.Label();
@@ -64,7 +66,6 @@
             this.button_Clear = new System.Windows.Forms.Button();
             this.button_Search = new System.Windows.Forms.Button();
             this.listBox_Nominee = new System.Windows.Forms.ListBox();
-            this.PDF_CV_Viewer = new AxAcroPDFLib.AxAcroPDF();
             this.button_Remove_CV = new System.Windows.Forms.Button();
             this.button_Delete = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -79,6 +80,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.רשימותלוגToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.עזרהToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.עלתוכנהזוToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_ChangeDisabled = new System.Windows.Forms.Button();
@@ -87,29 +89,32 @@
             this.tabPage_EditNominee = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.listView_Nominee = new System.Windows.Forms.ListView();
+            this.toolTip_Positions = new System.Windows.Forms.ToolTip(this.components);
+            this.PDF_CV_Viewer = new AxAcroPDFLib.AxAcroPDF();
             this.groupBox_PD.SuspendLayout();
+            this.panel_Positions.SuspendLayout();
             this.groupBox_Ranking.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_GA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Professionalism)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Match)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl_Nominee.SuspendLayout();
             this.tabPage_EditNominee.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox_PD
             // 
             this.groupBox_PD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox_PD.Controls.Add(this.panel_Positions);
             this.groupBox_PD.Controls.Add(this.button_Show_Log);
             this.groupBox_PD.Controls.Add(this.label_BirthYear);
             this.groupBox_PD.Controls.Add(this.textBox_Last_Change);
             this.groupBox_PD.Controls.Add(this.textBox_BirthYear);
             this.groupBox_PD.Controls.Add(this.label_Position);
-            this.groupBox_PD.Controls.Add(this.comboBox_Position);
             this.groupBox_PD.Controls.Add(this.comboBox_CellAreaCode);
             this.groupBox_PD.Controls.Add(this.label_DBID);
             this.groupBox_PD.Controls.Add(this.label_City);
@@ -131,6 +136,38 @@
             this.groupBox_PD.TabIndex = 0;
             this.groupBox_PD.TabStop = false;
             this.groupBox_PD.Text = "פרטים אישיים";
+            // 
+            // panel_Positions
+            // 
+            this.panel_Positions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_Positions.BackColor = System.Drawing.Color.White;
+            this.panel_Positions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel_Positions.Controls.Add(this.textBox_Positions);
+            this.panel_Positions.Controls.Add(this.button_ShowPositions);
+            this.panel_Positions.Location = new System.Drawing.Point(65, 385);
+            this.panel_Positions.Name = "panel_Positions";
+            this.panel_Positions.Size = new System.Drawing.Size(460, 44);
+            this.panel_Positions.TabIndex = 22;
+            // 
+            // textBox_Positions
+            // 
+            this.textBox_Positions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_Positions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_Positions.Location = new System.Drawing.Point(118, 4);
+            this.textBox_Positions.Name = "textBox_Positions";
+            this.textBox_Positions.Size = new System.Drawing.Size(340, 37);
+            this.textBox_Positions.TabIndex = 20;
+            // 
+            // button_ShowPositions
+            // 
+            this.button_ShowPositions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_ShowPositions.Location = new System.Drawing.Point(-1, -1);
+            this.button_ShowPositions.Name = "button_ShowPositions";
+            this.button_ShowPositions.Size = new System.Drawing.Size(120, 44);
+            this.button_ShowPositions.TabIndex = 21;
+            this.button_ShowPositions.Text = "שנה";
+            this.button_ShowPositions.UseVisualStyleBackColor = true;
+            this.button_ShowPositions.Click += new System.EventHandler(this.button_ShowPositions_Click);
             // 
             // button_Show_Log
             // 
@@ -184,16 +221,6 @@
             this.label_Position.Size = new System.Drawing.Size(90, 37);
             this.label_Position.TabIndex = 15;
             this.label_Position.Text = "משרה:";
-            // 
-            // comboBox_Position
-            // 
-            this.comboBox_Position.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_Position.FormattingEnabled = true;
-            this.comboBox_Position.Location = new System.Drawing.Point(65, 386);
-            this.comboBox_Position.Name = "comboBox_Position";
-            this.comboBox_Position.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.comboBox_Position.Size = new System.Drawing.Size(460, 45);
-            this.comboBox_Position.TabIndex = 8;
             // 
             // comboBox_CellAreaCode
             // 
@@ -561,17 +588,6 @@
             this.listBox_Nominee.TabStop = false;
             this.listBox_Nominee.DoubleClick += new System.EventHandler(this.listBox_Nominee_DoubleClick);
             // 
-            // PDF_CV_Viewer
-            // 
-            this.PDF_CV_Viewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PDF_CV_Viewer.Enabled = true;
-            this.PDF_CV_Viewer.Location = new System.Drawing.Point(1518, 36);
-            this.PDF_CV_Viewer.Name = "PDF_CV_Viewer";
-            this.PDF_CV_Viewer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("PDF_CV_Viewer.OcxState")));
-            this.PDF_CV_Viewer.Size = new System.Drawing.Size(707, 843);
-            this.PDF_CV_Viewer.TabIndex = 0;
-            this.PDF_CV_Viewer.TabStop = false;
-            // 
             // button_Remove_CV
             // 
             this.button_Remove_CV.AllowDrop = true;
@@ -610,7 +626,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.menuStrip1.Size = new System.Drawing.Size(2290, 72);
+            this.menuStrip1.Size = new System.Drawing.Size(2290, 61);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -623,7 +639,7 @@
             this.פתחToolStripMenuItem.Name = "פתחToolStripMenuItem";
             this.פתחToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.פתחToolStripMenuItem.RightToLeftAutoMirrorImage = true;
-            this.פתחToolStripMenuItem.Size = new System.Drawing.Size(144, 68);
+            this.פתחToolStripMenuItem.Size = new System.Drawing.Size(144, 57);
             this.פתחToolStripMenuItem.Text = "עריכה";
             // 
             // עריםToolStripMenuItem
@@ -658,7 +674,7 @@
             this.רשימותלוגToolStripMenuItem});
             this.הצגToolStripMenuItem.Name = "הצגToolStripMenuItem";
             this.הצגToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.הצגToolStripMenuItem.Size = new System.Drawing.Size(109, 68);
+            this.הצגToolStripMenuItem.Size = new System.Drawing.Size(109, 57);
             this.הצגToolStripMenuItem.Text = "הצג";
             // 
             // מועמדיםזמיניםToolStripMenuItem
@@ -704,9 +720,18 @@
             // 
             // עזרהToolStripMenuItem
             // 
+            this.עזרהToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.עלתוכנהזוToolStripMenuItem});
             this.עזרהToolStripMenuItem.Name = "עזרהToolStripMenuItem";
-            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 68);
+            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 57);
             this.עזרהToolStripMenuItem.Text = "עזרה";
+            // 
+            // עלתוכנהזוToolStripMenuItem
+            // 
+            this.עלתוכנהזוToolStripMenuItem.Name = "עלתוכנהזוToolStripMenuItem";
+            this.עלתוכנהזוToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.עלתוכנהזוToolStripMenuItem.Text = "על תוכנה זו";
+            this.עלתוכנהזוToolStripMenuItem.Click += new System.EventHandler(this.עלתוכנהזוToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -725,7 +750,7 @@
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.panel1.Size = new System.Drawing.Size(2260, 901);
+            this.panel1.Size = new System.Drawing.Size(2260, 912);
             this.panel1.TabIndex = 20;
             // 
             // groupBox1
@@ -758,12 +783,12 @@
             this.tabControl_Nominee.Controls.Add(this.tabPage_EditNominee);
             this.tabControl_Nominee.Controls.Add(this.tabPage2);
             this.tabControl_Nominee.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl_Nominee.Location = new System.Drawing.Point(0, 72);
+            this.tabControl_Nominee.Location = new System.Drawing.Point(0, 61);
             this.tabControl_Nominee.Name = "tabControl_Nominee";
             this.tabControl_Nominee.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.tabControl_Nominee.RightToLeftLayout = true;
             this.tabControl_Nominee.SelectedIndex = 0;
-            this.tabControl_Nominee.Size = new System.Drawing.Size(2290, 977);
+            this.tabControl_Nominee.Size = new System.Drawing.Size(2290, 988);
             this.tabControl_Nominee.TabIndex = 21;
             // 
             // tabPage_EditNominee
@@ -772,7 +797,7 @@
             this.tabPage_EditNominee.Location = new System.Drawing.Point(12, 58);
             this.tabPage_EditNominee.Name = "tabPage_EditNominee";
             this.tabPage_EditNominee.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_EditNominee.Size = new System.Drawing.Size(2266, 907);
+            this.tabPage_EditNominee.Size = new System.Drawing.Size(2266, 918);
             this.tabPage_EditNominee.TabIndex = 0;
             this.tabPage_EditNominee.Text = "עריכת מועמדים";
             this.tabPage_EditNominee.UseVisualStyleBackColor = true;
@@ -783,7 +808,7 @@
             this.tabPage2.Location = new System.Drawing.Point(12, 58);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(2266, 923);
+            this.tabPage2.Size = new System.Drawing.Size(2266, 907);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "מועמדים כנגד משרות";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -795,9 +820,20 @@
             this.listView_Nominee.Location = new System.Drawing.Point(3, 3);
             this.listView_Nominee.Name = "listView_Nominee";
             this.listView_Nominee.RightToLeftLayout = true;
-            this.listView_Nominee.Size = new System.Drawing.Size(2260, 917);
+            this.listView_Nominee.Size = new System.Drawing.Size(2260, 901);
             this.listView_Nominee.TabIndex = 0;
             this.listView_Nominee.UseCompatibleStateImageBehavior = false;
+            // 
+            // PDF_CV_Viewer
+            // 
+            this.PDF_CV_Viewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PDF_CV_Viewer.Enabled = true;
+            this.PDF_CV_Viewer.Location = new System.Drawing.Point(1518, 36);
+            this.PDF_CV_Viewer.Name = "PDF_CV_Viewer";
+            this.PDF_CV_Viewer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("PDF_CV_Viewer.OcxState")));
+            this.PDF_CV_Viewer.Size = new System.Drawing.Size(707, 843);
+            this.PDF_CV_Viewer.TabIndex = 0;
+            this.PDF_CV_Viewer.TabStop = false;
             // 
             // MainForm
             // 
@@ -816,12 +852,13 @@
             this.Text = "מערכת גיוס עובדים";
             this.groupBox_PD.ResumeLayout(false);
             this.groupBox_PD.PerformLayout();
+            this.panel_Positions.ResumeLayout(false);
+            this.panel_Positions.PerformLayout();
             this.groupBox_Ranking.ResumeLayout(false);
             this.groupBox_Ranking.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_GA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Professionalism)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Match)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -829,6 +866,7 @@
             this.tabControl_Nominee.ResumeLayout(false);
             this.tabPage_EditNominee.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -860,7 +898,6 @@
         private System.Windows.Forms.ListBox listBox_Nominee;
         private AxAcroPDFLib.AxAcroPDF PDF_CV_Viewer;
         private System.Windows.Forms.Label label_Position;
-        private System.Windows.Forms.ComboBox comboBox_Position;
         private System.Windows.Forms.NumericUpDown numericUpDown_GA;
         private System.Windows.Forms.Label label_GA;
         private System.Windows.Forms.NumericUpDown numericUpDown_Professionalism;
@@ -893,6 +930,11 @@
         private System.Windows.Forms.TabPage tabPage_EditNominee;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ListView listView_Nominee;
+        private System.Windows.Forms.Panel panel_Positions;
+        private System.Windows.Forms.TextBox textBox_Positions;
+        private System.Windows.Forms.Button button_ShowPositions;
+        private System.Windows.Forms.ToolTip toolTip_Positions;
+        private System.Windows.Forms.ToolStripMenuItem עלתוכנהזוToolStripMenuItem;
     }
 }
 

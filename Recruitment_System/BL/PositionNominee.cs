@@ -55,46 +55,37 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            /*if (Position_Nominee_Dal.Insert(m_Position.Id, m_Nominee.DBId))
+            if (PositionNominee_Dal.Insert(m_Position.Id, m_Nominee.DBId))
             {
-                NomineeArr nomineeArr = new NomineeArr();
-                nomineeArr.Fill();
+                LogEntry logEntry = new LogEntry(DateTime.Now, "המועמד " + m_Nominee.ToString() + " נוסף בהצלחה למשרה " + m_Position.ToString(), m_Nominee);
+
+                logEntry.Insert();
 
                 return true;
-            }*/
+            }
 
             return false;
         }
 
         public bool Update()
         {
-            /*if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_PositionType.Id, m_Match, m_Professionalism, m_GeneralAssessment))
-            {
-                NomineeArr nomineeArr = new NomineeArr();
-                nomineeArr.Fill();
-
-                LogEntry logEntry = new LogEntry(DateTime.Now, "המועמד " + m_FirstName + " " + m_LastName + " עודכן בהצלחה", nomineeArr.MaxNomineeDBId());
-
-                logEntry.Insert();
-                return true;
-            }*/
-            return false;
+            return PositionNominee_Dal.Update(m_DBId, m_Position.Id, m_Nominee.DBId);
         }
 
 
         public bool Delete()
         {
-            return false;/*Nominee_Dal.Delete(m_DBId);*/
+            return PositionNominee_Dal.Delete(m_DBId);
         }
 
 
         public override bool Equals(object obj)
         {
             //returns if the Nominee's properties are identicle to the object's ( if it is a Nominee object) properties. 
-            if (obj is Nominee)
+            if (obj is PositionNominee)
             {
                 bool output = true;
-                foreach (PropertyInfo item in typeof(Nominee).GetProperties())
+                foreach (PropertyInfo item in typeof(PositionNominee).GetProperties())
                 {
                     if (true)
                     {
@@ -111,51 +102,24 @@ namespace Recruitment_System.BL
         public void Clear()
         {
             //sets each property of the nominee to it's "empty" state.
-            foreach (PropertyInfo item in this.GetType().GetProperties())
+            foreach(PropertyInfo item in this.GetType().GetProperties())
             {
-                if (item.PropertyType == typeof(string))
+                if (item.PropertyType == typeof(int))
                 {
                     try
                     {
-                        item.SetValue(this, "");
+                        item.SetValue(this, 0);
                     }
                     catch
                     {
 
                     }
-
                 }
-                else if (item.PropertyType == typeof(int))
-                {
-                    if (item.Name == "Match" || item.Name == "Professionalism" || item.Name == "GeneralAssessment")
-                    {
-                        try
-                        {
-                            item.SetValue(this, 1);
-                        }
-                        catch
-                        {
-
-                        }
-
-                    }
-                    else
-                    {
-                        try
-                        {
-                            item.SetValue(this, 0);
-                        }
-                        catch
-                        {
-
-                        }
-                    }
-                }
-                else if (item.PropertyType == typeof(City))
+                else if (item.PropertyType == typeof(Nominee))
                 {
                     try
                     {
-                        item.SetValue(this, City.Empty);
+                        item.SetValue(this, Nominee.Empty);
                     }
                     catch
                     {
@@ -183,7 +147,7 @@ namespace Recruitment_System.BL
             //checks if the nominee's properties matches the Empty Nominee's properties.
             //AKA it finds out if the nominee is an empty nominee.
             bool output = true;
-            foreach (PropertyInfo item in typeof(Nominee).GetProperties())
+            foreach (PropertyInfo item in typeof(PositionNominee).GetProperties())
             {
                 if (true)
                 {

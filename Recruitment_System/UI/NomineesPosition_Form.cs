@@ -13,52 +13,78 @@ namespace Recruitment_System.UI
 {
     public partial class NomineesPosition_Form : Form
     {
-        public NomineesPosition_Form()
+        public NomineesPosition_Form(Nominee nominee)
         {
-            Nominee nominee = Nominee.Empty;
             InitializeComponent();
+
+            //לשונית פריטים להזמנה
+            //תיבת רשימה - פריטים בהזמנה
+            //מוצאים את הפריטים בהזמנה הנוכחית
+            // כל הזוגות פריט -הזמנה
+
+            PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
+            positionNomineeArr.Fill();
+
+            //סינון לפי הזמנה נוכחית
+
+            positionNomineeArr = positionNomineeArr.Filter(nominee, Position.Empty);
+
+            //רק אוסף הפריטים מתוך אוסף הזוגות פריט -הזמנה
+
+            PositionArr positionArrInNominee = positionNomineeArr.ToPositionArr();
+            PositionArrToForm(positionArrInNominee, listBox_ChosenPositions);
+
+            //תיבת רשימה - פריטים פוטנציאלים
+            //כל הפריטים - פחות אלו שכבר נבחרו
+
+            PositionArr positionArrNotInNominee = new PositionArr();
+            positionArrNotInNominee.Fill();
+
+            //הורדת הפריטים שכבר קיימים בהזמנה
+
+            positionArrNotInNominee.Remove(positionArrInNominee);
+            PositionArrToForm(positionArrNotInNominee, listBox_AvailablePositions);
+
+
+
+
             button_Add.Enabled = false;
             button_Remove.Enabled = false;
-            ChosenPositionNomineeArrToForm(nominee);
-            AvailablePositionArrToForm();
+
+            listBox_AvailablePositions.ClearSelected();
+            listBox_ChosenPositions.ClearSelected();
         }
+
+
+        public NomineesPosition_Form(PositionArr positionArr)
+        {
+            InitializeComponent();
+
+            PositionArrToForm(positionArr, listBox_ChosenPositions);
+
+
+            PositionArr positionArrNotInNominee = new PositionArr();
+            positionArrNotInNominee.Fill();
+
+            positionArrNotInNominee.Remove(positionArr);
+            PositionArrToForm(positionArrNotInNominee, listBox_AvailablePositions);
+
+
+
+            button_Add.Enabled = false;
+            button_Remove.Enabled = false;
+
+            listBox_AvailablePositions.ClearSelected();
+            listBox_ChosenPositions.ClearSelected();
+        }
+
 
         public PositionArr ChosenPositionArr => chosenPosArr;
         private PositionArr availablePosArr, chosenPosArr;
-        private PositionNomineeArr chosenPosNomArr;
 
 
-        private void AvailablePositionArrToForm()
-        {
-            PositionArr positionArr = new PositionArr();
-            positionArr.Fill();
 
-            Position pos;
-            for (int i = 0; i < chosenPosNomArr.Count; i++)
-            {
-                pos = (chosenPosNomArr[i] as PositionNominee).Position;
-                positionArr.Remove(pos.Id);
-            }
-
-            listBox_AvailablePositions.DataSource = positionArr;
-
-            availablePosArr = positionArr;
-        }
-
-
-        private void ChosenPositionNomineeArrToForm(Nominee nominee)
-        {
-            PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
-            positionNomineeArr.Filter(nominee, Position.Empty);
-            PositionArr positionArr = positionNomineeArr.ToPositionArr();
-
-            listBox_AvailablePositions.DataSource = positionArr;
-
-            chosenPosNomArr = positionNomineeArr;
-            chosenPosArr = positionArr;
-        }
-
-
+        #region not interesting events for buttons managment
         private void listBox_AvailablePositions_SelectedValueChanged(object sender, EventArgs e)
         {
             if (listBox_AvailablePositions.SelectedItem != null)
@@ -95,21 +121,21 @@ namespace Recruitment_System.UI
         {
             button_Add.Enabled = false;
         }
+        #endregion
 
+
+
+
+        #region Events
 
         private void button_Remove_Click(object sender, EventArgs e)
         {
-            Position pos = listBox_ChosenPositions.SelectedItem as Position;
-            chosenPosArr.Remove(pos.Id);
-            availablePosArr.Insert(0, pos);
-
-            listBox_AvailablePositions.DataSource = availablePosArr.Clone();
-            listBox_ChosenPositions.DataSource = chosenPosArr.Clone();
+            MoveSelectedItemBetweenListBox(listBox_ChosenPositions, listBox_AvailablePositions);
 
             listBox_AvailablePositions.Focus();
 
             listBox_ChosenPositions.ClearSelected();
-            listBox_AvailablePositions.SetSelected(availablePosArr.IndexOf(pos), true);
+            listBox_AvailablePositions.SetSelected(0, true);
         }
 
 
@@ -129,17 +155,12 @@ namespace Recruitment_System.UI
 
         private void button_Add_Click(object sender, EventArgs e)
         {
-            Position pos = listBox_AvailablePositions.SelectedItem as Position;
-            availablePosArr.Remove(pos.Id);
-            chosenPosArr.Insert(0, pos);
-
-            listBox_AvailablePositions.DataSource = availablePosArr.Clone();
-            listBox_ChosenPositions.DataSource = chosenPosArr.Clone();
+            MoveSelectedItemBetweenListBox(listBox_AvailablePositions, listBox_ChosenPositions);
 
             listBox_ChosenPositions.Focus();
 
             listBox_AvailablePositions.ClearSelected();
-            listBox_ChosenPositions.SetSelected(chosenPosArr.IndexOf(pos), true);
+            listBox_ChosenPositions.SetSelected(0, true);
         }
 
 
@@ -172,6 +193,106 @@ namespace Recruitment_System.UI
             {
                 pictureBox_ChosenDisableFilter.Visible = true;
             }
+        }
+
+
+        #endregion
+
+
+        //----------------------------------------------------------------------------------------------------
+
+        private void PositionArrToForm(PositionArr positionArr, ListBox listBox)
+        {
+
+            //מקבלת אוסף פריטים ותיבת רשימה לפריטים ומציבה את האוסף בתוך התיבה
+            //אם האוסף ריק - מייצרת אוסף חדש מלא בכל הערכים מהטבלה
+
+            listBox.DataSource = null;
+            if (positionArr == null)
+            {
+                positionArr = new PositionArr();
+                positionArr.Fill();
+            }
+            listBox.DataSource = positionArr;
+
+            if (listBox == listBox_AvailablePositions)
+            {
+                availablePosArr = positionArr;
+            }
+            else
+            {
+                chosenPosArr = positionArr;
+            }
+        }
+
+
+        /*        private void PositionArrToForm()
+                {
+                    PositionArr positionArr = new PositionArr();
+                    positionArr.Fill();
+
+                    Position pos;
+                    for (int i = 0; i < chosenPosNomArr.Count; i++)
+                    {
+                        pos = (chosenPosNomArr[i] as PositionNominee).Position;
+                        positionArr.Remove(pos.Id);
+                    }
+
+                    listBox_AvailablePositions.DataSource = positionArr;
+
+                    availablePosArr = positionArr;
+                }*/
+
+
+        private PositionNomineeArr FormToPositionNomineeArr(Nominee curNom)
+        {
+
+            //יצירת אוסף המוצרים להזמנה מהטופס
+            //מייצרים זוגות של הזמנה-מוצר, ההזמנה - תמיד אותה הזמנה )הרי מדובר על הזמנה אחת(, המוצר - מגיע מרשימת
+            //המוצרים שנבחרו
+
+            PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
+            //יצירת אוסף הזוגות הזמנה-מוצר
+            PositionNominee positionNominee;
+            //סורקים את כל הערכים בתיבת הרשימה של המוצרים שנבחרו להזמנה
+            for (int i = 0; i < listBox_ChosenPositions.Items.Count; i++)
+            {
+                positionNominee = new PositionNominee();
+                //ההזמנה הנוכחית היא ההזמנה לכל הזוגות באוסף
+                positionNominee.Nominee = curNom;
+                //מוצר נוכחי לזוג הזמנה-מוצר
+                positionNominee.Position = listBox_ChosenPositions.Items[i] as Position;
+
+                //הוספת הזוג הזמנה - מוצר לאוסף
+                positionNomineeArr.Add(positionNominee);
+            }
+            return positionNomineeArr;
+        }
+
+        private void MoveSelectedItemBetweenListBox(ListBox listBox_From, ListBox listBox_To)
+        {
+            PositionArr positionArr;
+
+            //מוצאים את הפריט הנבחר
+
+            object selectedItem = listBox_From.SelectedItem;
+
+            //מוסיפים את הפריט הנבחר לרשימת הפריטים הפוטנציאליים
+            //אם כבר יש פריטים ברשימת הפוטנציאליים
+
+            if (listBox_To.DataSource != null)
+                positionArr = listBox_To.DataSource as PositionArr;
+            else
+                positionArr = new PositionArr();
+
+            positionArr.Insert(0, selectedItem);
+            PositionArrToForm(positionArr, listBox_To);
+
+            ///הסרת הפריט הנבחרים מרשימת הפריטים הנבחרים
+
+            positionArr = listBox_From.DataSource as PositionArr;
+            positionArr.Remove(selectedItem);
+            PositionArrToForm(positionArr, listBox_From);
         }
     }
 }

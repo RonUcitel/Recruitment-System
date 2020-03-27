@@ -9,7 +9,7 @@ namespace Recruitment_System.DAL
 {
     class PositionNominee_Dal
     {
-        public const string tableName = "Table_PositionNominee";
+        public const string tableName = "Table_Position_Nominee";
         /// <summary>
         /// Inserts the information to the database
         /// </summary>

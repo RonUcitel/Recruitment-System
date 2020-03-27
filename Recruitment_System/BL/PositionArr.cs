@@ -11,6 +11,8 @@ namespace Recruitment_System.BL
 {
     public class PositionArr : ArrayList
     {
+        public static PositionArr Empty = new PositionArr();
+
         public void Fill()
         {
 
@@ -49,13 +51,13 @@ namespace Recruitment_System.BL
         }
 
 
-        public Position Filter(int DBId)
+        public Position Filter(int dBId)
         {
             Position Position;
             for (int i = 0; i < this.Count; i++)
             {
                 Position = (this[i] as Position);
-                if (DBId == Position.Id)
+                if (dBId == Position.Id)
                 {
                     return Position;
                 }
@@ -65,14 +67,71 @@ namespace Recruitment_System.BL
         }
 
 
-        public bool IsContains(string PositionName)
+        public bool IsContains(string positionName)
         {
             for (int i = 0; i < this.Count; i++)
             {
-                if ((this[i] as Position).Name == PositionName)
+                if ((this[i] as Position).Name == positionName)
                     return true;
             }
             return false;
+        }
+
+
+        public bool IsContains(PositionArr positionArr)
+        {
+            bool isEqual;
+            for (int i = 0; i < positionArr.Count; i++)
+            {
+                isEqual = false;
+                for (int x = 0; x < this.Count; x++)
+                {
+                    if ((this[x] as Position) == (positionArr[i] as Position))
+                    {
+                        isEqual = true;
+                        break;
+                    }
+                }
+                if (!isEqual)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        public bool IsContains(Position position)
+        {
+            for (int i = 0; i < this.Count; i++)
+            {
+                if ((this[i] as Position) == position)
+                    return true;
+            }
+            return false;
+        }
+
+
+        public void Remove(PositionArr positionArr)
+        {
+            //מסירה מהאוסף הנוכחי את האוסף המתקבל
+
+            for (int i = 0; i < positionArr.Count; i++)
+                this.Remove(positionArr[i] as Position);
+        }
+
+
+        public void Remove(Position position)
+        {
+
+            //מסירה מהאוסף הנוכחי את הפריט המתקבל
+
+            for (int i = 0; i < Count; i++)
+                if ((this[i] as Position) == position)
+                {
+                    RemoveAt(i);
+                    return;
+                }
         }
 
 
@@ -89,11 +148,11 @@ namespace Recruitment_System.BL
         }
 
 
-        public void Remove(int DBId)
+        public void Remove(int dBId)
         {
             try
             {
-                base.Remove(Filter(DBId));
+                base.Remove(Filter(dBId));
             }
             catch
             {

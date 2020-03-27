@@ -106,16 +106,24 @@ namespace Recruitment_System.BL
             }
         }
 
-        public NomineeArr Filter(Nominee filter)
+        public NomineeArr Filter(Nominee filter, PositionArr filterPositionArr)
         {
             NomineeArr nomineeArr = new NomineeArr();
 
             //check if each nominee in the database stands in the filters args. if it doe's
             //then it is added to the new NomineeArr.
             Nominee nominee;
+
+            PositionNomineeArr positionNomineeArr;
+            PositionArr positionArr;
+
             for (int i = 0; i < this.Count; i++)
             {
+                positionNomineeArr = new PositionNomineeArr();
                 nominee = (this[i] as Nominee);
+                positionNomineeArr = positionNomineeArr.Filter(nominee, Position.Empty);
+                positionArr = positionNomineeArr.ToPositionArr();
+
                 if (
                     (filter.FirstName == "" || nominee.FirstName.StartsWith(filter.FirstName)) &&
                     (filter.LastName == "" || nominee.LastName.StartsWith(filter.LastName)) &&
@@ -124,7 +132,7 @@ namespace Recruitment_System.BL
                     (filter.BirthYear == 0 || nominee.BirthYear == filter.BirthYear) &&
                     (filter.CellPhone == "" || (nominee.CellAreaCode + nominee.CellPhone).Contains(filter.CellPhone)) &&
                     (filter.City.ToString() == "" || nominee.City.Name.StartsWith(filter.City.ToString())) &&
-                    (filter.PositionType.ToString() == "" || nominee.PositionType.Name.StartsWith(filter.PositionType.ToString()))
+                    (positionArr == PositionArr.Empty || positionArr.IsContains(filterPositionArr))
                     )
                 {
                     nomineeArr.Add(nominee);
@@ -137,7 +145,14 @@ namespace Recruitment_System.BL
 
         public Nominee GetNomineeByDBId(int dbId)
         {
+            if (dbId == 0)
+            {
+                return Nominee.Empty;
+            }
+
+
             Nominee check;
+
             for (int i = 0; i < this.Count; i++)
             {
                 check = this[i] as Nominee;
@@ -179,21 +194,6 @@ namespace Recruitment_System.BL
             }
             return false;
         }
-
-
-        public bool DoesExist(Position curPosition)
-        {
-            //return whether curPosition exists in a nominee on this NomineeArr.
-            for (int i = 0; i < this.Count; i++)
-            {
-                if ((this[i] as Nominee).PositionType.Id == curPosition.Id)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
 
         public Nominee MaxNomineeDBId()
         {

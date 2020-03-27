@@ -27,8 +27,8 @@ namespace Recruitment_System.UI
             ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
             NomineeArrToForm();
             CityArrToForm(null);
-            PositionArrToForm(null);
             SetButton_ChangeDisabled(true);
+            textBox_Positions.Tag = PositionArr.Empty;
         }
 
 
@@ -46,27 +46,6 @@ namespace Recruitment_System.UI
                         fc.StartPosition = FormStartPosition.CenterParent;
                         fc.ShowDialog();
                         CityArrToForm(fc.SelectedCity);
-                    }
-                }
-
-                lastSelectedcomboBox_CityIndex = (comboBox_City.SelectedItem as City);
-            }
-
-        }
-
-
-        private void comboBox_Position_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBox_Position.SelectedItem != null)
-            {
-                if (comboBox_Position.SelectedItem.ToString() == "+")
-                {
-                    if (comboBox_Position.Focused)
-                    {
-                        Position_Form fc = new Position_Form(lastSelectedcomboBox_PositionIndex);
-                        fc.StartPosition = FormStartPosition.CenterParent;
-                        fc.ShowDialog();
-                        PositionArrToForm(fc.SelectedPosition);
                     }
                 }
 
@@ -173,11 +152,24 @@ namespace Recruitment_System.UI
 
                 Nominee nominee = FormToNominee();//Make a Nominee object from the information on the form.
 
+
+                PositionNomineeArr positionNomineeArr_New;
+
                 if (nominee.DBId == 0)
                 {
                     if (nominee.Insert())//Try to insert the new Nominee to the database.
                     {
                         //The insertion of the nominee data was successfull.
+
+                        positionNomineeArr_New = FormToPositionNomineeArr(nominee);
+
+                        //מוסיפים את הפריטים החדשים להזמנה
+
+                        if (!positionNomineeArr_New.Insert())
+                        {
+                            MessageBox.Show("הייתה שגיעה בעדכון המשרות\nאנא נסה שנית.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                            SetPositionTextBoxAndToolTip(PositionArr.Empty);
+                        }
 
                         //Check the cv file:
                         NomineeArr nomineearr = new NomineeArr();
@@ -200,29 +192,42 @@ namespace Recruitment_System.UI
                 }
                 else
                 {
-                    //it is an update
+                    //it is an update                  
 
-                    NomineeArr dbNominees = new NomineeArr();
-                    dbNominees.Fill(GetCurNomineeArrState());
-                    Nominee dbNominee = dbNominees.GetNomineeByDBId(nominee.DBId);
+                    //if there is a change in the data
 
-                    if (!nominee.Equals(dbNominee))
+                    if (nominee.Update())
                     {
-                        //if there is a change in the data
 
-                        if (nominee.Update())
-                        {
-                            //Check the cv file:
+                        positionNomineeArr_New = FormToPositionNomineeArr(nominee);
 
-                            dialogResult = MessageBox.Show("The Nominee was UPDATED successfully", "Yay!", MessageBoxButtons.OK);
-                        }
-                        else
-                            dialogResult = MessageBox.Show("There was a problem UPDATING the nominee to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                        //מוחקים את הפריטים הקודמים של ההזמנה
+                        //אוסף כלל הזוגות - הזמנה-פריט
+
+                        PositionNomineeArr positionNomineeArr_Old = new PositionNomineeArr();
+                        positionNomineeArr_Old.Fill();
+
+                        //סינון לפי ההזמנה הנוכחית
+
+                        positionNomineeArr_Old = positionNomineeArr_Old.Filter(nominee, Position.Empty);
+
+                        //מחיקת כל הפריטים באוסף ההזמנה-פריט של ההזמנה הנוכחית
+
+                        positionNomineeArr_Old.Delete();
+
+                        //מוסיפים את הפריטים החדשים להזמנה
+
+                        positionNomineeArr_New.Insert();
+
+
+
+                        //Check the cv file:
+
+                        dialogResult = MessageBox.Show("The Nominee was UPDATED successfully", "Yay!", MessageBoxButtons.OK);
                     }
                     else
-                    {
-                        dialogResult = DialogResult.OK;
-                    }
+                        dialogResult = MessageBox.Show("There was a problem UPDATING the nominee to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+
                 }
             }
 
@@ -309,7 +314,7 @@ namespace Recruitment_System.UI
             Nominee filter = FormToNominee();
             NomineeArr nomineeArr = new NomineeArr();
             nomineeArr.Fill(GetCurNomineeArrState());
-            nomineeArr = nomineeArr.Filter(filter);
+            nomineeArr = nomineeArr.Filter(filter, null);
             listBox_Nominee.DataSource = nomineeArr;
             if (nomineeArr.Count > 0)
             {
@@ -433,7 +438,6 @@ namespace Recruitment_System.UI
             nominee.CellAreaCode = comboBox_CellAreaCode.Text;
             nominee.CellPhone = textBox_Cel.Text;
             nominee.City = comboBox_City.SelectedItem != null ? comboBox_City.SelectedItem as City : City.Empty;
-            nominee.PositionType = (comboBox_Position.SelectedItem as Position) != null ? comboBox_Position.SelectedItem as Position : Position.Empty;
             nominee.Match = (int)numericUpDown_Match.Value;
             nominee.Professionalism = (int)numericUpDown_Professionalism.Value;
             nominee.GeneralAssessment = (int)numericUpDown_GA.Value;
@@ -467,34 +471,37 @@ namespace Recruitment_System.UI
         }
 
 
-        public void PositionArrToForm(Position curPosition)
-        {
-            PositionArr positionArr = new PositionArr();
-            positionArr.Fill();
-            positionArr.Insert(0, Position.Empty);
-            positionArr.Insert(1, Position.AddingFormButton);
-
-            comboBox_Position.SelectedIndexChanged -= comboBox_Position_SelectedIndexChanged;
-            comboBox_Position.DataSource = positionArr;
-            comboBox_Position.ValueMember = "Id";
-            comboBox_Position.DisplayMember = "Name";
-            comboBox_Position.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_Position.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBox_Position.SelectedIndexChanged += comboBox_Position_SelectedIndexChanged;
-            if (curPosition != null && lastSelectedcomboBox_PositionIndex != null && lastSelectedcomboBox_PositionIndex != Position.Empty)
-            {
-                comboBox_Position.SelectedValue = curPosition.Id;
-            }
-            else
-            {
-                comboBox_Position.Text = "";
-            }
-        }
-
         #endregion
 
 
         #region private methods
+
+        private PositionNomineeArr FormToPositionNomineeArr(Nominee curNom)
+        {
+
+            //יצירת אוסף המוצרים להזמנה מהטופס
+            //מייצרים זוגות של הזמנה-מוצר, ההזמנה - תמיד אותה הזמנה )הרי מדובר על הזמנה אחת(, המוצר - מגיע מרשימת
+            //המוצרים שנבחרו
+            PositionArr positionArr = (textBox_Positions.Tag as PositionArr);
+
+            PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
+            //יצירת אוסף הזוגות הזמנה-מוצר
+            PositionNominee positionNominee;
+            //סורקים את כל הערכים בתיבת הרשימה של המוצרים שנבחרו להזמנה
+            for (int i = 0; i < positionArr.Count; i++)
+            {
+                positionNominee = new PositionNominee();
+                //ההזמנה הנוכחית היא ההזמנה לכל הזוגות באוסף
+                positionNominee.Nominee = curNom;
+                //מוצר נוכחי לזוג הזמנה-מוצר
+                positionNominee.Position = positionArr[i] as Position;
+
+                //הוספת הזוג הזמנה - מוצר לאוסף
+                positionNomineeArr.Add(positionNominee);
+            }
+            return positionNomineeArr;
+        }
+
 
         private void SetUpNomineeArrShowMenu()
         {
@@ -600,16 +607,6 @@ namespace Recruitment_System.UI
                 flag &= false;
 
 
-            //Position type - 7
-            if (comboBox_Position.Text.Length == 0)
-            {
-                flag &= false;
-                comboBox_Position.BackColor = Color.Red;
-            }
-            else
-                comboBox_Position.BackColor = Color.White;
-
-
             return flag;
         }
 
@@ -628,10 +625,18 @@ namespace Recruitment_System.UI
                 comboBox_CellAreaCode.Text = nominee.CellAreaCode;
                 textBox_Cel.Text = nominee.CellPhone;
                 comboBox_City.SelectedValue = nominee.City.Id;
-                comboBox_Position.SelectedValue = nominee.PositionType.Id;
                 numericUpDown_Match.Value = nominee.Match;
                 numericUpDown_Professionalism.Value = nominee.Professionalism;
                 numericUpDown_GA.Value = nominee.GeneralAssessment;
+
+                PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
+                positionNomineeArr.Fill();
+                positionNomineeArr = positionNomineeArr.Filter(nominee, Position.Empty);
+
+                PositionArr positionArr = positionNomineeArr.ToPositionArr();
+
+                textBox_Positions.Tag = positionArr;
+                SetPositionTextBoxAndToolTip(positionArr);
 
                 label_DBID.Text = nominee.DBId.ToString();
 
@@ -666,7 +671,7 @@ namespace Recruitment_System.UI
             else
             {
                 comboBox_City.SelectedItem = null;
-                comboBox_Position.SelectedItem = null;
+                SetPositionTextBoxAndToolTip(PositionArr.Empty);
                 //Reset the text and flags of the input fields.
                 foreach (Control item in groupBox_PD.Controls)
                 {
@@ -948,6 +953,80 @@ namespace Recruitment_System.UI
             CityArrToForm(fc.SelectedCity);
 
             lastSelectedcomboBox_CityIndex = (comboBox_City.SelectedItem as City);
+        }
+
+        private void button_ShowPositions_Click(object sender, EventArgs e)
+        {
+            PositionArr positionArr = textBox_Positions.Tag as PositionArr;
+            Nominee nom;
+            if (label_DBID.Text != "0")
+            {
+                NomineeArr nomineeArr = new NomineeArr();
+                nomineeArr.Fill();
+                nom = nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text));
+            }
+            else
+            {
+                nom = Nominee.Empty;
+            }
+
+
+            NomineesPosition_Form npForm;
+
+            if (textBox_Positions.Tag == PositionArr.Empty)
+            {
+                npForm = new NomineesPosition_Form(nom);
+            }
+            else
+            {
+                npForm = new NomineesPosition_Form(positionArr);
+            }
+
+            npForm.ShowDialog();
+
+            positionArr = npForm.ChosenPositionArr;
+            textBox_Positions.Tag = positionArr;
+
+            SetPositionTextBoxAndToolTip(positionArr);
+        }
+
+
+        private void SetPositionTextBoxAndToolTip(PositionArr positionArr)
+        {
+            if (positionArr == null)
+            {
+                textBox_Positions.Text = "נבחרו 0 משרות";
+                toolTip_Positions.SetToolTip(textBox_Positions, "אף משרה לא נבחרה");
+                return;
+            }
+
+            if (positionArr.Count == 0)
+            {
+                textBox_Positions.Text = "נבחרו 0 משרות";
+                toolTip_Positions.SetToolTip(textBox_Positions, "אף משרה לא נבחרה");
+            }
+            else if (positionArr.Count == 1)
+            {
+                textBox_Positions.Text = "נבחרה משרה אחת";
+                toolTip_Positions.SetToolTip(textBox_Positions, positionArr[0].ToString());
+            }
+            else
+            {
+                textBox_Positions.Text = "נבחרו " + positionArr.Count + " משרות";
+                string positions = positionArr[0].ToString();
+                for (int i = 1; i < positionArr.Count; i++)
+                {
+                    positions += ", " + positionArr[i];
+                }
+
+                toolTip_Positions.SetToolTip(textBox_Positions, positions);
+            }
+        }
+
+        private void עלתוכנהזוToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 ab = new AboutBox1();
+            ab.ShowDialog();
         }
     }
 }

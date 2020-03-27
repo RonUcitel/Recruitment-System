@@ -11,7 +11,7 @@ namespace Recruitment_System.BL
 {
     public class PositionNomineeArr : ArrayList
     {
-        public void Fill(bool isOrderedByNominee)
+        public void Fill(bool isOrderedByNominee = true)
         {
 
             DataTable dataTable = PositionNominee_Dal.GetDataTable(isOrderedByNominee);
@@ -31,6 +31,38 @@ namespace Recruitment_System.BL
         }
 
 
+        public bool Insert()
+        {
+            //מוסיפה את אוסף המוצרים להזמנה למסד הנתונים
+
+            PositionNominee positionNominee;
+            for (int i = 0; i < this.Count; i++)
+            {
+                positionNominee = (this[i] as PositionNominee);
+                if (!positionNominee.Insert())
+                    return false;
+
+            }
+            return true;
+        }
+
+
+        public bool Delete()
+        {
+            //מוחקת את אוסף המוצרים להזמנה מ מסד הנתונים
+
+            PositionNominee positionNominee;
+            for (int i = 0; i < this.Count; i++)
+            {
+                positionNominee = (this[i] as PositionNominee);
+                if (!positionNominee.Delete())
+                    return false;
+
+            }
+            return true;
+        }
+
+
         public PositionNomineeArr Filter(Nominee nominee, Position position)
         {
             PositionNomineeArr positionnomineeArr = new PositionNomineeArr();
@@ -39,7 +71,7 @@ namespace Recruitment_System.BL
             for (int i = 0; i < this.Count; i++)
             {
                 positionNominee = this[i] as PositionNominee;
-                if ((positionNominee.Nominee == Nominee.Empty || positionNominee.Nominee == nominee) && (positionNominee.Position == Position.Empty || positionNominee.Position == position))
+                if ((nominee == Nominee.Empty || positionNominee.Nominee == nominee) && (position == Position.Empty || positionNominee.Position == position))
                 {
                     positionnomineeArr.Add(positionNominee);
                 }

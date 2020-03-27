@@ -39,7 +39,6 @@ namespace Recruitment_System.BL
             m_CellAreaCode = nominee_prop["CellAreaCode"].ToString();
             m_CellPhoneNumber = nominee_prop["CellPhoneNumber"].ToString();
             m_City = new City(nominee_prop.GetParentRow("NomineeCity"));
-            m_PositionType = new Position(nominee_prop.GetParentRow("NomineePosition"));
             m_Match = (byte)nominee_prop["Match"];
             m_Professionalism = (byte)nominee_prop["Professionalism"];
             m_GeneralAssessment = (byte)nominee_prop["GeneralAssessment"];
@@ -67,8 +66,6 @@ namespace Recruitment_System.BL
 
         private City m_City;
 
-        private Position m_PositionType;
-
         private int m_Match;
 
         private int m_Professionalism;
@@ -85,7 +82,6 @@ namespace Recruitment_System.BL
         public string CellAreaCode { get => m_CellAreaCode; set => m_CellAreaCode = value; }
         public string CellPhone { get => m_CellPhoneNumber; set => m_CellPhoneNumber = value; }
         public City City { get => m_City; set => m_City = value; }
-        public Position PositionType { get => m_PositionType; set => m_PositionType = value; }
         public int Match { get => m_Match; set => m_Match = value; }
         public int Professionalism { get => m_Professionalism; set => m_Professionalism = value; }
         public int GeneralAssessment { get => m_GeneralAssessment; set => m_GeneralAssessment = value; }
@@ -109,7 +105,7 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            if (Nominee_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_PositionType.Id, m_Match, m_Professionalism, m_GeneralAssessment))
+            if (Nominee_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_Match, m_Professionalism, m_GeneralAssessment))
             {
                 NomineeArr nomineeArr = new NomineeArr();
                 nomineeArr.FillEnabled();
@@ -125,7 +121,7 @@ namespace Recruitment_System.BL
 
         public bool Update()
         {
-            if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_PositionType.Id, m_Match, m_Professionalism, m_GeneralAssessment))
+            if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_Match, m_Professionalism, m_GeneralAssessment))
             {
                 NomineeArr nomineeArr = new NomineeArr();
                 nomineeArr.FillEnabled();
@@ -174,27 +170,6 @@ namespace Recruitment_System.BL
         public override string ToString()
         {
             return m_LastName + " " + m_FirstName;
-        }
-
-
-        public override bool Equals(object obj)
-        {
-            //returns if the Nominee's properties are identicle to the object's ( if it is a Nominee object) properties. 
-            if (obj is Nominee)
-            {
-                bool output = true;
-                foreach (PropertyInfo item in typeof(Nominee).GetProperties())
-                {
-                    if (true)
-                    {
-                        output &= item.GetValue(this) == item.GetValue(obj);
-                    }
-
-                }
-                return output;
-            }
-
-            return base.Equals(obj);
         }
 
         public void Clear()
@@ -252,18 +227,6 @@ namespace Recruitment_System.BL
                     }
 
                 }
-                else if (item.PropertyType == typeof(Position))
-                {
-                    try
-                    {
-                        item.SetValue(this, Position.Empty);
-                    }
-                    catch
-                    {
-
-                    }
-
-                }
             }
         }
 
@@ -281,6 +244,49 @@ namespace Recruitment_System.BL
 
             }
             return output;
+        }
+
+        public static bool operator ==(Nominee left, Nominee right)
+        {
+            if ((object)right == null)
+            {
+                return (object)left == null;
+            }
+            else if ((object)left == null)
+            {
+                return false;
+            }
+
+
+            return ((left.FirstName == right.FirstName) &&
+                    (left.LastName == right.LastName) &&
+                    (left.Id == right.Id) &&
+                    (left.Email == right.Email) &&
+                    (left.BirthYear == right.BirthYear) &&
+                    (left.CellPhone == right.CellPhone) &&
+                    (left.City == right.City));
+        }
+
+
+        public static bool operator !=(Nominee left, Nominee right)
+        {
+            if ((object)right == null)
+            {
+                return (object)left != null;
+            }
+            else if ((object)left == null)
+            {
+                return true;
+            }
+
+
+            return ((left.FirstName != right.FirstName) ||
+                    (left.LastName != right.LastName) ||
+                    (left.Id != right.Id) ||
+                    (left.Email != right.Email) ||
+                    (left.BirthYear != right.BirthYear) ||
+                    (left.CellPhone != right.CellPhone) ||
+                    (left.City != right.City));
         }
         #endregion
     }
