@@ -30,6 +30,72 @@ namespace Recruitment_System.BL
             }
         }
 
+        public void FillDisabled(bool isOrderedByNominee = true)
+        {
+
+            DataTable dataTable = PositionNominee_Dal.GetDataTable(isOrderedByNominee);
+
+
+            DataRow dataRow;
+            PositionNominee positionNominee;
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                dataRow = dataTable.Rows[i];
+
+                positionNominee = new PositionNominee(dataRow);
+                if (positionNominee.Nominee.Disabled)
+                {
+                    Add(positionNominee);
+                }
+            }
+        }
+        public void FillEnabled(bool isOrderedByNominee = true)
+        {
+
+            DataTable dataTable = PositionNominee_Dal.GetDataTable(isOrderedByNominee);
+
+
+            DataRow dataRow;
+            PositionNominee positionNominee;
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                dataRow = dataTable.Rows[i];
+
+                positionNominee = new PositionNominee(dataRow);
+                if (!positionNominee.Nominee.Disabled)
+                {
+                    Add(positionNominee);
+                }
+            }
+        }
+        public void Fill(NomineeArrState state, bool isOrderedByNominee = true)
+        {
+            switch (state)
+            {
+                case NomineeArrState.ShowDisabledOnly:
+                    {
+                        FillDisabled();
+                        break;
+                    }
+                case NomineeArrState.ShowEnabledOnly:
+                    {
+                        FillEnabled();
+                        break;
+                    }
+                case NomineeArrState.ShowAll:
+                    {
+                        Fill();
+                        break;
+                    }
+                default:
+                    {
+                        FillEnabled();
+                        break;
+                    }
+            }
+        }
 
         public bool Insert()
         {
@@ -71,7 +137,7 @@ namespace Recruitment_System.BL
             for (int i = 0; i < this.Count; i++)
             {
                 positionNominee = this[i] as PositionNominee;
-                if ((nominee == Nominee.Empty || positionNominee.Nominee == nominee) && (position == Position.Empty || positionNominee.Position == position))
+                if ((nominee == Nominee.Empty || nominee == positionNominee.Nominee) && (position == Position.Empty || positionNominee.Position == position))
                 {
                     positionnomineeArr.Add(positionNominee);
                 }
@@ -182,13 +248,73 @@ namespace Recruitment_System.BL
             {
                 positionNominee = this[i] as PositionNominee;
                 nominee = positionNominee.Nominee;
-                if (!nomineeArr.IsContains(nominee))
+                if (!nomineeArr.IsContains(nominee.DBId))
                 {
                     nomineeArr.Add(nominee);
                 }
             }
 
             return nomineeArr;
+        }
+
+
+        public SortedDictionary<string, int> GetSortedDictionary()
+        {
+
+            // מחזירה משתנה מסוג מילון ממוין עם ערכים רלוונטיים לדוח
+            SortedDictionary<string, int> dictionary = new SortedDictionary<string, int>();
+
+            PositionArr positionArr = this.ToPositionArr();
+            foreach (Position curPosition in positionArr)
+                dictionary.Add(curPosition.Name, this.Filter(Nominee.Empty, curPosition).Count);
+            return dictionary;
+        }
+
+        public SortedDictionary<string, string> GetSortedDictionary(bool sortByNominee)
+        {
+            SortedDictionary<string, string> dictionary = new SortedDictionary<string, string>();
+            string y = "";
+            if (sortByNominee)
+            {
+                NomineeArr nomineeArr = this.ToNomineeArr();
+                PositionArr positionArr;
+                foreach (Nominee curNominee in nomineeArr)
+                {
+                    positionArr = this.Filter(curNominee, Position.Empty).ToPositionArr();
+
+                    y += (positionArr[0] as Position).Name;
+
+                    for (int i = 1; i < positionArr.Count; i++)
+                    {
+                        y += "\n" + (positionArr[i] as Position).Name;
+                    }
+
+                    dictionary.Add(curNominee.ToString() + (curNominee.Disabled ? " (לא זמין)" : ""), y);
+                    y = "";
+                }
+                return dictionary;
+            }
+            else
+            {
+                PositionArr positionArr = this.ToPositionArr();
+                NomineeArr nomineeArr;
+
+                foreach (Position curPosition in positionArr)
+                {
+                    nomineeArr = this.Filter(Nominee.Empty, curPosition).ToNomineeArr();
+
+                    y += (nomineeArr[0] as Nominee).ToString();
+
+                    for (int i = 1; i < nomineeArr.Count; i++)
+                    {
+                        y += "\n" + (nomineeArr[i] as Nominee).ToString() + ((nomineeArr[i] as Nominee).Disabled ? " (לא זמין)" : "");
+                    }
+
+                    dictionary.Add(curPosition.ToString(), y);
+                    y = "";
+                }
+                return dictionary;
+            }
         }
     }
 }

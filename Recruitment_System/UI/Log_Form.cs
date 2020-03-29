@@ -40,13 +40,6 @@ namespace Recruitment_System.UI
             e.NewWidth = listView_Log.Columns[e.ColumnIndex].Width;
         }
 
-        private void SetHeight(ListView listView, int height)
-        {
-            ImageList imgList = new ImageList();
-            imgList.ImageSize = new Size(1, height);
-            listView.SmallImageList = imgList;
-        }
-
 
         private void UpdateListView_Log(int nomineeDBId)
         {
@@ -96,9 +89,8 @@ namespace Recruitment_System.UI
             listView_Log.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             foreach (ColumnHeader item in listView_Log.Columns)
             {
-                item.Width = (int)(item.Width * 1.5);
+                item.Width = (int)Math.Ceiling(item.Width * 1.5);
             }
-            SetHeight(listView_Log, 50);
         }
 
 

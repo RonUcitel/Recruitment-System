@@ -41,11 +41,11 @@
             this.label_CapsLk = new System.Windows.Forms.Label();
             this.textBox_Filter = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox_City = new System.Windows.Forms.GroupBox();
             this.button_Delete = new System.Windows.Forms.Button();
             this.contextMenuStrip_City.SuspendLayout();
             this.groupBox_Sign.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBox_City.SuspendLayout();
             this.SuspendLayout();
             // 
             // label_Id
@@ -180,22 +180,22 @@
             this.label1.TabIndex = 16;
             this.label1.Text = "שם:";
             // 
-            // groupBox1
+            // groupBox_City
             // 
-            this.groupBox1.Controls.Add(this.label_Id);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBox_Name);
-            this.groupBox1.Controls.Add(this.button_Save);
-            this.groupBox1.Controls.Add(this.button_Clear);
-            this.groupBox1.Location = new System.Drawing.Point(43, 32);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox1.Size = new System.Drawing.Size(633, 344);
-            this.groupBox1.TabIndex = 21;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "הוסף עיר חדשה";
+            this.groupBox_City.Controls.Add(this.label_Id);
+            this.groupBox_City.Controls.Add(this.label1);
+            this.groupBox_City.Controls.Add(this.textBox_Name);
+            this.groupBox_City.Controls.Add(this.button_Save);
+            this.groupBox_City.Controls.Add(this.button_Clear);
+            this.groupBox_City.Location = new System.Drawing.Point(43, 32);
+            this.groupBox_City.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.groupBox_City.Name = "groupBox_City";
+            this.groupBox_City.Padding = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.groupBox_City.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.groupBox_City.Size = new System.Drawing.Size(633, 344);
+            this.groupBox_City.TabIndex = 21;
+            this.groupBox_City.TabStop = false;
+            this.groupBox_City.Text = "הוסף עיר חדשה";
             // 
             // button_Delete
             // 
@@ -219,7 +219,7 @@
             this.Controls.Add(this.listBox_City);
             this.Controls.Add(this.groupBox_Sign);
             this.Controls.Add(this.textBox_Filter);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox_City);
             this.Name = "City_Form";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
@@ -229,8 +229,8 @@
             this.contextMenuStrip_City.ResumeLayout(false);
             this.groupBox_Sign.ResumeLayout(false);
             this.groupBox_Sign.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBox_City.ResumeLayout(false);
+            this.groupBox_City.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,7 +250,7 @@
         private System.Windows.Forms.Label label_CapsLk;
         private System.Windows.Forms.TextBox textBox_Filter;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox_City;
         private System.Windows.Forms.Button button_Delete;
     }
 }

@@ -16,8 +16,6 @@ namespace Recruitment_System.UI
     public partial class MainForm : Form
     {
         private City lastSelectedcomboBox_CityIndex = City.Empty;
-        private Position lastSelectedcomboBox_PositionIndex = Position.Empty;
-        //private NomineeArrState showNomineeArrCurState = NomineeArrState.ShowEnabledOnly;
         public MainForm()
         {
             InitializeComponent();
@@ -28,11 +26,171 @@ namespace Recruitment_System.UI
             NomineeArrToForm();
             CityArrToForm(null);
             SetButton_ChangeDisabled(true);
-            textBox_Positions.Tag = PositionArr.Empty;
+            /*-------------------------->>>>>>>>>>>>>>>>*/
+            textBox_Positions.Tag = new PositionArr();
+            /*<<<<<<<<<<<<<<<<--------------------------*/
+            SetPositionTextBoxAndToolTip(new PositionArr());
         }
 
 
         #region events
+
+
+        private void label_DBID_TextChanged(object sender, EventArgs e)
+        {
+            //the selected nominee had changed
+            SetButton_ChangeDisabled(label_ShowDisabled.Visible);
+        }
+
+
+        private void רשימותלוגToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Log_Form log_Form = new Log_Form(int.Parse(label_DBID.Text));
+            log_Form.Show();
+        }
+
+
+        private void עריםToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            City_Form cF = new City_Form(lastSelectedcomboBox_CityIndex);
+            cF.StartPosition = FormStartPosition.CenterParent;
+            cF.ShowDialog();
+            CityArrToForm(cF.SelectedCity);
+
+            lastSelectedcomboBox_CityIndex = (comboBox_City.SelectedItem as City);
+        }
+
+
+        private void button_ShowPositions_Click(object sender, EventArgs e)
+        {
+            PositionArr positionArr = textBox_Positions.Tag as PositionArr;
+            Nominee nom;
+            if (label_DBID.Text != "0")
+            {
+                NomineeArr nomineeArr = new NomineeArr();
+                nomineeArr.Fill();
+                nom = nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text));
+            }
+            else
+            {
+                nom = Nominee.Empty;
+            }
+
+
+            NomineesPosition_Form npForm;
+
+            if ((textBox_Positions.Tag as PositionArr).Count == 0)
+            {
+                npForm = new NomineesPosition_Form(nom);
+            }
+            else
+            {
+                npForm = new NomineesPosition_Form(positionArr);
+            }
+
+            npForm.ShowDialog();
+
+            positionArr = npForm.ChosenPositionArr;
+            textBox_Positions.Tag = positionArr;
+
+            SetPositionTextBoxAndToolTip(positionArr);
+        }
+
+
+        private void עלתוכנהזוToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 ab = new AboutBox1();
+            ab.ShowDialog();
+        }
+
+
+        private void משרותToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Position_Form pF = new Position_Form();
+            pF.StartPosition = FormStartPosition.CenterParent;
+            pF.ShowDialog();
+        }
+
+
+        private void button_Show_Log_Click(object sender, EventArgs e)
+        {
+            Log_Form log_Form = new Log_Form(int.Parse(label_DBID.Text));
+            log_Form.Show();
+        }
+
+
+        private void textBox_Email_Leave(object sender, EventArgs e)
+        {
+            textBox_Email.Text = textBox_Email.Text.ToLower();
+        }
+
+
+        private void textBox_Email_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (HasNonASCIIChars(e.KeyChar))
+            {
+                e.KeyChar = char.MinValue;
+            }
+        }
+
+
+        private void button_ChangeDisabled_Click(object sender, EventArgs e)
+        {
+            Nominee nom = FormToNominee();
+            if (nom.DBId == 0)
+            {
+                MessageBox.Show("לא נבחר לקוח תקין!", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            else if (!nom.Disabled)
+            {
+                if (MessageBox.Show("האם אתה בטוח שאתה רוצה להפוך את המועמד ללא זמין?\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                {
+                    //make this nominee disabled
+
+                    nom.Disable();
+
+                    NomineeArr nomineearr = new NomineeArr();
+                    nomineearr.Fill(GetCurNomineeArrState());
+
+                    listBox_Nominee.DataSource = nomineearr;
+                    NomineeToForm(null);
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("האם אתה בטוח שאתה רוצה להפוך את המועמד לזמין?\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                {
+                    //make this nominee enabled
+
+                    nom.Enable();
+
+                    NomineeArr nomineearr = new NomineeArr();
+                    nomineearr.Fill(GetCurNomineeArrState());
+
+                    listBox_Nominee.DataSource = nomineearr;
+                    NomineeToForm(null);
+                }
+            }
+        }
+
+
+        private void View_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem x = sender as ToolStripMenuItem;
+
+            ChangeShowNomineeArrCurState((NomineeArrState)x.Tag);
+
+            if (tabControl_Main.SelectedTab == tabPage_PositionNomineeChart)
+            {
+                DataToChart(GetCurNomineeArrState());
+            }
+            else if (tabControl_Main.SelectedTab == tabPage_PositionNomineeTable)
+            {
+                PositionNomineeArrToTable(GetCurNomineeArrState());
+            }
+        }
+
 
         private void comboBox_City_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -42,10 +200,10 @@ namespace Recruitment_System.UI
                 {
                     if (comboBox_City.Focused)
                     {
-                        City_Form fc = new City_Form(lastSelectedcomboBox_CityIndex);
-                        fc.StartPosition = FormStartPosition.CenterParent;
-                        fc.ShowDialog();
-                        CityArrToForm(fc.SelectedCity);
+                        City_Form cF = new City_Form(lastSelectedcomboBox_CityIndex);
+                        cF.StartPosition = FormStartPosition.CenterParent;
+                        cF.ShowDialog();
+                        CityArrToForm(cF.SelectedCity);
                     }
                 }
 
@@ -168,7 +326,7 @@ namespace Recruitment_System.UI
                         if (!positionNomineeArr_New.Insert())
                         {
                             MessageBox.Show("הייתה שגיעה בעדכון המשרות\nאנא נסה שנית.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
-                            SetPositionTextBoxAndToolTip(PositionArr.Empty);
+                            SetPositionTextBoxAndToolTip(new PositionArr());
                         }
 
                         //Check the cv file:
@@ -419,10 +577,13 @@ namespace Recruitment_System.UI
                 e.KeyChar = char.MinValue;
         }
 
+
         #endregion
 
 
         #region public methods
+
+
         public Nominee FormToNominee()
         {
             Nominee nominee = new Nominee();//Create a new instance of the Nominee class.
@@ -476,6 +637,97 @@ namespace Recruitment_System.UI
 
         #region private methods
 
+
+        private void ChangeShowNomineeArrCurState(NomineeArrState state)
+        {
+            ToolStripMenuItem tool;
+            for (int i = 0; i < הצגToolStripMenuItem.DropDownItems.Count; i++)
+            {
+                if (הצגToolStripMenuItem.DropDownItems[i] is ToolStripSeparator)
+                {
+                    break;
+                }
+                else if (הצגToolStripMenuItem.DropDownItems[i] is ToolStripMenuItem)
+                {
+                    tool = הצגToolStripMenuItem.DropDownItems[i] as ToolStripMenuItem;
+                    if ((NomineeArrState)tool.Tag == state)
+                    {
+                        tool.Checked = true;
+                    }
+                    else
+                    {
+                        tool.Checked = false;
+                    }
+                }
+            }
+            NomineeArrToForm();
+
+        }
+
+
+        private NomineeArrState GetCurNomineeArrState()
+        {
+            foreach (ToolStripMenuItem item in הצגToolStripMenuItem.DropDownItems)
+            {
+                if (item.Checked)
+                {
+                    return (NomineeArrState)item.Tag;
+                }
+            }
+
+            ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
+            return NomineeArrState.ShowEnabledOnly;
+        }
+
+
+        private void SetButton_ChangeDisabled(bool isDisabled)
+        {
+            if (isDisabled)
+            {
+                button_ChangeDisabled.Text = "הפוך לזמין";
+                button_ChangeDisabled.BackColor = Color.FromArgb(128, 255, 128);
+            }
+            else
+            {
+                button_ChangeDisabled.Text = "הפוך ללא זמין";
+                button_ChangeDisabled.BackColor = Color.FromArgb(255, 128, 128);
+            }
+        }
+
+
+        private void SetPositionTextBoxAndToolTip(PositionArr positionArr)
+        {
+            if (positionArr == null)
+            {
+                textBox_Positions.Text = "נבחרו 0 משרות";
+                toolTip_Positions.SetToolTip(textBox_Positions, "אף משרה לא נבחרה");
+                return;
+            }
+
+            if (positionArr.Count == 0)
+            {
+                textBox_Positions.Text = "נבחרו 0 משרות";
+                toolTip_Positions.SetToolTip(textBox_Positions, "אף משרה לא נבחרה");
+            }
+            else if (positionArr.Count == 1)
+            {
+                textBox_Positions.Text = "נבחרה משרה אחת";
+                toolTip_Positions.SetToolTip(textBox_Positions, positionArr[0].ToString());
+            }
+            else
+            {
+                textBox_Positions.Text = "נבחרו " + positionArr.Count + " משרות";
+                string positions = positionArr[0].ToString();
+                for (int i = 1; i < positionArr.Count; i++)
+                {
+                    positions += /*", "*/"\n" + positionArr[i].ToString();
+                }
+
+                toolTip_Positions.SetToolTip(textBox_Positions, positions);
+            }
+        }
+
+
         private PositionNomineeArr FormToPositionNomineeArr(Nominee curNom)
         {
 
@@ -509,6 +761,7 @@ namespace Recruitment_System.UI
             מועמדיםלאזמיניםToolStripMenuItem.Tag = NomineeArrState.ShowDisabledOnly;
             כלהמועמדיםToolStripMenuItem.Tag = NomineeArrState.ShowAll;
         }
+
 
         private void SetLastChangedTextbox(int nomineeDBId)
         {
@@ -580,32 +833,11 @@ namespace Recruitment_System.UI
             if (!Text_Check_Length(textBox_LastName, true, 2))
                 flag &= false;
 
-
-
-            //ID - 3
-            if (0 >= textBox_ID.Text.Length && textBox_ID.Text.Length >= 9 && !IsNumber(textBox_ID.Text))
-                flag &= false;
-
-
-            //CellPhone area code - 4
-            if (!comboBox_CellAreaCode.Items.Contains(comboBox_CellAreaCode.Text))
+            //city
+            if (!(comboBox_City.DataSource as CityArr).IsContains(comboBox_City.Text))
             {
                 flag &= false;
-                comboBox_CellAreaCode.BackColor = Color.Red;
             }
-            else
-                comboBox_CellAreaCode.BackColor = Color.White;
-
-
-            //CellPhone number - 5
-            if (!Text_Check_Length(textBox_Cel, false, 7))
-                flag &= false;
-
-
-            //City - 6
-            if (!Text_Check_Length(comboBox_City, true, 2))
-                flag &= false;
-
 
             return flag;
         }
@@ -671,7 +903,7 @@ namespace Recruitment_System.UI
             else
             {
                 comboBox_City.SelectedItem = null;
-                SetPositionTextBoxAndToolTip(PositionArr.Empty);
+                SetPositionTextBoxAndToolTip(new PositionArr());
                 //Reset the text and flags of the input fields.
                 foreach (Control item in groupBox_PD.Controls)
                 {
@@ -811,222 +1043,9 @@ namespace Recruitment_System.UI
         {
             return (Encoding.UTF8.GetByteCount(new char[] { c }) != new char[] { c }.Length);
         }
+
+
+
         #endregion
-
-        private void button_Show_Log_Click(object sender, EventArgs e)
-        {
-            Log_Form log_Form = new Log_Form(int.Parse(label_DBID.Text));
-            log_Form.Show();
-        }
-
-        private void textBox_Email_Leave(object sender, EventArgs e)
-        {
-            textBox_Email.Text = textBox_Email.Text.ToLower();
-        }
-
-        private void textBox_Email_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (HasNonASCIIChars(e.KeyChar))
-            {
-                e.KeyChar = char.MinValue;
-            }
-        }
-
-        private void button_ChangeDisabled_Click(object sender, EventArgs e)
-        {
-            Nominee nom = FormToNominee();
-            if (nom.DBId == 0)
-            {
-                MessageBox.Show("לא נבחר לקוח תקין!", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            else if (!nom.Disabled)
-            {
-                if (MessageBox.Show("האם אתה בטוח שאתה רוצה להפוך את המועמד ללא זמין?\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
-                {
-                    //make this nominee disabled
-
-                    nom.Disable();
-
-                    NomineeArr nomineearr = new NomineeArr();
-                    nomineearr.Fill(GetCurNomineeArrState());
-
-                    listBox_Nominee.DataSource = nomineearr;
-                    NomineeToForm(null);
-                }
-            }
-            else
-            {
-                if (MessageBox.Show("האם אתה בטוח שאתה רוצה להפוך את המועמד לזמין?\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
-                {
-                    //make this nominee enabled
-
-                    nom.Enable();
-
-                    NomineeArr nomineearr = new NomineeArr();
-                    nomineearr.Fill(GetCurNomineeArrState());
-
-                    listBox_Nominee.DataSource = nomineearr;
-                    NomineeToForm(null);
-                }
-            }
-        }
-
-        private void View_ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem x = sender as ToolStripMenuItem;
-
-            ChangeShowNomineeArrCurState((NomineeArrState)x.Tag);
-        }
-
-        private void ChangeShowNomineeArrCurState(NomineeArrState state)
-        {
-            ToolStripMenuItem tool;
-            for (int i = 0; i < הצגToolStripMenuItem.DropDownItems.Count; i++)
-            {
-                if (הצגToolStripMenuItem.DropDownItems[i] is ToolStripSeparator)
-                {
-                    break;
-                }
-                else if (הצגToolStripMenuItem.DropDownItems[i] is ToolStripMenuItem)
-                {
-                    tool = הצגToolStripMenuItem.DropDownItems[i] as ToolStripMenuItem;
-                    if ((NomineeArrState)tool.Tag == state)
-                    {
-                        tool.Checked = true;
-                    }
-                    else
-                    {
-                        tool.Checked = false;
-                    }
-                }
-            }
-            NomineeArrToForm();
-
-        }
-
-        private NomineeArrState GetCurNomineeArrState()
-        {
-            foreach (ToolStripMenuItem item in הצגToolStripMenuItem.DropDownItems)
-            {
-                if (item.Checked)
-                {
-                    return (NomineeArrState)item.Tag;
-                }
-            }
-
-            ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
-            return NomineeArrState.ShowEnabledOnly;
-        }
-
-        private void label_DBID_TextChanged(object sender, EventArgs e)
-        {
-            //the selected nominee had changed
-            SetButton_ChangeDisabled(label_ShowDisabled.Visible);
-        }
-
-        private void SetButton_ChangeDisabled(bool isDisabled)
-        {
-            if (isDisabled)
-            {
-                button_ChangeDisabled.Text = "הפוך לזמין";
-                button_ChangeDisabled.BackColor = Color.FromArgb(128, 255, 128);
-            }
-            else
-            {
-                button_ChangeDisabled.Text = "הפוך ללא זמין";
-                button_ChangeDisabled.BackColor = Color.FromArgb(255, 128, 128);
-            }
-        }
-
-        private void רשימותלוגToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Log_Form log_Form = new Log_Form(int.Parse(label_DBID.Text));
-            log_Form.Show();
-        }
-
-        private void עריםToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            City_Form fc = new City_Form(lastSelectedcomboBox_CityIndex);
-            fc.StartPosition = FormStartPosition.CenterParent;
-            fc.ShowDialog();
-            CityArrToForm(fc.SelectedCity);
-
-            lastSelectedcomboBox_CityIndex = (comboBox_City.SelectedItem as City);
-        }
-
-        private void button_ShowPositions_Click(object sender, EventArgs e)
-        {
-            PositionArr positionArr = textBox_Positions.Tag as PositionArr;
-            Nominee nom;
-            if (label_DBID.Text != "0")
-            {
-                NomineeArr nomineeArr = new NomineeArr();
-                nomineeArr.Fill();
-                nom = nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text));
-            }
-            else
-            {
-                nom = Nominee.Empty;
-            }
-
-
-            NomineesPosition_Form npForm;
-
-            if (textBox_Positions.Tag == PositionArr.Empty)
-            {
-                npForm = new NomineesPosition_Form(nom);
-            }
-            else
-            {
-                npForm = new NomineesPosition_Form(positionArr);
-            }
-
-            npForm.ShowDialog();
-
-            positionArr = npForm.ChosenPositionArr;
-            textBox_Positions.Tag = positionArr;
-
-            SetPositionTextBoxAndToolTip(positionArr);
-        }
-
-
-        private void SetPositionTextBoxAndToolTip(PositionArr positionArr)
-        {
-            if (positionArr == null)
-            {
-                textBox_Positions.Text = "נבחרו 0 משרות";
-                toolTip_Positions.SetToolTip(textBox_Positions, "אף משרה לא נבחרה");
-                return;
-            }
-
-            if (positionArr.Count == 0)
-            {
-                textBox_Positions.Text = "נבחרו 0 משרות";
-                toolTip_Positions.SetToolTip(textBox_Positions, "אף משרה לא נבחרה");
-            }
-            else if (positionArr.Count == 1)
-            {
-                textBox_Positions.Text = "נבחרה משרה אחת";
-                toolTip_Positions.SetToolTip(textBox_Positions, positionArr[0].ToString());
-            }
-            else
-            {
-                textBox_Positions.Text = "נבחרו " + positionArr.Count + " משרות";
-                string positions = positionArr[0].ToString();
-                for (int i = 1; i < positionArr.Count; i++)
-                {
-                    positions += ", " + positionArr[i];
-                }
-
-                toolTip_Positions.SetToolTip(textBox_Positions, positions);
-            }
-        }
-
-        private void עלתוכנהזוToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutBox1 ab = new AboutBox1();
-            ab.ShowDialog();
-        }
     }
 }

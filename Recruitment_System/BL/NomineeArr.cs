@@ -29,7 +29,7 @@ namespace Recruitment_System.BL
                 dataRow = dataTable.Rows[i];
 
                 nominee = new Nominee(dataRow);
-                if (!nominee.Disabled)
+                if (!nominee.Disabled && nominee.DBId != 0)
                 {
                     Add(nominee);
                 }
@@ -51,7 +51,7 @@ namespace Recruitment_System.BL
                 dataRow = dataTable.Rows[i];
 
                 nominee = new Nominee(dataRow);
-                if (nominee.Disabled)
+                if (nominee.Disabled && nominee.DBId != 0)
                 {
                     Add(nominee);
                 }
@@ -73,8 +73,8 @@ namespace Recruitment_System.BL
                 dataRow = dataTable.Rows[i];
 
                 nominee = new Nominee(dataRow);
-
-                Add(nominee);
+                if (nominee.DBId != 0)
+                    Add(nominee);
 
             }
         }
@@ -132,7 +132,7 @@ namespace Recruitment_System.BL
                     (filter.BirthYear == 0 || nominee.BirthYear == filter.BirthYear) &&
                     (filter.CellPhone == "" || (nominee.CellAreaCode + nominee.CellPhone).Contains(filter.CellPhone)) &&
                     (filter.City.ToString() == "" || nominee.City.Name.StartsWith(filter.City.ToString())) &&
-                    (positionArr == PositionArr.Empty || positionArr.IsContains(filterPositionArr))
+                    (positionArr.Count == 0 || positionArr.IsContains(filterPositionArr))
                     )
                 {
                     nomineeArr.Add(nominee);
@@ -165,18 +165,24 @@ namespace Recruitment_System.BL
         }
 
 
-        public bool IsContains(Nominee nominee)
+        public bool IsContains(string fullName)
         {
             //finds out whether this NomineeArr contains the given nominee.
             for (int i = 0; i < this.Count; i++)
             {
-                if ((this[i] as Nominee).DBId == nominee.DBId || nominee.DBId == 0)
-                {
-                    if ((this[i] as Nominee).Equals(nominee))
-                    {
-                        return true;
-                    }
-                }
+                if ((this[i] as Nominee).ToString() == fullName)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsContains(int dBID)
+        {
+            //finds out whether this NomineeArr contains the given nominee.
+            for (int i = 0; i < this.Count; i++)
+            {
+                if ((this[i] as Nominee).DBId == dBID)
+                    return true;
             }
             return false;
         }

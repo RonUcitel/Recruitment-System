@@ -11,7 +11,7 @@ namespace Recruitment_System.BL
 {
     public class PositionArr : ArrayList
     {
-        public static PositionArr Empty = new PositionArr();
+        //public static PositionArr Empty = new PositionArr();
 
         public void Fill()
         {
@@ -28,7 +28,8 @@ namespace Recruitment_System.BL
 
                 Position = new Position(dataRow);
 
-                Add(Position);
+                if (Position.Id != 0)
+                    Add(Position);
             }
         }
 

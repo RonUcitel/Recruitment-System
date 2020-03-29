@@ -21,29 +21,45 @@ namespace Recruitment_System.UI
             //תיבת רשימה - פריטים בהזמנה
             //מוצאים את הפריטים בהזמנה הנוכחית
             // כל הזוגות פריט -הזמנה
+            if (nominee != Nominee.Empty)
+            {
+                PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
+                positionNomineeArr.Fill();
 
-            PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
-            positionNomineeArr.Fill();
+                //סינון לפי הזמנה נוכחית
 
-            //סינון לפי הזמנה נוכחית
+                positionNomineeArr = positionNomineeArr.Filter(nominee, Position.Empty);
 
-            positionNomineeArr = positionNomineeArr.Filter(nominee, Position.Empty);
+                //רק אוסף הפריטים מתוך אוסף הזוגות פריט -הזמנה
 
-            //רק אוסף הפריטים מתוך אוסף הזוגות פריט -הזמנה
+                PositionArr positionArrInNominee = positionNomineeArr.ToPositionArr();
+                PositionArrToForm(positionArrInNominee, listBox_ChosenPositions);
 
-            PositionArr positionArrInNominee = positionNomineeArr.ToPositionArr();
-            PositionArrToForm(positionArrInNominee, listBox_ChosenPositions);
 
-            //תיבת רשימה - פריטים פוטנציאלים
-            //כל הפריטים - פחות אלו שכבר נבחרו
+                //תיבת רשימה - פריטים פוטנציאלים
+                //כל הפריטים - פחות אלו שכבר נבחרו
 
-            PositionArr positionArrNotInNominee = new PositionArr();
-            positionArrNotInNominee.Fill();
+                PositionArr positionArrNotInNominee = new PositionArr();
+                positionArrNotInNominee.Fill();
 
-            //הורדת הפריטים שכבר קיימים בהזמנה
+                //הורדת הפריטים שכבר קיימים בהזמנה
 
-            positionArrNotInNominee.Remove(positionArrInNominee);
-            PositionArrToForm(positionArrNotInNominee, listBox_AvailablePositions);
+                positionArrNotInNominee.Remove(positionArrInNominee);
+                PositionArrToForm(positionArrNotInNominee, listBox_AvailablePositions);
+
+
+            }
+            else
+            {
+                PositionArrToForm(new PositionArr(), listBox_ChosenPositions);
+
+                PositionArr positionArrNotInNominee = new PositionArr();
+                positionArrNotInNominee.Fill();
+
+                //הורדת הפריטים שכבר קיימים בהזמנה
+                PositionArrToForm(positionArrNotInNominee, listBox_AvailablePositions);
+            }
+
 
 
 

@@ -84,16 +84,11 @@ namespace Recruitment_System.BL
             //returns if the Nominee's properties are identicle to the object's ( if it is a Nominee object) properties. 
             if (obj is PositionNominee)
             {
-                bool output = true;
-                foreach (PropertyInfo item in typeof(PositionNominee).GetProperties())
-                {
-                    if (true)
-                    {
-                        output &= item.GetValue(this) == item.GetValue(obj);
-                    }
+                PositionNominee x = obj as PositionNominee;
 
-                }
-                return output;
+                return (this.m_DBId == x.m_DBId &&
+                           this.m_Nominee == x.m_Nominee &&
+                           this.m_Position == x.m_Position);
             }
 
             return base.Equals(obj);
@@ -102,7 +97,7 @@ namespace Recruitment_System.BL
         public void Clear()
         {
             //sets each property of the nominee to it's "empty" state.
-            foreach(PropertyInfo item in this.GetType().GetProperties())
+            foreach (PropertyInfo item in this.GetType().GetProperties())
             {
                 if (item.PropertyType == typeof(int))
                 {

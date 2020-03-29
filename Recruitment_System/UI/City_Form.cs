@@ -164,7 +164,6 @@ namespace Recruitment_System.UI
                             cityArr.Fill();
                             CityArrToForm(cityArr.GetCityWithMaxId());
                             dialogResult = MessageBox.Show("The city was ADDED successfully", "Yay!", MessageBoxButtons.OK);
-                            listBox_City.SelectedItem = listBox_City.Items[listBox_City.Items.Count - 1];
                         }
                         else
                         {
@@ -340,7 +339,11 @@ namespace Recruitment_System.UI
             listBox_City.DisplayMember = "Name";
             if (curCity != null)
             {
-                listBox_City.SelectedValue = curCity.Id;
+                listBox_City.SelectedValue = curCity;
+            }
+            else
+            {
+                listBox_City.ClearSelected();
             }
             CityToForm(curCity);
         }
@@ -470,7 +473,6 @@ namespace Recruitment_System.UI
         public City FormToCity()
         {
             City city = new City();
-
             //insert the data to the object
             city.Id = int.Parse(label_Id.Text);
             city.Name = textBox_Name.Text;
@@ -486,6 +488,8 @@ namespace Recruitment_System.UI
             int id = int.Parse(label_Id.Text);
             if (id != 0)
             {
+                groupBox_City.Text = "ערוך עיר קיימת";
+
                 CityArr cityarr = new CityArr();
                 cityarr.Fill();
                 cityarr = cityarr.Filter("", id);
@@ -500,6 +504,7 @@ namespace Recruitment_System.UI
             }
             else
             {
+                groupBox_City.Text = "הוסף עיר חדשה";
                 SelectedCity = City.Empty;
             }
         }

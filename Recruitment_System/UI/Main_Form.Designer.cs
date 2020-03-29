@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox_PD = new System.Windows.Forms.GroupBox();
             this.panel_Positions = new System.Windows.Forms.Panel();
             this.textBox_Positions = new System.Windows.Forms.TextBox();
@@ -72,7 +75,6 @@
             this.פתחToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.עריםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.משרותToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.דרישותמשרהToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.הצגToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.מועמדיםזמיניםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.כלהמועמדיםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,16 +83,20 @@
             this.רשימותלוגToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.עזרהToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.עלתוכנהזוToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_TableDesign = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem_Sort = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_ChangeDisabled = new System.Windows.Forms.Button();
-            this.toolTip_Last_Changed = new System.Windows.Forms.ToolTip(this.components);
-            this.tabControl_Nominee = new System.Windows.Forms.TabControl();
-            this.tabPage_EditNominee = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.listView_Nominee = new System.Windows.Forms.ListView();
-            this.toolTip_Positions = new System.Windows.Forms.ToolTip(this.components);
             this.PDF_CV_Viewer = new AxAcroPDFLib.AxAcroPDF();
+            this.toolTip_Last_Changed = new System.Windows.Forms.ToolTip(this.components);
+            this.tabControl_Main = new System.Windows.Forms.TabControl();
+            this.tabPage_EditNominee = new System.Windows.Forms.TabPage();
+            this.tabPage_PositionNomineeTable = new System.Windows.Forms.TabPage();
+            this.listView_PositionNominee = new System.Windows.Forms.ListView();
+            this.tabPage_PositionNomineeChart = new System.Windows.Forms.TabPage();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.toolTip_Positions = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox_PD.SuspendLayout();
             this.panel_Positions.SuspendLayout();
             this.groupBox_Ranking.SuspendLayout();
@@ -100,10 +106,12 @@
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabControl_Nominee.SuspendLayout();
-            this.tabPage_EditNominee.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).BeginInit();
+            this.tabControl_Main.SuspendLayout();
+            this.tabPage_EditNominee.SuspendLayout();
+            this.tabPage_PositionNomineeTable.SuspendLayout();
+            this.tabPage_PositionNomineeChart.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox_PD
@@ -622,7 +630,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.פתחToolStripMenuItem,
             this.הצגToolStripMenuItem,
-            this.עזרהToolStripMenuItem});
+            this.עזרהToolStripMenuItem,
+            this.toolStripMenuItem_TableDesign});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -634,8 +643,7 @@
             // 
             this.פתחToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.עריםToolStripMenuItem,
-            this.משרותToolStripMenuItem,
-            this.דרישותמשרהToolStripMenuItem});
+            this.משרותToolStripMenuItem});
             this.פתחToolStripMenuItem.Name = "פתחToolStripMenuItem";
             this.פתחToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.פתחToolStripMenuItem.RightToLeftAutoMirrorImage = true;
@@ -646,7 +654,7 @@
             // 
             this.עריםToolStripMenuItem.Name = "עריםToolStripMenuItem";
             this.עריםToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.עריםToolStripMenuItem.Size = new System.Drawing.Size(435, 66);
+            this.עריםToolStripMenuItem.Size = new System.Drawing.Size(326, 66);
             this.עריםToolStripMenuItem.Text = "ערים";
             this.עריםToolStripMenuItem.Click += new System.EventHandler(this.עריםToolStripMenuItem_Click);
             // 
@@ -654,15 +662,9 @@
             // 
             this.משרותToolStripMenuItem.Name = "משרותToolStripMenuItem";
             this.משרותToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.משרותToolStripMenuItem.Size = new System.Drawing.Size(435, 66);
+            this.משרותToolStripMenuItem.Size = new System.Drawing.Size(326, 66);
             this.משרותToolStripMenuItem.Text = "משרות";
-            // 
-            // דרישותמשרהToolStripMenuItem
-            // 
-            this.דרישותמשרהToolStripMenuItem.Name = "דרישותמשרהToolStripMenuItem";
-            this.דרישותמשרהToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.דרישותמשרהToolStripMenuItem.Size = new System.Drawing.Size(435, 66);
-            this.דרישותמשרהToolStripMenuItem.Text = "דרישות משרה";
+            this.משרותToolStripMenuItem.Click += new System.EventHandler(this.משרותToolStripMenuItem_Click);
             // 
             // הצגToolStripMenuItem
             // 
@@ -729,9 +731,25 @@
             // עלתוכנהזוToolStripMenuItem
             // 
             this.עלתוכנהזוToolStripMenuItem.Name = "עלתוכנהזוToolStripMenuItem";
-            this.עלתוכנהזוToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.עלתוכנהזוToolStripMenuItem.Size = new System.Drawing.Size(396, 66);
             this.עלתוכנהזוToolStripMenuItem.Text = "על תוכנה זו";
             this.עלתוכנהזוToolStripMenuItem.Click += new System.EventHandler(this.עלתוכנהזוToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem_TableDesign
+            // 
+            this.toolStripMenuItem_TableDesign.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem_Sort});
+            this.toolStripMenuItem_TableDesign.Name = "toolStripMenuItem_TableDesign";
+            this.toolStripMenuItem_TableDesign.Size = new System.Drawing.Size(231, 57);
+            this.toolStripMenuItem_TableDesign.Text = "עיצוב טבלה";
+            this.toolStripMenuItem_TableDesign.Visible = false;
+            // 
+            // toolStripMenuItem_Sort
+            // 
+            this.toolStripMenuItem_Sort.Name = "toolStripMenuItem_Sort";
+            this.toolStripMenuItem_Sort.Size = new System.Drawing.Size(441, 66);
+            this.toolStripMenuItem_Sort.Text = "מיין לפי מועמד";
+            this.toolStripMenuItem_Sort.Click += new System.EventHandler(this.toolStripMenuItem_Sort_Click);
             // 
             // panel1
             // 
@@ -750,7 +768,7 @@
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.panel1.Size = new System.Drawing.Size(2260, 912);
+            this.panel1.Size = new System.Drawing.Size(2260, 917);
             this.panel1.TabIndex = 20;
             // 
             // groupBox1
@@ -778,52 +796,6 @@
             this.button_ChangeDisabled.UseVisualStyleBackColor = false;
             this.button_ChangeDisabled.Click += new System.EventHandler(this.button_ChangeDisabled_Click);
             // 
-            // tabControl_Nominee
-            // 
-            this.tabControl_Nominee.Controls.Add(this.tabPage_EditNominee);
-            this.tabControl_Nominee.Controls.Add(this.tabPage2);
-            this.tabControl_Nominee.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl_Nominee.Location = new System.Drawing.Point(0, 61);
-            this.tabControl_Nominee.Name = "tabControl_Nominee";
-            this.tabControl_Nominee.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.tabControl_Nominee.RightToLeftLayout = true;
-            this.tabControl_Nominee.SelectedIndex = 0;
-            this.tabControl_Nominee.Size = new System.Drawing.Size(2290, 988);
-            this.tabControl_Nominee.TabIndex = 21;
-            // 
-            // tabPage_EditNominee
-            // 
-            this.tabPage_EditNominee.Controls.Add(this.panel1);
-            this.tabPage_EditNominee.Location = new System.Drawing.Point(12, 58);
-            this.tabPage_EditNominee.Name = "tabPage_EditNominee";
-            this.tabPage_EditNominee.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_EditNominee.Size = new System.Drawing.Size(2266, 918);
-            this.tabPage_EditNominee.TabIndex = 0;
-            this.tabPage_EditNominee.Text = "עריכת מועמדים";
-            this.tabPage_EditNominee.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.listView_Nominee);
-            this.tabPage2.Location = new System.Drawing.Point(12, 58);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(2266, 907);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "מועמדים כנגד משרות";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // listView_Nominee
-            // 
-            this.listView_Nominee.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_Nominee.HideSelection = false;
-            this.listView_Nominee.Location = new System.Drawing.Point(3, 3);
-            this.listView_Nominee.Name = "listView_Nominee";
-            this.listView_Nominee.RightToLeftLayout = true;
-            this.listView_Nominee.Size = new System.Drawing.Size(2260, 901);
-            this.listView_Nominee.TabIndex = 0;
-            this.listView_Nominee.UseCompatibleStateImageBehavior = false;
-            // 
             // PDF_CV_Viewer
             // 
             this.PDF_CV_Viewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -835,13 +807,95 @@
             this.PDF_CV_Viewer.TabIndex = 0;
             this.PDF_CV_Viewer.TabStop = false;
             // 
+            // tabControl_Main
+            // 
+            this.tabControl_Main.Controls.Add(this.tabPage_EditNominee);
+            this.tabControl_Main.Controls.Add(this.tabPage_PositionNomineeTable);
+            this.tabControl_Main.Controls.Add(this.tabPage_PositionNomineeChart);
+            this.tabControl_Main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl_Main.Location = new System.Drawing.Point(0, 61);
+            this.tabControl_Main.Name = "tabControl_Main";
+            this.tabControl_Main.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.tabControl_Main.RightToLeftLayout = true;
+            this.tabControl_Main.SelectedIndex = 0;
+            this.tabControl_Main.Size = new System.Drawing.Size(2290, 988);
+            this.tabControl_Main.TabIndex = 21;
+            this.tabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl_Main_SelectedIndexChanged);
+            // 
+            // tabPage_EditNominee
+            // 
+            this.tabPage_EditNominee.Controls.Add(this.panel1);
+            this.tabPage_EditNominee.Location = new System.Drawing.Point(12, 58);
+            this.tabPage_EditNominee.Name = "tabPage_EditNominee";
+            this.tabPage_EditNominee.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_EditNominee.Size = new System.Drawing.Size(2266, 923);
+            this.tabPage_EditNominee.TabIndex = 0;
+            this.tabPage_EditNominee.Text = "עריכת מועמדים";
+            this.tabPage_EditNominee.UseVisualStyleBackColor = true;
+            // 
+            // tabPage_PositionNomineeTable
+            // 
+            this.tabPage_PositionNomineeTable.Controls.Add(this.listView_PositionNominee);
+            this.tabPage_PositionNomineeTable.Location = new System.Drawing.Point(12, 58);
+            this.tabPage_PositionNomineeTable.Name = "tabPage_PositionNomineeTable";
+            this.tabPage_PositionNomineeTable.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_PositionNomineeTable.Size = new System.Drawing.Size(2266, 918);
+            this.tabPage_PositionNomineeTable.TabIndex = 1;
+            this.tabPage_PositionNomineeTable.Text = "טבלת מועמדים כנגד משרות";
+            this.tabPage_PositionNomineeTable.UseVisualStyleBackColor = true;
+            // 
+            // listView_PositionNominee
+            // 
+            this.listView_PositionNominee.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.listView_PositionNominee.AutoArrange = false;
+            this.listView_PositionNominee.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_PositionNominee.FullRowSelect = true;
+            this.listView_PositionNominee.GridLines = true;
+            this.listView_PositionNominee.HideSelection = false;
+            this.listView_PositionNominee.Location = new System.Drawing.Point(3, 3);
+            this.listView_PositionNominee.Name = "listView_PositionNominee";
+            this.listView_PositionNominee.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.listView_PositionNominee.RightToLeftLayout = true;
+            this.listView_PositionNominee.Size = new System.Drawing.Size(2260, 912);
+            this.listView_PositionNominee.TabIndex = 1;
+            this.listView_PositionNominee.UseCompatibleStateImageBehavior = false;
+            this.listView_PositionNominee.View = System.Windows.Forms.View.Details;
+            // 
+            // tabPage_PositionNomineeChart
+            // 
+            this.tabPage_PositionNomineeChart.Controls.Add(this.chart1);
+            this.tabPage_PositionNomineeChart.Location = new System.Drawing.Point(12, 58);
+            this.tabPage_PositionNomineeChart.Name = "tabPage_PositionNomineeChart";
+            this.tabPage_PositionNomineeChart.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_PositionNomineeChart.Size = new System.Drawing.Size(2266, 923);
+            this.tabPage_PositionNomineeChart.TabIndex = 2;
+            this.tabPage_PositionNomineeChart.Text = "גרף משרות לפי ביקוש";
+            this.tabPage_PositionNomineeChart.UseVisualStyleBackColor = true;
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(3, 3);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(2260, 917);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(288F, 288F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(2290, 1049);
-            this.Controls.Add(this.tabControl_Nominee);
+            this.Controls.Add(this.tabControl_Main);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -863,10 +917,12 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.tabControl_Nominee.ResumeLayout(false);
-            this.tabPage_EditNominee.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).EndInit();
+            this.tabControl_Main.ResumeLayout(false);
+            this.tabPage_EditNominee.ResumeLayout(false);
+            this.tabPage_PositionNomineeTable.ResumeLayout(false);
+            this.tabPage_PositionNomineeChart.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -912,7 +968,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem עריםToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem משרותToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem דרישותמשרהToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox_Last_Change;
         private System.Windows.Forms.ToolTip toolTip_Last_Changed;
         private System.Windows.Forms.Button button_Show_Log;
@@ -926,15 +981,19 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem רשימותלוגToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem עזרהToolStripMenuItem;
-        private System.Windows.Forms.TabControl tabControl_Nominee;
+        private System.Windows.Forms.TabControl tabControl_Main;
         private System.Windows.Forms.TabPage tabPage_EditNominee;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ListView listView_Nominee;
+        private System.Windows.Forms.TabPage tabPage_PositionNomineeTable;
         private System.Windows.Forms.Panel panel_Positions;
         private System.Windows.Forms.TextBox textBox_Positions;
         private System.Windows.Forms.Button button_ShowPositions;
         private System.Windows.Forms.ToolTip toolTip_Positions;
         private System.Windows.Forms.ToolStripMenuItem עלתוכנהזוToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage_PositionNomineeChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_TableDesign;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Sort;
+        private System.Windows.Forms.ListView listView_PositionNominee;
     }
 }
 

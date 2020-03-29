@@ -25,8 +25,8 @@ namespace Recruitment_System.BL
                 dataRow = dataTable.Rows[i];
 
                 city = new City(dataRow);
-
-                Add(city);
+                if (city.Id != 0)
+                    Add(city);
             }
         }
 
