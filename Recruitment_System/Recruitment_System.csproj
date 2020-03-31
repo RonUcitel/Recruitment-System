@@ -78,6 +78,8 @@
     <Compile Include="BL\NomineeArr.cs" />
     <Compile Include="BL\Position.cs" />
     <Compile Include="BL\PositionArr.cs" />
+    <Compile Include="DAL\Credentials_Dal.cs" />
+    <Compile Include="DAL\Interviewer_Dal.cs" />
     <Compile Include="DAL\PositionNominee_Dal.cs" />
     <Compile Include="DAL\LogEntry_Dal.cs" />
     <Compile Include="DAL\City_Dal.cs" />
@@ -95,6 +97,12 @@
     </Compile>
     <Compile Include="UI\City_Form.Designer.cs">
       <DependentUpon>City_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LogIn_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\LogIn_Form.Designer.cs">
+      <DependentUpon>LogIn_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainFormExtendedClass.cs">
       <SubType>Form</SubType>
@@ -130,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\City_Form.resx">
       <DependentUpon>City_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LogIn_Form.resx">
+      <DependentUpon>LogIn_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\NomineesPosition_Form.resx">
       <DependentUpon>NomineesPosition_Form.cs</DependentUpon>

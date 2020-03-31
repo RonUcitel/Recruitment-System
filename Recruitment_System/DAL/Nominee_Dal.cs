@@ -101,7 +101,7 @@ namespace Recruitment_System.DAL
             DataSet dataSet = new DataSet();
 
             FillDataSet(dataSet);
-            dataTable = dataSet.Tables["Table_Nominee"];
+            dataTable = dataSet.Tables[tableName];
 
             return dataTable;
         }

@@ -476,11 +476,13 @@ namespace Recruitment_System.UI
                     {
                         //the file is a pdf file
                         PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
+                        PDF_CV_Viewer.Visible = true;
                     }
                     else
                     {
                         //the file is a docx file. open it with a word program.
                         PDF_CV_Viewer.src = null;
+                        PDF_CV_Viewer.Visible = false;
                         try
                         {
                             Process.Start((string)button_Add_CV.Tag);
@@ -580,11 +582,13 @@ namespace Recruitment_System.UI
                 {
                     //the file is a pdf file
                     PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
+                    PDF_CV_Viewer.Visible = true;
                 }
                 else
                 {
                     //the file is a docx file. open it with a word program.
                     PDF_CV_Viewer.src = null;
+                    PDF_CV_Viewer.Visible = false;
                     try
                     {
                         Process.Start((string)button_Add_CV.Tag);
@@ -960,11 +964,15 @@ namespace Recruitment_System.UI
                     {
                         //the file is a pdf file
                         PDF_CV_Viewer.src = cv.path;
+                        PDF_CV_Viewer.Visible = true;
                     }
                     else
                     {
                         //the file is a docx file. open it with a word program.
                         PDF_CV_Viewer.src = null;
+                        PDF_CV_Viewer.Visible = false;
+                        PDF_CV_Viewer.Update();
+
                         try
                         {
                             Process.Start(cv.path);
@@ -1016,6 +1024,7 @@ namespace Recruitment_System.UI
                     }
                 }
                 PDF_CV_Viewer.src = null;
+                PDF_CV_Viewer.Visible = false;
                 button_Add_CV.Tag = null;
                 button_Add_CV.Text = "הוסף קורות חיים";
                 button_Add_CV.BackColor = SystemColors.ButtonFace;
@@ -1107,7 +1116,8 @@ namespace Recruitment_System.UI
             {
                 //There is a CV in the diractory
                 string[] nameParts = files[0].Split('\\');
-                string fileType = nameParts[nameParts.Length - 1].Split('.')[1];
+                nameParts = nameParts[nameParts.Length - 1].Split('.');
+                string fileType = nameParts[nameParts.Length - 1];
                 return (files[0], fileType);
             }
 
@@ -1165,11 +1175,13 @@ namespace Recruitment_System.UI
                 {
                     //the file is a pdf file
                     PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
+                    PDF_CV_Viewer.Visible = true;
                 }
                 else
                 {
                     //the file is a docx file. open it with a word program.
                     PDF_CV_Viewer.src = null;
+                    PDF_CV_Viewer.Visible = false;
                     try
                     {
                         Process.Start((string)button_Add_CV.Tag);

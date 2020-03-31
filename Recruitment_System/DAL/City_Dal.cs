@@ -63,11 +63,7 @@ namespace Recruitment_System.DAL
 
         public static void FillDataSet(DataSet dataSet)
         {
-            if (!dataSet.Tables.Contains(tableName))
-            {
-                Dal.FillDataSet(dataSet, tableName, "[Name]");
-            }
-
+            Dal.FillDataSet(dataSet, tableName, "[Name]");
         }
 
 

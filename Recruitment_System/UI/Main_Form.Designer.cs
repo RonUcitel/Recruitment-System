@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox_PD = new System.Windows.Forms.GroupBox();
             this.panel_Positions = new System.Windows.Forms.Panel();
             this.textBox_Positions = new System.Windows.Forms.TextBox();
@@ -634,7 +634,6 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.פתחToolStripMenuItem,
@@ -829,6 +828,7 @@
             this.PDF_CV_Viewer.Size = new System.Drawing.Size(707, 843);
             this.PDF_CV_Viewer.TabIndex = 0;
             this.PDF_CV_Viewer.TabStop = false;
+            this.PDF_CV_Viewer.Visible = false;
             // 
             // tabControl_Main
             // 
@@ -862,7 +862,7 @@
             this.tabPage_PositionNomineeTable.Location = new System.Drawing.Point(12, 58);
             this.tabPage_PositionNomineeTable.Name = "tabPage_PositionNomineeTable";
             this.tabPage_PositionNomineeTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_PositionNomineeTable.Size = new System.Drawing.Size(2266, 923);
+            this.tabPage_PositionNomineeTable.Size = new System.Drawing.Size(2266, 907);
             this.tabPage_PositionNomineeTable.TabIndex = 1;
             this.tabPage_PositionNomineeTable.Text = "טבלת מועמדים כנגד משרות";
             this.tabPage_PositionNomineeTable.UseVisualStyleBackColor = true;
@@ -876,11 +876,12 @@
             this.listView_PositionNominee.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_PositionNominee.FullRowSelect = true;
             this.listView_PositionNominee.GridLines = true;
+            this.listView_PositionNominee.HideSelection = false;
             this.listView_PositionNominee.Location = new System.Drawing.Point(3, 3);
             this.listView_PositionNominee.Name = "listView_PositionNominee";
             this.listView_PositionNominee.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.listView_PositionNominee.RightToLeftLayout = true;
-            this.listView_PositionNominee.Size = new System.Drawing.Size(2260, 917);
+            this.listView_PositionNominee.Size = new System.Drawing.Size(2260, 901);
             this.listView_PositionNominee.TabIndex = 0;
             this.listView_PositionNominee.UseCompatibleStateImageBehavior = false;
             this.listView_PositionNominee.View = System.Windows.Forms.View.Details;
@@ -908,25 +909,25 @@
             this.tabPage_PositionNomineeChart.Location = new System.Drawing.Point(12, 58);
             this.tabPage_PositionNomineeChart.Name = "tabPage_PositionNomineeChart";
             this.tabPage_PositionNomineeChart.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_PositionNomineeChart.Size = new System.Drawing.Size(2266, 923);
+            this.tabPage_PositionNomineeChart.Size = new System.Drawing.Size(2266, 907);
             this.tabPage_PositionNomineeChart.TabIndex = 2;
             this.tabPage_PositionNomineeChart.Text = "גרף משרות לפי ביקוש";
             this.tabPage_PositionNomineeChart.UseVisualStyleBackColor = true;
             // 
             // chart1
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea4);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "Legend1";
-            this.chart1.Legends.Add(legend4);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chart1.Series.Add(series4);
-            this.chart1.Size = new System.Drawing.Size(2260, 917);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(2260, 901);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
