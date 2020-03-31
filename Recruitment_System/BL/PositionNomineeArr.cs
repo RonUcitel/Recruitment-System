@@ -113,7 +113,7 @@ namespace Recruitment_System.BL
         }
 
 
-        public bool Delete()
+        public bool DeleteArr()
         {
             //מוחקת את אוסף המוצרים להזמנה מ מסד הנתונים
 

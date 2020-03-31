@@ -137,7 +137,29 @@ namespace Recruitment_System.BL
 
         public bool Delete()
         {
-            return Nominee_Dal.Delete(m_DBId);
+            LogEntryArr logEntryArr = new LogEntryArr();
+            logEntryArr.Fill();
+            logEntryArr = logEntryArr.Filter(this.DBId, DateTime.MinValue, "");
+
+            if (logEntryArr.DeleteArr())
+            {
+                PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
+                if (this.Disabled)
+                {
+                    positionNomineeArr.FillDisabled();
+                }
+                else
+                {
+                    positionNomineeArr.FillEnabled();
+                }
+
+                positionNomineeArr.Filter(this, Position.Empty);
+                if (positionNomineeArr.DeleteArr())
+                {
+                    return Nominee_Dal.Delete(m_DBId);
+                }
+            }
+            return false;
         }
 
 

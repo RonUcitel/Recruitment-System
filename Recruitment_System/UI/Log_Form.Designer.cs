@@ -35,6 +35,8 @@
             this.הדפסדוחToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem_ClearLog = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +52,7 @@
             this.listView_Log.Name = "listView_Log";
             this.listView_Log.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.listView_Log.RightToLeftLayout = true;
-            this.listView_Log.Size = new System.Drawing.Size(1214, 657);
+            this.listView_Log.Size = new System.Drawing.Size(1164, 657);
             this.listView_Log.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listView_Log.TabIndex = 0;
             this.listView_Log.UseCompatibleStateImageBehavior = false;
@@ -62,15 +64,17 @@
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.הדפסדוחToolStripMenuItem});
+            this.הדפסדוחToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.toolStripMenuItem_ClearLog});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(249, 60);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(249, 122);
             // 
             // הדפסדוחToolStripMenuItem
             // 
             this.הדפסדוחToolStripMenuItem.Name = "הדפסדוחToolStripMenuItem";
-            this.הדפסדוחToolStripMenuItem.Size = new System.Drawing.Size(248, 56);
+            this.הדפסדוחToolStripMenuItem.Size = new System.Drawing.Size(420, 56);
             this.הדפסדוחToolStripMenuItem.Text = "הדפס דוח";
             this.הדפסדוחToolStripMenuItem.Click += new System.EventHandler(this.הדפסדוחToolStripMenuItem_Click);
             // 
@@ -88,11 +92,24 @@
             // 
             this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.document_PrintPage);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(417, 6);
+            // 
+            // toolStripMenuItem_ClearLog
+            // 
+            this.toolStripMenuItem_ClearLog.BackColor = System.Drawing.Color.Red;
+            this.toolStripMenuItem_ClearLog.Name = "toolStripMenuItem_ClearLog";
+            this.toolStripMenuItem_ClearLog.Size = new System.Drawing.Size(420, 56);
+            this.toolStripMenuItem_ClearLog.Text = "נקה לוג";
+            this.toolStripMenuItem_ClearLog.Click += new System.EventHandler(this.toolStripMenuItem_ClearLog_Click);
+            // 
             // Log_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1214, 657);
+            this.ClientSize = new System.Drawing.Size(1164, 657);
             this.Controls.Add(this.listView_Log);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -112,5 +129,7 @@
         private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem הדפסדוחToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_ClearLog;
     }
 }

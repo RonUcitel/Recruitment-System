@@ -83,7 +83,7 @@
     <Compile Include="DAL\City_Dal.cs" />
     <Compile Include="DAL\Nominee_Dal.cs" />
     <Compile Include="DAL\Dal.cs" />
-    <Compile Include="DAL\_Dal.cs" />
+    <Compile Include="DAL\Position_Dal.cs" />
     <Compile Include="UI\AboutBox1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -45,7 +45,10 @@ namespace Recruitment_System.UI
 
         private void רשימותלוגToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Log_Form log_Form = new Log_Form(int.Parse(label_DBID.Text));
+            NomineeArr nomineeArr = new NomineeArr();
+            nomineeArr.Fill();
+
+            Log_Form log_Form = new Log_Form(int.Parse(label_DBID.Text), nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text)).ToString());
             log_Form.Show();
         }
 
@@ -114,7 +117,10 @@ namespace Recruitment_System.UI
 
         private void button_Show_Log_Click(object sender, EventArgs e)
         {
-            Log_Form log_Form = new Log_Form(int.Parse(label_DBID.Text));
+            NomineeArr nomineeArr = new NomineeArr();
+            nomineeArr.Fill();
+
+            Log_Form log_Form = new Log_Form(int.Parse(label_DBID.Text), nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text)).ToString());
             log_Form.Show();
         }
 
@@ -144,7 +150,7 @@ namespace Recruitment_System.UI
 
             else if (!nom.Disabled)
             {
-                if (MessageBox.Show("האם אתה בטוח שאתה רוצה להפוך את המועמד ללא זמין?\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                if (MessageBox.Show("המועמד הולך להפוך ללא זמין?\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     //make this nominee disabled
 
@@ -159,7 +165,7 @@ namespace Recruitment_System.UI
             }
             else
             {
-                if (MessageBox.Show("האם אתה בטוח שאתה רוצה להפוך את המועמד לזמין?\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
+                if (MessageBox.Show("המועמד הולך להפוך שוב לזמין?\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
                     //make this nominee enabled
 
@@ -215,9 +221,8 @@ namespace Recruitment_System.UI
 
         private void comboBox_City_Leave(object sender, EventArgs e)
         {
-            CityArr cityArr = new CityArr();
-            cityArr.Fill();
-            if (!cityArr.IsContains(comboBox_City.Text))//Contains(comboBox_City.Text)
+            CityArr cityArr = comboBox_City.DataSource as CityArr;
+            if (!cityArr.IsContains(comboBox_City.Text))
             {
                 comboBox_City.BackColor = Color.Red;
             }
@@ -266,12 +271,14 @@ namespace Recruitment_System.UI
                     e.KeyChar = char.MinValue;
                     if (comboBox_CellAreaCode.Text.Length > 2)
                     {
+                        e.Handled = true;
                         textBox_Cel.Text += c;//Add the last digit to the textBox_Cel.
                         textBox_Cel.Select(textBox_Cel.TextLength, textBox_Cel.TextLength);//move the curor to the end of the text within the textBox_Cel;
                         textBox_Cel.BackColor = Color.White;
                     }
                     else
                     {
+                        e.Handled = true;
                         comboBox_CellAreaCode.Text += c;//Add the last digit to the comboBox_CellAreaCode.
                     }
                     textBox_Cel.Focus();//move the focus to textBox_Cel when comboBox_CellAreaCode is full.
@@ -301,7 +308,7 @@ namespace Recruitment_System.UI
             if (!CheckForm())
             {
                 //The entered information is not valid.
-                dialogResult = MessageBox.Show("The information you entered is not valid.\nPlease check the red fields for problems.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                dialogResult = MessageBox.Show("המידע שהכנסת אינו תקין\nאנא תקן את השדות האדומים על מנת להמשיך", "אזהרה", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
             }
 
             else
@@ -315,11 +322,16 @@ namespace Recruitment_System.UI
 
                 if (nominee.DBId == 0)
                 {
-                    if (nominee.Insert())//Try to insert the new Nominee to the database.
+                    //Try to insert the new Nominee to the database.
+
+                    if (nominee.Insert())
                     {
                         //The insertion of the nominee data was successfull.
 
-                        positionNomineeArr_New = FormToPositionNomineeArr(nominee);
+                        //מכניס את המשרות המשוייכות למועמד
+                        NomineeArr nomineearr = new NomineeArr();
+                        nomineearr.Fill(GetCurNomineeArrState());
+                        positionNomineeArr_New = FormToPositionNomineeArr(nomineearr.MaxNomineeDBId());
 
                         //מוסיפים את הפריטים החדשים להזמנה
 
@@ -330,29 +342,27 @@ namespace Recruitment_System.UI
                         }
 
                         //Check the cv file:
-                        NomineeArr nomineearr = new NomineeArr();
-                        nomineearr.Fill(GetCurNomineeArrState());
+
                         SetCV(nomineearr.MaxNomineeDBId().DBId);
 
 
+                        //update the form
                         NomineeArrToForm();
-
+                        NomineeToForm(nomineearr.MaxNomineeDBId());
                         SetLastChangedTextbox(nominee.DBId);
 
-                        dialogResult = MessageBox.Show("The Nominee was ADDED successfully", "Yay!", MessageBoxButtons.OK);
+                        dialogResult = MessageBox.Show("המועמד נוסף בהצלחה", "יאי!", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                         listBox_Nominee.SelectedItem = listBox_Nominee.Items[listBox_Nominee.Items.Count - 1];
                     }
                     else
                     {
                         //There was a problem insreting the data to the database.
-                        dialogResult = MessageBox.Show("There was a problem ADDING the nominee to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                        dialogResult = MessageBox.Show("קרתה תקלה בזמן הוספת המועמד לבסיס הנתונים", "תקלה", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                     }
                 }
                 else
                 {
                     //it is an update                  
-
-                    //if there is a change in the data
 
                     if (nominee.Update())
                     {
@@ -371,7 +381,7 @@ namespace Recruitment_System.UI
 
                         //מחיקת כל הפריטים באוסף ההזמנה-פריט של ההזמנה הנוכחית
 
-                        positionNomineeArr_Old.Delete();
+                        positionNomineeArr_Old.DeleteArr();
 
                         //מוסיפים את הפריטים החדשים להזמנה
 
@@ -380,11 +390,13 @@ namespace Recruitment_System.UI
 
 
                         //Check the cv file:
+                        SetCV(nominee.DBId);
 
-                        dialogResult = MessageBox.Show("The Nominee was UPDATED successfully", "Yay!", MessageBoxButtons.OK);
+
+                        dialogResult = MessageBox.Show("המועמד התעדכן בהצלחה", "יאי!", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                     }
                     else
-                        dialogResult = MessageBox.Show("There was a problem UPDATING the nominee to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                        dialogResult = MessageBox.Show("קרתה תקלה בזמן עדכון המועמד בבסיס הנתונים", "תקלה", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
 
                 }
             }
@@ -449,10 +461,37 @@ namespace Recruitment_System.UI
                 {
                     //file accepted
                     button_Add_CV.Tag = paths[i];
-                    if (FormToNominee().DBId != 0)
+
+                    //if the nominee is already in the database then update the CV.
+                    if (label_DBID.Text != "0")
                     {
-                        SetCV(FormToNominee().DBId);
+                        SetCV(int.Parse(label_DBID.Text));
                     }
+
+
+                    string[] pathParts = ((string)button_Add_CV.Tag).Split('\\');
+                    pathParts = pathParts[pathParts.Length - 1].Split('.');
+
+                    if (pathParts[pathParts.Length - 1] == "pdf")
+                    {
+                        //the file is a pdf file
+                        PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
+                    }
+                    else
+                    {
+                        //the file is a docx file. open it with a word program.
+                        PDF_CV_Viewer.src = null;
+                        try
+                        {
+                            Process.Start((string)button_Add_CV.Tag);
+                        }
+                        catch
+                        { }
+
+                    }
+
+
+
                     button_Add_CV.BackColor = Color.Green;
                     button_Add_CV.Text = "ישנם קורות חיים";
                     return;
@@ -482,7 +521,7 @@ namespace Recruitment_System.UI
             else
             {
                 //No nominee was found by the filter
-                if (MessageBox.Show("There is no nominee matching the fields you filled. please check the values you entered.", "No Nominee was found", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) != DialogResult.OK)
+                if (MessageBox.Show("אין אף מועמד התואם לנתונים שהכנסת.", "לא נמצא מועמד", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading) != DialogResult.OK)
                 {
                     NomineeToForm(null);
                 }
@@ -498,6 +537,12 @@ namespace Recruitment_System.UI
             nomineeArr.Fill(GetCurNomineeArrState());
 
             listBox_Nominee.DataSource = nomineeArr;
+
+
+            button_Add_CV.Tag = null;
+            button_Add_CV.Text = "הוסף קורות חיים";
+            button_Add_CV.BackColor = SystemColors.ButtonFace;
+            button_Add_CV.UseVisualStyleBackColor = true;
         }
 
 
@@ -506,8 +551,10 @@ namespace Recruitment_System.UI
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = @"C:\Users\" + Environment.UserName + @"\Desktop";
-                openFileDialog.Filter = "pdf files (*.pdf)|*.pdf|word files (*.docx)|*.docx";
-                openFileDialog.FilterIndex = 2;
+                openFileDialog.Filter = "pdf & word documents|*.pdf;*.doc;*.docx" +
+                                        "|pdf files (*.pdf)|*.pdf" +
+                                        "|word files (*.docx)|*.docx";
+                openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.Cancel)
@@ -517,10 +564,39 @@ namespace Recruitment_System.UI
 
                 //Get the path of specified file
                 button_Add_CV.Tag = openFileDialog.FileName;
-                if (FormToNominee().DBId != 0)
+
+
+                //if the nominee is already in the database then update the CV.
+                if (label_DBID.Text != "0")
                 {
-                    SetCV(FormToNominee().DBId);
+                    SetCV(int.Parse(label_DBID.Text));
                 }
+
+
+                string[] pathParts = ((string)button_Add_CV.Tag).Split('\\');
+                pathParts = pathParts[pathParts.Length - 1].Split('.');
+
+                if (pathParts[pathParts.Length - 1] == "pdf")
+                {
+                    //the file is a pdf file
+                    PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
+                }
+                else
+                {
+                    //the file is a docx file. open it with a word program.
+                    PDF_CV_Viewer.src = null;
+                    try
+                    {
+                        Process.Start((string)button_Add_CV.Tag);
+                    }
+                    catch
+                    { }
+
+                }
+
+
+                button_Add_CV.BackColor = Color.Green;
+                button_Add_CV.Text = "ישנם קורות חיים";
             }
         }
 
@@ -528,8 +604,10 @@ namespace Recruitment_System.UI
         private void button_Remove_CV_Click(object sender, EventArgs e)
         {
             button_Add_CV.Tag = null;
-            int dbid = FormToNominee().DBId;
-            SetCV(dbid);
+            if (label_DBID.Text != "0")
+            {
+                SetCV(int.Parse(label_DBID.Text));
+            }
             button_Add_CV.Text = "הוסף קורות חיים";
             button_Add_CV.BackColor = SystemColors.ButtonFace;
             button_Add_CV.UseVisualStyleBackColor = true;
@@ -550,22 +628,21 @@ namespace Recruitment_System.UI
                 {
                     //delete this nominee from the database
 
-                    delete.Delete();
-
-                    LogEntryArr logToDelete = new LogEntryArr();
-                    logToDelete.Fill();
-                    logToDelete = logToDelete.Filter(delete.DBId, DateTime.MinValue, "");
-
-                    for (int i = 0; i < logToDelete.Count; i++)
+                    if (delete.Delete())
                     {
-                        (logToDelete[i] as LogEntry).Delete();
+
+                        NomineeArr nomineearr = new NomineeArr();
+                        nomineearr.Fill(GetCurNomineeArrState());
+
+                        SetCV(delete.DBId);
+
+                        listBox_Nominee.DataSource = nomineearr;
+                        NomineeToForm(null);
                     }
-
-                    NomineeArr nomineearr = new NomineeArr();
-                    nomineearr.Fill(GetCurNomineeArrState());
-
-                    listBox_Nominee.DataSource = nomineearr;
-                    NomineeToForm(null);
+                    else
+                    {
+                        MessageBox.Show("קרתה תקלה בזמן המחיקה של המועמד מבסיס הנתונים", "תקלה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                    }
                 }
             }
         }
@@ -720,7 +797,7 @@ namespace Recruitment_System.UI
                 string positions = positionArr[0].ToString();
                 for (int i = 1; i < positionArr.Count; i++)
                 {
-                    positions += /*", "*/"\n" + positionArr[i].ToString();
+                    positions += "\n" + positionArr[i].ToString();
                 }
 
                 toolTip_Positions.SetToolTip(textBox_Positions, positions);
@@ -872,13 +949,12 @@ namespace Recruitment_System.UI
 
                 label_DBID.Text = nominee.DBId.ToString();
 
-
                 (string path, string type) cv = GetCV(nominee.DBId);
                 if (cv.path != "")
                 {
                     button_Add_CV.BackColor = Color.Green;
                     button_Add_CV.Text = "ישנם קורות חיים";
-
+                    button_Add_CV.Tag = cv.path;
                     //there is a cv file
                     if (cv.type == "pdf")
                     {
@@ -889,7 +965,13 @@ namespace Recruitment_System.UI
                     {
                         //the file is a docx file. open it with a word program.
                         PDF_CV_Viewer.src = null;
-                        Process.Start(cv.path);
+                        try
+                        {
+                            Process.Start(cv.path);
+                        }
+                        catch
+                        { }
+
                     }
                 }
                 else
@@ -903,7 +985,9 @@ namespace Recruitment_System.UI
             else
             {
                 comboBox_City.SelectedItem = null;
-                SetPositionTextBoxAndToolTip(new PositionArr());
+                textBox_Positions.Tag = new PositionArr();
+                SetPositionTextBoxAndToolTip(textBox_Positions.Tag as PositionArr);
+
                 //Reset the text and flags of the input fields.
                 foreach (Control item in groupBox_PD.Controls)
                 {
@@ -932,6 +1016,11 @@ namespace Recruitment_System.UI
                     }
                 }
                 PDF_CV_Viewer.src = null;
+                button_Add_CV.Tag = null;
+                button_Add_CV.Text = "הוסף קורות חיים";
+                button_Add_CV.BackColor = SystemColors.ButtonFace;
+                button_Add_CV.UseVisualStyleBackColor = true;
+
                 label_ShowDisabled.Visible = false;
                 label_DBID.Text = "0";
             }
@@ -1047,5 +1136,50 @@ namespace Recruitment_System.UI
 
 
         #endregion
+
+        private void comboBox_City_TextChanged(object sender, EventArgs e)
+        {
+            comboBox_City.BackColor = Color.White;
+        }
+
+        private void comboBox_CellAreaCode_Leave(object sender, EventArgs e)
+        {
+            if (comboBox_CellAreaCode.Items.Contains(comboBox_CellAreaCode.Text))
+            {
+                comboBox_CellAreaCode.BackColor = Color.White;
+            }
+            else
+            {
+                comboBox_CellAreaCode.BackColor = Color.Red;
+            }
+        }
+
+        private void קורותחייםToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (button_Add_CV.Tag != null)
+            {
+                string[] pathParts = ((string)button_Add_CV.Tag).Split('\\');
+                pathParts = pathParts[pathParts.Length - 1].Split('.');
+
+                if (pathParts[pathParts.Length - 1] == "pdf")
+                {
+                    //the file is a pdf file
+                    PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
+                }
+                else
+                {
+                    //the file is a docx file. open it with a word program.
+                    PDF_CV_Viewer.src = null;
+                    try
+                    {
+                        Process.Start((string)button_Add_CV.Tag);
+                    }
+                    catch
+                    { }
+
+                }
+            }
+
+        }
     }
 }

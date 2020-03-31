@@ -58,7 +58,7 @@ namespace Recruitment_System.UI
 
             Position position = listBox_Position.SelectedItem as Position;
 
-            if (MessageBox.Show("האם אתה בטוח שאתה רוצה למחוק את המשרה שבחרת?\nפעולה זאת הינה בלתי הפיכה!", "אזהרה", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show("האם אתה בטוח שאתה רוצה למחוק את המשרה שבחרת?\nפעולה זאת הינה בלתי הפיכה!", "אזהרה", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading) == DialogResult.Yes)
             {
                 PositionNomineeArr positionNominee = new PositionNomineeArr();
                 positionNominee.Fill();
@@ -101,7 +101,7 @@ namespace Recruitment_System.UI
             {
 
                 //There is a valid position to insert that will be erased.
-                DialogResult dr = MessageBox.Show("The data you provided can be added as a position.\nDo you want to save it?", "Warning!", MessageBoxButtons.YesNoCancel);
+                DialogResult dr = MessageBox.Show("המידע שהכנסת יכול להתווסף כמשרה.\nהאם אתה רוצה לשמור אותה?", "אזהרה!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                 if (dr == DialogResult.No)
                 {
                     PositionToForm(listBox_Position.SelectedItem as Position);
@@ -144,7 +144,7 @@ namespace Recruitment_System.UI
             if (!CheckForm())
             {
                 //The entered information is not valid.
-                dialogResult = MessageBox.Show("The information entered is not valid.\nPlease check the red field for problems.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                dialogResult = MessageBox.Show("המידע שהכנסת אינו תקין.\nאנא תקן את השדות האדומים", "שגיאה", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
             }
 
             else
@@ -165,17 +165,17 @@ namespace Recruitment_System.UI
                             PositionArr positionArr = new PositionArr();
                             positionArr.Fill();
                             PositionArrToForm(positionArr.GetPositionWithMaxId());
-                            dialogResult = MessageBox.Show("The position was ADDED successfully", "Yay!", MessageBoxButtons.OK);
+                            dialogResult = MessageBox.Show("המשרה התווספה בהצלחה!", "יאי!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                         }
                         else
                         {
                             //There was a problem insreting the data to the database.
-                            dialogResult = MessageBox.Show("There was a problem ADDING the position to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                            dialogResult = MessageBox.Show("קרתה תקלה במהלך ההכנסה של המשרה לבסיס הנתונים.\nהאם תרצה לנסות שוב, לבטל את הפעולה, או להמשיך?", "תקלה", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                         }
                     }
                     else
                     {
-                        dialogResult = MessageBox.Show("The position you're trying to add already exists in the system.", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                        dialogResult = MessageBox.Show("המשרה שאתה מנסה להוסיף כבר קיימת במערכת", "שגיאה", MessageBoxButtons.OKCancel, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                     }
                 }
                 else
@@ -187,12 +187,13 @@ namespace Recruitment_System.UI
                             PositionArr positionArr = new PositionArr();
                             positionArr.Fill();
                             PositionArrToForm(positionArr.GetPositionWithMaxId());
-                            dialogResult = MessageBox.Show("The position was UPDATED successfully", "Yay!", MessageBoxButtons.OK);
+                            dialogResult = MessageBox.Show("המשרה התעדכנה בהצלחה", "יאי!", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                         }
                         else
-                            dialogResult = MessageBox.Show("There was a problem UPDATING the position to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                            dialogResult = MessageBox.Show("קרתה תקלה במהלך העדכון של המשרה לבסיס הנתונים.\nהאם תרצה לנסות שוב, לבטל את הפעולה, או להמשיך?", "תקלה", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                     }
-                    dialogResult = DialogResult.OK;
+                    else
+                        dialogResult = DialogResult.OK;
                 }
             }
 
@@ -264,7 +265,7 @@ namespace Recruitment_System.UI
         /// </summary>
         private void TextBox_Filter_Letter_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!IsEnLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ' ')
+            if (!IsHeLetter(e.KeyChar) && !IsEnLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ' ')
             {
                 //If the pressed key is not a letter - Hebrew or English, or a Control Key
                 //or a Hyphen or a Space char, then don't enter it to the text of the textBox.
@@ -279,7 +280,6 @@ namespace Recruitment_System.UI
             positionArr.Fill();
 
             positionArr = positionArr.Filter(textBox_Filter.Text);
-            positionArr.Remove("+");
 
             listBox_Position.DataSource = positionArr;
         }
@@ -528,7 +528,7 @@ namespace Recruitment_System.UI
             }
 
 
-            if (MessageBox.Show("האם אתה בטוח שאתה רוצה למחוק את המשרה שבחרת?\nפעולה זאת הינה בלתי הפיכה!", "אזהרה", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show("האם אתה בטוח שאתה רוצה למחוק את המשרה שבחרת?\nפעולה זאת הינה בלתי הפיכה!", "אזהרה", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading) == DialogResult.Yes)
             {
                 PositionNomineeArr positionNominee = new PositionNomineeArr();
                 positionNominee.Fill();

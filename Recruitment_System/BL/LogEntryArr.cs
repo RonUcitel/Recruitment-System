@@ -49,6 +49,20 @@ namespace Recruitment_System.BL
             return logEntryArr;
         }
 
+        public bool DeleteArr()
+        {
+            //מוחקת את אוסף המוצרים להזמנה מ מסד הנתונים
+
+            LogEntry logEntry;
+            for (int i = 0; i < this.Count; i++)
+            {
+                logEntry = (this[i] as LogEntry);
+                if (!logEntry.Delete())
+                    return false;
+
+            }
+            return true;
+        }
 
         public bool IsContains(string logEntryName)
         {

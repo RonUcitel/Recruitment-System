@@ -99,7 +99,7 @@ namespace Recruitment_System.UI
             {
 
                 //There is a valid city to insert that will be erased.
-                DialogResult dr = MessageBox.Show("The data you provided can be added as a city.\nDo you want to save it?", "Warning!", MessageBoxButtons.YesNoCancel);
+                DialogResult dr = MessageBox.Show("המידע שהכנסת יכול להתווסף כעיר\nהאם אתה רוצה לשמור אותה?", "אזהרה!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                 if (dr == DialogResult.No)
                 {
                     CityToForm(listBox_City.SelectedItem as City);
@@ -142,7 +142,7 @@ namespace Recruitment_System.UI
             if (!CheckForm())
             {
                 //The entered information is not valid.
-                dialogResult = MessageBox.Show("The information entered is not valid.\nPlease check the red field for problems.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                dialogResult = MessageBox.Show("המידע שסיפקת אינו תקין.\nאנא תקן את השדות האדומים על מנת להמשיך", "אזהרה", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
             }
 
             else
@@ -163,17 +163,17 @@ namespace Recruitment_System.UI
                             CityArr cityArr = new CityArr();
                             cityArr.Fill();
                             CityArrToForm(cityArr.GetCityWithMaxId());
-                            dialogResult = MessageBox.Show("The city was ADDED successfully", "Yay!", MessageBoxButtons.OK);
+                            dialogResult = MessageBox.Show("העיר נוספה בהצלחה", "יאי!", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                         }
                         else
                         {
                             //There was a problem insreting the data to the database.
-                            dialogResult = MessageBox.Show("There was a problem ADDING the city to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                            dialogResult = MessageBox.Show("קרתה תקלה בעת שמירת העיר בבסיס הנתונים", "תקלה", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                         }
                     }
                     else
                     {
-                        dialogResult = MessageBox.Show("The city you're trying to add already exists in the system.", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                        dialogResult = MessageBox.Show("העיר שאתה מנסה להוסיף כבר קיימת במערכת!", "הפעולה נמנעה", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                     }
                 }
                 else
@@ -185,10 +185,10 @@ namespace Recruitment_System.UI
                             CityArr cityArr = new CityArr();
                             cityArr.Fill();
                             CityArrToForm(cityArr.GetCityWithMaxId());
-                            dialogResult = MessageBox.Show("The city was UPDATED successfully", "Yay!", MessageBoxButtons.OK);
+                            dialogResult = MessageBox.Show("העיר עודכנה בהצלחה", "יאי!", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                         }
                         else
-                            dialogResult = MessageBox.Show("There was a problem UPDATING the city to the database", "Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
+                            dialogResult = MessageBox.Show("קרתה תקלה בעת עדכון העיר בבסיס הנתונים", "תקלה", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                     }
                     dialogResult = DialogResult.OK;
                 }
@@ -262,7 +262,7 @@ namespace Recruitment_System.UI
         /// </summary>
         private void TextBox_Filter_Letter_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!IsEnLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ' ')
+            if (!IsHeLetter(e.KeyChar) && !IsEnLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ' ')
             {
                 //If the pressed key is not a letter - Hebrew or English, or a Control Key
                 //or a Hyphen or a Space char, then don't enter it to the text of the textBox.

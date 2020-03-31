@@ -13,26 +13,32 @@ namespace Recruitment_System.UI
 {
     public partial class Log_Form : Form
     {
-        public Log_Form(int nomineeDBId)
+        public Log_Form(int nomineeDBId, string name = "")
         {
             InitializeComponent();
+
+            Text += ((name == "" || name == " ") ? name : " - ") + name;
+
+            this.Tag = nomineeDBId;
             UpdateListView_Log(nomineeDBId);
-            listView_Log.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            Size s = new Size(SystemInformation.VerticalScrollBarWidth, listView_Log.Items[0].Bounds.Height);
+
+
+            Size size = new Size(SystemInformation.VerticalScrollBarWidth, SystemInformation.HorizontalScrollBarHeight /*somehow the same as the columnHeader hight- wifh is unavailable*/);
+
             for (int i = 0; i < listView_Log.Columns.Count; i++)
             {
-                s.Width += listView_Log.Columns[i].Width + 1;
+                size.Width += listView_Log.Columns[i].Width + 1;
             }
             for (int i = 0; i < listView_Log.Items.Count; i++)
             {
-                s.Height += listView_Log.Items[i].Bounds.Height + 1;
+                size.Height += listView_Log.Items[i].Bounds.Height + 1;
             }
-            ClientSize = s;
+            this.ClientSize = size;
         }
 
 
         private Bitmap[] m_bitmaps;
-
+        private int pageNum;
 
         private void listView_Log_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
         {
@@ -43,6 +49,8 @@ namespace Recruitment_System.UI
 
         private void UpdateListView_Log(int nomineeDBId)
         {
+            listView_Log.Clear();
+
             if (nomineeDBId > 0)
             {
                 listView_Log.Columns.Add("תאריך");
@@ -86,11 +94,34 @@ namespace Recruitment_System.UI
                     listView_Log.Items.Add(listViewItem);
                 }
             }
-            listView_Log.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
+
+
+            //stop drawing the listview to prevent flickering.
+            listView_Log.BeginUpdate();
+
+            int width;
             foreach (ColumnHeader item in listView_Log.Columns)
             {
+                //set the width to match the headersize and save the width in the int
+                item.AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
+                width = item.Width;
+
+                //reset the width to match the columncontent size 
+                item.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+
+                //if the header size is bigger then the column size the return to the headersize.
+                if (width > item.Width)
+                {
+                    item.AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
+                }
+
+                //make the width bigger in abit.
                 item.Width = (int)Math.Ceiling(item.Width * 1.5);
             }
+
+            //redraw the listview
+            listView_Log.EndUpdate();
         }
 
 
@@ -127,7 +158,6 @@ namespace Recruitment_System.UI
 
         private void הדפסדוחToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //CaptureScreen();
             SetPrint();
             printPreviewDialog1.Document = printDocument1;
             printPreviewDialog1.ShowDialog();
@@ -135,6 +165,7 @@ namespace Recruitment_System.UI
 
         private void listView_Log_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
+            //disable selection
             if (e.IsSelected)
                 e.Item.Selected = false;
         }
@@ -185,7 +216,22 @@ namespace Recruitment_System.UI
             }
         }
 
+        private void toolStripMenuItem_ClearLog_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes == MessageBox.Show("פעולה זאת אינה ניתנת לשיחזור!\nהאם אתה רוצה להמשיך?", "אזהרה", MessageBoxButtons.YesNo, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading))
+            {
+                LogEntryArr logEntryArr = new LogEntryArr();
+                logEntryArr.Fill();
+                if (!logEntryArr.DeleteArr())
+                {
+                    MessageBox.Show("קרתה תקלה בעת ביצוע המחיקה", "תקלה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                }
+                else
+                {
+                    UpdateListView_Log((int)this.Tag);
+                }
 
-        private int pageNum;
+            }
+        }
     }
 }
