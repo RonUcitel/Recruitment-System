@@ -93,7 +93,7 @@ namespace Recruitment_System.BL
         public string Email { get => m_Email; set => m_Email = value; }
         public bool Disabled { get => m_Disabled; set => m_Disabled = value; }
 
-        public static Nominee Empty = new Nominee();
+        public static readonly Nominee Empty = new Nominee();
         #endregion
 
 

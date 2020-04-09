@@ -218,5 +218,30 @@ namespace Recruitment_System.UI
                 item.Width = (int)Math.Ceiling(item.Width * 1.5);
             }
         }
+
+
+        private void SetScorerRowPanel(Panel panel, TableLayoutPanel tableLayoutPanel)
+        {
+            panel.Dock = DockStyle.Fill;
+            panel.AutoScroll = true;
+            panel.AutoSize = false;
+
+            tableLayoutPanel.Dock = DockStyle.Top;
+            tableLayoutPanel.AutoSize = true;
+            tableLayoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel.AutoScroll = false;
+        }
+
+        private void AddScorerRow(TableLayoutPanel tableLayoutPanel, string text, int score)
+        {
+            ScorerRow scorerRow = new ScorerRow();
+            scorerRow.Text = text;
+            scorerRow.Score = score;
+            scorerRow.Width = tableLayoutPanel.Width - 2;
+            scorerRow.Location = new Point(0, 0);
+
+            tableLayoutPanel.Controls.Add(scorerRow);
+            tableLayoutPanel.SetRow(scorerRow, tableLayoutPanel.RowCount);
+        }
     }
 }

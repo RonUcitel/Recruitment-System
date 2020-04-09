@@ -15,7 +15,7 @@ namespace Recruitment_System.DAL
         /// Inserts the information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
-        public static bool Insert(string firstName, string lastName, int credentialsId)
+        public static bool Insert(string firstName, string lastName, string id, int credentialsId)
         {
 
             //Building the SQL command
@@ -23,6 +23,7 @@ namespace Recruitment_System.DAL
                 + "("
                 + "[FirstName]"
                 + ",[LastName]"
+                + ",[Id_Num]"
                 + ",[Credentials]"
                 + ")"
 
@@ -30,6 +31,7 @@ namespace Recruitment_System.DAL
                 + "("
                       + "N'" + firstName.Replace("'", "$") + "'"
                 + "," + "N'" + lastName.Replace("'", "$") + "'"
+                + "," + "N'" + id + "'"
                 + "," + "" + credentialsId + ""
                 + ")";
 
@@ -38,7 +40,7 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool Update(int id, string firstName, string lastName, int credentialsId)
+        public static bool Update(int dBId, string firstName, string lastName, string id, int credentialsId)
         {
 
             //מעדכנת את הלקוח במסד הנתונים
@@ -46,9 +48,10 @@ namespace Recruitment_System.DAL
             string str = "UPDATE " + tableName + " SET"
             + " " + "[FirstName] = " + "N'" + firstName + "'"
             + "," + "[LastName] = " + "N'" + lastName + "'"
+            + "," + "[Id_Num] = " + "N'" + id + "'"
             + "," + "[Credentials] = " + "" + credentialsId + ""
 
-            + " WHERE ID = " + id;
+            + " WHERE ID = " + dBId;
 
             //הפעלת פעולת הSQL -תוך שימוש בפעולה המוכנה ExecuteSql במחלקה Dal והחזרה האם הפעולה הצליחה
 
@@ -56,15 +59,15 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool ChangeHidden(int id, bool isHidden)
+        public static bool ChangeAdmin(int dBId, bool isAdmin)
         {
 
             //מעדכנת את הלקוח במסד הנתונים
 
             string str = "UPDATE " + tableName + " SET"
-            + " " + "[Hidden] = " + "" + (isHidden ? 1 : 0) + ""
+            + " " + "[Admin] = " + "" + (isAdmin ? 1 : 0) + ""
 
-            + " WHERE ID = " + id;
+            + " WHERE ID = " + dBId;
 
             //הפעלת פעולת הSQL -תוך שימוש בפעולה המוכנה ExecuteSql במחלקה Dal והחזרה האם הפעולה הצליחה
 
@@ -87,6 +90,17 @@ namespace Recruitment_System.DAL
         public static void FillDataSet(DataSet dataSet)
         {
             Dal.FillDataSet(dataSet, tableName, "");
+
+            Credentials_Dal.FillDataSet(dataSet);
+
+
+            DataRelation dataRelationNomineeCity = new DataRelation(
+                "InterviewerCredentials"
+                , dataSet.Tables[Credentials_Dal.tableName].Columns["Id"]
+                , dataSet.Tables[tableName].Columns["Credentials"]);
+
+
+            dataSet.Relations.Add(dataRelationNomineeCity);
         }
 
 
@@ -95,12 +109,12 @@ namespace Recruitment_System.DAL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static bool Delete(int id)
+        public static bool Delete(int dBId)
         {
 
             //מוחקת את הלקוח ממסד הנתונים
             string str = "DELETE FROM " + tableName
-            + " WHERE ID = " + id;
+            + " WHERE ID = " + dBId;
 
             //הפעלת פעולת הSQL -תוך שימוש בפעולה המוכנה ExecuteSql במחלקה Dal והחזרה האם הפעולה הצליחה
             return Dal.ExecuteSql(str);

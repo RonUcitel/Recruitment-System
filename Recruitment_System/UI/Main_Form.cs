@@ -18,8 +18,13 @@ namespace Recruitment_System.UI
         private City lastSelectedcomboBox_CityIndex = City.Empty;
         public MainForm()
         {
+            LogIn_Form loginForm = new LogIn_Form();
+            loginForm.ShowDialog();
             InitializeComponent();
-            label_ShowDisabled.Hide();
+
+            interviewerToolStripMenuItem.Text = loginForm.Interviewer.ToString();
+            AdminToolStripMenuItem.Visible = loginForm.Interviewer.Admin;
+
             Icon = Properties.Resources.allnet;
             SetUpNomineeArrShowMenu();
             ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
@@ -235,7 +240,7 @@ namespace Recruitment_System.UI
 
         private void button_Add_CV_DragLeave(object sender, EventArgs e)
         {
-            if (button_Add_CV.Tag == null)
+            if ((string)button_Add_CV.Tag == GetCV(0).path)
             {
                 button_Add_CV.Text = "הוסף קורות חיים";
                 button_Add_CV.BackColor = SystemColors.ButtonFace;
@@ -335,7 +340,7 @@ namespace Recruitment_System.UI
 
                         //מוסיפים את הפריטים החדשים להזמנה
 
-                        if (!positionNomineeArr_New.Insert())
+                        if (!positionNomineeArr_New.InsertArr())
                         {
                             MessageBox.Show("הייתה שגיעה בעדכון המשרות\nאנא נסה שנית.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                             SetPositionTextBoxAndToolTip(new PositionArr());
@@ -385,7 +390,7 @@ namespace Recruitment_System.UI
 
                         //מוסיפים את הפריטים החדשים להזמנה
 
-                        positionNomineeArr_New.Insert();
+                        positionNomineeArr_New.InsertArr();
 
 
 
@@ -476,13 +481,14 @@ namespace Recruitment_System.UI
                     {
                         //the file is a pdf file
                         PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
-                        PDF_CV_Viewer.Visible = true;
+
                     }
                     else
                     {
                         //the file is a docx file. open it with a word program.
-                        PDF_CV_Viewer.src = null;
-                        PDF_CV_Viewer.Visible = false;
+                        PDF_CV_Viewer.src = GetCV(0).path;
+                        PDF_CV_Viewer.Update();
+
                         try
                         {
                             Process.Start((string)button_Add_CV.Tag);
@@ -539,12 +545,6 @@ namespace Recruitment_System.UI
             nomineeArr.Fill(GetCurNomineeArrState());
 
             listBox_Nominee.DataSource = nomineeArr;
-
-
-            button_Add_CV.Tag = null;
-            button_Add_CV.Text = "הוסף קורות חיים";
-            button_Add_CV.BackColor = SystemColors.ButtonFace;
-            button_Add_CV.UseVisualStyleBackColor = true;
         }
 
 
@@ -582,13 +582,14 @@ namespace Recruitment_System.UI
                 {
                     //the file is a pdf file
                     PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
-                    PDF_CV_Viewer.Visible = true;
+
                 }
                 else
                 {
                     //the file is a docx file. open it with a word program.
-                    PDF_CV_Viewer.src = null;
-                    PDF_CV_Viewer.Visible = false;
+                    PDF_CV_Viewer.src = GetCV(0).path;
+                    PDF_CV_Viewer.Update();
+
                     try
                     {
                         Process.Start((string)button_Add_CV.Tag);
@@ -607,7 +608,7 @@ namespace Recruitment_System.UI
 
         private void button_Remove_CV_Click(object sender, EventArgs e)
         {
-            button_Add_CV.Tag = null;
+            button_Add_CV.Tag = GetCV(0).path;
             if (label_DBID.Text != "0")
             {
                 SetCV(int.Parse(label_DBID.Text));
@@ -964,13 +965,13 @@ namespace Recruitment_System.UI
                     {
                         //the file is a pdf file
                         PDF_CV_Viewer.src = cv.path;
-                        PDF_CV_Viewer.Visible = true;
+
                     }
                     else
                     {
                         //the file is a docx file. open it with a word program.
-                        PDF_CV_Viewer.src = null;
-                        PDF_CV_Viewer.Visible = false;
+                        PDF_CV_Viewer.src = GetCV(0).path;
+
                         PDF_CV_Viewer.Update();
 
                         try
@@ -1023,9 +1024,13 @@ namespace Recruitment_System.UI
                         item.BackColor = Color.White;
                     }
                 }
+                PDF_CV_Viewer.BeginInit();
                 PDF_CV_Viewer.src = null;
-                PDF_CV_Viewer.Visible = false;
-                button_Add_CV.Tag = null;
+                PDF_CV_Viewer.src = GetCV(0).path;
+                PDF_CV_Viewer.EndInit();
+                PDF_CV_Viewer.Update();
+
+                button_Add_CV.Tag = GetCV(0).path;
                 button_Add_CV.Text = "הוסף קורות חיים";
                 button_Add_CV.BackColor = SystemColors.ButtonFace;
                 button_Add_CV.UseVisualStyleBackColor = true;
@@ -1049,7 +1054,7 @@ namespace Recruitment_System.UI
         {
             string path = Properties.Resources.Server_Path + Properties.Resources.CVS_path + DBId + @"\";
 
-            if (button_Add_CV.Tag != null)
+            if ((string)button_Add_CV.Tag != GetCV(0).path)
             {
                 string[] pathParts = (button_Add_CV.Tag as string).Split('\\');
                 string fileName = pathParts[pathParts.Length - 1];
@@ -1166,7 +1171,7 @@ namespace Recruitment_System.UI
 
         private void קורותחייםToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (button_Add_CV.Tag != null)
+            if ((string)button_Add_CV.Tag != GetCV(0).path)
             {
                 string[] pathParts = ((string)button_Add_CV.Tag).Split('\\');
                 pathParts = pathParts[pathParts.Length - 1].Split('.');
@@ -1175,13 +1180,14 @@ namespace Recruitment_System.UI
                 {
                     //the file is a pdf file
                     PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
-                    PDF_CV_Viewer.Visible = true;
+
                 }
                 else
                 {
                     //the file is a docx file. open it with a word program.
-                    PDF_CV_Viewer.src = null;
-                    PDF_CV_Viewer.Visible = false;
+                    PDF_CV_Viewer.src = GetCV(0).path;
+                    PDF_CV_Viewer.Update();
+
                     try
                     {
                         Process.Start((string)button_Add_CV.Tag);
@@ -1191,7 +1197,22 @@ namespace Recruitment_System.UI
 
                 }
             }
+            else
+            {
+                PDF_CV_Viewer.src = GetCV(0).path;
+                PDF_CV_Viewer.Update();
+            }
+        }
 
+        private void התנתקToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void AdminToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdminTools_Form adminToolsForm = new AdminTools_Form();
+            adminToolsForm.ShowDialog();
         }
     }
 }

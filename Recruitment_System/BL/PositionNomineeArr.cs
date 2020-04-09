@@ -97,7 +97,7 @@ namespace Recruitment_System.BL
             }
         }
 
-        public bool Insert()
+        public bool InsertArr()
         {
             //מוסיפה את אוסף המוצרים להזמנה למסד הנתונים
 
@@ -193,12 +193,12 @@ namespace Recruitment_System.BL
         }
 
 
-        public bool DoesExist(Position Position)
+        public bool DoesExist(Position position)
         {
             //return whether curPosition exists in a nominee on this NomineeArr.
             for (int i = 0; i < this.Count; i++)
             {
-                if ((this[i] as PositionNominee).Position == Position)
+                if ((this[i] as PositionNominee).Position == position)
                 {
                     return true;
                 }
