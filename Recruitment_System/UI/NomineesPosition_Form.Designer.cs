@@ -255,6 +255,8 @@
             this.Controls.Add(this.button_Remove);
             this.Controls.Add(this.button_Add);
             this.Controls.Add(this.listBox_AvailablePositions);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "NomineesPosition_Form";
             this.Text = "NomineesPosition_Form";
             this.contextMenuStrip_City.ResumeLayout(false);

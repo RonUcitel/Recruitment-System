@@ -220,6 +220,8 @@
             this.Controls.Add(this.groupBox_Sign);
             this.Controls.Add(this.textBox_Filter);
             this.Controls.Add(this.groupBox_City);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "City_Form";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;

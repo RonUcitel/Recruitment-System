@@ -220,6 +220,8 @@
             this.Controls.Add(this.groupBox_Sign);
             this.Controls.Add(this.textBox_Filter);
             this.Controls.Add(this.groupBox_Position);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Position_Form";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;

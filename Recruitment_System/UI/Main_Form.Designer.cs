@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox_PD = new System.Windows.Forms.GroupBox();
             this.panel_Positions = new System.Windows.Forms.Panel();
             this.textBox_Positions = new System.Windows.Forms.TextBox();
@@ -89,9 +89,7 @@
             this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AdminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox_Score = new System.Windows.Forms.GroupBox();
-            this.panel_NomineeScore = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel_NomineeScore = new System.Windows.Forms.TableLayoutPanel();
+            this.button_OpenScoreKeeping = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_ChangeDisabled = new System.Windows.Forms.Button();
             this.PDF_CV_Viewer = new AxAcroPDFLib.AxAcroPDF();
@@ -99,6 +97,7 @@
             this.tabControl_Main = new System.Windows.Forms.TabControl();
             this.tabPage_EditNominee = new System.Windows.Forms.TabPage();
             this.tabPage_Score = new System.Windows.Forms.TabPage();
+            this.scorer_View = new Recruitment_System.UI.Scorer();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox_FilterScore = new System.Windows.Forms.GroupBox();
             this.button_ClearScoreFilter = new System.Windows.Forms.Button();
@@ -113,8 +112,6 @@
             this.comboBox_InterviewerFilter = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox_PositionFilter = new System.Windows.Forms.ComboBox();
-            this.panel_Score = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel_Score = new System.Windows.Forms.TableLayoutPanel();
             this.tabPage_PositionNomineeTable = new System.Windows.Forms.TabPage();
             this.listView_PositionNominee = new System.Windows.Forms.ListView();
             this.contextMenuStrip_Table = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -128,8 +125,6 @@
             this.panel_Positions.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupBox_Score.SuspendLayout();
-            this.panel_NomineeScore.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).BeginInit();
             this.tabControl_Main.SuspendLayout();
@@ -137,7 +132,6 @@
             this.tabPage_Score.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.groupBox_FilterScore.SuspendLayout();
-            this.panel_Score.SuspendLayout();
             this.tabPage_PositionNomineeTable.SuspendLayout();
             this.contextMenuStrip_Table.SuspendLayout();
             this.tabPage_PositionNomineeChart.SuspendLayout();
@@ -432,7 +426,7 @@
             this.label_ShowDisabled.BackColor = System.Drawing.SystemColors.Control;
             this.label_ShowDisabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_ShowDisabled.ForeColor = System.Drawing.Color.Red;
-            this.label_ShowDisabled.Location = new System.Drawing.Point(408, 564);
+            this.label_ShowDisabled.Location = new System.Drawing.Point(425, 370);
             this.label_ShowDisabled.Name = "label_ShowDisabled";
             this.label_ShowDisabled.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_ShowDisabled.Size = new System.Drawing.Size(338, 55);
@@ -547,7 +541,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.menuStrip1.Size = new System.Drawing.Size(2290, 61);
+            this.menuStrip1.Size = new System.Drawing.Size(2290, 56);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -560,14 +554,14 @@
             this.פתחToolStripMenuItem.Name = "פתחToolStripMenuItem";
             this.פתחToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.פתחToolStripMenuItem.RightToLeftAutoMirrorImage = true;
-            this.פתחToolStripMenuItem.Size = new System.Drawing.Size(144, 68);
+            this.פתחToolStripMenuItem.Size = new System.Drawing.Size(144, 52);
             this.פתחToolStripMenuItem.Text = "עריכה";
             // 
             // CityToolStripMenuItem
             // 
             this.CityToolStripMenuItem.Name = "CityToolStripMenuItem";
             this.CityToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.CityToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.CityToolStripMenuItem.Size = new System.Drawing.Size(386, 66);
             this.CityToolStripMenuItem.Text = "ערים";
             this.CityToolStripMenuItem.Click += new System.EventHandler(this.CityToolStripMenuItem_Click);
             // 
@@ -575,14 +569,14 @@
             // 
             this.PositionToolStripMenuItem.Name = "PositionToolStripMenuItem";
             this.PositionToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.PositionToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.PositionToolStripMenuItem.Size = new System.Drawing.Size(386, 66);
             this.PositionToolStripMenuItem.Text = "משרות";
             this.PositionToolStripMenuItem.Click += new System.EventHandler(this.PositoinToolStripMenuItem_Click);
             // 
             // ScoreTypeToolStripMenuItem
             // 
             this.ScoreTypeToolStripMenuItem.Name = "ScoreTypeToolStripMenuItem";
-            this.ScoreTypeToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.ScoreTypeToolStripMenuItem.Size = new System.Drawing.Size(386, 66);
             this.ScoreTypeToolStripMenuItem.Text = "קריטריונים";
             this.ScoreTypeToolStripMenuItem.Click += new System.EventHandler(this.ScoreTypeToolStripMenuItem_Click);
             // 
@@ -598,7 +592,7 @@
             this.קורותחייםToolStripMenuItem});
             this.הצגToolStripMenuItem.Name = "הצגToolStripMenuItem";
             this.הצגToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.הצגToolStripMenuItem.Size = new System.Drawing.Size(109, 68);
+            this.הצגToolStripMenuItem.Size = new System.Drawing.Size(109, 52);
             this.הצגToolStripMenuItem.Text = "הצג";
             // 
             // מועמדיםזמיניםToolStripMenuItem
@@ -659,13 +653,13 @@
             this.עזרהToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.עלתוכנהזוToolStripMenuItem});
             this.עזרהToolStripMenuItem.Name = "עזרהToolStripMenuItem";
-            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 57);
+            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 52);
             this.עזרהToolStripMenuItem.Text = "עזרה";
             // 
             // עלתוכנהזוToolStripMenuItem
             // 
             this.עלתוכנהזוToolStripMenuItem.Name = "עלתוכנהזוToolStripMenuItem";
-            this.עלתוכנהזוToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.עלתוכנהזוToolStripMenuItem.Size = new System.Drawing.Size(396, 66);
             this.עלתוכנהזוToolStripMenuItem.Text = "על תוכנה זו";
             this.עלתוכנהזוToolStripMenuItem.Click += new System.EventHandler(this.עלתוכנהזוToolStripMenuItem_Click);
             // 
@@ -674,7 +668,7 @@
             this.toolStripMenuItem_TableDesign.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem_Sort});
             this.toolStripMenuItem_TableDesign.Name = "toolStripMenuItem_TableDesign";
-            this.toolStripMenuItem_TableDesign.Size = new System.Drawing.Size(231, 68);
+            this.toolStripMenuItem_TableDesign.Size = new System.Drawing.Size(231, 52);
             this.toolStripMenuItem_TableDesign.Text = "עיצוב טבלה";
             this.toolStripMenuItem_TableDesign.Visible = false;
             // 
@@ -694,28 +688,28 @@
             this.AdminToolStripMenuItem});
             this.interviewerToolStripMenuItem.Name = "interviewerToolStripMenuItem";
             this.interviewerToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.interviewerToolStripMenuItem.Size = new System.Drawing.Size(225, 68);
+            this.interviewerToolStripMenuItem.Size = new System.Drawing.Size(225, 52);
             this.interviewerToolStripMenuItem.Text = "Interviewer";
             // 
             // שינויפרטיכניסהToolStripMenuItem
             // 
             this.שינויפרטיכניסהToolStripMenuItem.Name = "שינויפרטיכניסהToolStripMenuItem";
             this.שינויפרטיכניסהToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.שינויפרטיכניסהToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.שינויפרטיכניסהToolStripMenuItem.Size = new System.Drawing.Size(506, 66);
             this.שינויפרטיכניסהToolStripMenuItem.Text = "שינוי פרטי כניסה";
             // 
             // logOutToolStripMenuItem
             // 
             this.logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
             this.logOutToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.logOutToolStripMenuItem.Size = new System.Drawing.Size(506, 66);
             this.logOutToolStripMenuItem.Text = "התנתק";
             this.logOutToolStripMenuItem.Click += new System.EventHandler(this.התנתקToolStripMenuItem_Click);
             // 
             // AdminToolStripMenuItem
             // 
             this.AdminToolStripMenuItem.Name = "AdminToolStripMenuItem";
-            this.AdminToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.AdminToolStripMenuItem.Size = new System.Drawing.Size(506, 66);
             this.AdminToolStripMenuItem.Text = "כלי מנהל המערכת";
             this.AdminToolStripMenuItem.Click += new System.EventHandler(this.AdminToolStripMenuItem_Click);
             // 
@@ -723,15 +717,15 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.button_OpenScoreKeeping);
             this.panel1.Controls.Add(this.label_ShowDisabled);
-            this.panel1.Controls.Add(this.groupBox_Score);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.PDF_CV_Viewer);
             this.panel1.Controls.Add(this.groupBox_PD);
             this.panel1.Controls.Add(this.button_Remove_CV);
             this.panel1.Controls.Add(this.button_Add_CV);
             this.panel1.Controls.Add(this.button_Save);
             this.panel1.Controls.Add(this.button_Clear);
+            this.panel1.Controls.Add(this.PDF_CV_Viewer);
             this.panel1.Controls.Add(this.listBox_Nominee);
             this.panel1.Controls.Add(this.button_Search);
             this.panel1.Location = new System.Drawing.Point(3, 3);
@@ -740,40 +734,16 @@
             this.panel1.Size = new System.Drawing.Size(2260, 917);
             this.panel1.TabIndex = 20;
             // 
-            // groupBox_Score
+            // button_OpenScoreKeeping
             // 
-            this.groupBox_Score.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_Score.Controls.Add(this.panel_NomineeScore);
-            this.groupBox_Score.Location = new System.Drawing.Point(348, 36);
-            this.groupBox_Score.Name = "groupBox_Score";
-            this.groupBox_Score.Size = new System.Drawing.Size(512, 508);
-            this.groupBox_Score.TabIndex = 22;
-            this.groupBox_Score.TabStop = false;
-            this.groupBox_Score.Text = "ניקוד";
-            // 
-            // panel_NomineeScore
-            // 
-            this.panel_NomineeScore.AutoScroll = true;
-            this.panel_NomineeScore.Controls.Add(this.tableLayoutPanel_NomineeScore);
-            this.panel_NomineeScore.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_NomineeScore.Location = new System.Drawing.Point(3, 40);
-            this.panel_NomineeScore.Name = "panel_NomineeScore";
-            this.panel_NomineeScore.Size = new System.Drawing.Size(506, 465);
-            this.panel_NomineeScore.TabIndex = 0;
-            // 
-            // tableLayoutPanel_NomineeScore
-            // 
-            this.tableLayoutPanel_NomineeScore.AutoSize = true;
-            this.tableLayoutPanel_NomineeScore.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel_NomineeScore.ColumnCount = 1;
-            this.tableLayoutPanel_NomineeScore.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_NomineeScore.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel_NomineeScore.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel_NomineeScore.Name = "tableLayoutPanel_NomineeScore";
-            this.tableLayoutPanel_NomineeScore.RowCount = 1;
-            this.tableLayoutPanel_NomineeScore.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_NomineeScore.Size = new System.Drawing.Size(506, 0);
-            this.tableLayoutPanel_NomineeScore.TabIndex = 0;
+            this.button_OpenScoreKeeping.Enabled = false;
+            this.button_OpenScoreKeeping.Location = new System.Drawing.Point(449, 75);
+            this.button_OpenScoreKeeping.Name = "button_OpenScoreKeeping";
+            this.button_OpenScoreKeeping.Size = new System.Drawing.Size(304, 155);
+            this.button_OpenScoreKeeping.TabIndex = 22;
+            this.button_OpenScoreKeeping.Text = "פתח גיליון ציונים";
+            this.button_OpenScoreKeeping.UseVisualStyleBackColor = true;
+            this.button_OpenScoreKeeping.Click += new System.EventHandler(this.button_OpenScoreKeeping_Click);
             // 
             // groupBox1
             // 
@@ -840,9 +810,9 @@
             // 
             // tabPage_Score
             // 
+            this.tabPage_Score.Controls.Add(this.scorer_View);
             this.tabPage_Score.Controls.Add(this.chart2);
             this.tabPage_Score.Controls.Add(this.groupBox_FilterScore);
-            this.tabPage_Score.Controls.Add(this.panel_Score);
             this.tabPage_Score.Location = new System.Drawing.Point(12, 58);
             this.tabPage_Score.Name = "tabPage_Score";
             this.tabPage_Score.Size = new System.Drawing.Size(2266, 923);
@@ -850,18 +820,26 @@
             this.tabPage_Score.Text = "ניקוד";
             this.tabPage_Score.UseVisualStyleBackColor = true;
             // 
+            // scorer_View
+            // 
+            this.scorer_View.Location = new System.Drawing.Point(1072, 0);
+            this.scorer_View.Name = "scorer_View";
+            this.scorer_View.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.scorer_View.Size = new System.Drawing.Size(751, 923);
+            this.scorer_View.TabIndex = 26;
+            // 
             // chart2
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart2.Legends.Add(legend5);
+            chartArea1.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart2.Legends.Add(legend1);
             this.chart2.Location = new System.Drawing.Point(3, 3);
             this.chart2.Name = "chart2";
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.chart2.Series.Add(series5);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart2.Series.Add(series1);
             this.chart2.Size = new System.Drawing.Size(1063, 917);
             this.chart2.TabIndex = 25;
             this.chart2.Text = "chart2";
@@ -1004,30 +982,6 @@
             this.comboBox_PositionFilter.Size = new System.Drawing.Size(289, 45);
             this.comboBox_PositionFilter.TabIndex = 23;
             // 
-            // panel_Score
-            // 
-            this.panel_Score.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_Score.AutoScroll = true;
-            this.panel_Score.Controls.Add(this.tableLayoutPanel_Score);
-            this.panel_Score.Location = new System.Drawing.Point(1072, 0);
-            this.panel_Score.Name = "panel_Score";
-            this.panel_Score.Size = new System.Drawing.Size(751, 923);
-            this.panel_Score.TabIndex = 22;
-            // 
-            // tableLayoutPanel_Score
-            // 
-            this.tableLayoutPanel_Score.AutoSize = true;
-            this.tableLayoutPanel_Score.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel_Score.ColumnCount = 1;
-            this.tableLayoutPanel_Score.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Score.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel_Score.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel_Score.Name = "tableLayoutPanel_Score";
-            this.tableLayoutPanel_Score.RowCount = 1;
-            this.tableLayoutPanel_Score.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Score.Size = new System.Drawing.Size(751, 0);
-            this.tableLayoutPanel_Score.TabIndex = 0;
-            // 
             // tabPage_PositionNomineeTable
             // 
             this.tabPage_PositionNomineeTable.Controls.Add(this.listView_PositionNominee);
@@ -1088,17 +1042,17 @@
             // 
             // chart1
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea6);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend6.Name = "Legend1";
-            this.chart1.Legends.Add(legend6);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.chart1.Series.Add(series6);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(2260, 917);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -1126,8 +1080,10 @@
             this.Controls.Add(this.tabControl_Main);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
@@ -1140,9 +1096,6 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.groupBox_Score.ResumeLayout(false);
-            this.panel_NomineeScore.ResumeLayout(false);
-            this.panel_NomineeScore.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).EndInit();
             this.tabControl_Main.ResumeLayout(false);
@@ -1151,8 +1104,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.groupBox_FilterScore.ResumeLayout(false);
             this.groupBox_FilterScore.PerformLayout();
-            this.panel_Score.ResumeLayout(false);
-            this.panel_Score.PerformLayout();
             this.tabPage_PositionNomineeTable.ResumeLayout(false);
             this.contextMenuStrip_Table.ResumeLayout(false);
             this.tabPage_PositionNomineeChart.ResumeLayout(false);
@@ -1234,8 +1185,6 @@
         private System.Windows.Forms.TabPage tabPage_Score;
         private System.Windows.Forms.GroupBox groupBox_FilterScore;
         private System.Windows.Forms.ComboBox comboBox_PositionFilter;
-        private System.Windows.Forms.Panel panel_Score;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_Score;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateTimePicker_To;
@@ -1248,10 +1197,9 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.Button button_SearchScoreFilter;
         private System.Windows.Forms.Button button_ClearScoreFilter;
-        private System.Windows.Forms.GroupBox groupBox_Score;
-        private System.Windows.Forms.Panel panel_NomineeScore;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_NomineeScore;
         private System.Windows.Forms.ToolStripMenuItem ScoreTypeToolStripMenuItem;
+        private Scorer scorer_View;
+        private System.Windows.Forms.Button button_OpenScoreKeeping;
     }
 }
 

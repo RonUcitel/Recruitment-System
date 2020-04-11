@@ -17,7 +17,7 @@ namespace Recruitment_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AdminTools_Form(BL.Interviewer.Empty));
+            Application.Run(new MainForm());
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Recruitment_System.DAL
                 + "," + "" + nomineeDBId + ""
                 + "," + "" + scoreTypeId + ""
                 + "," + "" + score + ""
-                + "," + "" + dateTime + ""
+                + "," + "'" + dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'"
                 + ")";
 
             //Running the SQL command by using the ExecuteSql method from the Dal class and return if the command succeeded
@@ -52,7 +52,7 @@ namespace Recruitment_System.DAL
             + "," + "[Nominee] = " + "" + nomineeDBId + ""
             + "," + "[ScoreType] = " + "" + scoreType + ""
             + "," + "[Score] = " + "" + score + ""
-            + "," + "[DateTime] = " + "" + dateTime + ""
+            + "," + "[DateTime] = " + "'" + dateTime.ToString("yyyy-MM-dd HH:mm:ss.fff") + "'"
             + " WHERE ID = " + id;
 
             //הפעלת פעולת הSQL -תוך שימוש בפעולה המוכנה ExecuteSql במחלקה Dal והחזרה האם הפעולה הצליחה

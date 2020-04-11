@@ -34,8 +34,6 @@ namespace Recruitment_System.UI
             SetAdminOptions(curInterviewer.Admin);
 
             Icon = Properties.Resources.allnet;
-            SetScorerRowPanel(panel_Score, tableLayoutPanel_Score);
-            SetScorerRowPanel(panel_NomineeScore, tableLayoutPanel_NomineeScore);
 
             SetUpNomineeArrShowMenu();
             ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
@@ -402,6 +400,7 @@ namespace Recruitment_System.UI
                         //מוסיפים את הפריטים החדשים להזמנה
 
                         positionNomineeArr_New.InsertArr();
+
 
 
 
@@ -958,12 +957,8 @@ namespace Recruitment_System.UI
                 SetPositionTextBoxAndToolTip(positionArr);
 
                 //scores
-                NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
-                nomineeScoreTypeArr.Fill(GetCurNomineeArrState(), true);
 
-                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(curInterviewer, nominee, Position.Empty, ScoreType.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
-
-                NomineeScoreTypeArrToForm(nomineeScoreTypeArr, tableLayoutPanel_NomineeScore);
+                button_OpenScoreKeeping.Enabled = true;
 
                 //end scores
 
@@ -1004,6 +999,10 @@ namespace Recruitment_System.UI
                     button_Add_CV.Text = "הוסף קורות חיים";
                     button_Add_CV.BackColor = SystemColors.ButtonFace;
                     button_Add_CV.UseVisualStyleBackColor = true;
+
+                    PDF_CV_Viewer.src = GetCV(0).path;
+
+                    PDF_CV_Viewer.Update();
                 }
             }
             else
@@ -1039,7 +1038,8 @@ namespace Recruitment_System.UI
                 label_ShowDisabled.Visible = false;
 
                 //scores
-                NomineeScoreTypeArrToForm(new NomineeScoreTypeArr(), tableLayoutPanel_NomineeScore);
+                button_OpenScoreKeeping.Enabled = false;
+
 
                 //end scores
 
@@ -1049,27 +1049,13 @@ namespace Recruitment_System.UI
         }
 
 
-        private void NomineeScoreTypeArrToForm(NomineeScoreTypeArr nomineeScoreTypeArr, TableLayoutPanel tableLayoutPanel)
+        private void NomineeScoreTypeArrToForm(NomineeScoreTypeArr nomineeScoreTypeArr, Scorer scorer)
         {
-            NomineeScoreType nomineeScoreType;
-            Position curPosition = (nomineeScoreTypeArr.Count > 0) ? (nomineeScoreTypeArr[0] as NomineeScoreType).Position : Position.Empty;
+            scorer.SuspendLayout();
 
-            tableLayoutPanel.SuspendLayout();
-            ClearAllScorerRows(tableLayoutPanel);
-            for (int i = 0; i < nomineeScoreTypeArr.Count; i++)
-            {
-                nomineeScoreType = nomineeScoreTypeArr[i] as NomineeScoreType;
-                if (curPosition != nomineeScoreType.Position)
-                {
-                    curPosition = nomineeScoreType.Position;
-                    Label l = new Label();
-                    l.Text = curPosition.Name;
-                    tableLayoutPanel.SetRow(l, tableLayoutPanel.RowCount);
-                }
+            scorer.SetDataSource(nomineeScoreTypeArr);
 
-                AddScorerRow(tableLayoutPanel, nomineeScoreType.ScoreType.ToString(), nomineeScoreType.Score);
-            }
-            tableLayoutPanel.ResumeLayout();
+            scorer.ResumeLayout();
         }
 
 
@@ -1189,6 +1175,7 @@ namespace Recruitment_System.UI
             comboBox_City.BackColor = Color.White;
         }
 
+
         private void comboBox_CellAreaCode_Leave(object sender, EventArgs e)
         {
             if (comboBox_CellAreaCode.Items.Contains(comboBox_CellAreaCode.Text))
@@ -1200,6 +1187,7 @@ namespace Recruitment_System.UI
                 comboBox_CellAreaCode.BackColor = Color.Red;
             }
         }
+
 
         private void קורותחייםToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1236,10 +1224,12 @@ namespace Recruitment_System.UI
             }
         }
 
+
         private void התנתקToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Restart();
         }
+
 
         private void AdminToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1254,6 +1244,7 @@ namespace Recruitment_System.UI
             }
         }
 
+
         private void button_SearchScoreFilter_Click(object sender, EventArgs e)
         {
             Position positionFilter = comboBox_PositionFilter.SelectedItem as Position;
@@ -1263,12 +1254,13 @@ namespace Recruitment_System.UI
             Nominee nomineeFilter = comboBox_NomineeFilter.SelectedItem as Nominee;
 
             NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
-            nomineeScoreTypeArr.Fill(GetCurNomineeArrState(), false);
+            nomineeScoreTypeArr.Fill(GetCurNomineeArrState());
 
-            nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewerFilter, nomineeFilter, positionFilter, ScoreType.Empty, 0, dateTimePicker_FromFilter.Value, dateTimePicker_To.Value);
+            nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewerFilter, nomineeFilter, positionFilter, dateTimePicker_FromFilter.Value, dateTimePicker_To.Value);
 
-            NomineeScoreTypeArrToForm(nomineeScoreTypeArr, tableLayoutPanel_Score);
+            NomineeScoreTypeArrToForm(nomineeScoreTypeArr, scorer_View);
         }
+
 
         private void ScoreTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1281,6 +1273,34 @@ namespace Recruitment_System.UI
             PositionToolStripMenuItem.Visible = to;
             ScoreTypeToolStripMenuItem.Visible = to;
             AdminToolStripMenuItem.Visible = to;
+        }
+
+        private void button_OpenScoreKeeping_Click(object sender, EventArgs e)
+        {
+            if (label_DBID.Text == "0")
+            {
+                return;
+            }
+            NomineeArr nomineeArr = new NomineeArr();
+            nomineeArr.Fill();
+            Nominee curNominee = nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text));
+
+            ScoreKeeping scoreKeeping = new ScoreKeeping(curInterviewer, curNominee);
+            scoreKeeping.ShowDialog();
+
+
+
+            NomineeScoreTypeArr newNomineeScoreTypeArr = scoreKeeping.FormToNomineeScoreTypeArr();
+
+
+            NomineeScoreTypeArr OldNomineeScoreTypeArr = new NomineeScoreTypeArr();
+            OldNomineeScoreTypeArr.Fill();
+            OldNomineeScoreTypeArr = OldNomineeScoreTypeArr.Filter(curInterviewer, curNominee, ScoreType.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
+
+            OldNomineeScoreTypeArr.DeleteArr();
+
+
+            newNomineeScoreTypeArr.InsertArr();
         }
     }
 }

@@ -17,7 +17,13 @@ namespace Recruitment_System.UI
         {
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
+
+            KeyDown += Control_KeyDown;//Add the Control_KeyDown event to the form.
+            AddKeyDownEvent(this.Controls);//Add the Control_KeyDown event to all of the controls on the form.
+            LogIn_Form_InputLanguageChanged(null, null);//Check the current language.
+            CapsLockCheck(); //Check for the state of the CapsLk.
         }
+
         public Interviewer Interviewer;
 
         private void button_LogIn_Click(object sender, EventArgs e)
@@ -106,6 +112,49 @@ namespace Recruitment_System.UI
             if (e.KeyCode == Keys.Enter)
             {
                 button_LogIn_Click(null, null);
+            }
+        }
+
+        private void CapsLockCheck()
+        {
+            if (Control.IsKeyLocked(Keys.CapsLock))
+            {
+                //CapsLk is on
+                label_CapsLk.Text = "CapsLk on";
+                label_CapsLk.ForeColor = Color.Red;
+            }
+            else
+            {
+                //CapsLk is off
+                label_CapsLk.Text = "CapsLk off";
+                label_CapsLk.ForeColor = Color.Black;
+            }
+        }
+
+        private void LogIn_Form_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)
+        {
+            InputLanguage myCurrentLang = InputLanguage.CurrentInputLanguage;
+            label_Language.Text = myCurrentLang.Culture.Name.ToLower();
+        }
+
+        private void Control_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.CapsLock)
+            {
+                //Only if the CapsLK key was pressed, then call the method.
+                CapsLockCheck();
+            }
+        }
+
+        private void AddKeyDownEvent(Control.ControlCollection collection)
+        {
+            foreach (Control item in collection)
+            {
+                item.KeyDown += Control_KeyDown;
+                if (item.Controls.Count > 0)
+                {
+                    AddKeyDownEvent(item.Controls);
+                }
             }
         }
     }

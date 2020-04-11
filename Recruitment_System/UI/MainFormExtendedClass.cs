@@ -108,7 +108,7 @@ namespace Recruitment_System.UI
             }
             else if (tabControl_Main.SelectedTab == tabPage_Score)
             {
-                NomineeScoreTypeArrToForm(new NomineeScoreTypeArr(), tableLayoutPanel_Score);
+                NomineeScoreTypeArrToForm(new NomineeScoreTypeArr(), scorer_View);
                 toolStripMenuItem_TableDesign.Visible = true;
             }
             else
@@ -224,39 +224,5 @@ namespace Recruitment_System.UI
             }
         }
 
-
-        private void SetScorerRowPanel(Panel panel, TableLayoutPanel tableLayoutPanel)
-        {
-            panel.Dock = DockStyle.Fill;
-            panel.AutoScroll = true;
-            panel.AutoSize = false;
-
-            tableLayoutPanel.Dock = DockStyle.Top;
-            tableLayoutPanel.AutoSize = true;
-            tableLayoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            tableLayoutPanel.AutoScroll = false;
-        }
-
-        private void AddScorerRow(TableLayoutPanel tableLayoutPanel, string text, int score)
-        {
-            ScorerRow scorerRow = new ScorerRow();
-            scorerRow.Text = text;
-            scorerRow.Score = score;
-            scorerRow.Width = tableLayoutPanel.Width - 2;
-            scorerRow.Location = new Point(0, 0);
-
-            tableLayoutPanel.Controls.Add(scorerRow);
-            tableLayoutPanel.SetRow(scorerRow, tableLayoutPanel.RowCount);
-        }
-
-        private void ClearAllScorerRows(TableLayoutPanel tableLayoutPanel)
-        {
-            for (int i = 0; i < tableLayoutPanel.Controls.Count; i++)
-            {
-                tableLayoutPanel.Controls[i].Dispose();
-            }
-            tableLayoutPanel.Controls.Clear();
-            tableLayoutPanel.RowCount = 0;
-        }
     }
 }

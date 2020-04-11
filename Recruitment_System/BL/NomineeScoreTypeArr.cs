@@ -11,7 +11,7 @@ namespace Recruitment_System.BL
 {
     public class NomineeScoreTypeArr : ArrayList
     {
-        public void Fill(bool addHiddenInterviewers)
+        public void Fill()
         {
             this.Clear();
             DataTable dataTable = NomineeScoreType_Dal.GetDataTable();
@@ -25,12 +25,12 @@ namespace Recruitment_System.BL
                 dataRow = dataTable.Rows[i];
 
                 nomineeScoreType = new NomineeScoreType(dataRow);
-                if (!(!addHiddenInterviewers && nomineeScoreType.Interviewer.Admin))
-                    Add(nomineeScoreType);
+
+                Add(nomineeScoreType);
             }
         }
 
-        public void FillDisabled(bool addHiddenInterviewers)
+        public void FillDisabled()
         {
             this.Clear();
             DataTable dataTable = NomineeScoreType_Dal.GetDataTable();
@@ -44,14 +44,14 @@ namespace Recruitment_System.BL
                 dataRow = dataTable.Rows[i];
 
                 nomineeScoreType = new NomineeScoreType(dataRow);
-                if (nomineeScoreType.Nominee.Disabled && !(!addHiddenInterviewers && nomineeScoreType.Interviewer.Admin))
+                if (nomineeScoreType.Nominee.Disabled)
                 {
                     Add(nomineeScoreType);
                 }
             }
         }
 
-        public void FillEnabled(bool addHiddenInterviewers)
+        public void FillEnabled()
         {
             this.Clear();
             DataTable dataTable = NomineeScoreType_Dal.GetDataTable();
@@ -65,35 +65,35 @@ namespace Recruitment_System.BL
                 dataRow = dataTable.Rows[i];
 
                 nomineeScoreType = new NomineeScoreType(dataRow);
-                if (!nomineeScoreType.Nominee.Disabled && !(!addHiddenInterviewers && nomineeScoreType.Interviewer.Admin))
+                if (!nomineeScoreType.Nominee.Disabled)
                 {
                     Add(nomineeScoreType);
                 }
             }
         }
 
-        public void Fill(NomineeArrState state, bool addHiddenInterviewers)
+        public void Fill(NomineeArrState state)
         {
             switch (state)
             {
                 case NomineeArrState.ShowDisabledOnly:
                     {
-                        FillDisabled(addHiddenInterviewers);
+                        FillDisabled();
                         break;
                     }
                 case NomineeArrState.ShowEnabledOnly:
                     {
-                        FillEnabled(addHiddenInterviewers);
+                        FillEnabled();
                         break;
                     }
                 case NomineeArrState.ShowAll:
                     {
-                        Fill(addHiddenInterviewers);
+                        Fill();
                         break;
                     }
                 default:
                     {
-                        FillEnabled(addHiddenInterviewers);
+                        FillEnabled();
                         break;
                     }
             }
@@ -131,7 +131,7 @@ namespace Recruitment_System.BL
         }
 
 
-        public NomineeScoreTypeArr Filter(Interviewer interviewer, Nominee nominee, Position position, ScoreType scoreType, int score, DateTime dateTimeFrom, DateTime dateTimeTo)
+        public NomineeScoreTypeArr Filter(Interviewer interviewer, Nominee nominee, ScoreType scoreType, int score, DateTime dateTimeFrom, DateTime dateTimeTo)
         {
             NomineeScoreTypeArr positionnomineeArr = new NomineeScoreTypeArr();
 
@@ -141,9 +141,29 @@ namespace Recruitment_System.BL
                 nomineeScoreType = this[i] as NomineeScoreType;
                 if ((interviewer == Interviewer.Empty || interviewer == nomineeScoreType.Interviewer) &&
                     (nominee == Nominee.Empty || nominee == nomineeScoreType.Nominee) &&
-                    (position == Position.Empty || position == nomineeScoreType.Position) &&
                     (scoreType == ScoreType.Empty || scoreType == nomineeScoreType.ScoreType) &&
                     (score == 0 || score == nomineeScoreType.Score) &&
+                    (dateTimeFrom <= nomineeScoreType.DateTime && nomineeScoreType.DateTime <= dateTimeTo))
+                {
+                    positionnomineeArr.Add(nomineeScoreType);
+                }
+            }
+
+            return positionnomineeArr;
+        }
+
+
+        public NomineeScoreTypeArr Filter(Interviewer interviewer, Nominee nominee, Position position, DateTime dateTimeFrom, DateTime dateTimeTo)
+        {
+            NomineeScoreTypeArr positionnomineeArr = new NomineeScoreTypeArr();
+
+            NomineeScoreType nomineeScoreType;
+            for (int i = 0; i < this.Count; i++)
+            {
+                nomineeScoreType = this[i] as NomineeScoreType;
+                if ((interviewer == Interviewer.Empty || interviewer == nomineeScoreType.Interviewer) &&
+                    (nominee == Nominee.Empty || nominee == nomineeScoreType.Nominee) &&
+                    (position == Position.Empty || position == nomineeScoreType.ScoreType.Position) &&
                     (dateTimeFrom <= nomineeScoreType.DateTime && nomineeScoreType.DateTime <= dateTimeTo))
                 {
                     positionnomineeArr.Add(nomineeScoreType);
@@ -235,7 +255,7 @@ namespace Recruitment_System.BL
             //return whether curPosition exists in a nominee on this NomineeArr.
             for (int i = 0; i < this.Count; i++)
             {
-                if ((this[i] as NomineeScoreType).Position == position)
+                if ((this[i] as NomineeScoreType).ScoreType.Position == position)
                 {
                     return true;
                 }
@@ -312,6 +332,47 @@ namespace Recruitment_System.BL
             }
 
             return scoreTypeArr;
+        }
+
+
+        public void SortByPositions()
+        {
+            PositionComparer mc = new PositionComparer();
+            Sort(mc);
+        }
+
+
+        public bool DoesContainData(Interviewer interviewer, Nominee nominee, ScoreType scoreType)
+        {
+            NomineeScoreType nomineeScoreType;
+
+            for (int i = 0; i < this.Count; i++)
+            {
+                nomineeScoreType = this[i] as NomineeScoreType;
+                if (nomineeScoreType.Interviewer.Id == interviewer.Id && nomineeScoreType.Nominee.DBId == nominee.DBId && nomineeScoreType.ScoreType.Id == scoreType.Id)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    class PositionComparer : IComparer
+    {
+
+        // Calls CaseInsensitiveComparer.Compare with the parameters reversed.
+        int IComparer.Compare(object x, object y)
+        {
+            NomineeScoreType n1 = (NomineeScoreType)x;
+            NomineeScoreType n2 = (NomineeScoreType)y;
+            if (n1.ScoreType.Position.Id > n2.ScoreType.Position.Id)
+                return 1;
+            if (n1.ScoreType.Position.Id < n2.ScoreType.Position.Id)
+                return -1;
+            else
+                return 0;
         }
     }
 }

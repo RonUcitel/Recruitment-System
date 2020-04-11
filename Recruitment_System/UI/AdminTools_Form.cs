@@ -220,8 +220,8 @@ namespace Recruitment_System.UI
                 }
 
                 NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
-                nomineeScoreTypeArr.Fill(true);
-                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewer, Nominee.Empty, Position.Empty, ScoreType.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
+                nomineeScoreTypeArr.Fill();
+                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewer, Nominee.Empty, ScoreType.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
 
                 if (nomineeScoreTypeArr.DeleteArr())
                 {
@@ -363,7 +363,10 @@ namespace Recruitment_System.UI
                             //The insertion of the scoreType data was successfull.
                             ScoreTypeArr scoreTypeArr = new ScoreTypeArr();
                             scoreTypeArr.Fill();
-                            ScoreTypeArrToForm(scoreTypeArr.GetScoreTypeWithMaxId());
+                            scoreType = scoreTypeArr.GetScoreTypeWithMaxId();
+                            ScoreTypeArrToForm(scoreType);
+
+
                             dialogResult = MessageBox.Show("הקריטריון נוסף בהצלחה", "יאי!", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                         }
                         else
@@ -699,8 +702,8 @@ namespace Recruitment_System.UI
             {
                 //delete from the connection table
                 NomineeScoreTypeArr nomineeScoeTypeArr = new NomineeScoreTypeArr();
-                nomineeScoeTypeArr.Fill(true);
-                nomineeScoeTypeArr = nomineeScoeTypeArr.Filter(Interviewer.Empty, Nominee.Empty, Position.Empty, scoreType, 0, DateTime.MinValue, DateTime.MaxValue);
+                nomineeScoeTypeArr.Fill();
+                nomineeScoeTypeArr = nomineeScoeTypeArr.Filter(Interviewer.Empty, Nominee.Empty, scoreType, 0, DateTime.MinValue, DateTime.MaxValue);
 
                 nomineeScoeTypeArr.DeleteArr();
 
