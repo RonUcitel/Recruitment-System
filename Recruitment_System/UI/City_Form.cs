@@ -190,7 +190,10 @@ namespace Recruitment_System.UI
                         else
                             dialogResult = MessageBox.Show("קרתה תקלה בעת עדכון העיר בבסיס הנתונים", "תקלה", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                     }
-                    dialogResult = DialogResult.OK;
+                    else
+                    {
+                        dialogResult = DialogResult.OK;
+                    }
                 }
             }
 

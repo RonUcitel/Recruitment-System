@@ -91,12 +91,12 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            return NomineeScoreType_Dal.Insert(m_Interviewer.DBId, m_Nominee.DBId, m_Position.Id, m_ScoreType.Id, m_Score, m_DateTime);
+            return NomineeScoreType_Dal.Insert(m_Interviewer.DBId, m_Nominee.DBId, m_ScoreType.Id, m_Score, m_DateTime);
         }
 
         public bool Update()
         {
-            return NomineeScoreType_Dal.Update(m_Id, m_Interviewer.DBId, m_Nominee.DBId, m_Position.Id, m_ScoreType.Id, m_Score, m_DateTime);
+            return NomineeScoreType_Dal.Update(m_Id, m_Interviewer.DBId, m_Nominee.DBId, m_ScoreType.Id, m_Score, m_DateTime);
         }
 
 

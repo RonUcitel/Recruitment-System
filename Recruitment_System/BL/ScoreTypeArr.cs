@@ -13,7 +13,7 @@ namespace Recruitment_System.BL
     {
         public void Fill()
         {
-
+            this.Clear();
             DataTable dataTable = ScoreType_Dal.GetDataTable();
 
 
@@ -30,7 +30,7 @@ namespace Recruitment_System.BL
             }
         }
 
-        public ScoreTypeArr Filter(string name, int id = 0)
+        public ScoreTypeArr Filter(Position position, string name, int id = 0)
         {
             ScoreTypeArr scoreTypeArr = new ScoreTypeArr();
 
@@ -40,7 +40,8 @@ namespace Recruitment_System.BL
             for (int i = 0; i < this.Count; i++)
             {
                 scoreType = (this[i] as ScoreType);
-                if ((name == "" || scoreType.Name.ToLower().StartsWith(name)) && (id == 0 || scoreType.Id == id))
+                if ((name == "" || scoreType.Name.ToLower().StartsWith(name)) && (id == 0 || scoreType.Id == id) &&
+                    (position == Position.Empty || position == scoreType.Position))
                 {
                     scoreTypeArr.Add(scoreType);
                 }
@@ -72,19 +73,38 @@ namespace Recruitment_System.BL
         }
 
 
-        public void Remove(string name)
+        public void Remove(int id)
         {
-            try
+            ScoreType scoreType = GetScoreTypeById(id);
+            if (scoreType != ScoreType.Empty)
             {
-                base.Remove(Filter(name)[0]);
-            }
-            catch
-            {
+                try
+                {
 
-            }
+                    base.Remove(scoreType);
+                }
+                catch
+                {
 
+                }
+            }
         }
 
+
+        public PositionArr ToPositionArr()
+        {
+            PositionArr positionArr = new PositionArr();
+            Position position;
+            for (int i = 0; i < this.Count; i++)
+            {
+                position = (this[i] as ScoreType).Position;
+                if (!positionArr.IsContains(position))
+                {
+                    positionArr.Add(position);
+                }
+            }
+            return positionArr;
+        }
 
         public ScoreType GetScoreTypeWithMaxId()
         {
@@ -98,6 +118,21 @@ namespace Recruitment_System.BL
                 }
             }
             return maxScoreType;
+        }
+
+        public ScoreType GetScoreTypeById(int id)
+        {
+            ScoreType scoreType;
+
+            for (int i = 0; i < this.Count; i++)
+            {
+                scoreType = (this[i] as ScoreType);
+                if (scoreType.Id == id)
+                {
+                    return scoreType;
+                }
+            }
+            return ScoreType.Empty;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Recruitment_System.DAL
         /// Inserts the information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
-        public static bool Insert(string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city, int match, int professionalism, int generalAssessment)
+        public static bool Insert(string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city)
         {
 
             //Building the SQL command
@@ -28,9 +28,6 @@ namespace Recruitment_System.DAL
                 + ",[CellAreaCode]"
                 + ",[CellPhoneNumber]"
                 + ",[City]"
-                + ",[Match]"
-                + ",[Professionalism]"
-                + ",[GeneralAssessment]"
                 + ")"
 
                 + " VALUES "
@@ -43,9 +40,6 @@ namespace Recruitment_System.DAL
                 + "," + "'" + cellPhoneAreaCode + "'"
                 + "," + "'" + cellPhoneNumber + "'"
                 + "," + "" + city + ""
-                + "," + "'" + match + "'"
-                + "," + "'" + professionalism + "'"
-                + "," + "'" + generalAssessment + "'"
                 + ")";
 
             //Running the SQL command by using the ExecuteSql method from the Dal class and return if the command succeeded
@@ -53,7 +47,7 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool Update(int id, string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city, int match, int professionalism, int generalAssessment)
+        public static bool Update(int id, string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city)
         {
 
             //מעדכנת את הלקוח במסד הנתונים
@@ -67,9 +61,6 @@ namespace Recruitment_System.DAL
             + "," + "[CellAreaCode] = " + "'" + cellPhoneAreaCode + "'"
             + "," + "[CellPhoneNumber] = " + "'" + cellPhoneNumber + "'"
             + "," + "[City] = " + "" + city + ""
-            + "," + "[Match] = " + "'" + match + "'"
-            + "," + "[Professionalism] = " + "'" + professionalism + "'"
-            + "," + "[GeneralAssessment] = " + "'" + generalAssessment + "'"
 
             + " WHERE ID = " + id;
 

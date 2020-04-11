@@ -16,18 +16,20 @@ namespace Recruitment_System.DAL
         /// Inserts the information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
-        public static bool Insert(string scoreType)
+        public static bool Insert(string scoreType, int positionId)
         {
 
             //Building the SQL command
             string str = "INSERT INTO " + tableName
                 + "("
                 + "[Name]"
+                + ",[Position]"
                 + ")"
 
                 + " VALUES "
                 + "("
                       + "N'" + scoreType + "'"
+                      + "," + positionId + ""
                 + ")";
 
             //Running the SQL command by using the ExecuteSql method from the Dal class and return if the command succeeded
@@ -35,11 +37,12 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool Update(int id, string scoreType)
+        public static bool Update(int id, string scoreType, int positionId)
         {
 
             string str = "UPDATE " + tableName + " SET"
             + " " + "[Name] = " + "N'" + scoreType + "'"
+            + "," + "[Position] = " + "" + positionId + ""
 
             + " WHERE ID = " + id;
 
@@ -63,7 +66,18 @@ namespace Recruitment_System.DAL
 
         public static void FillDataSet(DataSet dataSet)
         {
-            Dal.FillDataSet(dataSet, tableName, "[Name]");
+            Dal.FillDataSet(dataSet, tableName, "[Position],[Name]");
+
+            Position_Dal.FillDataSet(dataSet);
+
+
+            DataRelation dataRelationScoreType_Position = new DataRelation(
+                "ScoreType_Position"
+                , dataSet.Tables[Position_Dal.tableName].Columns["Id"]
+                , dataSet.Tables[tableName].Columns["Position"]);
+
+
+            dataSet.Relations.Add(dataRelationScoreType_Position);
         }
 
 

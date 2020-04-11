@@ -16,16 +16,27 @@ namespace Recruitment_System.UI
     public partial class MainForm : Form
     {
         private City lastSelectedcomboBox_CityIndex = City.Empty;
+
+        private Interviewer curInterviewer;
         public MainForm()
         {
             LogIn_Form loginForm = new LogIn_Form();
-            loginForm.ShowDialog();
+            if (loginForm.ShowDialog() != DialogResult.OK)
+            {
+                Environment.Exit(0);
+            }
+
             InitializeComponent();
 
-            interviewerToolStripMenuItem.Text = loginForm.Interviewer.ToString();
-            AdminToolStripMenuItem.Visible = loginForm.Interviewer.Admin;
+
+            curInterviewer = loginForm.Interviewer;
+            interviewerToolStripMenuItem.Text = curInterviewer.ToString();
+            SetAdminOptions(curInterviewer.Admin);
 
             Icon = Properties.Resources.allnet;
+            SetScorerRowPanel(panel_Score, tableLayoutPanel_Score);
+            SetScorerRowPanel(panel_NomineeScore, tableLayoutPanel_NomineeScore);
+
             SetUpNomineeArrShowMenu();
             ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
             NomineeArrToForm();
@@ -58,7 +69,7 @@ namespace Recruitment_System.UI
         }
 
 
-        private void עריםToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CityToolStripMenuItem_Click(object sender, EventArgs e)
         {
             City_Form cF = new City_Form(lastSelectedcomboBox_CityIndex);
             cF.StartPosition = FormStartPosition.CenterParent;
@@ -112,7 +123,7 @@ namespace Recruitment_System.UI
         }
 
 
-        private void משרותToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PositoinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Position_Form pF = new Position_Form();
             pF.StartPosition = FormStartPosition.CenterParent;
@@ -681,9 +692,6 @@ namespace Recruitment_System.UI
             nominee.CellAreaCode = comboBox_CellAreaCode.Text;
             nominee.CellPhone = textBox_Cel.Text;
             nominee.City = comboBox_City.SelectedItem != null ? comboBox_City.SelectedItem as City : City.Empty;
-            nominee.Match = (int)numericUpDown_Match.Value;
-            nominee.Professionalism = (int)numericUpDown_Professionalism.Value;
-            nominee.GeneralAssessment = (int)numericUpDown_GA.Value;
 
             return nominee;
         }
@@ -939,9 +947,6 @@ namespace Recruitment_System.UI
                 comboBox_CellAreaCode.Text = nominee.CellAreaCode;
                 textBox_Cel.Text = nominee.CellPhone;
                 comboBox_City.SelectedValue = nominee.City.Id;
-                numericUpDown_Match.Value = nominee.Match;
-                numericUpDown_Professionalism.Value = nominee.Professionalism;
-                numericUpDown_GA.Value = nominee.GeneralAssessment;
 
                 PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
                 positionNomineeArr.Fill();
@@ -951,6 +956,16 @@ namespace Recruitment_System.UI
 
                 textBox_Positions.Tag = positionArr;
                 SetPositionTextBoxAndToolTip(positionArr);
+
+                //scores
+                NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
+                nomineeScoreTypeArr.Fill(GetCurNomineeArrState(), true);
+
+                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(curInterviewer, nominee, Position.Empty, ScoreType.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
+
+                NomineeScoreTypeArrToForm(nomineeScoreTypeArr, tableLayoutPanel_NomineeScore);
+
+                //end scores
 
                 label_DBID.Text = nominee.DBId.ToString();
 
@@ -1010,20 +1025,6 @@ namespace Recruitment_System.UI
 
                     }
                 }
-
-                foreach (Control item in groupBox_Ranking.Controls)
-                {
-                    if (item is TextBox || item is ComboBox)
-                    {
-                        item.Text = "";
-                        item.BackColor = Color.White;
-                    }
-                    if (item is NumericUpDown)
-                    {
-                        (item as NumericUpDown).Value = 1;
-                        item.BackColor = Color.White;
-                    }
-                }
                 PDF_CV_Viewer.BeginInit();
                 PDF_CV_Viewer.src = null;
                 PDF_CV_Viewer.src = GetCV(0).path;
@@ -1036,8 +1037,39 @@ namespace Recruitment_System.UI
                 button_Add_CV.UseVisualStyleBackColor = true;
 
                 label_ShowDisabled.Visible = false;
+
+                //scores
+                NomineeScoreTypeArrToForm(new NomineeScoreTypeArr(), tableLayoutPanel_NomineeScore);
+
+                //end scores
+
+
                 label_DBID.Text = "0";
             }
+        }
+
+
+        private void NomineeScoreTypeArrToForm(NomineeScoreTypeArr nomineeScoreTypeArr, TableLayoutPanel tableLayoutPanel)
+        {
+            NomineeScoreType nomineeScoreType;
+            Position curPosition = (nomineeScoreTypeArr.Count > 0) ? (nomineeScoreTypeArr[0] as NomineeScoreType).Position : Position.Empty;
+
+            tableLayoutPanel.SuspendLayout();
+            ClearAllScorerRows(tableLayoutPanel);
+            for (int i = 0; i < nomineeScoreTypeArr.Count; i++)
+            {
+                nomineeScoreType = nomineeScoreTypeArr[i] as NomineeScoreType;
+                if (curPosition != nomineeScoreType.Position)
+                {
+                    curPosition = nomineeScoreType.Position;
+                    Label l = new Label();
+                    l.Text = curPosition.Name;
+                    tableLayoutPanel.SetRow(l, tableLayoutPanel.RowCount);
+                }
+
+                AddScorerRow(tableLayoutPanel, nomineeScoreType.ScoreType.ToString(), nomineeScoreType.Score);
+            }
+            tableLayoutPanel.ResumeLayout();
         }
 
 
@@ -1211,8 +1243,44 @@ namespace Recruitment_System.UI
 
         private void AdminToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdminTools_Form adminToolsForm = new AdminTools_Form();
+            AdminTools_Form adminToolsForm = new AdminTools_Form(curInterviewer);
             adminToolsForm.ShowDialog();
+
+            if (!adminToolsForm.CurInterviewer.Admin)
+            {
+                curInterviewer = adminToolsForm.CurInterviewer;
+                interviewerToolStripMenuItem.Text = curInterviewer.ToString();
+                SetAdminOptions(curInterviewer.Admin);
+            }
+        }
+
+        private void button_SearchScoreFilter_Click(object sender, EventArgs e)
+        {
+            Position positionFilter = comboBox_PositionFilter.SelectedItem as Position;
+
+            Interviewer interviewerFilter = comboBox_InterviewerFilter.SelectedItem as Interviewer;
+
+            Nominee nomineeFilter = comboBox_NomineeFilter.SelectedItem as Nominee;
+
+            NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
+            nomineeScoreTypeArr.Fill(GetCurNomineeArrState(), false);
+
+            nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewerFilter, nomineeFilter, positionFilter, ScoreType.Empty, 0, dateTimePicker_FromFilter.Value, dateTimePicker_To.Value);
+
+            NomineeScoreTypeArrToForm(nomineeScoreTypeArr, tableLayoutPanel_Score);
+        }
+
+        private void ScoreTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void SetAdminOptions(bool to)
+        {
+            PositionToolStripMenuItem.Visible = to;
+            ScoreTypeToolStripMenuItem.Visible = to;
+            AdminToolStripMenuItem.Visible = to;
         }
     }
 }

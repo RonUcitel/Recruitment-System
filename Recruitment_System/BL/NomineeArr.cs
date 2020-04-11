@@ -17,7 +17,7 @@ namespace Recruitment_System.BL
     {
         public void FillEnabled()
         {
-
+            this.Clear();
             DataTable dataTable = Nominee_Dal.GetDataTable();
 
 
@@ -39,7 +39,7 @@ namespace Recruitment_System.BL
 
         public void FillDisabled()
         {
-
+            this.Clear();
             DataTable dataTable = Nominee_Dal.GetDataTable();
 
 
@@ -61,7 +61,7 @@ namespace Recruitment_System.BL
 
         public void Fill()
         {
-
+            this.Clear();
             DataTable dataTable = Nominee_Dal.GetDataTable();
 
 

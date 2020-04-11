@@ -15,7 +15,7 @@ namespace Recruitment_System.DAL
         /// Inserts the information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
-        public static bool Insert(string firstName, string lastName, string id, int credentialsId)
+        public static bool Insert(string firstName, string lastName, string id, int credentialsId, bool admin)
         {
 
             //Building the SQL command
@@ -25,6 +25,7 @@ namespace Recruitment_System.DAL
                 + ",[LastName]"
                 + ",[Id_Num]"
                 + ",[Credentials]"
+                + ",[Admin]"
                 + ")"
 
                 + " VALUES "
@@ -33,6 +34,7 @@ namespace Recruitment_System.DAL
                 + "," + "N'" + lastName.Replace("'", "$") + "'"
                 + "," + "N'" + id + "'"
                 + "," + "" + credentialsId + ""
+                + "," + "" + (admin ? 1 : 0) + ""
                 + ")";
 
             //Running the SQL command by using the ExecuteSql method from the Dal class and return if the command succeeded
@@ -40,17 +42,17 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool Update(int dBId, string firstName, string lastName, string id, int credentialsId)
+        public static bool Update(int dBId, string firstName, string lastName, string id, int credentialsId, bool admin)
         {
 
             //מעדכנת את הלקוח במסד הנתונים
 
             string str = "UPDATE " + tableName + " SET"
-            + " " + "[FirstName] = " + "N'" + firstName + "'"
-            + "," + "[LastName] = " + "N'" + lastName + "'"
+            + " " + "[FirstName] = " + "N'" + firstName.Replace("'", "$") + "'"
+            + "," + "[LastName] = " + "N'" + lastName.Replace("'", "$") + "'"
             + "," + "[Id_Num] = " + "N'" + id + "'"
             + "," + "[Credentials] = " + "" + credentialsId + ""
-
+            + "," + "[Admin] = " + "" + (admin ? 1 : 0) + ""
             + " WHERE ID = " + dBId;
 
             //הפעלת פעולת הSQL -תוך שימוש בפעולה המוכנה ExecuteSql במחלקה Dal והחזרה האם הפעולה הצליחה
@@ -91,16 +93,17 @@ namespace Recruitment_System.DAL
         {
             Dal.FillDataSet(dataSet, tableName, "");
 
+
             Credentials_Dal.FillDataSet(dataSet);
 
 
-            DataRelation dataRelationNomineeCity = new DataRelation(
+            DataRelation dataRelationInterviewerCredentials = new DataRelation(
                 "InterviewerCredentials"
                 , dataSet.Tables[Credentials_Dal.tableName].Columns["Id"]
                 , dataSet.Tables[tableName].Columns["Credentials"]);
 
 
-            dataSet.Relations.Add(dataRelationNomineeCity);
+            dataSet.Relations.Add(dataRelationInterviewerCredentials);
         }
 
 

@@ -16,6 +16,7 @@ namespace Recruitment_System.UI
         public LogIn_Form()
         {
             InitializeComponent();
+            this.DialogResult = DialogResult.Cancel;
         }
         public Interviewer Interviewer;
 
@@ -25,12 +26,8 @@ namespace Recruitment_System.UI
 
             InterviewerArr interviewerArr = new InterviewerArr();
             interviewerArr.Fill();
-            interviewerArr = interviewerArr.Filter("", "", "", Credentials.Empty, true);
-            if (interviewerArr.Count > 0)
-            {
-                Interviewer = interviewerArr.GetInterviewerByCredentials(cred);
-            }
-            else
+
+            if (interviewerArr.Filter("", "", "", Credentials.Empty, true).Count == 0 && cred == Credentials.Empty)
             {
                 Interviewer = new Interviewer();
                 Interviewer.FirstName = "Admin";
@@ -38,44 +35,77 @@ namespace Recruitment_System.UI
                 Interviewer.Admin = true;
                 Interviewer.DBId = -1;
                 Interviewer.Credentials = Credentials.Empty;
-
             }
+            else if (cred.Id != 0)
+            {
+                Interviewer = interviewerArr.GetInterviewerByCredentials(cred);
+                if (Interviewer == Interviewer.Empty)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                return;
+            }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
-            this.DialogResult = DialogResult.Cancel;
         }
 
         private Credentials FormToCredentials()
         {
+            Credentials c = new Credentials();
+            c.UserName = textBox_UserName.Text;
+            c.Password = textBox_Password.Text;
+
+            if (textBox_UserName.Text == "" && textBox_Password.Text == "")
+            {
+                return Credentials.Empty;
+            }
+            else if (textBox_UserName.Text == "" || textBox_Password.Text == "")
+            {
+                return c;
+            }
             CredentialsArr credentialsArr = new CredentialsArr();
             credentialsArr.Fill();
             credentialsArr = credentialsArr.Filter(textBox_UserName.Text, textBox_Password.Text);
 
-            if (credentialsArr.Count > 0)
+            Credentials cred;
+            for (int i = 0; i < credentialsArr.Count; i++)
             {
-                return credentialsArr[0] as Credentials;
+                cred = credentialsArr[0] as Credentials;
+                if (cred.UserName == c.UserName && cred.Password == c.Password)
+                {
+                    return cred;
+                }
             }
-            else
-            {
-                return Credentials.Empty;
-            }
+            return c;
         }
 
         private void LogIn_Form_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+            /*            if (e.CloseReason == CloseReason.WindowsShutDown) return;
 
-            if (Interviewer != Interviewer.Empty && this.DialogResult == DialogResult.OK)
+                        if (Interviewer != Interviewer.Empty && this.DialogResult == DialogResult.OK)
+                        {
+                        }
+                        else if (this.DialogResult != DialogResult.OK)
+                        {
+                            e.Cancel = true;
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            e.Cancel = true;
+                        }*/
+        }
+
+        private void textBox_Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
             {
-            }
-            else if (this.DialogResult != DialogResult.OK)
-            {
-                e.Cancel = true;
-                Environment.Exit(0);
-            }
-            else
-            {
-                e.Cancel = true;
+                button_LogIn_Click(null, null);
             }
         }
     }

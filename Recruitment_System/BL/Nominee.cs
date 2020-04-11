@@ -39,9 +39,6 @@ namespace Recruitment_System.BL
             m_CellAreaCode = nominee_prop["CellAreaCode"].ToString();
             m_CellPhoneNumber = nominee_prop["CellPhoneNumber"].ToString();
             m_City = new City(nominee_prop.GetParentRow("NomineeCity"));
-            m_Match = (byte)nominee_prop["Match"];
-            m_Professionalism = (byte)nominee_prop["Professionalism"];
-            m_GeneralAssessment = (byte)nominee_prop["GeneralAssessment"];
         }
 
         #region Private containers
@@ -65,12 +62,6 @@ namespace Recruitment_System.BL
         private string m_CellPhoneNumber;
 
         private City m_City;
-
-        private int m_Match;
-
-        private int m_Professionalism;
-
-        private int m_GeneralAssessment;
         #endregion
 
 
@@ -82,9 +73,6 @@ namespace Recruitment_System.BL
         public string CellAreaCode { get => m_CellAreaCode; set => m_CellAreaCode = value; }
         public string CellPhone { get => m_CellPhoneNumber; set => m_CellPhoneNumber = value; }
         public City City { get => m_City; set => m_City = value; }
-        public int Match { get => m_Match; set => m_Match = value; }
-        public int Professionalism { get => m_Professionalism; set => m_Professionalism = value; }
-        public int GeneralAssessment { get => m_GeneralAssessment; set => m_GeneralAssessment = value; }
 
         public bool HaveCV { get => File.Exists(""); }
 
@@ -105,7 +93,7 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            if (Nominee_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_Match, m_Professionalism, m_GeneralAssessment))
+            if (Nominee_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id))
             {
                 NomineeArr nomineeArr = new NomineeArr();
                 nomineeArr.FillEnabled();
@@ -121,7 +109,7 @@ namespace Recruitment_System.BL
 
         public bool Update()
         {
-            if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_Match, m_Professionalism, m_GeneralAssessment))
+            if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id))
             {
                 NomineeArr nomineeArr = new NomineeArr();
                 nomineeArr.FillEnabled();
@@ -213,28 +201,13 @@ namespace Recruitment_System.BL
                 }
                 else if (item.PropertyType == typeof(int))
                 {
-                    if (item.Name == "Match" || item.Name == "Professionalism" || item.Name == "GeneralAssessment")
+                    try
                     {
-                        try
-                        {
-                            item.SetValue(this, 1);
-                        }
-                        catch
-                        {
-
-                        }
-
+                        item.SetValue(this, 0);
                     }
-                    else
+                    catch
                     {
-                        try
-                        {
-                            item.SetValue(this, 0);
-                        }
-                        catch
-                        {
 
-                        }
                     }
                 }
                 else if (item.PropertyType == typeof(City))

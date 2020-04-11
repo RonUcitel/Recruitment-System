@@ -18,12 +18,13 @@ namespace Recruitment_System.BL
         {
             m_Id = 0;
             m_Name = "";
+            m_Position = Position.Empty;
         }
         public ScoreType(DataRow scoreType_prop)
         {
             m_Id = (int)scoreType_prop["ID"];
             m_Name = scoreType_prop["Name"].ToString();
-
+            m_Position = new Position(scoreType_prop.GetParentRow("ScoreType_Position"));
         }
 
         #endregion
@@ -33,6 +34,7 @@ namespace Recruitment_System.BL
 
         private int m_Id;
         private string m_Name;
+        private Position m_Position;
 
         #endregion
 
@@ -40,6 +42,9 @@ namespace Recruitment_System.BL
         #region Public variables
         public int Id { get => m_Id; set => m_Id = value; }
         public string Name { get => m_Name; set => m_Name = value; }
+        public Position Position { get => m_Position; set => m_Position = value; }
+
+        public string NameWithPosition { get { return m_Name + " (" + m_Position.Name + ")"; } }
 
         public static ScoreType Empty = new ScoreType();
 
@@ -54,12 +59,12 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            return ScoreType_Dal.Insert(m_Name);
+            return ScoreType_Dal.Insert(m_Name, m_Position.Id);
         }
 
         public bool Update()
         {
-            return ScoreType_Dal.Update(m_Id, m_Name);
+            return ScoreType_Dal.Update(m_Id, m_Name, m_Position.Id);
         }
 
 
@@ -87,7 +92,7 @@ namespace Recruitment_System.BL
             }
 
 
-            return right.Name == left.Name && right.Id == left.Id;
+            return right.m_Name == left.m_Name && right.m_Id == left.m_Id && right.m_Position.Id == left.m_Position.Id;
         }
 
 
@@ -103,7 +108,7 @@ namespace Recruitment_System.BL
             }
 
 
-            return right.Name != left.Name && right.Id != left.Id;
+            return right.m_Name != left.m_Name || right.m_Id != left.m_Id || right.m_Position.Id != left.m_Position.Id;
         }
 
         #endregion

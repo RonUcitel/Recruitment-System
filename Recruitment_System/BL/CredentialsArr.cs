@@ -13,7 +13,7 @@ namespace Recruitment_System.BL
     {
         public void Fill()
         {
-
+            this.Clear();
             DataTable dataTable = Credentials_Dal.GetDataTable();
 
 
@@ -39,7 +39,9 @@ namespace Recruitment_System.BL
             for (int i = 0; i < this.Count; i++)
             {
                 credentials = (this[i] as Credentials);
-                if ((userName == "" || credentials.UserName.StartsWith(userName)) && (password == "" || credentials.UserName.StartsWith(password)) && (id == 0 || credentials.Id == id))
+                if ((userName == "" || credentials.UserName.StartsWith(userName)) &&
+                    (password == "" || credentials.Password.StartsWith(password)) &&
+                    (id == 0 || credentials.Id == id))
                 {
                     credentialsArr.Add(credentials);
                 }

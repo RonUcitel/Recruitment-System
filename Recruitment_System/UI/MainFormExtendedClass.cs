@@ -106,6 +106,11 @@ namespace Recruitment_System.UI
                 PositionNomineeArrToTable(GetCurNomineeArrState());
                 toolStripMenuItem_TableDesign.Visible = true;
             }
+            else if (tabControl_Main.SelectedTab == tabPage_Score)
+            {
+                NomineeScoreTypeArrToForm(new NomineeScoreTypeArr(), tableLayoutPanel_Score);
+                toolStripMenuItem_TableDesign.Visible = true;
+            }
             else
             {
                 toolStripMenuItem_TableDesign.Visible = false;
@@ -242,6 +247,16 @@ namespace Recruitment_System.UI
 
             tableLayoutPanel.Controls.Add(scorerRow);
             tableLayoutPanel.SetRow(scorerRow, tableLayoutPanel.RowCount);
+        }
+
+        private void ClearAllScorerRows(TableLayoutPanel tableLayoutPanel)
+        {
+            for (int i = 0; i < tableLayoutPanel.Controls.Count; i++)
+            {
+                tableLayoutPanel.Controls[i].Dispose();
+            }
+            tableLayoutPanel.Controls.Clear();
+            tableLayoutPanel.RowCount = 0;
         }
     }
 }

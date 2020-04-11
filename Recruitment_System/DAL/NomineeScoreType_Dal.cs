@@ -15,7 +15,7 @@ namespace Recruitment_System.DAL
         /// Inserts the information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
-        public static bool Insert(int InterviewerId, int nomineeDBId, int positionId, int scoreTypeId, int score, DateTime dateTime)
+        public static bool Insert(int InterviewerId, int nomineeDBId, int scoreTypeId, int score, DateTime dateTime)
         {
 
             //Building the SQL command
@@ -23,7 +23,6 @@ namespace Recruitment_System.DAL
                 + "("
                 + "[Interviewer]"
                 + ",[Nominee]"
-                + ",[Position]"
                 + ",[ScoreType]"
                 + ",[Score]"
                 + ",[DateTime]"
@@ -33,7 +32,6 @@ namespace Recruitment_System.DAL
                 + "("
                       + "" + InterviewerId + ""
                 + "," + "" + nomineeDBId + ""
-                + "," + "" + positionId + ""
                 + "," + "" + scoreTypeId + ""
                 + "," + "" + score + ""
                 + "," + "" + dateTime + ""
@@ -44,7 +42,7 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool Update(int id, int InterviewerId, int nomineeDBId, int positionId, int scoreType, int score, DateTime dateTime)
+        public static bool Update(int id, int InterviewerId, int nomineeDBId, int scoreType, int score, DateTime dateTime)
         {
 
             //מעדכנת את הלקוח במסד הנתונים
@@ -52,7 +50,6 @@ namespace Recruitment_System.DAL
             string str = "UPDATE " + tableName + " SET"
             + " " + "[Interviewer] = " + "" + InterviewerId + ""
             + "," + "[Nominee] = " + "" + nomineeDBId + ""
-            + "," + "[Position] = " + "" + positionId + ""
             + "," + "[ScoreType] = " + "" + scoreType + ""
             + "," + "[Score] = " + "" + score + ""
             + "," + "[DateTime] = " + "" + dateTime + ""
@@ -69,7 +66,7 @@ namespace Recruitment_System.DAL
             DataTable dataTable;
             DataSet dataSet = new DataSet();
 
-            FillDataSet(dataSet, "[Interviewer]");
+            FillDataSet(dataSet, "[Interviewer], [Nominee]");
 
 
             dataTable = dataSet.Tables[tableName];
@@ -106,20 +103,6 @@ namespace Recruitment_System.DAL
 
 
             dataSet.Relations.Add(dataRelationNomineeScoreType_Nominee);
-
-
-
-            Position_Dal.FillDataSet(dataSet);
-
-
-            DataRelation dataRelationNomineeScoreType_Position = new DataRelation(
-                "NomineeScoreType_Position"
-                , dataSet.Tables[Position_Dal.tableName].Columns["ID"]
-                , dataSet.Tables[tableName].Columns["Position"]);
-
-
-            dataSet.Relations.Add(dataRelationNomineeScoreType_Position);
-
 
 
 

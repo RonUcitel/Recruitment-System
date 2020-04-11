@@ -27,11 +27,11 @@ namespace Recruitment_System.BL
         public Interviewer(DataRow interviewer_prop)
         {
             m_DBId = (int)interviewer_prop["ID"];
-            m_FirstName = interviewer_prop["FirstName"].ToString();
-            m_LastName = interviewer_prop["LastName"].ToString();
+            m_FirstName = interviewer_prop["FirstName"].ToString().Replace("$", "'");
+            m_LastName = interviewer_prop["LastName"].ToString().Replace("$", "'");
             m_Id = interviewer_prop["Id_Num"].ToString();
             m_Credentials = new Credentials(interviewer_prop.GetParentRow("InterviewerCredentials"));
-            m_Admin = (bool)interviewer_prop["Hidden"];
+            m_Admin = (bool)interviewer_prop["Admin"];
 
         }
 
@@ -71,12 +71,12 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            return Interviewer_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Credentials.Id);
+            return Interviewer_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Credentials.Id, m_Admin);
         }
 
         public bool Update()
         {
-            return Interviewer_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Credentials.Id);
+            return Interviewer_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Credentials.Id, m_Admin);
         }
 
 
@@ -113,7 +113,8 @@ namespace Recruitment_System.BL
             return ((left.FirstName == right.FirstName) &&
                     (left.LastName == right.LastName) &&
                     (left.Id == right.Id) &&
-                    (left.Credentials.Id == right.Credentials.Id));
+                    (left.Credentials.Id == right.Credentials.Id) &&
+                    (left.Admin == right.Admin));
         }
 
 
@@ -132,7 +133,8 @@ namespace Recruitment_System.BL
             return ((left.FirstName != right.FirstName) ||
                     (left.LastName != right.LastName) ||
                     (left.Id != right.Id) ||
-                    (left.Credentials.Id != right.Credentials.Id));
+                    (left.Credentials.Id != right.Credentials.Id) ||
+                    (left.Admin != right.Admin));
         }
 
         #endregion

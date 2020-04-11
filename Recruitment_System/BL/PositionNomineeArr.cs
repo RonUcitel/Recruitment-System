@@ -13,7 +13,7 @@ namespace Recruitment_System.BL
     {
         public void Fill(bool isOrderedByNominee = true)
         {
-
+            this.Clear();
             DataTable dataTable = PositionNominee_Dal.GetDataTable(isOrderedByNominee);
 
 
@@ -32,7 +32,7 @@ namespace Recruitment_System.BL
 
         public void FillDisabled(bool isOrderedByNominee = true)
         {
-
+            this.Clear();
             DataTable dataTable = PositionNominee_Dal.GetDataTable(isOrderedByNominee);
 
 
@@ -52,7 +52,7 @@ namespace Recruitment_System.BL
         }
         public void FillEnabled(bool isOrderedByNominee = true)
         {
-
+            this.Clear();
             DataTable dataTable = PositionNominee_Dal.GetDataTable(isOrderedByNominee);
 
 

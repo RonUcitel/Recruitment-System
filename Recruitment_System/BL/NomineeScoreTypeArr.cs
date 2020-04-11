@@ -13,7 +13,7 @@ namespace Recruitment_System.BL
     {
         public void Fill(bool addHiddenInterviewers)
         {
-
+            this.Clear();
             DataTable dataTable = NomineeScoreType_Dal.GetDataTable();
 
 
@@ -32,7 +32,7 @@ namespace Recruitment_System.BL
 
         public void FillDisabled(bool addHiddenInterviewers)
         {
-
+            this.Clear();
             DataTable dataTable = NomineeScoreType_Dal.GetDataTable();
 
 
@@ -50,9 +50,10 @@ namespace Recruitment_System.BL
                 }
             }
         }
+
         public void FillEnabled(bool addHiddenInterviewers)
         {
-
+            this.Clear();
             DataTable dataTable = NomineeScoreType_Dal.GetDataTable();
 
 
@@ -70,6 +71,7 @@ namespace Recruitment_System.BL
                 }
             }
         }
+
         public void Fill(NomineeArrState state, bool addHiddenInterviewers)
         {
             switch (state)

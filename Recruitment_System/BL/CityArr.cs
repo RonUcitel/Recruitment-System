@@ -13,7 +13,7 @@ namespace Recruitment_System.BL
     {
         public void Fill()
         {
-
+            this.Clear();
             DataTable dataTable = City_Dal.GetDataTable();
 
 
