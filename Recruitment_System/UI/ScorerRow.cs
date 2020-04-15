@@ -12,9 +12,10 @@ namespace Recruitment_System.UI
 {
     public partial class ScorerRow : UserControl
     {
-        public ScorerRow()
+        public ScorerRow(bool isEdit)
         {
             InitializeComponent();
+            numericUpDown1.Enabled = isEdit;
         }
 
         public ScorerRow(string text, int score, int width)
@@ -80,6 +81,12 @@ namespace Recruitment_System.UI
         {
             this.Height = numericUpDown1.Height + 2;
             label1.Left = Width - label1.Width - 1;
+        }
+
+
+        public void SetEdit(bool canEdit)
+        {
+            numericUpDown1.Enabled = canEdit;
         }
     }
 }

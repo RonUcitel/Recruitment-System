@@ -163,6 +163,12 @@
     <Compile Include="UI\Scorer.Designer.cs">
       <DependentUpon>Scorer.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ScorerViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ScorerViewer.Designer.cs">
+      <DependentUpon>ScorerViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ScorerRow.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -208,6 +214,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Scorer.resx">
       <DependentUpon>Scorer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ScorerViewer.resx">
+      <DependentUpon>ScorerViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ScorerRow.resx">
       <DependentUpon>ScorerRow.cs</DependentUpon>

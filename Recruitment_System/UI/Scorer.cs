@@ -13,9 +13,10 @@ namespace Recruitment_System.UI
 {
     public partial class Scorer : UserControl
     {
-        public Scorer()
+        public Scorer(bool canEdit = true)
         {
             InitializeComponent();
+            m_CanEdit = canEdit;
 
             panel.Dock = DockStyle.Fill;
             panel.AutoScroll = true;
@@ -27,9 +28,23 @@ namespace Recruitment_System.UI
             tableLayoutPanel.AutoScroll = false;
         }
 
+        private bool m_CanEdit;
+
+        public bool CanEdit
+        {
+            get => m_CanEdit;
+
+            set
+            {
+                SetEdit(value);
+                m_CanEdit = value;
+            }
+        }
+
+
         public void AddScorerRow(NomineeScoreType nomineeScoreType)
         {
-            ScorerRow scorerRow = new ScorerRow();
+            ScorerRow scorerRow = new ScorerRow(CanEdit);
             scorerRow.Text = nomineeScoreType.ScoreType.Name;
             scorerRow.Score = nomineeScoreType.Score;
             scorerRow.Width = tableLayoutPanel.Width - 2;
@@ -40,6 +55,7 @@ namespace Recruitment_System.UI
             tableLayoutPanel.SetRow(scorerRow, tableLayoutPanel.RowCount);
         }
 
+
         public void AddLabel(string position)
         {
             Label labelPosition = new Label();
@@ -48,6 +64,7 @@ namespace Recruitment_System.UI
             labelPosition.RightToLeft = RightToLeft.Yes;
             labelPosition.TabIndex = 0;
             labelPosition.Text = position;
+            labelPosition.BackColor = Color.LightGreen;
 
 
             tableLayoutPanel.Controls.Add(labelPosition);
@@ -78,6 +95,7 @@ namespace Recruitment_System.UI
             }
         }
 
+
         public NomineeScoreTypeArr GetData()
         {
             NomineeScoreTypeArr output = new NomineeScoreTypeArr();
@@ -101,6 +119,8 @@ namespace Recruitment_System.UI
 
             return output;
         }
+
+
         public void Clear()
         {
             for (int i = 0; i < tableLayoutPanel.Controls.Count; i++)
@@ -109,6 +129,23 @@ namespace Recruitment_System.UI
             }
             tableLayoutPanel.Controls.Clear();
             tableLayoutPanel.RowCount = 0;
+        }
+
+
+        public void SetEdit(bool canEdit)
+        {
+            if (m_CanEdit != canEdit)
+            {
+                m_CanEdit = canEdit;
+            }
+
+            foreach (Control item in tableLayoutPanel.Controls)
+            {
+                if (item is ScorerRow)
+                {
+                    (item as ScorerRow).SetEdit(canEdit);
+                }
+            }
         }
     }
 }

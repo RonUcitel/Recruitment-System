@@ -221,7 +221,7 @@ namespace Recruitment_System.UI
 
                 NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
                 nomineeScoreTypeArr.Fill();
-                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewer, Nominee.Empty, ScoreType.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
+                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewer, Nominee.Empty, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
 
                 if (nomineeScoreTypeArr.DeleteArr())
                 {

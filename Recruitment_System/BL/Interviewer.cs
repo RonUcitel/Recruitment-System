@@ -54,6 +54,7 @@ namespace Recruitment_System.BL
         public int DBId { get => m_DBId; set => m_DBId = value; }
         public string FirstName { get => m_FirstName; set => m_FirstName = value; }
         public string LastName { get => m_LastName; set => m_LastName = value; }
+        public string FullName { get => m_FirstName + " " + m_LastName; }
         internal Credentials Credentials { get => m_Credentials; set => m_Credentials = value; }
         public bool Admin { get => m_Admin; set => m_Admin = value; }
         public string Id { get => m_Id; set => m_Id = value; }

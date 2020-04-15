@@ -14,7 +14,7 @@ namespace Recruitment_System.DAL
         /// Inserts the information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
-        public static bool Insert(string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city)
+        public static bool Insert(string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city, bool male)
         {
 
             //Building the SQL command
@@ -28,6 +28,7 @@ namespace Recruitment_System.DAL
                 + ",[CellAreaCode]"
                 + ",[CellPhoneNumber]"
                 + ",[City]"
+                + ",[Male]"
                 + ")"
 
                 + " VALUES "
@@ -40,6 +41,7 @@ namespace Recruitment_System.DAL
                 + "," + "'" + cellPhoneAreaCode + "'"
                 + "," + "'" + cellPhoneNumber + "'"
                 + "," + "" + city + ""
+                + "," + "" + (male ? 1 : 0) + ""
                 + ")";
 
             //Running the SQL command by using the ExecuteSql method from the Dal class and return if the command succeeded
@@ -47,7 +49,7 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool Update(int id, string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city)
+        public static bool Update(int id, string firstName, string lastName, string iDNum, string email, int birthYear, string cellPhoneAreaCode, string cellPhoneNumber, int city, bool male)
         {
 
             //מעדכנת את הלקוח במסד הנתונים
@@ -61,6 +63,7 @@ namespace Recruitment_System.DAL
             + "," + "[CellAreaCode] = " + "'" + cellPhoneAreaCode + "'"
             + "," + "[CellPhoneNumber] = " + "'" + cellPhoneNumber + "'"
             + "," + "[City] = " + "" + city + ""
+            + "," + "[Male] = " + "" + (male ? 1 : 0) + ""
 
             + " WHERE ID = " + id;
 

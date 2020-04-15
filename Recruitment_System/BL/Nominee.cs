@@ -39,6 +39,7 @@ namespace Recruitment_System.BL
             m_CellAreaCode = nominee_prop["CellAreaCode"].ToString();
             m_CellPhoneNumber = nominee_prop["CellPhoneNumber"].ToString();
             m_City = new City(nominee_prop.GetParentRow("NomineeCity"));
+            m_Male = (bool)nominee_prop["Male"];
         }
 
         #region Private containers
@@ -62,6 +63,8 @@ namespace Recruitment_System.BL
         private string m_CellPhoneNumber;
 
         private City m_City;
+
+        private bool m_Male;
         #endregion
 
 
@@ -73,6 +76,7 @@ namespace Recruitment_System.BL
         public string CellAreaCode { get => m_CellAreaCode; set => m_CellAreaCode = value; }
         public string CellPhone { get => m_CellPhoneNumber; set => m_CellPhoneNumber = value; }
         public City City { get => m_City; set => m_City = value; }
+        public string FullName { get => m_FirstName + " " + m_LastName; }
 
         public bool HaveCV { get => File.Exists(""); }
 
@@ -80,6 +84,7 @@ namespace Recruitment_System.BL
         public int BirthYear { get => m_BirthYear; set => m_BirthYear = value; }
         public string Email { get => m_Email; set => m_Email = value; }
         public bool Disabled { get => m_Disabled; set => m_Disabled = value; }
+        public bool Male { get => m_Male; set => m_Male = value; }
 
         public static readonly Nominee Empty = new Nominee();
         #endregion
@@ -93,7 +98,7 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            if (Nominee_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id))
+            if (Nominee_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_Male))
             {
                 NomineeArr nomineeArr = new NomineeArr();
                 nomineeArr.FillEnabled();
@@ -109,7 +114,7 @@ namespace Recruitment_System.BL
 
         public bool Update()
         {
-            if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id))
+            if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_Male))
             {
                 NomineeArr nomineeArr = new NomineeArr();
                 nomineeArr.FillEnabled();
@@ -131,20 +136,29 @@ namespace Recruitment_System.BL
 
             if (logEntryArr.DeleteArr())
             {
+                NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
                 PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
                 if (this.Disabled)
                 {
+                    nomineeScoreTypeArr.FillDisabled();
                     positionNomineeArr.FillDisabled();
                 }
                 else
                 {
+                    nomineeScoreTypeArr.FillEnabled();
                     positionNomineeArr.FillEnabled();
                 }
 
-                positionNomineeArr.Filter(this, Position.Empty);
-                if (positionNomineeArr.DeleteArr())
+                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(Interviewer.Empty, this, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
+
+                if (nomineeScoreTypeArr.DeleteArr())
                 {
-                    return Nominee_Dal.Delete(m_DBId);
+
+                    positionNomineeArr = positionNomineeArr.Filter(this, Position.Empty);
+                    if (positionNomineeArr.DeleteArr())
+                    {
+                        return Nominee_Dal.Delete(m_DBId);
+                    }
                 }
             }
             return false;
@@ -215,6 +229,17 @@ namespace Recruitment_System.BL
                     try
                     {
                         item.SetValue(this, City.Empty);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                else if (item.PropertyType == typeof(bool))
+                {
+                    try
+                    {
+                        item.SetValue(this, false);
                     }
                     catch
                     {

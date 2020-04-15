@@ -33,6 +33,10 @@ namespace Recruitment_System.UI
             interviewerToolStripMenuItem.Text = curInterviewer.ToString();
             SetAdminOptions(curInterviewer.Admin);
 
+            if (curInterviewer.DBId == -1)
+            {
+                tabControl_Main.Enabled = false;
+            }
             Icon = Properties.Resources.allnet;
 
             SetUpNomineeArrShowMenu();
@@ -48,6 +52,108 @@ namespace Recruitment_System.UI
 
 
         #region events
+        private void button_OpenScoreKeeping_Click(object sender, EventArgs e)
+        {
+            if (label_DBID.Text == "0")
+            {
+                return;
+            }
+            NomineeArr nomineeArr = new NomineeArr();
+            nomineeArr.Fill();
+            Nominee curNominee = nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text));
+
+            ScoreKeeping scoreKeeping = new ScoreKeeping(curInterviewer, curNominee);
+            scoreKeeping.ShowDialog();
+
+
+
+            NomineeScoreTypeArr newNomineeScoreTypeArr = scoreKeeping.FormToNomineeScoreTypeArr();
+
+
+            NomineeScoreTypeArr OldNomineeScoreTypeArr = new NomineeScoreTypeArr();
+            OldNomineeScoreTypeArr.Fill();
+            OldNomineeScoreTypeArr = OldNomineeScoreTypeArr.Filter(curInterviewer, curNominee, ScoreType.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
+
+            OldNomineeScoreTypeArr.DeleteArr();
+
+
+            newNomineeScoreTypeArr.InsertArr();
+        }
+
+
+        private void comboBox_City_TextChanged(object sender, EventArgs e)
+        {
+            comboBox_City.BackColor = Color.White;
+        }
+
+
+        private void comboBox_CellAreaCode_Leave(object sender, EventArgs e)
+        {
+            if (comboBox_CellAreaCode.Items.Contains(comboBox_CellAreaCode.Text))
+            {
+                comboBox_CellAreaCode.BackColor = Color.White;
+            }
+            else
+            {
+                comboBox_CellAreaCode.BackColor = Color.Red;
+            }
+        }
+
+
+        private void קורותחייםToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((string)button_Add_CV.Tag != GetCV(0).path)
+            {
+                string[] pathParts = ((string)button_Add_CV.Tag).Split('\\');
+                pathParts = pathParts[pathParts.Length - 1].Split('.');
+
+                if (pathParts[pathParts.Length - 1] == "pdf")
+                {
+                    //the file is a pdf file
+                    PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
+
+                }
+                else
+                {
+                    //the file is a docx file. open it with a word program.
+                    PDF_CV_Viewer.src = GetCV(0).path;
+                    PDF_CV_Viewer.Update();
+
+                    try
+                    {
+                        Process.Start((string)button_Add_CV.Tag);
+                    }
+                    catch
+                    { }
+
+                }
+            }
+            else
+            {
+                PDF_CV_Viewer.src = GetCV(0).path;
+                PDF_CV_Viewer.Update();
+            }
+        }
+
+
+        private void התנתקToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+
+        private void AdminToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdminTools_Form adminToolsForm = new AdminTools_Form(curInterviewer);
+            adminToolsForm.ShowDialog();
+
+            if (!adminToolsForm.CurInterviewer.Admin)
+            {
+                curInterviewer = adminToolsForm.CurInterviewer;
+                interviewerToolStripMenuItem.Text = curInterviewer.ToString();
+                SetAdminOptions(curInterviewer.Admin);
+            }
+        }
 
 
         private void label_DBID_TextChanged(object sender, EventArgs e)
@@ -641,22 +747,25 @@ namespace Recruitment_System.UI
             {
                 if (MessageBox.Show("פעולה זאת הינה בלתי ניתנת לשיחזור!\nהאם אתה בטוח שברצונך להמשיך?", "אזהרה!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading) == DialogResult.Yes)
                 {
-                    //delete this nominee from the database
 
-                    if (delete.Delete())
+                    if (true)
                     {
+                        //delete this nominee from the database
+                        if (delete.Delete())
+                        {
 
-                        NomineeArr nomineearr = new NomineeArr();
-                        nomineearr.Fill(GetCurNomineeArrState());
+                            NomineeArr nomineearr = new NomineeArr();
+                            nomineearr.Fill(GetCurNomineeArrState());
 
-                        SetCV(delete.DBId);
+                            SetCV(delete.DBId);
 
-                        listBox_Nominee.DataSource = nomineearr;
-                        NomineeToForm(null);
-                    }
-                    else
-                    {
-                        MessageBox.Show("קרתה תקלה בזמן המחיקה של המועמד מבסיס הנתונים", "תקלה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                            listBox_Nominee.DataSource = nomineearr;
+                            NomineeToForm(null);
+                        }
+                        else
+                        {
+                            MessageBox.Show("קרתה תקלה בזמן המחיקה של המועמד מבסיס הנתונים", "תקלה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                        }
                     }
                 }
             }
@@ -673,10 +782,10 @@ namespace Recruitment_System.UI
         #endregion
 
 
-        #region public methods
 
 
-        public Nominee FormToNominee()
+        #region private methods
+        private Nominee FormToNominee()
         {
             Nominee nominee = new Nominee();//Create a new instance of the Nominee class.
 
@@ -691,12 +800,13 @@ namespace Recruitment_System.UI
             nominee.CellAreaCode = comboBox_CellAreaCode.Text;
             nominee.CellPhone = textBox_Cel.Text;
             nominee.City = comboBox_City.SelectedItem != null ? comboBox_City.SelectedItem as City : City.Empty;
+            nominee.Male = checkBox_Sex.Checked;
 
             return nominee;
         }
 
 
-        public void CityArrToForm(City curCity)
+        private void CityArrToForm(City curCity)
         {
             CityArr cityArr = new CityArr();
             cityArr.Fill();
@@ -721,10 +831,11 @@ namespace Recruitment_System.UI
         }
 
 
-        #endregion
-
-
-        #region private methods
+        private void SetAdminOptions(bool to)
+        {
+            PositionToolStripMenuItem.Visible = to;
+            AdminToolStripMenuItem.Visible = to;
+        }
 
 
         private void ChangeShowNomineeArrCurState(NomineeArrState state)
@@ -946,6 +1057,7 @@ namespace Recruitment_System.UI
                 comboBox_CellAreaCode.Text = nominee.CellAreaCode;
                 textBox_Cel.Text = nominee.CellPhone;
                 comboBox_City.SelectedValue = nominee.City.Id;
+                checkBox_Sex.Checked = nominee.Male;
 
                 PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
                 positionNomineeArr.Fill();
@@ -1011,6 +1123,8 @@ namespace Recruitment_System.UI
                 textBox_Positions.Tag = new PositionArr();
                 SetPositionTextBoxAndToolTip(textBox_Positions.Tag as PositionArr);
 
+                checkBox_Sex.Checked = false;
+
                 //Reset the text and flags of the input fields.
                 foreach (Control item in groupBox_PD.Controls)
                 {
@@ -1046,16 +1160,6 @@ namespace Recruitment_System.UI
 
                 label_DBID.Text = "0";
             }
-        }
-
-
-        private void NomineeScoreTypeArrToForm(NomineeScoreTypeArr nomineeScoreTypeArr, Scorer scorer)
-        {
-            scorer.SuspendLayout();
-
-            scorer.SetDataSource(nomineeScoreTypeArr);
-
-            scorer.ResumeLayout();
         }
 
 
@@ -1170,137 +1274,6 @@ namespace Recruitment_System.UI
 
         #endregion
 
-        private void comboBox_City_TextChanged(object sender, EventArgs e)
-        {
-            comboBox_City.BackColor = Color.White;
-        }
 
-
-        private void comboBox_CellAreaCode_Leave(object sender, EventArgs e)
-        {
-            if (comboBox_CellAreaCode.Items.Contains(comboBox_CellAreaCode.Text))
-            {
-                comboBox_CellAreaCode.BackColor = Color.White;
-            }
-            else
-            {
-                comboBox_CellAreaCode.BackColor = Color.Red;
-            }
-        }
-
-
-        private void קורותחייםToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if ((string)button_Add_CV.Tag != GetCV(0).path)
-            {
-                string[] pathParts = ((string)button_Add_CV.Tag).Split('\\');
-                pathParts = pathParts[pathParts.Length - 1].Split('.');
-
-                if (pathParts[pathParts.Length - 1] == "pdf")
-                {
-                    //the file is a pdf file
-                    PDF_CV_Viewer.src = (string)button_Add_CV.Tag;
-
-                }
-                else
-                {
-                    //the file is a docx file. open it with a word program.
-                    PDF_CV_Viewer.src = GetCV(0).path;
-                    PDF_CV_Viewer.Update();
-
-                    try
-                    {
-                        Process.Start((string)button_Add_CV.Tag);
-                    }
-                    catch
-                    { }
-
-                }
-            }
-            else
-            {
-                PDF_CV_Viewer.src = GetCV(0).path;
-                PDF_CV_Viewer.Update();
-            }
-        }
-
-
-        private void התנתקToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Restart();
-        }
-
-
-        private void AdminToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AdminTools_Form adminToolsForm = new AdminTools_Form(curInterviewer);
-            adminToolsForm.ShowDialog();
-
-            if (!adminToolsForm.CurInterviewer.Admin)
-            {
-                curInterviewer = adminToolsForm.CurInterviewer;
-                interviewerToolStripMenuItem.Text = curInterviewer.ToString();
-                SetAdminOptions(curInterviewer.Admin);
-            }
-        }
-
-
-        private void button_SearchScoreFilter_Click(object sender, EventArgs e)
-        {
-            Position positionFilter = comboBox_PositionFilter.SelectedItem as Position;
-
-            Interviewer interviewerFilter = comboBox_InterviewerFilter.SelectedItem as Interviewer;
-
-            Nominee nomineeFilter = comboBox_NomineeFilter.SelectedItem as Nominee;
-
-            NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
-            nomineeScoreTypeArr.Fill(GetCurNomineeArrState());
-
-            nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewerFilter, nomineeFilter, positionFilter, dateTimePicker_FromFilter.Value, dateTimePicker_To.Value);
-
-            NomineeScoreTypeArrToForm(nomineeScoreTypeArr, scorer_View);
-        }
-
-
-        private void ScoreTypeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void SetAdminOptions(bool to)
-        {
-            PositionToolStripMenuItem.Visible = to;
-            ScoreTypeToolStripMenuItem.Visible = to;
-            AdminToolStripMenuItem.Visible = to;
-        }
-
-        private void button_OpenScoreKeeping_Click(object sender, EventArgs e)
-        {
-            if (label_DBID.Text == "0")
-            {
-                return;
-            }
-            NomineeArr nomineeArr = new NomineeArr();
-            nomineeArr.Fill();
-            Nominee curNominee = nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text));
-
-            ScoreKeeping scoreKeeping = new ScoreKeeping(curInterviewer, curNominee);
-            scoreKeeping.ShowDialog();
-
-
-
-            NomineeScoreTypeArr newNomineeScoreTypeArr = scoreKeeping.FormToNomineeScoreTypeArr();
-
-
-            NomineeScoreTypeArr OldNomineeScoreTypeArr = new NomineeScoreTypeArr();
-            OldNomineeScoreTypeArr.Fill();
-            OldNomineeScoreTypeArr = OldNomineeScoreTypeArr.Filter(curInterviewer, curNominee, ScoreType.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
-
-            OldNomineeScoreTypeArr.DeleteArr();
-
-
-            newNomineeScoreTypeArr.InsertArr();
-        }
     }
 }
