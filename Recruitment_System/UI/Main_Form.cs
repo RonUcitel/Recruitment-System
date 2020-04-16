@@ -1176,7 +1176,7 @@ namespace Recruitment_System.UI
         {
             string path = Properties.Resources.Server_Path + Properties.Resources.CVS_path + DBId + @"\";
 
-            if ((string)button_Add_CV.Tag != GetCV(0).path)
+            if ((string)button_Add_CV.Tag != GetCV(0).path && button_Add_CV.Tag != null)
             {
                 string[] pathParts = (button_Add_CV.Tag as string).Split('\\');
                 string fileName = pathParts[pathParts.Length - 1];
@@ -1326,7 +1326,8 @@ namespace Recruitment_System.UI
 
         private void ממוצעקריטריוניםלאורךזמןToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ScoreTypeDate_Graph_Form form = new ScoreTypeDate_Graph_Form();
+            form.ShowDialog();
         }
 
         private void נשיםוגבריםלעירToolStripMenuItem_Click(object sender, EventArgs e)

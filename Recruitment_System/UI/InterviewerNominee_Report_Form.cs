@@ -84,8 +84,8 @@ namespace Recruitment_System.UI
         {
             listView1.Clear();
 
-            listView1.Columns.Add("משרה");
-            listView1.Columns.Add("קריטריונים");
+            listView1.Columns.Add("מראיין");
+            listView1.Columns.Add("מועמדים");
 
             ListViewItem listViewItem;
             string[] values;

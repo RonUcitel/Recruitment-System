@@ -31,7 +31,7 @@ namespace Recruitment_System.UI
             chart1.ChartAreas[0].AxisX.LabelStyle.Interval = 1;
             //כותרת הגרף -1
             chart1.Titles.Clear();
-            chart1.Titles.Add("כמות מועמדים לכל עיר");
+            chart1.Titles.Add("נשים וגברים בעיר");
             //הוספת הערכים למשתנה מסוג מילון ממוין
             NomineeArr curNomineeArr = new NomineeArr();
             curNomineeArr.Fill(state);

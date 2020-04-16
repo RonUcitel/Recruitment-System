@@ -222,7 +222,7 @@
             this.Name = "MaleFemaleCity_Graph_Form";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
-            this.Text = "גרף נשים וגברים לעיר";
+            this.Text = "גרף נשים וגברים בעיר";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

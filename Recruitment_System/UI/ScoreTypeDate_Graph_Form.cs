@@ -48,7 +48,7 @@ namespace Recruitment_System.UI
             chart1.ChartAreas[0].AxisX.LabelStyle.Interval = 1;
             //כותרת הגרף -1
             chart1.Titles.Clear();
-            chart1.Titles.Add("כמות מועמדים לכל עיר");
+            chart1.Titles.Add("ממוצע ציונים לחודש");
             //הוספת הערכים למשתנה מסוג מילון ממוין
             NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
             nomineeScoreTypeArr.Fill(state);

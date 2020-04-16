@@ -34,7 +34,7 @@ namespace Recruitment_System.UI
             groupBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             groupBox.Location = new Point(0, 0);
             groupBox.RightToLeft = RightToLeft.Yes;
-            groupBox.Size = new Size(tableLayoutPanel.Width - 2, 300);
+            groupBox.Size = new Size(tableLayoutPanel.Width - 2, 500);
             groupBox.TabStop = false;
             groupBox.Text = nominee.ToString();
 
@@ -42,7 +42,8 @@ namespace Recruitment_System.UI
             scorer.Location = new Point(0, 40);
             scorer.RightToLeft = RightToLeft.Yes;
             scorer.Size = groupBox.ClientSize;
-            scorer.Width -= 2;
+            /*scorer.Width -= 2;*/
+            scorer.Dock = DockStyle.Fill;
 
             scorer.SetDataSource(nomineeScoreTypeArr);
 

@@ -26,24 +26,12 @@ namespace Recruitment_System.UI
         {
             //תפיסת החלק של הטופס להדפסה כולל הרשימה והכותרת שמעליה - לתוך תמונת הסיביות
 
-            Size listViewCapSize = new Size(0, SystemInformation.HorizontalScrollBarHeight);
-            for (int i = 0; i < listView1.Columns.Count; i++)
-            {
-                listViewCapSize.Width += listView1.Columns[i].Width + 1;
-            }
-            for (int i = 0; i < listView1.Items.Count; i++)
-            {
-                listViewCapSize.Height += listView1.Items[i].Bounds.Height + 1;
-            }
-
 
             Size page = printDocument_Reports.DefaultPageSettings.PrintableArea.Size.ToSize();
 
             Bitmap cap = new Bitmap(listView1.Width, listView1.Height);
 
             listView1.DrawToBitmap(cap, new Rectangle(Point.Empty, cap.Size));
-
-            cap = cap.Clone(new Rectangle(new Point(cap.Width - listViewCapSize.Width, 0), listViewCapSize), cap.PixelFormat);
 
 
             Rectangle recZoomSize = new Rectangle(0, 100, page.Width, cap.Height * page.Width / cap.Width);

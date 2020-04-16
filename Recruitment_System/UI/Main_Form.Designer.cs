@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox_PD = new System.Windows.Forms.GroupBox();
             this.checkBox_Sex = new System.Windows.Forms.CheckBox();
             this.panel_Positions = new System.Windows.Forms.Panel();
@@ -81,11 +81,10 @@
             this.קריטריוניםלמשרותToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.מומעמדיםלמראייןToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.פרטיקשרToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.פעולהאחרונהלמועמדToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.מועמדיםבעליהציוןהגבוהביותרToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.גרפיםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.יחסגבריםנשיםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.כמותמועמדיםלעירToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.נשיםוגבריםלעירToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.עזרהToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.עלתוכנהזוToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,7 +127,6 @@
             this.toolTip_Positions = new System.Windows.Forms.ToolTip(this.components);
             this.printPreviewDialog_Reports = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument_Reports = new System.Drawing.Printing.PrintDocument();
-            this.נשיםוגבריםלעירToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_PD.SuspendLayout();
             this.panel_Positions.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -549,7 +547,6 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.פתחToolStripMenuItem,
@@ -560,7 +557,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.menuStrip1.Size = new System.Drawing.Size(2290, 61);
+            this.menuStrip1.Size = new System.Drawing.Size(2290, 56);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -572,7 +569,7 @@
             this.פתחToolStripMenuItem.Name = "פתחToolStripMenuItem";
             this.פתחToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.פתחToolStripMenuItem.RightToLeftAutoMirrorImage = true;
-            this.פתחToolStripMenuItem.Size = new System.Drawing.Size(144, 57);
+            this.פתחToolStripMenuItem.Size = new System.Drawing.Size(144, 52);
             this.פתחToolStripMenuItem.Text = "עריכה";
             // 
             // CityToolStripMenuItem
@@ -604,7 +601,7 @@
             this.גרפיםToolStripMenuItem});
             this.הצגToolStripMenuItem.Name = "הצגToolStripMenuItem";
             this.הצגToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.הצגToolStripMenuItem.Size = new System.Drawing.Size(109, 57);
+            this.הצגToolStripMenuItem.Size = new System.Drawing.Size(109, 52);
             this.הצגToolStripMenuItem.Text = "הצג";
             // 
             // מועמדיםזמיניםToolStripMenuItem
@@ -658,9 +655,7 @@
             this.תיעודאירועיםToolStripMenuItem,
             this.קריטריוניםלמשרותToolStripMenuItem,
             this.מומעמדיםלמראייןToolStripMenuItem,
-            this.פרטיקשרToolStripMenuItem,
-            this.פעולהאחרונהלמועמדToolStripMenuItem,
-            this.מועמדיםבעליהציוןהגבוהביותרToolStripMenuItem});
+            this.פרטיקשרToolStripMenuItem});
             this.דוחותToolStripMenuItem.Name = "דוחותToolStripMenuItem";
             this.דוחותToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
             this.דוחותToolStripMenuItem.Text = "דוחות";
@@ -668,42 +663,30 @@
             // תיעודאירועיםToolStripMenuItem
             // 
             this.תיעודאירועיםToolStripMenuItem.Name = "תיעודאירועיםToolStripMenuItem";
-            this.תיעודאירועיםToolStripMenuItem.Size = new System.Drawing.Size(720, 66);
+            this.תיעודאירועיםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
             this.תיעודאירועיםToolStripMenuItem.Text = "תיעוד אירועים";
             this.תיעודאירועיםToolStripMenuItem.Click += new System.EventHandler(this.תיעודאירועיםToolStripMenuItem_Click);
             // 
             // קריטריוניםלמשרותToolStripMenuItem
             // 
             this.קריטריוניםלמשרותToolStripMenuItem.Name = "קריטריוניםלמשרותToolStripMenuItem";
-            this.קריטריוניםלמשרותToolStripMenuItem.Size = new System.Drawing.Size(720, 66);
+            this.קריטריוניםלמשרותToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
             this.קריטריוניםלמשרותToolStripMenuItem.Text = "קריטריונים למשרות";
             this.קריטריוניםלמשרותToolStripMenuItem.Click += new System.EventHandler(this.קריטריוניםלמשרותToolStripMenuItem_Click);
             // 
             // מומעמדיםלמראייןToolStripMenuItem
             // 
             this.מומעמדיםלמראייןToolStripMenuItem.Name = "מומעמדיםלמראייןToolStripMenuItem";
-            this.מומעמדיםלמראייןToolStripMenuItem.Size = new System.Drawing.Size(720, 66);
-            this.מומעמדיםלמראייןToolStripMenuItem.Text = "מומעמדים למראיין";
+            this.מומעמדיםלמראייןToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.מומעמדיםלמראייןToolStripMenuItem.Text = "מועמדים למראיין";
             this.מומעמדיםלמראייןToolStripMenuItem.Click += new System.EventHandler(this.מומעמדיםלמראייןToolStripMenuItem_Click);
             // 
             // פרטיקשרToolStripMenuItem
             // 
             this.פרטיקשרToolStripMenuItem.Name = "פרטיקשרToolStripMenuItem";
-            this.פרטיקשרToolStripMenuItem.Size = new System.Drawing.Size(720, 66);
+            this.פרטיקשרToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
             this.פרטיקשרToolStripMenuItem.Text = "פרטי קשר";
             this.פרטיקשרToolStripMenuItem.Click += new System.EventHandler(this.פרטיקשרToolStripMenuItem_Click);
-            // 
-            // פעולהאחרונהלמועמדToolStripMenuItem
-            // 
-            this.פעולהאחרונהלמועמדToolStripMenuItem.Name = "פעולהאחרונהלמועמדToolStripMenuItem";
-            this.פעולהאחרונהלמועמדToolStripMenuItem.Size = new System.Drawing.Size(720, 66);
-            this.פעולהאחרונהלמועמדToolStripMenuItem.Text = "פעולה אחרונה למועמד";
-            // 
-            // מועמדיםבעליהציוןהגבוהביותרToolStripMenuItem
-            // 
-            this.מועמדיםבעליהציוןהגבוהביותרToolStripMenuItem.Name = "מועמדיםבעליהציוןהגבוהביותרToolStripMenuItem";
-            this.מועמדיםבעליהציוןהגבוהביותרToolStripMenuItem.Size = new System.Drawing.Size(720, 66);
-            this.מועמדיםבעליהציוןהגבוהביותרToolStripMenuItem.Text = "מועמדים בעלי הציון הגבוה ביותר";
             // 
             // גרפיםToolStripMenuItem
             // 
@@ -719,22 +702,29 @@
             // יחסגבריםנשיםToolStripMenuItem
             // 
             this.יחסגבריםנשיםToolStripMenuItem.Name = "יחסגבריםנשיםToolStripMenuItem";
-            this.יחסגבריםנשיםToolStripMenuItem.Size = new System.Drawing.Size(656, 66);
+            this.יחסגבריםנשיםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
             this.יחסגבריםנשיםToolStripMenuItem.Text = "יחס גברים - נשים";
             this.יחסגבריםנשיםToolStripMenuItem.Click += new System.EventHandler(this.יחסגבריםנשיםToolStripMenuItem_Click);
             // 
             // כמותמועמדיםלעירToolStripMenuItem
             // 
             this.כמותמועמדיםלעירToolStripMenuItem.Name = "כמותמועמדיםלעירToolStripMenuItem";
-            this.כמותמועמדיםלעירToolStripMenuItem.Size = new System.Drawing.Size(656, 66);
-            this.כמותמועמדיםלעירToolStripMenuItem.Text = "כמות מועמדים לעיר";
+            this.כמותמועמדיםלעירToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.כמותמועמדיםלעירToolStripMenuItem.Text = "כמות מועמדים בעיר";
             this.כמותמועמדיםלעירToolStripMenuItem.Click += new System.EventHandler(this.כמותמועמדיםלעירToolStripMenuItem_Click);
+            // 
+            // נשיםוגבריםלעירToolStripMenuItem
+            // 
+            this.נשיםוגבריםלעירToolStripMenuItem.Name = "נשיםוגבריםלעירToolStripMenuItem";
+            this.נשיםוגבריםלעירToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.נשיםוגבריםלעירToolStripMenuItem.Text = "נשים וגברים בעיר";
+            this.נשיםוגבריםלעירToolStripMenuItem.Click += new System.EventHandler(this.נשיםוגבריםלעירToolStripMenuItem_Click);
             // 
             // ממוצעקריטריוניםלאורךזמןToolStripMenuItem
             // 
             this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Name = "ממוצעקריטריוניםלאורךזמןToolStripMenuItem";
-            this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Size = new System.Drawing.Size(656, 66);
-            this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Text = "ממוצע קריטריונים לאורך זמן";
+            this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Text = "ממוצע ציונים חודשי";
             this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Click += new System.EventHandler(this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem_Click);
             // 
             // עזרהToolStripMenuItem
@@ -742,7 +732,7 @@
             this.עזרהToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.עלתוכנהזוToolStripMenuItem});
             this.עזרהToolStripMenuItem.Name = "עזרהToolStripMenuItem";
-            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 57);
+            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 52);
             this.עזרהToolStripMenuItem.Text = "עזרה";
             // 
             // עלתוכנהזוToolStripMenuItem
@@ -757,7 +747,7 @@
             this.toolStripMenuItem_TableDesign.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem_Sort});
             this.toolStripMenuItem_TableDesign.Name = "toolStripMenuItem_TableDesign";
-            this.toolStripMenuItem_TableDesign.Size = new System.Drawing.Size(231, 57);
+            this.toolStripMenuItem_TableDesign.Size = new System.Drawing.Size(231, 52);
             this.toolStripMenuItem_TableDesign.Text = "עיצוב טבלה";
             this.toolStripMenuItem_TableDesign.Visible = false;
             // 
@@ -777,7 +767,7 @@
             this.AdminToolStripMenuItem});
             this.interviewerToolStripMenuItem.Name = "interviewerToolStripMenuItem";
             this.interviewerToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.interviewerToolStripMenuItem.Size = new System.Drawing.Size(225, 57);
+            this.interviewerToolStripMenuItem.Size = new System.Drawing.Size(225, 52);
             this.interviewerToolStripMenuItem.Text = "Interviewer";
             // 
             // שינויפרטיכניסהToolStripMenuItem
@@ -1132,17 +1122,17 @@
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(2260, 917);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -1160,13 +1150,6 @@
             // printDocument_Reports
             // 
             this.printDocument_Reports.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_Table_PrintPage);
-            // 
-            // נשיםוגבריםלעירToolStripMenuItem
-            // 
-            this.נשיםוגבריםלעירToolStripMenuItem.Name = "נשיםוגבריםלעירToolStripMenuItem";
-            this.נשיםוגבריםלעירToolStripMenuItem.Size = new System.Drawing.Size(656, 66);
-            this.נשיםוגבריםלעירToolStripMenuItem.Text = "נשים וגברים לעיר";
-            this.נשיםוגבריםלעירToolStripMenuItem.Click += new System.EventHandler(this.נשיםוגבריםלעירToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1297,8 +1280,6 @@
         private System.Windows.Forms.ToolStripMenuItem קריטריוניםלמשרותToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem מומעמדיםלמראייןToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem פרטיקשרToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem פעולהאחרונהלמועמדToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem מועמדיםבעליהציוןהגבוהביותרToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem גרפיםToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem יחסגבריםנשיםToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem כמותמועמדיםלעירToolStripMenuItem;
