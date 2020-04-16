@@ -41,7 +41,7 @@ namespace Recruitment_System.BL
             {
                 scoreType = (this[i] as ScoreType);
                 if ((name == "" || scoreType.Name.ToLower().StartsWith(name)) && (id == 0 || scoreType.Id == id) &&
-                    (position == Position.Empty || position == scoreType.Position))
+                    (position == Position.Empty || position.Id == scoreType.Position.Id))
                 {
                     scoreTypeArr.Add(scoreType);
                 }
@@ -133,6 +133,31 @@ namespace Recruitment_System.BL
                 }
             }
             return ScoreType.Empty;
+        }
+
+
+        public SortedDictionary<string, string> GetSortedDictionary()
+        {
+            SortedDictionary<string, string> dictionary = new SortedDictionary<string, string>();
+            string y = "";
+            PositionArr positionArr = this.ToPositionArr();
+            ScoreTypeArr scoreTypeArr;
+
+            foreach (Position curPosition in positionArr)
+            {
+                scoreTypeArr = this.Filter(curPosition, "");
+
+                y += (scoreTypeArr[0] as ScoreType).ToString();
+
+                for (int i = 1; i < scoreTypeArr.Count; i++)
+                {
+                    y += "\n" + (scoreTypeArr[i] as ScoreType).ToString();
+                }
+
+                dictionary.Add(curPosition.ToString(), y);
+                y = "";
+            }
+            return dictionary;
         }
     }
 }

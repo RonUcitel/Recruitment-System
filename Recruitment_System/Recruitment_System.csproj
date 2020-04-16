@@ -116,6 +116,48 @@
     <Compile Include="UI\City_Form.Designer.cs">
       <DependentUpon>City_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ContactInformation_Report_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ContactInformation_Report_Form.Designer.cs">
+      <DependentUpon>ContactInformation_Report_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\InterviewerNominee_Report_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InterviewerNominee_Report_Form.Designer.cs">
+      <DependentUpon>InterviewerNominee_Report_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaleFemaleCity_Graph_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MaleFemaleCity_Graph_Form.Designer.cs">
+      <DependentUpon>MaleFemaleCity_Graph_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaleFemale_Graph_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MaleFemale_Graph_Form.Designer.cs">
+      <DependentUpon>MaleFemale_Graph_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\NomineeCity_Graph_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\NomineeCity_Graph_Form.Designer.cs">
+      <DependentUpon>NomineeCity_Graph_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ScoreTypeDate_Graph_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ScoreTypeDate_Graph_Form.Designer.cs">
+      <DependentUpon>ScoreTypeDate_Graph_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ScoreTypePosition_Report_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ScoreTypePosition_Report_Form.Designer.cs">
+      <DependentUpon>ScoreTypePosition_Report_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\LogIn_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +225,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\City_Form.resx">
       <DependentUpon>City_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ContactInformation_Report_Form.resx">
+      <DependentUpon>ContactInformation_Report_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InterviewerNominee_Report_Form.resx">
+      <DependentUpon>InterviewerNominee_Report_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MaleFemaleCity_Graph_Form.resx">
+      <DependentUpon>MaleFemaleCity_Graph_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MaleFemale_Graph_Form.resx">
+      <DependentUpon>MaleFemale_Graph_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\NomineeCity_Graph_Form.resx">
+      <DependentUpon>NomineeCity_Graph_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ScoreTypeDate_Graph_Form.resx">
+      <DependentUpon>ScoreTypeDate_Graph_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ScoreTypePosition_Report_Form.resx">
+      <DependentUpon>ScoreTypePosition_Report_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\LogIn_Form.resx">
       <DependentUpon>LogIn_Form.cs</DependentUpon>

@@ -49,6 +49,24 @@ namespace Recruitment_System.BL
             return logEntryArr;
         }
 
+        public LogEntryArr Filter(int nomineeDBId, DateTime from, DateTime to)
+        {
+            LogEntryArr logEntryArr = new LogEntryArr();
+
+            LogEntry logEntry;
+            for (int i = 0; i < this.Count; i++)
+            {
+                logEntry = (this[i] as LogEntry);
+                if ((nomineeDBId <= 0 || logEntry.Nominee.DBId == nomineeDBId) &
+                    (from <= logEntry.DateTime && logEntry.DateTime <= to))
+                {
+                    logEntryArr.Add(logEntry);
+                }
+            }
+
+            return logEntryArr;
+        }
+
         public bool DeleteArr()
         {
             //מוחקת את אוסף המוצרים להזמנה מ מסד הנתונים

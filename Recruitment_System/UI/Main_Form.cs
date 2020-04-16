@@ -102,7 +102,7 @@ namespace Recruitment_System.UI
 
         private void קורותחייםToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if ((string)button_Add_CV.Tag != GetCV(0).path)
+            if ((string)button_Add_CV.Tag != GetCV(0).path && (string)button_Add_CV.Tag != null)
             {
                 string[] pathParts = ((string)button_Add_CV.Tag).Split('\\');
                 pathParts = pathParts[pathParts.Length - 1].Split('.');
@@ -163,7 +163,7 @@ namespace Recruitment_System.UI
         }
 
 
-        private void רשימותלוגToolStripMenuItem_Click(object sender, EventArgs e)
+        private void תיעודאירועיםToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NomineeArr nomineeArr = new NomineeArr();
             nomineeArr.Fill();
@@ -1197,7 +1197,15 @@ namespace Recruitment_System.UI
                     {
                         File.Delete(files[i]);
                     }
-                    File.Copy(button_Add_CV.Tag as string, path + fileName, true);
+                    try
+                    {
+                        File.Copy(button_Add_CV.Tag as string, path + fileName, true);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
 
             }
@@ -1241,11 +1249,20 @@ namespace Recruitment_System.UI
             }
             else
             {
+                string[] nameParts;
+                string fileType;
                 //There is a CV in the diractory
-                string[] nameParts = files[0].Split('\\');
-                nameParts = nameParts[nameParts.Length - 1].Split('.');
-                string fileType = nameParts[nameParts.Length - 1];
-                return (files[0], fileType);
+                for (int i = 0; i < files.Length; i++)
+                {
+                    if (!files[i].Contains("~"))
+                    {
+                        nameParts = files[0].Split('\\');
+                        nameParts = nameParts[nameParts.Length - 1].Split('.');
+                        fileType = nameParts[nameParts.Length - 1];
+                        return (files[i], fileType);
+                    }
+                }
+                return ("", "");
             }
 
         }
@@ -1272,8 +1289,50 @@ namespace Recruitment_System.UI
 
 
 
+
         #endregion
 
+        private void קריטריוניםלמשרותToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ScoreTypePosition_Report_Form form = new ScoreTypePosition_Report_Form();
 
+            form.ShowDialog();
+
+        }
+
+        private void מומעמדיםלמראייןToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InterviewerNominee_Report_Form form = new InterviewerNominee_Report_Form();
+            form.ShowDialog();
+        }
+
+        private void פרטיקשרToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ContactInformation_Report_Form form = new ContactInformation_Report_Form();
+            form.ShowDialog();
+        }
+
+        private void יחסגבריםנשיםToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MaleFemale_Graph_Form form = new MaleFemale_Graph_Form();
+            form.ShowDialog();
+        }
+
+        private void כמותמועמדיםלעירToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NomineeCity_Graph_Form form = new NomineeCity_Graph_Form();
+            form.ShowDialog();
+        }
+
+        private void ממוצעקריטריוניםלאורךזמןToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void נשיםוגבריםלעירToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MaleFemaleCity_Graph_Form form = new MaleFemaleCity_Graph_Form();
+            form.ShowDialog();
+        }
     }
 }

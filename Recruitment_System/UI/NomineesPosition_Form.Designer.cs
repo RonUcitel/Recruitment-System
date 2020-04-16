@@ -256,9 +256,12 @@
             this.Controls.Add(this.button_Add);
             this.Controls.Add(this.listBox_AvailablePositions);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "NomineesPosition_Form";
-            this.Text = "NomineesPosition_Form";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.RightToLeftLayout = true;
+            this.Text = "עריכת משרות למועמד";
             this.contextMenuStrip_City.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

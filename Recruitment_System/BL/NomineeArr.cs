@@ -142,6 +142,92 @@ namespace Recruitment_System.BL
             return nomineeArr;
         }
 
+        public NomineeArr Filter(string firstName, string lastName, string email, string phone, Position position)
+        {
+            NomineeArr nomineeArr = new NomineeArr();
+
+            //check if each nominee in the database stands in the filters args. if it doe's
+            //then it is added to the new NomineeArr.
+            Nominee nominee;
+
+            PositionNomineeArr positionNomineeArr;
+            PositionArr positionArr;
+
+            for (int i = 0; i < this.Count; i++)
+            {
+                positionNomineeArr = new PositionNomineeArr();
+                positionNomineeArr.Fill();
+                nominee = (this[i] as Nominee);
+                positionNomineeArr = positionNomineeArr.Filter(nominee, Position.Empty);
+                positionArr = positionNomineeArr.ToPositionArr();
+
+                if (
+                    (firstName == "" || nominee.FirstName.StartsWith(firstName)) &&
+                    (lastName == "" || nominee.LastName.StartsWith(lastName)) &&
+                    (email == "" || nominee.Email.Contains(email)) &&
+                    (phone == "" || (nominee.CellAreaCode + nominee.CellPhone).Contains(phone)) &&
+                    (position == Position.Empty || positionArr.Count == 0 || positionArr.IsContains(position))
+                    )
+                {
+                    nomineeArr.Add(nominee);
+                }
+            }
+
+            return nomineeArr;
+        }
+
+        public NomineeArr Filter(Position position, City city, int ageFrom = 0, int ageTo = 100)
+        {
+            NomineeArr nomineeArr = new NomineeArr();
+
+            //check if each nominee in the database stands in the filters args. if it doe's
+            //then it is added to the new NomineeArr.
+            Nominee nominee;
+
+            PositionNomineeArr positionNomineeArr;
+            PositionArr positionArr;
+
+            for (int i = 0; i < this.Count; i++)
+            {
+                positionNomineeArr = new PositionNomineeArr();
+                positionNomineeArr.Fill();
+                nominee = (this[i] as Nominee);
+                int age = DateTime.Now.Year - nominee.BirthYear;
+                positionNomineeArr = positionNomineeArr.Filter(nominee, Position.Empty);
+                positionArr = positionNomineeArr.ToPositionArr();
+
+                if ((city == City.Empty || nominee.City == city) &&
+                    (position == Position.Empty || positionArr.Count == 0 || positionArr.IsContains(position)) &&
+                    (ageFrom <= age && age <= ageTo))
+                {
+                    nomineeArr.Add(nominee);
+                }
+            }
+
+            return nomineeArr;
+        }
+
+        public NomineeArr Filter(bool male)
+        {
+            NomineeArr nomineeArr = new NomineeArr();
+
+            //check if each nominee in the database stands in the filters args. if it doe's
+            //then it is added to the new NomineeArr.
+            Nominee nominee;
+
+            for (int i = 0; i < this.Count; i++)
+            {
+                nominee = (this[i] as Nominee);
+
+                if (!male ^ nominee.Male)
+                {
+                    nomineeArr.Add(nominee);
+                }
+            }
+
+            return nomineeArr;
+        }
+
 
         public Nominee GetNomineeByDBId(int dbId)
         {
@@ -209,6 +295,67 @@ namespace Recruitment_System.BL
                 max = (this[i] as Nominee).DBId > max.DBId ? this[i] as Nominee : max;
             }
             return max;
+        }
+
+
+        public CityArr ToCityArr()
+        {
+            CityArr cityArr = new CityArr();
+            Nominee nominee;
+            for (int i = 0; i < this.Count; i++)
+            {
+                nominee = this[i] as Nominee;
+                if (!cityArr.IsContains(nominee.City.Id))
+                {
+                    cityArr.Add(nominee.City);
+                }
+            }
+            return cityArr;
+        }
+
+
+        public SortedDictionary<string, int> GetSortedDictionaryMaleFemaleProportion()
+        {
+
+            // מחזירה משתנה מסוג מילון ממוין עם ערכים רלוונטיים לדוח
+            SortedDictionary<string, int> dictionary = new SortedDictionary<string, int>();
+
+            dictionary.Add("גברים", this.Filter(true).Count);
+
+            dictionary.Add("נשים", this.Filter(false).Count);
+
+            return dictionary;
+        }
+
+
+        public SortedDictionary<string, int> GetSortedDictionaryCity()
+        {
+
+            // מחזירה משתנה מסוג מילון ממוין עם ערכים רלוונטיים לדוח
+            SortedDictionary<string, int> dictionary = new SortedDictionary<string, int>();
+
+            CityArr cityArr = new CityArr();
+            cityArr.Fill();
+            foreach (City curCity in cityArr)
+                dictionary.Add(curCity.Name, this.Filter(Position.Empty, curCity).Count);
+            return dictionary;
+        }
+
+
+        public SortedDictionary<string, int> GetSortedDictionaryMaleFemaleCity(bool male)
+        {
+
+            // מחזירה משתנה מסוג מילון ממוין עם ערכים רלוונטיים לדוח
+            SortedDictionary<string, int> dictionary = new SortedDictionary<string, int>();
+
+            CityArr cityArr = new CityArr();
+            cityArr.Fill();
+
+            NomineeArr nomineeArr = this.Filter(male);
+
+            foreach (City curCity in cityArr)
+                dictionary.Add(curCity.Name, nomineeArr.Filter(Position.Empty, curCity).Count);
+            return dictionary;
         }
     }
 }

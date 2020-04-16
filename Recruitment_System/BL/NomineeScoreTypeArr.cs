@@ -161,10 +161,48 @@ namespace Recruitment_System.BL
             for (int i = 0; i < this.Count; i++)
             {
                 nomineeScoreType = this[i] as NomineeScoreType;
-                if ((interviewer == Interviewer.Empty || interviewer == nomineeScoreType.Interviewer) &&
-                    (nominee == Nominee.Empty || nominee == nomineeScoreType.Nominee) &&
-                    (position == Position.Empty || position == nomineeScoreType.ScoreType.Position) &&
+                if ((interviewer == Interviewer.Empty || interviewer.DBId == nomineeScoreType.Interviewer.DBId) &&
+                    (nominee == Nominee.Empty || nominee.DBId == nomineeScoreType.Nominee.DBId) &&
+                    (position == Position.Empty || position.Id == nomineeScoreType.ScoreType.Position.Id) &&
                     (dateTimeFrom <= nomineeScoreType.DateTime && nomineeScoreType.DateTime <= dateTimeTo))
+                {
+                    positionnomineeArr.Add(nomineeScoreType);
+                }
+            }
+
+            return positionnomineeArr;
+        }
+
+
+        public NomineeScoreTypeArr Filter(Interviewer interviewer, Nominee nominee)
+        {
+            NomineeScoreTypeArr positionnomineeArr = new NomineeScoreTypeArr();
+
+            NomineeScoreType nomineeScoreType;
+            for (int i = 0; i < this.Count; i++)
+            {
+                nomineeScoreType = this[i] as NomineeScoreType;
+                if ((interviewer == Interviewer.Empty || interviewer.DBId == nomineeScoreType.Interviewer.DBId) &&
+                    (nominee == Nominee.Empty || nominee.DBId == nomineeScoreType.Nominee.DBId))
+                {
+                    positionnomineeArr.Add(nomineeScoreType);
+                }
+            }
+
+            return positionnomineeArr;
+        }
+
+        public NomineeScoreTypeArr FilterMonth(ScoreType scoreType, DateTime monthYear)
+        {
+            NomineeScoreTypeArr positionnomineeArr = new NomineeScoreTypeArr();
+
+            NomineeScoreType nomineeScoreType;
+            for (int i = 0; i < this.Count; i++)
+            {
+                nomineeScoreType = this[i] as NomineeScoreType;
+                if ((scoreType == ScoreType.Empty || scoreType.Id == nomineeScoreType.ScoreType.Id) &&
+                    (monthYear.Month == nomineeScoreType.DateTime.Month) &&
+                    (monthYear.Year == nomineeScoreType.DateTime.Year))
                 {
                     positionnomineeArr.Add(nomineeScoreType);
                 }
@@ -285,7 +323,7 @@ namespace Recruitment_System.BL
             {
                 nomineeScoreType = this[i] as NomineeScoreType;
                 interviewer = nomineeScoreType.Interviewer;
-                if (!interviewerArr.IsContains(interviewer.Id))
+                if (!interviewerArr.IsContains(interviewer.DBId))
                 {
                     interviewerArr.Add(interviewer);
                 }
@@ -337,8 +375,15 @@ namespace Recruitment_System.BL
 
         public void SortByPositions()
         {
-            PositionComparer mc = new PositionComparer();
-            Sort(mc);
+            PositionComparer pc = new PositionComparer();
+            Sort(pc);
+        }
+
+
+        public void SortByDateTime()
+        {
+            DateTimeComparer dc = new DateTimeComparer();
+            Sort(dc);
         }
 
 
@@ -357,7 +402,73 @@ namespace Recruitment_System.BL
 
             return false;
         }
+
+        public SortedDictionary<string, string> GetSortedDictionary()
+        {
+            SortedDictionary<string, string> dictionary = new SortedDictionary<string, string>();
+            string y = "";
+            InterviewerArr interviewerArr = this.ToInterviewerArr();
+            NomineeArr nomineeArr;
+
+            foreach (Interviewer curInterviewer in interviewerArr)
+            {
+                nomineeArr = this.Filter(curInterviewer, Nominee.Empty).ToNomineeArr();
+
+                y += (nomineeArr[0] as Nominee).ToString();
+
+                for (int i = 1; i < nomineeArr.Count; i++)
+                {
+                    y += "\n" + (nomineeArr[i] as Nominee).ToString();
+                }
+
+                dictionary.Add(curInterviewer.ToString(), y);
+                y = "";
+            }
+            return dictionary;
+        }
+
+        public SortedDictionary<string, float> GetSortedDictionaryScore(ScoreType scoreType, DateTime from, DateTime to)
+        {
+
+            // מחזירה משתנה מסוג מילון ממוין עם ערכים רלוונטיים לדוח
+            SortedDictionary<string, float> dictionary = new SortedDictionary<string, float>();
+
+            NomineeScoreTypeArr nomineeScoreTypeArr;
+            int sum = 0;
+            int count = 0;
+            int x = 0;
+            string key = "";
+            for (DateTime d = from; d <= to; d = d.AddMonths(1))
+            {
+                nomineeScoreTypeArr = this.FilterMonth(scoreType, d);
+
+                for (int i = 0; i < nomineeScoreTypeArr.Count; i++)
+                {
+                    x = (nomineeScoreTypeArr[i] as NomineeScoreType).Score;
+                    if (x > 0)
+                    {
+                        sum += x;
+                        count++;
+                    }
+                }
+
+                key += d.Month;
+                key += "/" + d.Year;
+
+                dictionary.Add(key, sum / (float)count);
+
+
+                sum = 0;
+                count = 0;
+                x = 0;
+                key = "";
+            }
+            return dictionary;
+        }
     }
+
+
+
 
     class PositionComparer : IComparer
     {
@@ -370,6 +481,23 @@ namespace Recruitment_System.BL
             if (n1.ScoreType.Position.Id > n2.ScoreType.Position.Id)
                 return 1;
             if (n1.ScoreType.Position.Id < n2.ScoreType.Position.Id)
+                return -1;
+            else
+                return 0;
+        }
+    }
+
+    class DateTimeComparer : IComparer
+    {
+
+        // Calls CaseInsensitiveComparer.Compare with the parameters reversed.
+        int IComparer.Compare(object x, object y)
+        {
+            NomineeScoreType n1 = (NomineeScoreType)x;
+            NomineeScoreType n2 = (NomineeScoreType)y;
+            if (n1.DateTime > n2.DateTime)
+                return 1;
+            if (n1.DateTime < n2.DateTime)
                 return -1;
             else
                 return 0;

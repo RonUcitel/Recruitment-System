@@ -8,91 +8,56 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Recruitment_System.BL;
+using System.Collections;
 
 namespace Recruitment_System.UI
 {
+    public enum ColumType
+    {
+        Date, Time, Nominee, Enty
+    }
     public partial class Log_Form : Form
     {
         public Log_Form(int nomineeDBId, string name = "")
         {
             InitializeComponent();
-
-            Text += ((name == "" || name == " ") ? name : " - ") + name;
-
-            this.Tag = nomineeDBId;
-            UpdateListView_Log(nomineeDBId);
-
-
-            Size size = new Size(SystemInformation.VerticalScrollBarWidth, SystemInformation.HorizontalScrollBarHeight /*somehow the same as the columnHeader hight- wifh is unavailable*/);
-
-            for (int i = 0; i < listView_Log.Columns.Count; i++)
-            {
-                size.Width += listView_Log.Columns[i].Width + 1;
-            }
-            for (int i = 0; i < listView_Log.Items.Count; i++)
-            {
-                size.Height += listView_Log.Items[i].Bounds.Height + 1;
-            }
-            this.ClientSize = size;
+            lvwColumnSorter = new ListViewColumnSorter();
+            listView_Log.ListViewItemSorter = lvwColumnSorter;
+            NomineeArrToForm(nomineeDBId);
+            dateTimePicker_To.Value = DateTime.Now;
+            UpdateListView_Log(nomineeDBId, DateTime.MinValue, DateTime.MaxValue);
         }
 
+        private ListViewColumnSorter lvwColumnSorter;
 
         private Bitmap[] m_bitmaps;
         private int pageNum;
 
-        private void listView_Log_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
-        {
-            e.Cancel = true;
-            e.NewWidth = listView_Log.Columns[e.ColumnIndex].Width;
-        }
 
-
-        private void UpdateListView_Log(int nomineeDBId)
+        private void UpdateListView_Log(int nomineeDBId, DateTime from, DateTime to)
         {
             listView_Log.Clear();
 
-            if (nomineeDBId > 0)
+
+            listView_Log.Columns.Add("תאריך");
+            listView_Log.Columns.Add("שעה");
+            listView_Log.Columns.Add("שם מועמד");
+            listView_Log.Columns.Add("פעולה");
+
+            LogEntryArr logEntryArr = new LogEntryArr();
+            logEntryArr.Fill();
+            logEntryArr = logEntryArr.Filter((int)comboBox_Nominee.SelectedValue, from, to);
+
+            ListViewItem listViewItem;
+            LogEntry logEntry;
+            for (int i = 0; i < logEntryArr.Count; i++)
             {
-                listView_Log.Columns.Add("תאריך");
-                listView_Log.Columns.Add("שעה");
-                listView_Log.Columns.Add("פעולה");
-
-                LogEntryArr logEntryArr = new LogEntryArr();
-                logEntryArr.Fill();
-                logEntryArr = logEntryArr.Filter(nomineeDBId, DateTime.MinValue, "");
-
-                ListViewItem listViewItem;
-                LogEntry logEntry;
-                for (int i = 0; i < logEntryArr.Count; i++)
-                {
-                    logEntry = logEntryArr[i] as LogEntry;
-                    listViewItem = new ListViewItem(logEntry.DateTime.ToString("dd-MM-yyyy"));
-                    listViewItem.SubItems.Add(logEntry.DateTime.ToString("HH:mm:ss"));
-                    listViewItem.SubItems.Add(logEntry.Entry);
-                    listView_Log.Items.Add(listViewItem);
-                }
-            }
-            else
-            {
-                listView_Log.Columns.Add("תאריך");
-                listView_Log.Columns.Add("שעה");
-                listView_Log.Columns.Add("שם מועמד");
-                listView_Log.Columns.Add("פעולה");
-
-                LogEntryArr logEntryArr = new LogEntryArr();
-                logEntryArr.Fill();
-
-                ListViewItem listViewItem;
-                LogEntry logEntry;
-                for (int i = 0; i < logEntryArr.Count; i++)
-                {
-                    logEntry = logEntryArr[i] as LogEntry;
-                    listViewItem = new ListViewItem(logEntry.DateTime.ToString("dd-MM-yyyy"));
-                    listViewItem.SubItems.Add(logEntry.DateTime.ToString("HH:mm:ss"));
-                    listViewItem.SubItems.Add(logEntry.Nominee.ToString());
-                    listViewItem.SubItems.Add(logEntry.Entry);
-                    listView_Log.Items.Add(listViewItem);
-                }
+                logEntry = logEntryArr[i] as LogEntry;
+                listViewItem = new ListViewItem(logEntry.DateTime.ToString("dd-MM-yyyy"));
+                listViewItem.SubItems.Add(logEntry.DateTime.ToString("HH:mm:ss"));
+                listViewItem.SubItems.Add(logEntry.Nominee.ToString());
+                listViewItem.SubItems.Add(logEntry.Entry);
+                listView_Log.Items.Add(listViewItem);
             }
 
 
@@ -122,6 +87,19 @@ namespace Recruitment_System.UI
 
             //redraw the listview
             listView_Log.EndUpdate();
+
+
+            Size size = new Size(SystemInformation.VerticalScrollBarWidth, SystemInformation.HorizontalScrollBarHeight * 2 /*somehow the same as the columnHeader hight- wifh is unavailable*/);
+
+            for (int i = 0; i < listView_Log.Columns.Count; i++)
+            {
+                size.Width += listView_Log.Columns[i].Width + 1;
+            }
+            for (int i = 0; i < listView_Log.Items.Count; i++)
+            {
+                size.Height += listView_Log.Items[i].Bounds.Height + 1;
+            }
+            listView_Log.Size = size;
         }
 
 
@@ -158,6 +136,11 @@ namespace Recruitment_System.UI
 
         private void הדפסדוחToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < listView_Log.SelectedIndices.Count; i++)
+            {
+                listView_Log.Items[listView_Log.SelectedIndices[i]].Selected = false;
+            }
+            button_CleaerFilter.Focus();
             SetPrint();
             printPreviewDialog1.Document = printDocument1;
             printPreviewDialog1.ShowDialog();
@@ -174,7 +157,9 @@ namespace Recruitment_System.UI
         {
             Size page = printDocument1.DefaultPageSettings.PrintableArea.Size.ToSize();
             pageNum = 0;
-            Bitmap cap = new Bitmap(listView_Log.Width, listView_Log.Height);
+            Bitmap cap;
+
+            cap = new Bitmap(listView_Log.Width, listView_Log.Height);
 
             listView_Log.DrawToBitmap(cap, new Rectangle(Point.Empty, listView_Log.Size));
 
@@ -228,10 +213,213 @@ namespace Recruitment_System.UI
                 }
                 else
                 {
-                    UpdateListView_Log((int)this.Tag);
+                    UpdateListView_Log((int)comboBox_Nominee.SelectedValue, DateTime.MinValue, DateTime.MaxValue);
                 }
 
             }
         }
+
+        private void button_Filter_Click(object sender, EventArgs e)
+        {
+            if (dateTimePicker_From.Value <= dateTimePicker_To.Value)
+            {
+                UpdateListView_Log((int)comboBox_Nominee.SelectedValue, dateTimePicker_From.Value, dateTimePicker_To.Value);
+
+                if ((int)comboBox_Nominee.SelectedValue > 0)
+                {
+                    string name = (comboBox_Nominee.SelectedItem as Nominee).FullName;
+                    Text = "תיעוד אירועים - " + name;
+                }
+                else
+                {
+                    Text = "תיעוד אירועים";
+                }
+            }
+            else
+            {
+                MessageBox.Show("התאריך - שעה ההתחלתי חייב להיות קטן יותר מהתאריך - שעה הסופיים", "שגיאה!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+            }
+        }
+
+        private void button_CleaerFilter_Click(object sender, EventArgs e)
+        {
+            UpdateListView_Log(0, DateTime.MinValue, DateTime.Now);
+            lvwColumnSorter.SortColumn = 0;
+            lvwColumnSorter.Order = SortOrder.Ascending;
+            listView_Log.Sort();
+            Text = "תיעוד אירועים";
+        }
+
+
+        private void NomineeArrToForm(int nomineeDBId)
+        {
+
+            NomineeArr nomineeArr = new NomineeArr();
+            nomineeArr.Fill();
+            nomineeArr.Insert(0, Nominee.Empty);
+
+
+            comboBox_Nominee.DataSource = nomineeArr;
+            comboBox_Nominee.ValueMember = "DBId";
+            comboBox_Nominee.DisplayMember = "FullName";
+            comboBox_Nominee.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_Nominee.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_Nominee.SelectedValue = nomineeDBId;
+
+            if ((int)comboBox_Nominee.SelectedValue > 0)
+            {
+                string name = (comboBox_Nominee.SelectedItem as Nominee).FullName;
+                Text = "תיעוד אירועים - " + name;
+            }
+            else
+            {
+                Text = "תיעוד אירועים";
+            }
+        }
+
+        private void listView_Log_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            listView_Log.Sort();
+        }
+
+        private void listView_Log_SizeChanged(object sender, EventArgs e)
+        {
+            ClientSize = new Size(ClientSize.Width, listView_Log.Height);
+        }
+    }
+
+    public class ListViewColumnSorter : IComparer
+    {
+        /// <summary>
+        /// Specifies the column to be sorted
+        /// </summary>
+        private int ColumnToSort;
+
+        /// <summary>
+        /// Specifies the order in which to sort (i.e. 'Ascending').
+        /// </summary>
+        private SortOrder OrderOfSort;
+        /// <summary>
+        /// Case insensitive comparer object
+        /// </summary>
+        private CaseInsensitiveComparer ObjectCompare;
+
+        /// <summary>
+        /// Class constructor.  Initializes various elements
+        /// </summary>
+        public ListViewColumnSorter()
+        {
+            // Initialize the column to '0'
+            ColumnToSort = 0;
+
+            // Initialize the sort order to 'none'
+            OrderOfSort = SortOrder.None;
+
+            // Initialize the CaseInsensitiveComparer object
+            ObjectCompare = new CaseInsensitiveComparer();
+        }
+
+        /// <summary>
+        /// This method is inherited from the IComparer interface.  It compares the two objects passed using a case insensitive comparison.
+        /// </summary>
+        /// <param name="x">First object to be compared</param>
+        /// <param name="y">Second object to be compared</param>
+        /// <returns>The result of the comparison. "0" if equal, negative if 'x' is less than 'y' and positive if 'x' is greater than 'y'</returns>
+        public int Compare(object x, object y)
+        {
+            int compareResult;
+            ListViewItem listviewX, listviewY;
+
+            // Cast the objects to be compared to ListViewItem objects
+            listviewX = (ListViewItem)x;
+            listviewY = (ListViewItem)y;
+
+            // Compare the two items
+            if (ColumnToSort == (int)ColumType.Date)
+            {
+
+                compareResult = ObjectCompare.Compare(
+                    DateTime.ParseExact(listviewX.SubItems[ColumnToSort].Text, "dd-MM-yyyy", null), DateTime.ParseExact(listviewY.SubItems[ColumnToSort].Text, "dd-MM-yyyy", null));
+            }
+            else if (ColumnToSort == (int)ColumType.Time)
+            {
+                compareResult = ObjectCompare.Compare(
+                       DateTime.ParseExact(listviewX.SubItems[ColumnToSort].Text, "HH:mm:ss", null), DateTime.ParseExact(listviewY.SubItems[ColumnToSort].Text, "HH:mm:ss", null));
+            }
+            else
+            {
+                compareResult = ObjectCompare.Compare(
+                       listviewX.SubItems[ColumnToSort].Text,
+                       listviewY.SubItems[ColumnToSort].Text);
+            }
+
+            // Calculate correct return value based on object comparison
+            if (OrderOfSort == SortOrder.Ascending)
+            {
+                // Ascending sort is selected, return normal result of compare operation
+                return compareResult;
+            }
+            else if (OrderOfSort == SortOrder.Descending)
+            {
+                // Descending sort is selected, return negative result of compare operation
+                return (-compareResult);
+            }
+            else
+            {
+                // Return '0' to indicate they are equal
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the number of the column to which to apply the sorting operation (Defaults to '0').
+        /// </summary>
+        public int SortColumn
+        {
+            set
+            {
+                ColumnToSort = value;
+            }
+            get
+            {
+                return ColumnToSort;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the order of sorting to apply (for example, 'Ascending' or 'Descending').
+        /// </summary>
+        public SortOrder Order
+        {
+            set
+            {
+                OrderOfSort = value;
+            }
+            get
+            {
+                return OrderOfSort;
+            }
+        }
+
     }
 }

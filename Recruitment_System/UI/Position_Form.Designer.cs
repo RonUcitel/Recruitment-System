@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Position_Form));
             this.label_Id = new System.Windows.Forms.Label();
             this.textBox_Name = new System.Windows.Forms.TextBox();
             this.listBox_Position = new System.Windows.Forms.ListBox();
@@ -221,6 +222,7 @@
             this.Controls.Add(this.textBox_Filter);
             this.Controls.Add(this.groupBox_Position);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Position_Form";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;

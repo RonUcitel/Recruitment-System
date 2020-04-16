@@ -270,6 +270,7 @@ namespace Recruitment_System.BL
             return dictionary;
         }
 
+
         public SortedDictionary<string, string> GetSortedDictionary(bool sortByNominee)
         {
             SortedDictionary<string, string> dictionary = new SortedDictionary<string, string>();

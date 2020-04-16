@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminTools_Form));
             this.groupBox_Credentials = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_InterviewerPassword = new System.Windows.Forms.TextBox();
@@ -587,11 +588,12 @@
             this.ClientSize = new System.Drawing.Size(1694, 836);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "AdminTools_Form";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
-            this.Text = "AdminTools_Form";
+            this.Text = "כלי אדמינסטרטור";
             this.InputLanguageChanged += new System.Windows.Forms.InputLanguageChangedEventHandler(this.AdminTools_Form_InputLanguageChanged);
             this.groupBox_Credentials.ResumeLayout(false);
             this.groupBox_Credentials.PerformLayout();

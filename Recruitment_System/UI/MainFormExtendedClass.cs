@@ -19,18 +19,14 @@ namespace Recruitment_System.UI
     {
         private Bitmap m_bitmap;
 
-        private void listView_PositionNominee_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
-        {
-            if (e.IsSelected)
-                e.Item.Selected = false;
-        }
 
         private void tabControl_Main_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl_Main.SelectedTab == tabPage_PositionNomineeChart)
             {
-                DataToChart(GetCurNomineeArrState());
                 toolStripMenuItem_TableDesign.Visible = false;
+                DataToChart(GetCurNomineeArrState());
+
 
             }
             else if (tabControl_Main.SelectedTab == tabPage_PositionNomineeTable)
@@ -40,9 +36,10 @@ namespace Recruitment_System.UI
             }
             else if (tabControl_Main.SelectedTab == tabPage_Score)
             {
+                toolStripMenuItem_TableDesign.Visible = false;
                 FilterArrsToForm();
                 scorer_View.SetDataSource(new NomineeScoreTypeArr(), Interviewer.Empty);
-                toolStripMenuItem_TableDesign.Visible = true;
+
             }
             else
             {
@@ -52,6 +49,13 @@ namespace Recruitment_System.UI
 
 
         #region tabPageTable
+
+        private void listView_PositionNominee_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.IsSelected)
+                e.Item.Selected = false;
+        }
+
         private void CaptureScreen(ListView listViewCap)
         {
             //תפיסת החלק של הטופס להדפסה כולל הרשימה והכותרת שמעליה - לתוך תמונת הסיביות
@@ -154,6 +158,7 @@ namespace Recruitment_System.UI
 
                 listViewItem = new ListViewItem(key);
                 listViewItem.SubItems.Add(values[0]);
+                listViewItem.BackColor = Color.LightGreen;
 
                 listView_PositionNominee.Items.Add(listViewItem);
 
@@ -348,7 +353,7 @@ namespace Recruitment_System.UI
                 //add the title
                 Font font = new Font("Microsoft Sans Serif", 20F, FontStyle.Regular, GraphicsUnit.Point);
 
-                g.DrawString("ציונים", font, new SolidBrush(Color.Black), new Rectangle(Point.Empty, page), new StringFormat(StringFormatFlags.DirectionRightToLeft));
+                g.DrawString("ציונים ע" + '"' + "י " + (comboBox_InterviewerFilter.SelectedItem as Interviewer).FullName, font, new SolidBrush(Color.Black), new Rectangle(Point.Empty, page), new StringFormat(StringFormatFlags.DirectionRightToLeft)); ;
 
                 g.DrawImage(cap, recZoomSize);
             }

@@ -13,6 +13,22 @@ namespace Recruitment_System.UI
 {
     public partial class Scorer : UserControl
     {
+
+        public Scorer()
+        {
+            InitializeComponent();
+            m_CanEdit = true;
+
+            panel.Dock = DockStyle.Fill;
+            panel.AutoScroll = true;
+            panel.AutoSize = false;
+
+            tableLayoutPanel.Dock = DockStyle.Top;
+            tableLayoutPanel.AutoSize = true;
+            tableLayoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel.AutoScroll = false;
+        }
+
         public Scorer(bool canEdit = true)
         {
             InitializeComponent();

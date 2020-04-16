@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreKeeping));
             this.scorer1 = new Recruitment_System.UI.Scorer();
             this.SuspendLayout();
             // 
             // scorer1
             // 
+            this.scorer1.CanEdit = true;
             this.scorer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scorer1.Location = new System.Drawing.Point(0, 0);
             this.scorer1.Name = "scorer1";
@@ -47,6 +49,7 @@
             this.ClientSize = new System.Drawing.Size(1102, 597);
             this.Controls.Add(this.scorer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ScoreKeeping";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
