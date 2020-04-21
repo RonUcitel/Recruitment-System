@@ -136,7 +136,7 @@ namespace Recruitment_System.BL
 
             if (logEntryArr.DeleteArr())
             {
-                NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
+                InterviewCriterionArr nomineeScoreTypeArr = new InterviewCriterionArr();
                 PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
                 if (this.Disabled)
                 {
@@ -149,7 +149,7 @@ namespace Recruitment_System.BL
                     positionNomineeArr.FillEnabled();
                 }
 
-                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(Interviewer.Empty, this, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
+                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(Interviewer.Empty, this, PositionType.Empty, DateTime.MinValue, DateTime.MaxValue);
 
                 if (nomineeScoreTypeArr.DeleteArr())
                 {

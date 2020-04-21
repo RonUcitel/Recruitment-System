@@ -19,10 +19,10 @@ namespace Recruitment_System.UI
             InitializeComponent();
             PositionArrToForm();
             NomineeArrStateToForm();
-            DataToChart(Position.Empty, 0, 100, NomineeArrState.ShowEnabledOnly);
+            DataToChart(PositionType.Empty, 0, 100, NomineeArrState.ShowEnabledOnly);
         }
 
-        public void DataToChart(Position position, int from, int to, NomineeArrState state)
+        public void DataToChart(PositionType position, int from, int to, NomineeArrState state)
         {
             //פלטת הצבעים -אפשר גם להגדיר מראש במאפיינים )לא בקוד(
             chart1.Palette = ChartColorPalette.Excel;
@@ -74,9 +74,9 @@ namespace Recruitment_System.UI
 
         private void PositionArrToForm()
         {
-            PositionArr positionArr = new PositionArr();
+            PositionTypeArr positionArr = new PositionTypeArr();
             positionArr.Fill();
-            positionArr.Insert(0, Position.Empty);
+            positionArr.Insert(0, PositionType.Empty);
 
             comboBox_Position.DataSource = positionArr;
             comboBox_Position.ValueMember = "Id";
@@ -98,7 +98,7 @@ namespace Recruitment_System.UI
 
         private void button_Filter_Click(object sender, EventArgs e)
         {
-            DataToChart(comboBox_Position.SelectedItem as Position, (int)numericUpDown_From.Value, (int)numericUpDown_To.Value, (NomineeArrState)comboBox_NomineeState.SelectedIndex);
+            DataToChart(comboBox_Position.SelectedItem as PositionType, (int)numericUpDown_From.Value, (int)numericUpDown_To.Value, (NomineeArrState)comboBox_NomineeState.SelectedIndex);
         }
 
         private void numericUpDown_From_ValueChanged(object sender, EventArgs e)
@@ -118,7 +118,7 @@ namespace Recruitment_System.UI
             numericUpDown_From.Value = 0;
             numericUpDown_To.Value = 100;
 
-            DataToChart(comboBox_Position.SelectedItem as Position, (int)numericUpDown_From.Value, (int)numericUpDown_To.Value, (NomineeArrState)comboBox_NomineeState.SelectedIndex);
+            DataToChart(comboBox_Position.SelectedItem as PositionType, (int)numericUpDown_From.Value, (int)numericUpDown_To.Value, (NomineeArrState)comboBox_NomineeState.SelectedIndex);
         }
     }
 }

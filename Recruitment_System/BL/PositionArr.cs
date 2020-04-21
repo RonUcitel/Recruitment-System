@@ -11,7 +11,6 @@ namespace Recruitment_System.BL
 {
     public class PositionArr : ArrayList
     {
-        //public static PositionArr Empty = new PositionArr();
 
         public void Fill()
         {
@@ -20,47 +19,66 @@ namespace Recruitment_System.BL
 
 
             DataRow dataRow;
-            Position Position;
+            Position position;
 
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
                 dataRow = dataTable.Rows[i];
 
-                Position = new Position(dataRow);
+                position = new Position(dataRow);
 
-                if (Position.Id != 0)
-                    Add(Position);
+                if (position.Id != 0)
+                    Add(position);
             }
         }
 
-        public PositionArr Filter(string arg)
+        public PositionArr Filter(string name, PositionType positionType, DateTime creationDate, DateTime deadLine, int id = 0)
         {
-            arg = arg.ToLower();
-            PositionArr PositionArr = new PositionArr();
 
-            Position Position;
+            PositionArr positionArr = new PositionArr();
+
+            Position position;
             for (int i = 0; i < this.Count; i++)
             {
-                Position = (this[i] as Position);
-                if (arg == "" || Position.Name.ToLower().StartsWith(arg))
+                position = (this[i] as Position);
+                if ((id == 0 || position.Id == id) &&
+                    (name == "" || position.Name.StartsWith(name)) &&
+                    (positionType == PositionType.Empty || positionType == position.PositionType) &&
+                    (creationDate == DateTime.MinValue || creationDate == null || position.CreationDate == creationDate) &&
+                    (deadLine == DateTime.MinValue || deadLine == null || position.DeadLine == deadLine))
                 {
-                    PositionArr.Add(Position);
+                    positionArr.Add(position);
                 }
             }
 
-            return PositionArr;
+            return positionArr;
         }
 
 
-        public Position Filter(int dBId)
+        public Position GetPositionById(int id)
         {
-            Position Position;
+            Position position;
             for (int i = 0; i < this.Count; i++)
             {
-                Position = (this[i] as Position);
-                if (dBId == Position.Id)
+                position = (this[i] as Position);
+                if (id == position.Id)
                 {
-                    return Position;
+                    return position;
+                }
+            }
+
+            return Position.Empty;
+        }
+
+        public Position GetPositionByName(string name)
+        {
+            Position position;
+            for (int i = 0; i < this.Count; i++)
+            {
+                position = (this[i] as Position);
+                if (name == position.Name)
+                {
+                    return position;
                 }
             }
 
@@ -102,23 +120,23 @@ namespace Recruitment_System.BL
         }
 
 
-        public bool IsContains(Position position)
+        public bool IsContains(PositionType positionType)
         {
             for (int i = 0; i < this.Count; i++)
             {
-                if ((this[i] as Position) == position)
+                if ((this[i] as PositionType) == positionType)
                     return true;
             }
             return false;
         }
 
 
-        public void Remove(PositionArr positionArr)
+        public void Remove(PositionTypeArr positionTypeArr)
         {
             //מסירה מהאוסף הנוכחי את האוסף המתקבל
 
-            for (int i = 0; i < positionArr.Count; i++)
-                this.Remove(positionArr[i] as Position);
+            for (int i = 0; i < positionTypeArr.Count; i++)
+                this.Remove(positionTypeArr[i] as PositionType);
         }
 
 
@@ -140,7 +158,7 @@ namespace Recruitment_System.BL
         {
             try
             {
-                base.Remove(Filter(name)[0]);
+                base.Remove(GetPositionByName(name));
             }
             catch
             {
@@ -149,11 +167,11 @@ namespace Recruitment_System.BL
         }
 
 
-        public void Remove(int dBId)
+        public void Remove(int id)
         {
             try
             {
-                base.Remove(Filter(dBId));
+                base.Remove(GetPositionById(id));
             }
             catch
             {

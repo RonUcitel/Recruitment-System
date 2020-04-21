@@ -142,7 +142,7 @@ namespace Recruitment_System.BL
             return nomineeArr;
         }
 
-        public NomineeArr Filter(string firstName, string lastName, string email, string phone, Position position)
+        public NomineeArr Filter(string firstName, string lastName, string email, string phone, PositionType position)
         {
             NomineeArr nomineeArr = new NomineeArr();
 
@@ -166,7 +166,7 @@ namespace Recruitment_System.BL
                     (lastName == "" || nominee.LastName.StartsWith(lastName)) &&
                     (email == "" || nominee.Email.Contains(email)) &&
                     (phone == "" || (nominee.CellAreaCode + nominee.CellPhone).Contains(phone)) &&
-                    (position == Position.Empty || positionArr.Count == 0 || positionArr.IsContains(position))
+                    (position == PositionType.Empty || positionArr.Count == 0 || positionArr.IsContains(position))
                     )
                 {
                     nomineeArr.Add(nominee);
@@ -176,7 +176,7 @@ namespace Recruitment_System.BL
             return nomineeArr;
         }
 
-        public NomineeArr Filter(Position position, City city, int ageFrom = 0, int ageTo = 100)
+        public NomineeArr Filter(PositionType position, City city, int ageFrom = 0, int ageTo = 100)
         {
             NomineeArr nomineeArr = new NomineeArr();
 
@@ -197,7 +197,7 @@ namespace Recruitment_System.BL
                 positionArr = positionNomineeArr.ToPositionArr();
 
                 if ((city == City.Empty || nominee.City == city) &&
-                    (position == Position.Empty || positionArr.Count == 0 || positionArr.IsContains(position)) &&
+                    (position == PositionType.Empty || positionArr.Count == 0 || positionArr.IsContains(position)) &&
                     (ageFrom <= age && age <= ageTo))
                 {
                     nomineeArr.Add(nominee);
@@ -337,7 +337,7 @@ namespace Recruitment_System.BL
             CityArr cityArr = new CityArr();
             cityArr.Fill();
             foreach (City curCity in cityArr)
-                dictionary.Add(curCity.Name, this.Filter(Position.Empty, curCity).Count);
+                dictionary.Add(curCity.Name, this.Filter(PositionType.Empty, curCity).Count);
             return dictionary;
         }
 
@@ -354,7 +354,7 @@ namespace Recruitment_System.BL
             NomineeArr nomineeArr = this.Filter(male);
 
             foreach (City curCity in cityArr)
-                dictionary.Add(curCity.Name, nomineeArr.Filter(Position.Empty, curCity).Count);
+                dictionary.Add(curCity.Name, nomineeArr.Filter(PositionType.Empty, curCity).Count);
             return dictionary;
         }
     }

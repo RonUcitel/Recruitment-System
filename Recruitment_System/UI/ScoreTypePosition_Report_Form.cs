@@ -17,7 +17,7 @@ namespace Recruitment_System.UI
         {
             InitializeComponent();
             PositionArrToForm();
-            ScoreTypeArrToTable(Position.Empty);
+            ScoreTypeArrToTable(PositionType.Empty);
         }
 
         private Bitmap m_bitmap;
@@ -52,10 +52,10 @@ namespace Recruitment_System.UI
 
 
 
-        public void ScoreTypeArrToTable(Position position)
+        public void ScoreTypeArrToTable(PositionType position)
         {
             //listView_Nominee
-            ScoreTypeArr scoreTypeArr = new ScoreTypeArr();
+            CriterionArr scoreTypeArr = new CriterionArr();
             scoreTypeArr.Fill();
             scoreTypeArr = scoreTypeArr.Filter(position, "");
 
@@ -106,9 +106,9 @@ namespace Recruitment_System.UI
 
         private void PositionArrToForm()
         {
-            PositionArr positionArr = new PositionArr();
+            PositionTypeArr positionArr = new PositionTypeArr();
             positionArr.Fill();
-            positionArr.Insert(0, Position.Empty);
+            positionArr.Insert(0, PositionType.Empty);
 
             comboBox_Position.SelectedValueChanged -= comboBox_Position_SelectedValueChanged;
             comboBox_Position.DataSource = positionArr;
@@ -123,7 +123,7 @@ namespace Recruitment_System.UI
 
         private void comboBox_Position_SelectedValueChanged(object sender, EventArgs e)
         {
-            ScoreTypeArrToTable(comboBox_Position.SelectedItem as Position);
+            ScoreTypeArrToTable(comboBox_Position.SelectedItem as PositionType);
         }
 
 

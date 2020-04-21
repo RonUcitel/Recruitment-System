@@ -70,9 +70,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BL\NomineeScoreType.cs" />
-    <Compile Include="BL\NomineeScoreTypeArr.cs" />
-    <Compile Include="BL\ScoreTypeArr.cs" />
+    <Compile Include="BL\Interview.cs" />
+    <Compile Include="BL\InterviewCriterion.cs" />
+    <Compile Include="BL\InterviewArr.cs" />
+    <Compile Include="BL\InterviewCriterionArr.cs" />
+    <Compile Include="BL\CriterionArr.cs" />
     <Compile Include="BL\Credentials.cs" />
     <Compile Include="BL\CredentialsArr.cs" />
     <Compile Include="BL\Interviewer.cs" />
@@ -81,23 +83,30 @@
     <Compile Include="BL\LogEntry.cs" />
     <Compile Include="BL\City.cs" />
     <Compile Include="BL\CityArr.cs" />
+    <Compile Include="BL\PositionTypeCriterionArr.cs" />
+    <Compile Include="BL\PositionTypeCriterion.cs" />
     <Compile Include="BL\PositionNominee.cs" />
     <Compile Include="BL\Nominee.cs" />
     <Compile Include="BL\PositionNomineeArr.cs" />
     <Compile Include="BL\NomineeArr.cs" />
     <Compile Include="BL\Position.cs" />
+    <Compile Include="BL\PositionType.cs" />
     <Compile Include="BL\PositionArr.cs" />
-    <Compile Include="BL\ScoreType.cs" />
+    <Compile Include="BL\PositionTypeArr.cs" />
+    <Compile Include="BL\Criterion.cs" />
     <Compile Include="DAL\Credentials_Dal.cs" />
+    <Compile Include="DAL\Interview_Dal.cs" />
     <Compile Include="DAL\Interviewer_Dal.cs" />
-    <Compile Include="DAL\NomineeScoreType_Dal.cs" />
+    <Compile Include="DAL\InterviewCriterion_Dal.cs" />
+    <Compile Include="DAL\PositionTypeCriterion_Dal.cs" />
     <Compile Include="DAL\PositionNominee_Dal.cs" />
     <Compile Include="DAL\LogEntry_Dal.cs" />
     <Compile Include="DAL\City_Dal.cs" />
     <Compile Include="DAL\Nominee_Dal.cs" />
     <Compile Include="DAL\Dal.cs" />
     <Compile Include="DAL\Position_Dal.cs" />
-    <Compile Include="DAL\ScoreType_Dal.cs" />
+    <Compile Include="DAL\PositionType_Dal.cs" />
+    <Compile Include="DAL\Criterion_Dal.cs" />
     <Compile Include="UI\AboutBox1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,11 +182,11 @@
     <Compile Include="UI\NomineesPosition_Form.Designer.cs">
       <DependentUpon>NomineesPosition_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Position_Form.cs">
+    <Compile Include="UI\PositionType_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Position_Form.Designer.cs">
-      <DependentUpon>Position_Form.cs</DependentUpon>
+    <Compile Include="UI\PositionType_Form.Designer.cs">
+      <DependentUpon>PositionType_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Log_Form.cs">
       <SubType>Form</SubType>
@@ -253,8 +262,8 @@
     <EmbeddedResource Include="UI\NomineesPosition_Form.resx">
       <DependentUpon>NomineesPosition_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Position_Form.resx">
-      <DependentUpon>Position_Form.cs</DependentUpon>
+    <EmbeddedResource Include="UI\PositionType_Form.resx">
+      <DependentUpon>PositionType_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Log_Form.resx">
       <DependentUpon>Log_Form.cs</DependentUpon>

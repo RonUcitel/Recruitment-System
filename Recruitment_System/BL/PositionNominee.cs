@@ -155,13 +155,13 @@ namespace Recruitment_System.BL
 
         public static bool operator ==(PositionNominee left, PositionNominee right)
         {
-            return left.Nominee == right.Nominee && left.Position == left.Position;
+            return left.Nominee == right.Nominee && left.Position == right.Position;
         }
 
 
         public static bool operator !=(PositionNominee left, PositionNominee right)
         {
-            return left.Nominee != right.Nominee || left.Position != left.Position;
+            return left.Nominee != right.Nominee || left.Position != right.Position;
         }
         #endregion
     }

@@ -15,18 +15,24 @@ namespace Recruitment_System.DAL
         /// Inserts the information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
-        public static bool Insert(string PositionName)
+        public static bool Insert(string name, int positionType, DateTime creationDate, DateTime deadlineDate)
         {
 
             //Building the SQL command
             string str = "INSERT INTO " + tableName
                 + "("
                 + "[Name]"
+                + ",[PositionType]"
+                + ",[CreationDate]"
+                + ",[DeadLine]"
                 + ")"
 
                 + " VALUES "
                 + "("
-                      + "N'" + PositionName + "'"
+                      + "N'" + name + "'"
+                + "," + "" + positionType + ""
+                + "," + "'" + creationDate.ToString("yyyy-MM-dd") + "'"
+                + "," + "'" + deadlineDate.ToString("yyyy-MM-dd") + "'"
                 + ")";
 
             //Running the SQL command by using the ExecuteSql method from the Dal class and return if the command succeeded
@@ -34,13 +40,16 @@ namespace Recruitment_System.DAL
         }
 
 
-        public static bool Update(int id, string PositionName)
+        public static bool Update(int id, string name, int positionType, DateTime creationDate, DateTime deadlineDate)
         {
 
             //מעדכנת את הלקוח במסד הנתונים
 
             string str = "UPDATE " + tableName + " SET"
-            + " " + "[Name] = " + "N'" + PositionName + "'"
+            + " " + "[Name] = " + "N'" + name + "'"
+            + "," + "[PositionType] = " + "" + positionType + ""
+            + "," + "[CreationDate] = " + "'" + creationDate.ToString("yyyy-MM-dd") + "'"
+            + "," + "[DeadLine] = " + "'" + deadlineDate.ToString("yyyy-MM-dd") + "'"
 
             + " WHERE ID = " + id;
 
@@ -64,11 +73,18 @@ namespace Recruitment_System.DAL
 
         public static void FillDataSet(DataSet dataSet)
         {
-            if (!dataSet.Tables.Contains(tableName))
-            {
-                Dal.FillDataSet(dataSet, tableName, "[Name]");
-            }
+            Dal.FillDataSet(dataSet, tableName, "[Name]");
 
+            PositionType_Dal.FillDataSet(dataSet);
+
+
+            DataRelation dataRelationPositionPositionType = new DataRelation(
+                "PositionPositionType"
+                , dataSet.Tables[PositionType_Dal.tableName].Columns["Id"]
+                , dataSet.Tables[tableName].Columns["PositionType"]);
+
+
+            dataSet.Relations.Add(dataRelationPositionPositionType);
         }
 
 

@@ -183,7 +183,7 @@ namespace Recruitment_System.UI
         private void textBox_FilterAvailable_TextChanged(object sender, EventArgs e)
         {
             string text = textBox_FilterAvailable.Text;
-            listBox_AvailablePositions.DataSource = availablePosArr.Filter(text);
+            listBox_AvailablePositions.DataSource = availablePosArr.Filter(text, PositionType.Empty, DateTime.MinValue, DateTime.MinValue);
 
             if (text == "")
             {
@@ -199,7 +199,7 @@ namespace Recruitment_System.UI
         private void textBox_FilterChosen_TextChanged(object sender, EventArgs e)
         {
             string text = textBox_FilterChosen.Text;
-            listBox_ChosenPositions.DataSource = chosenPosArr.Filter(text);
+            listBox_ChosenPositions.DataSource = chosenPosArr.Filter(text, PositionType.Empty, DateTime.MinValue, DateTime.MinValue);
 
             if (text == "")
             {

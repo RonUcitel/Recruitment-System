@@ -13,63 +13,62 @@ namespace Recruitment_System.UI
 {
     public partial class ScoreKeeping : Form
     {
-        public ScoreKeeping(Interviewer interviewer, Nominee nominee)
+        public ScoreKeeping(Interview interview)
         {
             InitializeComponent();
-            Text = "ציונים עבור " + nominee.ToString();
+            Text = "ציונים עבור " + interview.Nominee.ToString();
 
-            NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
-            nomineeScoreTypeArr.Fill();
-            nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewer, nominee, ScoreType.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+            interviewCriterionArr.Fill();
+            interviewCriterionArr = interviewCriterionArr.Filter(interview.Interviewer, interview.Nominee, Criterion.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
 
-            nomineeScoreTypeArr = FillData(nomineeScoreTypeArr, nominee, interviewer);
+            interviewCriterionArr = FillData(interviewCriterionArr, interview);
 
-            scorer1.SetDataSource(nomineeScoreTypeArr);
+            scorer1.SetDataSource(interviewCriterionArr);
         }
 
 
-        private NomineeScoreTypeArr FillData(NomineeScoreTypeArr nomineeScoreTypeArr, Nominee nominee, Interviewer interviewer)
+        private InterviewCriterionArr FillData(InterviewCriterionArr interviewCriterionArr, Interview interview)
         {
             //
             PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
             positionNomineeArr.Fill();
-            positionNomineeArr = positionNomineeArr.Filter(nominee, Position.Empty);
+            positionNomineeArr = positionNomineeArr.Filter(interview.Nominee, Position.Empty);
 
             PositionArr positionArr = positionNomineeArr.ToPositionArr();
             //
 
-            ScoreTypeArr scoreTypeArr = new ScoreTypeArr();
+            CriterionArr criterionArr = new CriterionArr();
 
             Position position;
-            ScoreType scoreType;
-            NomineeScoreType nomineeScoreType;
+            Criterion criterion;
+            InterviewCriterion interviewCriterion;
             for (int i = 0; i < positionArr.Count; i++)
             {
                 position = positionArr[i] as Position;
 
-                scoreTypeArr.Fill();
-                scoreTypeArr = scoreTypeArr.Filter(position, "");
+                criterionArr.Fill();
+                criterionArr = criterionArr.Filter(position.PositionType, "");
 
-                for (int j = 0; j < scoreTypeArr.Count; j++)
+                for (int j = 0; j < criterionArr.Count; j++)
                 {
-                    scoreType = scoreTypeArr[j] as ScoreType;
+                    criterion = criterionArr[j] as Criterion;
 
-                    if (!nomineeScoreTypeArr.DoesContainData(interviewer, nominee, scoreType))
+                    if (!interviewCriterionArr.DoesContainData(interview, criterion))
                     {
-                        nomineeScoreType = new NomineeScoreType();
-                        nomineeScoreType.Interviewer = interviewer;
-                        nomineeScoreType.Nominee = nominee;
-                        nomineeScoreType.ScoreType = scoreType;
-                        nomineeScoreType.DateTime = DateTime.Now;
+                        interviewCriterion = new InterviewCriterion();
+                        interviewCriterion.Interview = interview;
+                        interviewCriterion.Criterion = criterion;
+                        interviewCriterion.DateTime = DateTime.Now;
 
-                        nomineeScoreTypeArr.Add(nomineeScoreType);
+                        interviewCriterionArr.Add(interviewCriterion);
                     }
                 }
             }
-            return nomineeScoreTypeArr;
+            return interviewCriterionArr;
         }
 
-        public NomineeScoreTypeArr FormToNomineeScoreTypeArr()
+        public InterviewCriterionArr FormToNomineeScoreTypeArr()
         {
             return scorer1.GetData();
         }

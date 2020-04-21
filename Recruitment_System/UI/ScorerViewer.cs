@@ -28,7 +28,7 @@ namespace Recruitment_System.UI
         }
 
 
-        public void AddNominee(NomineeScoreTypeArr nomineeScoreTypeArr, Nominee nominee)
+        public void AddNominee(InterviewCriterionArr nomineeScoreTypeArr, Nominee nominee)
         {
             GroupBox groupBox = new GroupBox();
             groupBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -54,7 +54,7 @@ namespace Recruitment_System.UI
         }
 
 
-        public void SetDataSource(NomineeScoreTypeArr nomineeScoreTypeArr, Interviewer interviewer)
+        public void SetDataSource(InterviewCriterionArr nomineeScoreTypeArr, Interviewer interviewer)
         {
             Clear();
             if (nomineeScoreTypeArr != null && interviewer != null)
@@ -62,11 +62,11 @@ namespace Recruitment_System.UI
 
                 //nomineeScoreTypeArr.SortByPositions();
 
-                NomineeScoreTypeArr filter;
+                InterviewCriterionArr filter;
                 NomineeArr nomineeArr = nomineeScoreTypeArr.ToNomineeArr();
                 for (int i = 0; i < nomineeArr.Count; i++)
                 {
-                    filter = nomineeScoreTypeArr.Filter(interviewer, nomineeArr[i] as Nominee, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
+                    filter = nomineeScoreTypeArr.Filter(interviewer, nomineeArr[i] as Nominee, PositionType.Empty, DateTime.MinValue, DateTime.MaxValue);
 
                     filter.SortByPositions();
                     AddNominee(filter, nomineeArr[i] as Nominee);
@@ -75,17 +75,17 @@ namespace Recruitment_System.UI
         }
 
 
-        public NomineeScoreTypeArr GetData()
+        public InterviewCriterionArr GetData()
         {
-            NomineeScoreTypeArr output = new NomineeScoreTypeArr();
+            InterviewCriterionArr output = new InterviewCriterionArr();
             ScorerRow scorerRow;
-            NomineeScoreType nomineeScoreType;
+            InterviewCriterion nomineeScoreType;
             foreach (Control item in tableLayoutPanel.Controls)
             {
                 if (item is ScorerRow)
                 {
                     scorerRow = item as ScorerRow;
-                    nomineeScoreType = scorerRow.Tag as NomineeScoreType;
+                    nomineeScoreType = scorerRow.Tag as InterviewCriterion;
                     if (nomineeScoreType.Score != scorerRow.Score)
                     {
                         nomineeScoreType.Score = scorerRow.Score;

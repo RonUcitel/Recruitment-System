@@ -20,20 +20,20 @@ namespace Recruitment_System.UI
             ResetDateTimeMinMax(NomineeArrState.ShowEnabledOnly);
             PositionArrToForm();
             NomineeArrStateToForm();
-            DataToChart(Position.Empty, minDate, maxDate, NomineeArrState.ShowEnabledOnly);
+            DataToChart(PositionType.Empty, minDate, maxDate, NomineeArrState.ShowEnabledOnly);
         }
 
         private DateTime minDate, maxDate;
 
         private void ResetDateTimeMinMax(NomineeArrState state)
         {
-            NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
+            InterviewCriterionArr nomineeScoreTypeArr = new InterviewCriterionArr();
             nomineeScoreTypeArr.Fill(state);
 
             nomineeScoreTypeArr.SortByDateTime();
 
-            minDate = (nomineeScoreTypeArr[0] as NomineeScoreType).DateTime;
-            maxDate = (nomineeScoreTypeArr[nomineeScoreTypeArr.Count - 1] as NomineeScoreType).DateTime;
+            minDate = (nomineeScoreTypeArr[0] as InterviewCriterion).DateTime;
+            maxDate = (nomineeScoreTypeArr[nomineeScoreTypeArr.Count - 1] as InterviewCriterion).DateTime;
 
             dateTimePicker_FromFilter.MinDate = minDate;
             dateTimePicker_FromFilter.MaxDate = maxDate;
@@ -42,28 +42,28 @@ namespace Recruitment_System.UI
             dateTimePicker_ToFilter.MaxDate = maxDate;
         }
 
-        public void DataToChart(Position position, DateTime from, DateTime to, NomineeArrState state)
-        {
+        public void DataToChart(PositionType position, DateTime from, DateTime to, NomineeArrState state)
+        {/*
             //מחייב הצגת כל הערכים בציר האיקס, אם רוצים שיוצגו לסירוגין רושמים 2
             chart1.ChartAreas[0].AxisX.LabelStyle.Interval = 1;
             //כותרת הגרף -1
             chart1.Titles.Clear();
             chart1.Titles.Add("ממוצע ציונים לחודש");
             //הוספת הערכים למשתנה מסוג מילון ממוין
-            NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
+            InterviewCriterionArr nomineeScoreTypeArr = new InterviewCriterionArr();
             nomineeScoreTypeArr.Fill(state);
             nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(Interviewer.Empty, Nominee.Empty, position, from, to);
 
 
             chart1.Series.Clear();
             chart1.BeginInit();
-            ScoreTypeArr scoreTypeArr = nomineeScoreTypeArr.ToScoreTypeArr();
+            CriterionArr scoreTypeArr = nomineeScoreTypeArr.ToScoreTypeArr();
             Series series;
-            ScoreType scoreType;
+            Criterion scoreType;
             SortedDictionary<string, float> dictionary;
             for (int i = 0; i < scoreTypeArr.Count; i++)
             {
-                scoreType = scoreTypeArr[i] as ScoreType;
+                scoreType = scoreTypeArr[i] as Criterion;
                 dictionary = nomineeScoreTypeArr.GetSortedDictionaryScore(scoreType, from, to);
 
                 //הגדרת סדרה וערכיה - שם הסדרה מועבר למקרא - 2
@@ -101,13 +101,13 @@ namespace Recruitment_System.UI
 
 
             //הוספת הסדרה לפקד הגרף
-        }
+        */}
 
         private void PositionArrToForm()
         {
-            PositionArr positionArr = new PositionArr();
+            PositionTypeArr positionArr = new PositionTypeArr();
             positionArr.Fill();
-            positionArr.Insert(0, Position.Empty);
+            positionArr.Insert(0, PositionType.Empty);
 
             comboBox_Position.DataSource = positionArr;
             comboBox_Position.ValueMember = "Id";
@@ -129,7 +129,7 @@ namespace Recruitment_System.UI
 
         private void button_Filter_Click(object sender, EventArgs e)
         {
-            DataToChart(comboBox_Position.SelectedItem as Position, dateTimePicker_FromFilter.Value, dateTimePicker_ToFilter.Value, (NomineeArrState)comboBox_NomineeState.SelectedIndex);
+            DataToChart(comboBox_Position.SelectedItem as PositionType, dateTimePicker_FromFilter.Value, dateTimePicker_ToFilter.Value, (NomineeArrState)comboBox_NomineeState.SelectedIndex);
         }
 
         private void button_Clear_Click(object sender, EventArgs e)
@@ -140,7 +140,7 @@ namespace Recruitment_System.UI
             dateTimePicker_FromFilter.Value = minDate;
             dateTimePicker_ToFilter.Value = maxDate;
 
-            DataToChart(comboBox_Position.SelectedItem as Position, minDate, maxDate, NomineeArrState.ShowEnabledOnly);
+            DataToChart(comboBox_Position.SelectedItem as PositionType, minDate, maxDate, NomineeArrState.ShowEnabledOnly);
         }
 
         private void dateTimePicker_FromFilter_ValueChanged(object sender, EventArgs e)

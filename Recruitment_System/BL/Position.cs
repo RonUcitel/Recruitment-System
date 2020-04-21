@@ -1,4 +1,5 @@
 ﻿using Recruitment_System.DAL;
+using System;
 using System.Collections;
 using System.Data;
 
@@ -12,19 +13,19 @@ namespace Recruitment_System.BL
         /// </summary>
         public Position()
         {
-            m_Id = -1;
+            m_Id = 0;
             m_Name = "";
+            m_PositionType = PositionType.Empty;
+            m_CreationDate = DateTime.Now;
+            m_DeadLine = DateTime.MaxValue;
         }
         public Position(DataRow Position_prop)
         {
             m_Id = (int)Position_prop["ID"];
-            m_Name = Position_prop["Name"].ToString();
-
-        }
-        private Position(bool unused)
-        {
-            m_Id = -1;
-            m_Name = "+";
+            Name = Position_prop["Name"].ToString();
+            m_PositionType = new PositionType(Position_prop.GetParentRow("PositionPositionType"));
+            m_CreationDate = (DateTime)Position_prop["CreationDate"];
+            m_DeadLine = (DateTime)Position_prop["DeadLine"];
         }
 
         #endregion
@@ -34,6 +35,9 @@ namespace Recruitment_System.BL
 
         private int m_Id;
         private string m_Name;
+        private PositionType m_PositionType;
+        private DateTime m_CreationDate;
+        private DateTime m_DeadLine;
 
         #endregion
 
@@ -41,9 +45,11 @@ namespace Recruitment_System.BL
         #region Public variables
         public int Id { get => m_Id; set => m_Id = value; }
         public string Name { get => m_Name; set => m_Name = value; }
+        public PositionType PositionType { get => m_PositionType; set => m_PositionType = value; }
+        public DateTime CreationDate { get => m_CreationDate; set => m_CreationDate = value; }
+        public DateTime DeadLine { get => m_DeadLine; set => m_DeadLine = value; }
 
-        public static Position Empty = new Position();
-        public static Position AddingFormButton = new Position(true);
+        public static readonly Position Empty = new Position();
 
         #endregion
 
@@ -56,18 +62,18 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            return Position_Dal.Insert(m_Name);
+            return Position_Dal.Insert(m_Name, m_PositionType.Id, m_CreationDate, m_DeadLine);
         }
 
         public bool Update()
         {
-            return Position_Dal.Update(m_Id, m_Name);
+            return Position_Dal.Update(m_Id, m_Name, m_PositionType.Id, m_CreationDate, m_DeadLine);
         }
 
 
         public bool Delete()
         {
-            return Position_Dal.Delete(m_Id);
+            return PositionType_Dal.Delete(m_Id);
         }
 
 
@@ -89,7 +95,7 @@ namespace Recruitment_System.BL
             }
 
 
-            return left.Id == right.Id && left.Name == right.Name;
+            return left.m_Id == right.m_Id && left.m_Name == right.m_Name && left.m_PositionType.Id == right.m_PositionType.Id;
         }
 
 
@@ -105,7 +111,7 @@ namespace Recruitment_System.BL
             }
 
 
-            return left.Id != right.Id || left.Name != right.Name;
+            return left.m_Id != right.m_Id || left.m_Name != right.m_Name || left.m_PositionType.Id != right.m_PositionType.Id;
         }
 
         #endregion

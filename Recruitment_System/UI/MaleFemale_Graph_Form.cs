@@ -19,10 +19,10 @@ namespace Recruitment_System.UI
             InitializeComponent();
             CityArrToForm();
             PositionArrToForm();
-            DataToChart(Position.Empty, City.Empty);
+            DataToChart(PositionType.Empty, City.Empty);
         }
 
-        public void DataToChart(Position position, City city)
+        public void DataToChart(PositionType position, City city)
         {
             //פלטת הצבעים -אפשר גם להגדיר מראש במאפיינים )לא בקוד(
             chart1.Palette = ChartColorPalette.Excel;
@@ -74,14 +74,14 @@ namespace Recruitment_System.UI
 
         private void button_Filter_Click(object sender, EventArgs e)
         {
-            DataToChart(comboBox_Position.SelectedItem as Position, comboBox_City.SelectedItem as City);
+            DataToChart(comboBox_Position.SelectedItem as PositionType, comboBox_City.SelectedItem as City);
         }
 
         private void PositionArrToForm()
         {
-            PositionArr positionArr = new PositionArr();
+            PositionTypeArr positionArr = new PositionTypeArr();
             positionArr.Fill();
-            positionArr.Insert(0, Position.Empty);
+            positionArr.Insert(0, PositionType.Empty);
 
             comboBox_Position.DataSource = positionArr;
             comboBox_Position.ValueMember = "Id";
@@ -109,7 +109,7 @@ namespace Recruitment_System.UI
         {
             comboBox_Position.SelectedIndex = 0;
             comboBox_City.SelectedIndex = 0;
-            DataToChart(comboBox_Position.SelectedItem as Position, comboBox_City.SelectedItem as City);
+            DataToChart(comboBox_Position.SelectedItem as PositionType, comboBox_City.SelectedItem as City);
         }
     }
 }

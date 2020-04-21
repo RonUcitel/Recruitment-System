@@ -38,7 +38,7 @@ namespace Recruitment_System.UI
             {
                 toolStripMenuItem_TableDesign.Visible = false;
                 FilterArrsToForm();
-                scorer_View.SetDataSource(new NomineeScoreTypeArr(), Interviewer.Empty);
+                scorer_View.SetDataSource(new InterviewCriterionArr(), Interviewer.Empty);
 
             }
             else
@@ -245,10 +245,10 @@ namespace Recruitment_System.UI
 
         private void DataToScorerViewer()
         {
-            Position positionFilter = comboBox_PositionFilter.SelectedItem as Position;
+            PositionType positionFilter = comboBox_PositionFilter.SelectedItem as PositionType;
             if (positionFilter == null)
             {
-                positionFilter = Position.Empty;
+                positionFilter = PositionType.Empty;
             }
 
 
@@ -265,7 +265,7 @@ namespace Recruitment_System.UI
             }
 
 
-            NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
+            InterviewCriterionArr nomineeScoreTypeArr = new InterviewCriterionArr();
             nomineeScoreTypeArr.Fill();
             nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewerFilter, nomineeFilter, positionFilter, dateTimePicker_FromFilter.Value, dateTimePicker_ToFilter.Value);
 
@@ -281,9 +281,9 @@ namespace Recruitment_System.UI
 
         private void FilterArrsToForm()
         {
-            PositionArr positionArr = new PositionArr();
+            PositionTypeArr positionArr = new PositionTypeArr();
             positionArr.Fill();
-            positionArr.Insert(0, Position.Empty);
+            positionArr.Insert(0, PositionType.Empty);
 
             comboBox_PositionFilter.DataSource = positionArr;
             comboBox_PositionFilter.ValueMember = "Id";
@@ -321,7 +321,7 @@ namespace Recruitment_System.UI
             comboBox_PositionFilter.SelectedIndex = 0;
             comboBox_InterviewerFilter.SelectedIndex = 0;
             comboBox_NomineeFilter.SelectedIndex = 0;
-            scorer_View.SetDataSource(new NomineeScoreTypeArr(), Interviewer.Empty);
+            scorer_View.SetDataSource(new InterviewCriterionArr(), Interviewer.Empty);
         }
 
 

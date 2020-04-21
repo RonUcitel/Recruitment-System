@@ -45,7 +45,7 @@ namespace Recruitment_System.UI
             CityArrToForm(null);
             SetButton_ChangeDisabled(true);
             /*-------------------------->>>>>>>>>>>>>>>>*/
-            textBox_Positions.Tag = new PositionArr();
+            textBox_Positions.Tag = new PositionTypeArr();
             /*<<<<<<<<<<<<<<<<--------------------------*/
             SetPositionTextBoxAndToolTip(new PositionArr());
         }
@@ -61,18 +61,20 @@ namespace Recruitment_System.UI
             NomineeArr nomineeArr = new NomineeArr();
             nomineeArr.Fill();
             Nominee curNominee = nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text));
-
-            ScoreKeeping scoreKeeping = new ScoreKeeping(curInterviewer, curNominee);
+            Interview interview = new Interview();
+            interview.Interviewer = curInterviewer;
+            interview.Nominee = curNominee;
+            ScoreKeeping scoreKeeping = new ScoreKeeping(interview/*curInterviewer, curNominee*/);
             scoreKeeping.ShowDialog();
 
 
 
-            NomineeScoreTypeArr newNomineeScoreTypeArr = scoreKeeping.FormToNomineeScoreTypeArr();
+            InterviewCriterionArr newNomineeScoreTypeArr = scoreKeeping.FormToNomineeScoreTypeArr();
 
 
-            NomineeScoreTypeArr OldNomineeScoreTypeArr = new NomineeScoreTypeArr();
+            InterviewCriterionArr OldNomineeScoreTypeArr = new InterviewCriterionArr();
             OldNomineeScoreTypeArr.Fill();
-            OldNomineeScoreTypeArr = OldNomineeScoreTypeArr.Filter(curInterviewer, curNominee, ScoreType.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
+            OldNomineeScoreTypeArr = OldNomineeScoreTypeArr.Filter(curInterviewer, curNominee, Criterion.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
 
             OldNomineeScoreTypeArr.DeleteArr();
 
@@ -202,7 +204,7 @@ namespace Recruitment_System.UI
 
             NomineesPosition_Form npForm;
 
-            if ((textBox_Positions.Tag as PositionArr).Count == 0)
+            if ((textBox_Positions.Tag as PositionTypeArr).Count == 0)
             {
                 npForm = new NomineesPosition_Form(nom);
             }
@@ -229,7 +231,7 @@ namespace Recruitment_System.UI
 
         private void PositoinToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Position_Form pF = new Position_Form();
+            PositionType_Form pF = new PositionType_Form();
             pF.StartPosition = FormStartPosition.CenterParent;
             pF.ShowDialog();
         }
@@ -934,7 +936,7 @@ namespace Recruitment_System.UI
             //יצירת אוסף המוצרים להזמנה מהטופס
             //מייצרים זוגות של הזמנה-מוצר, ההזמנה - תמיד אותה הזמנה )הרי מדובר על הזמנה אחת(, המוצר - מגיע מרשימת
             //המוצרים שנבחרו
-            PositionArr positionArr = (textBox_Positions.Tag as PositionArr);
+            PositionTypeArr positionArr = (textBox_Positions.Tag as PositionTypeArr);
 
             PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
             //יצירת אוסף הזוגות הזמנה-מוצר
@@ -1120,7 +1122,7 @@ namespace Recruitment_System.UI
             else
             {
                 comboBox_City.SelectedItem = null;
-                textBox_Positions.Tag = new PositionArr();
+                textBox_Positions.Tag = new PositionTypeArr();
                 SetPositionTextBoxAndToolTip(textBox_Positions.Tag as PositionArr);
 
                 checkBox_Sex.Checked = false;

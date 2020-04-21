@@ -17,7 +17,7 @@ namespace Recruitment_System.UI
         {
             InitializeComponent();
             PositionArrToForm();
-            NomineeTypeArrToTable("", "", "", "", Position.Empty);
+            NomineeTypeArrToTable("", "", "", "", PositionType.Empty);
         }
 
 
@@ -55,7 +55,7 @@ namespace Recruitment_System.UI
 
 
 
-        public void NomineeTypeArrToTable(string firstName, string lastName, string email, string phone, Position position)
+        public void NomineeTypeArrToTable(string firstName, string lastName, string email, string phone, PositionType position)
         {
             //listView_Nominee
             NomineeArr nomineeArr = new NomineeArr();
@@ -100,7 +100,7 @@ namespace Recruitment_System.UI
 
         private void comboBox_Position_SelectedValueChanged(object sender, EventArgs e)
         {
-            NomineeTypeArrToTable(textBox_FirstName.Text, textBox_LastName.Text, textBox_Email.Text, textBox_Cel.Text, comboBox_Position.SelectedItem as Position);
+            NomineeTypeArrToTable(textBox_FirstName.Text, textBox_LastName.Text, textBox_Email.Text, textBox_Cel.Text, comboBox_Position.SelectedItem as PositionType);
         }
 
 
@@ -115,15 +115,15 @@ namespace Recruitment_System.UI
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {
-            NomineeTypeArrToTable(textBox_FirstName.Text, textBox_LastName.Text, textBox_Email.Text, textBox_Cel.Text, comboBox_Position.SelectedItem as Position);
+            NomineeTypeArrToTable(textBox_FirstName.Text, textBox_LastName.Text, textBox_Email.Text, textBox_Cel.Text, comboBox_Position.SelectedItem as PositionType);
         }
 
 
         private void PositionArrToForm()
         {
-            PositionArr positionArr = new PositionArr();
+            PositionTypeArr positionArr = new PositionTypeArr();
             positionArr.Fill();
-            positionArr.Insert(0, Position.Empty);
+            positionArr.Insert(0, PositionType.Empty);
 
             comboBox_Position.SelectedValueChanged -= comboBox_Position_SelectedValueChanged;
             comboBox_Position.DataSource = positionArr;

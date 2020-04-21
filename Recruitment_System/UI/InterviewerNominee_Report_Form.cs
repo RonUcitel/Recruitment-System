@@ -70,9 +70,9 @@ namespace Recruitment_System.UI
         public void NomineeScoreTypeToTable(Interviewer interviewer, Nominee nominee)
         {
             //listView_Nominee
-            NomineeScoreTypeArr nomineeScoreTypeArr = new NomineeScoreTypeArr();
+            InterviewCriterionArr nomineeScoreTypeArr = new InterviewCriterionArr();
             nomineeScoreTypeArr.Fill();
-            nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewer, nominee, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
+            nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewer, nominee, PositionType.Empty, DateTime.MinValue, DateTime.MaxValue);
 
             SortedDictionary<string, string> dictionary = nomineeScoreTypeArr.GetSortedDictionary();
 

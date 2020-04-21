@@ -145,6 +145,22 @@ namespace Recruitment_System.BL
 
             return positionnomineeArr;
         }
+        public PositionNomineeArr Filter(PositionType positionType)
+        {
+            PositionNomineeArr positionnomineeArr = new PositionNomineeArr();
+
+            PositionNominee positionNominee;
+            for (int i = 0; i < this.Count; i++)
+            {
+                positionNominee = this[i] as PositionNominee;
+                if (positionType == PositionType.Empty || positionNominee.Position.PositionType == positionType)
+                {
+                    positionnomineeArr.Add(positionNominee);
+                }
+            }
+
+            return positionnomineeArr;
+        }
 
 
         public PositionNominee GetPositionNomineeByDBId(int dbId)

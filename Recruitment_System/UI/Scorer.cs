@@ -58,14 +58,14 @@ namespace Recruitment_System.UI
         }
 
 
-        public void AddScorerRow(NomineeScoreType nomineeScoreType)
+        public void AddScorerRow(InterviewCriterion interviewCriterion)
         {
             ScorerRow scorerRow = new ScorerRow(CanEdit);
-            scorerRow.Text = nomineeScoreType.ScoreType.Name;
-            scorerRow.Score = nomineeScoreType.Score;
+            scorerRow.Text = interviewCriterion.Criterion.Name;
+            scorerRow.Score = interviewCriterion.Score;
             scorerRow.Width = tableLayoutPanel.Width - 2;
             scorerRow.Location = new Point(0, 0);
-            scorerRow.Tag = nomineeScoreType;
+            scorerRow.Tag = interviewCriterion;
 
             tableLayoutPanel.Controls.Add(scorerRow);
             tableLayoutPanel.SetRow(scorerRow, tableLayoutPanel.RowCount);
@@ -88,48 +88,48 @@ namespace Recruitment_System.UI
         }
 
 
-        public void SetDataSource(NomineeScoreTypeArr nomineeScoreTypeArr)
+        public void SetDataSource(InterviewCriterionArr interviewCriterionArr)
         {
             Clear();
-            if (nomineeScoreTypeArr != null)
+            if (interviewCriterionArr != null)
             {
-                nomineeScoreTypeArr.SortByPositions();
+                interviewCriterionArr.SortByPositions();
                 Position last = Position.Empty;
-                NomineeScoreType nomineeScoreType;
-                for (int i = 0; i < nomineeScoreTypeArr.Count; i++)
+                InterviewCriterion interviewCriterion;
+                for (int i = 0; i < interviewCriterionArr.Count; i++)
                 {
-                    nomineeScoreType = nomineeScoreTypeArr[i] as NomineeScoreType;
+                    interviewCriterion = interviewCriterionArr[i] as InterviewCriterion;
 
-                    if (last != nomineeScoreType.ScoreType.Position)
+                    if (last != interviewCriterion.Interview.Position)
                     {
-                        last = nomineeScoreType.ScoreType.Position;
+                        last = interviewCriterion.Interview.Position;
                         AddLabel(last.Name);
                     }
 
-                    AddScorerRow(nomineeScoreType);
+                    AddScorerRow(interviewCriterion);
                 }
             }
         }
 
 
-        public NomineeScoreTypeArr GetData()
+        public InterviewCriterionArr GetData()
         {
-            NomineeScoreTypeArr output = new NomineeScoreTypeArr();
+            InterviewCriterionArr output = new InterviewCriterionArr();
             ScorerRow scorerRow;
-            NomineeScoreType nomineeScoreType;
+            InterviewCriterion interviewCriterion;
             foreach (Control item in tableLayoutPanel.Controls)
             {
                 if (item is ScorerRow)
                 {
                     scorerRow = item as ScorerRow;
-                    nomineeScoreType = scorerRow.Tag as NomineeScoreType;
-                    if (nomineeScoreType.Score != scorerRow.Score)
+                    interviewCriterion = scorerRow.Tag as InterviewCriterion;
+                    if (interviewCriterion.Score != scorerRow.Score)
                     {
-                        nomineeScoreType.Score = scorerRow.Score;
-                        nomineeScoreType.DateTime = DateTime.Now;
+                        interviewCriterion.Score = scorerRow.Score;
+                        interviewCriterion.DateTime = DateTime.Now;
                     }
 
-                    output.Add(nomineeScoreType);
+                    output.Add(interviewCriterion);
                 }
             }
 
