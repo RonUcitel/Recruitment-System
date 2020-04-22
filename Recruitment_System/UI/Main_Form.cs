@@ -38,7 +38,7 @@ namespace Recruitment_System.UI
                 tabControl_Main.Enabled = false;
             }
             Icon = Properties.Resources.allnet;
-
+            tabControl_Main_SelectedIndexChanged(tabControl_Main, EventArgs.Empty);
             SetUpNomineeArrShowMenu();
             ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
             NomineeArrToForm();

@@ -41,6 +41,14 @@ namespace Recruitment_System.UI
                 scorer_View.SetDataSource(new InterviewCriterionArr(), Interviewer.Empty);
 
             }
+            else if (tabControl_Main.SelectedTab == tabPage_Interviews)
+            {
+                toolStripMenuItem_TableDesign.Visible = false;
+                InterviewArr interviewArr = new InterviewArr();
+                ResetinterviewdateTimePickers(interviewArr);
+                SetUpInterviewComboBoxes();
+                InterviewArrToForm(interviewArr);
+            }
             else
             {
                 toolStripMenuItem_TableDesign.Visible = false;
@@ -357,6 +365,147 @@ namespace Recruitment_System.UI
 
                 g.DrawImage(cap, recZoomSize);
             }
+        }
+        #endregion
+
+        #region Interviews
+
+        private void SetUpInterviewComboBoxes()
+        {
+            #region Position
+            PositionArr positionArr = new PositionArr();
+            positionArr.Fill();
+            positionArr.Insert(0, Position.Empty);
+
+            comboBox_InterviewsPosition.DataSource = positionArr;
+            comboBox_InterviewsPosition.ValueMember = "Id";
+            comboBox_InterviewsPosition.DisplayMember = "Name";
+            comboBox_InterviewsPosition.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_InterviewsPosition.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_InterviewsPosition.SelectedItem = Position.Empty;
+            #endregion
+
+
+            #region Interviewer
+            InterviewerArr interviewerArr = new InterviewerArr();
+            interviewerArr.Fill();
+            interviewerArr.Insert(0, Interviewer.Empty);
+
+            comboBox_InterviewsInterviewer.DataSource = interviewerArr;
+            comboBox_InterviewsInterviewer.ValueMember = "DBId";
+            comboBox_InterviewsInterviewer.DisplayMember = "FullName";
+            comboBox_InterviewsInterviewer.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_InterviewsInterviewer.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_InterviewsInterviewer.SelectedItem = Interviewer.Empty;
+            #endregion
+
+
+            #region Nominee
+            NomineeArr nomineeArr = new NomineeArr();
+            nomineeArr.Fill();
+            nomineeArr.Insert(0, Nominee.Empty);
+
+            comboBox_InterviewsNominee.DataSource = nomineeArr;
+            comboBox_InterviewsNominee.ValueMember = "DBId";
+            comboBox_InterviewsNominee.DisplayMember = "FullName";
+            comboBox_InterviewsNominee.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_InterviewsNominee.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_InterviewsNominee.SelectedItem = Nominee.Empty;
+            #endregion
+        }
+
+        private void InterviewArrToForm(InterviewArr interviewArr)
+        {
+            listView_Interviews.Clear();
+
+            listView_Interviews.Columns.Add("מראיין");
+            listView_Interviews.Columns.Add("מועמד");
+            listView_Interviews.Columns.Add("משרה");
+            listView_Interviews.Columns.Add("תאריך");
+
+
+            ListViewItem listViewItem;
+            Interview interview;
+            for (int i = 0; i < interviewArr.Count; i++)
+            {
+                interview = interviewArr[i] as Interview;
+                listViewItem = new ListViewItem(interview.Interviewer.FullName);
+                listViewItem.SubItems.Add(interview.Nominee.FullName);
+                listViewItem.SubItems.Add(interview.Position.Name);
+                listViewItem.SubItems.Add(interview.Date.ToString("dd-MM-yyyy"));
+                listViewItem.Tag = interview;
+                listView_Interviews.Items.Add(listViewItem);
+            }
+
+
+            listView_Interviews.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            foreach (ColumnHeader item in listView_Interviews.Columns)
+            {
+                item.Width = (int)Math.Ceiling(item.Width * 1.5);
+            }
+        }
+
+        private void ResetinterviewdateTimePickers(InterviewArr interviewArr)
+        {
+            (DateTime min, DateTime max) edge = (DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
+
+
+            DateTime x;
+            for (int i = 0; i < interviewArr.Count; i++)
+            {
+                x = (interviewArr[i] as Interview).Date;
+
+                edge.min = x < edge.min ? x : edge.min;
+
+                edge.max = x > edge.max ? x : edge.max;
+            }
+
+            dateTimePicker_Interviews_From.MinDate = edge.min;
+            dateTimePicker_Interviews_From.MaxDate = edge.max;
+            dateTimePicker_Interviews_To.MinDate = edge.min;
+            dateTimePicker_Interviews_To.MaxDate = edge.max;
+        }
+
+
+        private void button_InterviewsFilter_Click(object sender, EventArgs e)
+        {
+            InterviewArr interviewArr = new InterviewArr();
+            interviewArr.Fill();
+            interviewArr = interviewArr.Filter(comboBox_InterviewsInterviewer.SelectedItem as Interviewer, Interviewer.Empty, comboBox_InterviewsNominee.SelectedItem as Nominee, comboBox_InterviewsPosition.SelectedItem as Position, dateTimePicker_Interviews_From.Value, dateTimePicker_Interviews_To.Value);
+
+            InterviewArrToForm(interviewArr);
+        }
+
+
+        private void button_InterviewsClear_Click(object sender, EventArgs e)
+        {
+            comboBox_InterviewsInterviewer.SelectedIndex = 0;
+            comboBox_InterviewsNominee.SelectedIndex = 0;
+            comboBox_InterviewsPosition.SelectedIndex = 0;
+            InterviewArr interviewArr = new InterviewArr();
+            interviewArr.Fill();
+            ResetinterviewdateTimePickers(interviewArr);
+
+            InterviewArrToForm(interviewArr);
+        }
+
+
+        private void dateTimePicker_Interviews_From_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker_Interviews_To.MinDate = dateTimePicker_Interviews_From.Value;
+        }
+
+
+        private void dateTimePicker_Interviews_To_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker_Interviews_From.MaxDate = dateTimePicker_Interviews_To.Value;
+        }
+
+
+        private void listView_Interviews_DoubleClick(object sender, EventArgs e)
+        {
+            //open the form
+            Interview interview = listView_Interviews.SelectedItems[0].Tag as Interview;
         }
         #endregion
     }

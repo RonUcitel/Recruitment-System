@@ -31,9 +31,17 @@ namespace Recruitment_System.UI
             nomineeScoreTypeArr.Fill(state);
 
             nomineeScoreTypeArr.SortByDateTime();
+            try
+            {
+                minDate = (nomineeScoreTypeArr[0] as InterviewCriterion).DateTime;
+                maxDate = (nomineeScoreTypeArr[nomineeScoreTypeArr.Count - 1] as InterviewCriterion).DateTime;
+            }
+            catch
+            {
+                minDate = DateTime.MinValue;
+                maxDate = DateTime.MaxValue;
+            }
 
-            minDate = (nomineeScoreTypeArr[0] as InterviewCriterion).DateTime;
-            maxDate = (nomineeScoreTypeArr[nomineeScoreTypeArr.Count - 1] as InterviewCriterion).DateTime;
 
             dateTimePicker_FromFilter.MinDate = minDate;
             dateTimePicker_FromFilter.MaxDate = maxDate;
@@ -101,7 +109,8 @@ namespace Recruitment_System.UI
 
 
             //הוספת הסדרה לפקד הגרף
-        */}
+        */
+        }
 
         private void PositionArrToForm()
         {

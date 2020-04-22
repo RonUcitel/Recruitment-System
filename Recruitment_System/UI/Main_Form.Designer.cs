@@ -1,4 +1,6 @@
-﻿namespace Recruitment_System.UI
+﻿using System;
+
+namespace Recruitment_System.UI
 {
     partial class MainForm
     {
@@ -101,10 +103,25 @@
             this.PDF_CV_Viewer = new AxAcroPDFLib.AxAcroPDF();
             this.toolTip_Last_Changed = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl_Main = new System.Windows.Forms.TabControl();
+            this.tabPage_Interviews = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button_interviewsClear = new System.Windows.Forms.Button();
+            this.button_InterviewsFilter = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dateTimePicker_Interviews_To = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dateTimePicker_Interviews_From = new System.Windows.Forms.DateTimePicker();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBox_InterviewsNominee = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.comboBox_InterviewsInterviewer = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.comboBox_InterviewsPosition = new System.Windows.Forms.ComboBox();
+            this.listView_Interviews = new System.Windows.Forms.ListView();
             this.tabPage_EditNominee = new System.Windows.Forms.TabPage();
             this.tabPage_Score = new System.Windows.Forms.TabPage();
-            this.scorer_View = new Recruitment_System.UI.ScorerViewer();
             this.button_PrintScoreTable = new System.Windows.Forms.Button();
+            this.scorer_View = new Recruitment_System.UI.ScorerViewer();
             this.groupBox_FilterScore = new System.Windows.Forms.GroupBox();
             this.button_ClearScoreFilter = new System.Windows.Forms.Button();
             this.button_SearchScoreFilter = new System.Windows.Forms.Button();
@@ -134,6 +151,8 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).BeginInit();
             this.tabControl_Main.SuspendLayout();
+            this.tabPage_Interviews.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.tabPage_EditNominee.SuspendLayout();
             this.tabPage_Score.SuspendLayout();
             this.groupBox_FilterScore.SuspendLayout();
@@ -547,6 +566,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.פתחToolStripMenuItem,
@@ -610,7 +630,7 @@
             this.מועמדיםזמיניםToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.מועמדיםזמיניםToolStripMenuItem.Name = "מועמדיםזמיניםToolStripMenuItem";
             this.מועמדיםזמיניםToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.מועמדיםזמיניםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.מועמדיםזמיניםToolStripMenuItem.Size = new System.Drawing.Size(508, 66);
             this.מועמדיםזמיניםToolStripMenuItem.Text = "מועמדים זמינים";
             this.מועמדיםזמיניםToolStripMenuItem.Click += new System.EventHandler(this.View_ToolStripMenuItem_Click);
             // 
@@ -618,7 +638,7 @@
             // 
             this.כלהמועמדיםToolStripMenuItem.Name = "כלהמועמדיםToolStripMenuItem";
             this.כלהמועמדיםToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.כלהמועמדיםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.כלהמועמדיםToolStripMenuItem.Size = new System.Drawing.Size(508, 66);
             this.כלהמועמדיםToolStripMenuItem.Text = "כל המועמדים";
             this.כלהמועמדיםToolStripMenuItem.Click += new System.EventHandler(this.View_ToolStripMenuItem_Click);
             // 
@@ -626,7 +646,7 @@
             // 
             this.מועמדיםלאזמיניםToolStripMenuItem.Name = "מועמדיםלאזמיניםToolStripMenuItem";
             this.מועמדיםלאזמיניםToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.מועמדיםלאזמיניםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.מועמדיםלאזמיניםToolStripMenuItem.Size = new System.Drawing.Size(508, 66);
             this.מועמדיםלאזמיניםToolStripMenuItem.Text = "מועמדים לא זמינים";
             this.מועמדיםלאזמיניםToolStripMenuItem.Click += new System.EventHandler(this.View_ToolStripMenuItem_Click);
             // 
@@ -635,19 +655,19 @@
             this.toolStripSeparator1.AutoSize = false;
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.toolStripSeparator1.Size = new System.Drawing.Size(535, 15);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(505, 15);
             // 
             // קורותחייםToolStripMenuItem
             // 
             this.קורותחייםToolStripMenuItem.Name = "קורותחייםToolStripMenuItem";
-            this.קורותחייםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.קורותחייםToolStripMenuItem.Size = new System.Drawing.Size(508, 66);
             this.קורותחייםToolStripMenuItem.Text = "קורות חיים";
             this.קורותחייםToolStripMenuItem.Click += new System.EventHandler(this.קורותחייםToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(535, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(505, 6);
             // 
             // דוחותToolStripMenuItem
             // 
@@ -657,34 +677,34 @@
             this.מומעמדיםלמראייןToolStripMenuItem,
             this.פרטיקשרToolStripMenuItem});
             this.דוחותToolStripMenuItem.Name = "דוחותToolStripMenuItem";
-            this.דוחותToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.דוחותToolStripMenuItem.Size = new System.Drawing.Size(508, 66);
             this.דוחותToolStripMenuItem.Text = "דוחות";
             // 
             // תיעודאירועיםToolStripMenuItem
             // 
             this.תיעודאירועיםToolStripMenuItem.Name = "תיעודאירועיםToolStripMenuItem";
-            this.תיעודאירועיםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.תיעודאירועיםToolStripMenuItem.Size = new System.Drawing.Size(523, 66);
             this.תיעודאירועיםToolStripMenuItem.Text = "תיעוד אירועים";
             this.תיעודאירועיםToolStripMenuItem.Click += new System.EventHandler(this.תיעודאירועיםToolStripMenuItem_Click);
             // 
             // קריטריוניםלמשרותToolStripMenuItem
             // 
             this.קריטריוניםלמשרותToolStripMenuItem.Name = "קריטריוניםלמשרותToolStripMenuItem";
-            this.קריטריוניםלמשרותToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.קריטריוניםלמשרותToolStripMenuItem.Size = new System.Drawing.Size(523, 66);
             this.קריטריוניםלמשרותToolStripMenuItem.Text = "קריטריונים למשרות";
             this.קריטריוניםלמשרותToolStripMenuItem.Click += new System.EventHandler(this.קריטריוניםלמשרותToolStripMenuItem_Click);
             // 
             // מומעמדיםלמראייןToolStripMenuItem
             // 
             this.מומעמדיםלמראייןToolStripMenuItem.Name = "מומעמדיםלמראייןToolStripMenuItem";
-            this.מומעמדיםלמראייןToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.מומעמדיםלמראייןToolStripMenuItem.Size = new System.Drawing.Size(523, 66);
             this.מומעמדיםלמראייןToolStripMenuItem.Text = "מועמדים למראיין";
             this.מומעמדיםלמראייןToolStripMenuItem.Click += new System.EventHandler(this.מומעמדיםלמראייןToolStripMenuItem_Click);
             // 
             // פרטיקשרToolStripMenuItem
             // 
             this.פרטיקשרToolStripMenuItem.Name = "פרטיקשרToolStripMenuItem";
-            this.פרטיקשרToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.פרטיקשרToolStripMenuItem.Size = new System.Drawing.Size(523, 66);
             this.פרטיקשרToolStripMenuItem.Text = "פרטי קשר";
             this.פרטיקשרToolStripMenuItem.Click += new System.EventHandler(this.פרטיקשרToolStripMenuItem_Click);
             // 
@@ -696,34 +716,34 @@
             this.נשיםוגבריםלעירToolStripMenuItem,
             this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem});
             this.גרפיםToolStripMenuItem.Name = "גרפיםToolStripMenuItem";
-            this.גרפיםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.גרפיםToolStripMenuItem.Size = new System.Drawing.Size(508, 66);
             this.גרפיםToolStripMenuItem.Text = "גרפים";
             // 
             // יחסגבריםנשיםToolStripMenuItem
             // 
             this.יחסגבריםנשיםToolStripMenuItem.Name = "יחסגבריםנשיםToolStripMenuItem";
-            this.יחסגבריםנשיםToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.יחסגבריםנשיםToolStripMenuItem.Size = new System.Drawing.Size(523, 66);
             this.יחסגבריםנשיםToolStripMenuItem.Text = "יחס גברים - נשים";
             this.יחסגבריםנשיםToolStripMenuItem.Click += new System.EventHandler(this.יחסגבריםנשיםToolStripMenuItem_Click);
             // 
             // כמותמועמדיםלעירToolStripMenuItem
             // 
             this.כמותמועמדיםלעירToolStripMenuItem.Name = "כמותמועמדיםלעירToolStripMenuItem";
-            this.כמותמועמדיםלעירToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.כמותמועמדיםלעירToolStripMenuItem.Size = new System.Drawing.Size(523, 66);
             this.כמותמועמדיםלעירToolStripMenuItem.Text = "כמות מועמדים בעיר";
             this.כמותמועמדיםלעירToolStripMenuItem.Click += new System.EventHandler(this.כמותמועמדיםלעירToolStripMenuItem_Click);
             // 
             // נשיםוגבריםלעירToolStripMenuItem
             // 
             this.נשיםוגבריםלעירToolStripMenuItem.Name = "נשיםוגבריםלעירToolStripMenuItem";
-            this.נשיםוגבריםלעירToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.נשיםוגבריםלעירToolStripMenuItem.Size = new System.Drawing.Size(523, 66);
             this.נשיםוגבריםלעירToolStripMenuItem.Text = "נשים וגברים בעיר";
             this.נשיםוגבריםלעירToolStripMenuItem.Click += new System.EventHandler(this.נשיםוגבריםלעירToolStripMenuItem_Click);
             // 
             // ממוצעקריטריוניםלאורךזמןToolStripMenuItem
             // 
             this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Name = "ממוצעקריטריוניםלאורךזמןToolStripMenuItem";
-            this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Size = new System.Drawing.Size(538, 66);
+            this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Size = new System.Drawing.Size(523, 66);
             this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Text = "ממוצע ציונים חודשי";
             this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem.Click += new System.EventHandler(this.ממוצעקריטריוניםלאורךזמןToolStripMenuItem_Click);
             // 
@@ -863,6 +883,7 @@
             // tabControl_Main
             // 
             this.tabControl_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl_Main.Controls.Add(this.tabPage_Interviews);
             this.tabControl_Main.Controls.Add(this.tabPage_EditNominee);
             this.tabControl_Main.Controls.Add(this.tabPage_Score);
             this.tabControl_Main.Controls.Add(this.tabPage_PositionNomineeTable);
@@ -875,6 +896,185 @@
             this.tabControl_Main.Size = new System.Drawing.Size(2290, 993);
             this.tabControl_Main.TabIndex = 21;
             this.tabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl_Main_SelectedIndexChanged);
+            // 
+            // tabPage_Interviews
+            // 
+            this.tabPage_Interviews.Controls.Add(this.groupBox2);
+            this.tabPage_Interviews.Controls.Add(this.listView_Interviews);
+            this.tabPage_Interviews.Location = new System.Drawing.Point(12, 58);
+            this.tabPage_Interviews.Name = "tabPage_Interviews";
+            this.tabPage_Interviews.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Interviews.Size = new System.Drawing.Size(2266, 923);
+            this.tabPage_Interviews.TabIndex = 4;
+            this.tabPage_Interviews.Text = "ראיונות";
+            this.tabPage_Interviews.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.button_interviewsClear);
+            this.groupBox2.Controls.Add(this.button_InterviewsFilter);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.dateTimePicker_Interviews_To);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.dateTimePicker_Interviews_From);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.comboBox_InterviewsNominee);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.comboBox_InterviewsInterviewer);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.comboBox_InterviewsPosition);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox2.Location = new System.Drawing.Point(1678, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(585, 917);
+            this.groupBox2.TabIndex = 27;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "סינון";
+            // 
+            // button_interviewsClear
+            // 
+            this.button_interviewsClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_interviewsClear.Location = new System.Drawing.Point(58, 781);
+            this.button_interviewsClear.Name = "button_interviewsClear";
+            this.button_interviewsClear.Size = new System.Drawing.Size(397, 107);
+            this.button_interviewsClear.TabIndex = 34;
+            this.button_interviewsClear.Text = "נקה";
+            this.button_interviewsClear.UseVisualStyleBackColor = true;
+            this.button_interviewsClear.Click += new System.EventHandler(this.button_InterviewsClear_Click);
+            // 
+            // button_InterviewsFilter
+            // 
+            this.button_InterviewsFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_InterviewsFilter.Location = new System.Drawing.Point(58, 486);
+            this.button_InterviewsFilter.Name = "button_InterviewsFilter";
+            this.button_InterviewsFilter.Size = new System.Drawing.Size(397, 233);
+            this.button_InterviewsFilter.TabIndex = 33;
+            this.button_InterviewsFilter.Text = "חפש";
+            this.button_InterviewsFilter.UseVisualStyleBackColor = true;
+            this.button_InterviewsFilter.Click += new System.EventHandler(this.button_InterviewsFilter_Click);
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(482, 376);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 37);
+            this.label6.TabIndex = 32;
+            this.label6.Text = "עד:";
+            // 
+            // dateTimePicker_Interviews_To
+            // 
+            this.dateTimePicker_Interviews_To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker_Interviews_To.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePicker_Interviews_To.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_Interviews_To.Location = new System.Drawing.Point(58, 370);
+            this.dateTimePicker_Interviews_To.Name = "dateTimePicker_Interviews_To";
+            this.dateTimePicker_Interviews_To.RightToLeftLayout = true;
+            this.dateTimePicker_Interviews_To.Size = new System.Drawing.Size(397, 44);
+            this.dateTimePicker_Interviews_To.TabIndex = 31;
+            this.dateTimePicker_Interviews_To.Value = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dateTimePicker_Interviews_To.ValueChanged += new System.EventHandler(this.dateTimePicker_Interviews_To_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(482, 298);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(42, 37);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "מ:";
+            // 
+            // dateTimePicker_Interviews_From
+            // 
+            this.dateTimePicker_Interviews_From.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker_Interviews_From.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePicker_Interviews_From.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_Interviews_From.Location = new System.Drawing.Point(58, 292);
+            this.dateTimePicker_Interviews_From.Name = "dateTimePicker_Interviews_From";
+            this.dateTimePicker_Interviews_From.RightToLeftLayout = true;
+            this.dateTimePicker_Interviews_From.Size = new System.Drawing.Size(397, 44);
+            this.dateTimePicker_Interviews_From.TabIndex = 29;
+            this.dateTimePicker_Interviews_From.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dateTimePicker_Interviews_From.ValueChanged += new System.EventHandler(this.dateTimePicker_Interviews_From_ValueChanged);
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(482, 223);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(89, 37);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "מועמד";
+            // 
+            // comboBox_InterviewsNominee
+            // 
+            this.comboBox_InterviewsNominee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_InterviewsNominee.FormattingEnabled = true;
+            this.comboBox_InterviewsNominee.Location = new System.Drawing.Point(58, 220);
+            this.comboBox_InterviewsNominee.Name = "comboBox_InterviewsNominee";
+            this.comboBox_InterviewsNominee.Size = new System.Drawing.Size(397, 45);
+            this.comboBox_InterviewsNominee.TabIndex = 27;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(482, 147);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(88, 37);
+            this.label9.TabIndex = 26;
+            this.label9.Text = "מראיין";
+            // 
+            // comboBox_InterviewsInterviewer
+            // 
+            this.comboBox_InterviewsInterviewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_InterviewsInterviewer.FormattingEnabled = true;
+            this.comboBox_InterviewsInterviewer.Location = new System.Drawing.Point(58, 144);
+            this.comboBox_InterviewsInterviewer.Name = "comboBox_InterviewsInterviewer";
+            this.comboBox_InterviewsInterviewer.Size = new System.Drawing.Size(397, 45);
+            this.comboBox_InterviewsInterviewer.TabIndex = 25;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(482, 75);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(81, 37);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "משרה";
+            // 
+            // comboBox_InterviewsPosition
+            // 
+            this.comboBox_InterviewsPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_InterviewsPosition.FormattingEnabled = true;
+            this.comboBox_InterviewsPosition.Location = new System.Drawing.Point(58, 72);
+            this.comboBox_InterviewsPosition.Name = "comboBox_InterviewsPosition";
+            this.comboBox_InterviewsPosition.Size = new System.Drawing.Size(397, 45);
+            this.comboBox_InterviewsPosition.TabIndex = 23;
+            // 
+            // listView_Interviews
+            // 
+            this.listView_Interviews.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.listView_Interviews.AutoArrange = false;
+            this.listView_Interviews.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listView_Interviews.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listView_Interviews.FullRowSelect = true;
+            this.listView_Interviews.GridLines = true;
+            this.listView_Interviews.HideSelection = false;
+            this.listView_Interviews.Location = new System.Drawing.Point(3, 3);
+            this.listView_Interviews.MultiSelect = false;
+            this.listView_Interviews.Name = "listView_Interviews";
+            this.listView_Interviews.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.listView_Interviews.RightToLeftLayout = true;
+            this.listView_Interviews.Size = new System.Drawing.Size(1669, 917);
+            this.listView_Interviews.TabIndex = 26;
+            this.listView_Interviews.UseCompatibleStateImageBehavior = false;
+            this.listView_Interviews.View = System.Windows.Forms.View.Details;
+            this.listView_Interviews.DoubleClick += new System.EventHandler(this.listView_Interviews_DoubleClick);
             // 
             // tabPage_EditNominee
             // 
@@ -889,8 +1089,8 @@
             // 
             // tabPage_Score
             // 
-            this.tabPage_Score.Controls.Add(this.scorer_View);
             this.tabPage_Score.Controls.Add(this.button_PrintScoreTable);
+            this.tabPage_Score.Controls.Add(this.scorer_View);
             this.tabPage_Score.Controls.Add(this.groupBox_FilterScore);
             this.tabPage_Score.Location = new System.Drawing.Point(12, 58);
             this.tabPage_Score.Name = "tabPage_Score";
@@ -898,15 +1098,6 @@
             this.tabPage_Score.TabIndex = 3;
             this.tabPage_Score.Text = "ניקוד";
             this.tabPage_Score.UseVisualStyleBackColor = true;
-            // 
-            // scorer_View
-            // 
-            this.scorer_View.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.scorer_View.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.scorer_View.Location = new System.Drawing.Point(787, 0);
-            this.scorer_View.Name = "scorer_View";
-            this.scorer_View.Size = new System.Drawing.Size(703, 917);
-            this.scorer_View.TabIndex = 28;
             // 
             // button_PrintScoreTable
             // 
@@ -917,6 +1108,15 @@
             this.button_PrintScoreTable.Text = "הדפס";
             this.button_PrintScoreTable.UseVisualStyleBackColor = true;
             this.button_PrintScoreTable.Click += new System.EventHandler(this.button_PrintScoreTable_Click);
+            // 
+            // scorer_View
+            // 
+            this.scorer_View.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.scorer_View.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scorer_View.Location = new System.Drawing.Point(771, 3);
+            this.scorer_View.Name = "scorer_View";
+            this.scorer_View.Size = new System.Drawing.Size(703, 917);
+            this.scorer_View.TabIndex = 28;
             // 
             // groupBox_FilterScore
             // 
@@ -942,6 +1142,7 @@
             // 
             // button_ClearScoreFilter
             // 
+            this.button_ClearScoreFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ClearScoreFilter.Location = new System.Drawing.Point(105, 781);
             this.button_ClearScoreFilter.Name = "button_ClearScoreFilter";
             this.button_ClearScoreFilter.Size = new System.Drawing.Size(397, 107);
@@ -1179,6 +1380,9 @@
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).EndInit();
             this.tabControl_Main.ResumeLayout(false);
+            this.tabPage_Interviews.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.tabPage_EditNominee.ResumeLayout(false);
             this.tabPage_Score.ResumeLayout(false);
             this.groupBox_FilterScore.ResumeLayout(false);
@@ -1198,7 +1402,6 @@
         private System.Windows.Forms.ComboBox comboBox_CellAreaCode;
         private System.Windows.Forms.Label label_DBID;
         private System.Windows.Forms.Label label_City;
-        private System.Windows.Forms.ComboBox comboBox_City;
         private System.Windows.Forms.Label label_Phone;
         private System.Windows.Forms.TextBox textBox_Cel;
         private System.Windows.Forms.Label label_Email;
@@ -1288,6 +1491,22 @@
         private System.Windows.Forms.ListView listView_PositionNominee;
         private ScorerViewer scorer_View;
         private System.Windows.Forms.ToolStripMenuItem נשיםוגבריםלעירToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage_Interviews;
+        private System.Windows.Forms.ListView listView_Interviews;
+        private System.Windows.Forms.ComboBox comboBox_City;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button_interviewsClear;
+        private System.Windows.Forms.Button button_InterviewsFilter;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_Interviews_To;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_Interviews_From;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboBox_InterviewsNominee;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox comboBox_InterviewsInterviewer;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox comboBox_InterviewsPosition;
     }
 }
 
