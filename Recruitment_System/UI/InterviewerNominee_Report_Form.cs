@@ -19,7 +19,7 @@ namespace Recruitment_System.UI
             InterviewerArrToForm();
             NomineeArrToForm();
 
-            NomineeScoreTypeToTable(Interviewer.Empty, Nominee.Empty);
+            InterviewCriterionToTable(Interviewer.Empty, Nominee.Empty);
         }
 
 
@@ -67,14 +67,14 @@ namespace Recruitment_System.UI
 
 
 
-        public void NomineeScoreTypeToTable(Interviewer interviewer, Nominee nominee)
+        public void InterviewCriterionToTable(Interviewer interviewer, Nominee nominee)
         {
             //listView_Nominee
-            InterviewCriterionArr nomineeScoreTypeArr = new InterviewCriterionArr();
-            nomineeScoreTypeArr.Fill();
-            nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewer, nominee, PositionType.Empty, DateTime.MinValue, DateTime.MaxValue);
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+            interviewCriterionArr.Fill();
+            interviewCriterionArr = interviewCriterionArr.Filter(interviewer, nominee, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
 
-            SortedDictionary<string, string> dictionary = nomineeScoreTypeArr.GetSortedDictionary();
+            SortedDictionary<string, string> dictionary = interviewCriterionArr.GetSortedDictionary();
 
             UpdateListView_Interviewer_Nominee(dictionary);
         }
@@ -173,11 +173,11 @@ namespace Recruitment_System.UI
                 comboBox_Nominee.SelectedValueChanged -= comboBox_Nominee_SelectedValueChanged;
                 comboBox_Nominee.SelectedValue = 0;
                 comboBox_Nominee.SelectedValueChanged += comboBox_Nominee_SelectedValueChanged;
-                NomineeScoreTypeToTable(comboBox_Interviewer.SelectedItem as Interviewer, Nominee.Empty);
+                InterviewCriterionToTable(comboBox_Interviewer.SelectedItem as Interviewer, Nominee.Empty);
             }
             else if ((int)comboBox_Interviewer.SelectedValue == 0 && (int)comboBox_Nominee.SelectedValue == 0)
             {
-                NomineeScoreTypeToTable(Interviewer.Empty, Nominee.Empty);
+                InterviewCriterionToTable(Interviewer.Empty, Nominee.Empty);
             }
         }
 
@@ -189,11 +189,11 @@ namespace Recruitment_System.UI
                 comboBox_Interviewer.SelectedValueChanged -= comboBox_Interviewer_SelectedValueChanged;
                 comboBox_Interviewer.SelectedValue = 0;
                 comboBox_Interviewer.SelectedValueChanged += comboBox_Interviewer_SelectedValueChanged;
-                NomineeScoreTypeToTable(Interviewer.Empty, comboBox_Nominee.SelectedItem as Nominee);
+                InterviewCriterionToTable(Interviewer.Empty, comboBox_Nominee.SelectedItem as Nominee);
             }
             else if ((int)comboBox_Interviewer.SelectedValue == 0 && (int)comboBox_Nominee.SelectedValue == 0)
             {
-                NomineeScoreTypeToTable(Interviewer.Empty, Nominee.Empty);
+                InterviewCriterionToTable(Interviewer.Empty, Nominee.Empty);
             }
         }
 

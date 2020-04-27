@@ -28,7 +28,7 @@ namespace Recruitment_System.UI
         }
 
 
-        public void AddNominee(InterviewCriterionArr nomineeScoreTypeArr, Nominee nominee)
+        public void AddNominee(InterviewCriterionArr interviewCriterionArr, Nominee nominee)
         {
             GroupBox groupBox = new GroupBox();
             groupBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -45,7 +45,7 @@ namespace Recruitment_System.UI
             /*scorer.Width -= 2;*/
             scorer.Dock = DockStyle.Fill;
 
-            scorer.SetDataSource(nomineeScoreTypeArr);
+            scorer.SetDataSource(interviewCriterionArr);
 
             groupBox.Controls.Add(scorer);
 
@@ -54,19 +54,19 @@ namespace Recruitment_System.UI
         }
 
 
-        public void SetDataSource(InterviewCriterionArr nomineeScoreTypeArr, Interviewer interviewer)
+        public void SetDataSource(InterviewCriterionArr interviewCriterionArr, Interviewer interviewer)
         {
             Clear();
-            if (nomineeScoreTypeArr != null && interviewer != null)
+            if (interviewCriterionArr != null && interviewer != null)
             {
 
-                //nomineeScoreTypeArr.SortByPositions();
+                //interviewCriterionArr.SortByPositions();
 
                 InterviewCriterionArr filter;
-                NomineeArr nomineeArr = nomineeScoreTypeArr.ToNomineeArr();
+                NomineeArr nomineeArr = interviewCriterionArr.ToNomineeArr();
                 for (int i = 0; i < nomineeArr.Count; i++)
                 {
-                    filter = nomineeScoreTypeArr.Filter(interviewer, nomineeArr[i] as Nominee, PositionType.Empty, DateTime.MinValue, DateTime.MaxValue);
+                    filter = interviewCriterionArr.Filter(interviewer, nomineeArr[i] as Nominee, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
 
                     filter.SortByPositions();
                     AddNominee(filter, nomineeArr[i] as Nominee);
@@ -79,20 +79,20 @@ namespace Recruitment_System.UI
         {
             InterviewCriterionArr output = new InterviewCriterionArr();
             ScorerRow scorerRow;
-            InterviewCriterion nomineeScoreType;
+            InterviewCriterion interviewCriterion;
             foreach (Control item in tableLayoutPanel.Controls)
             {
                 if (item is ScorerRow)
                 {
                     scorerRow = item as ScorerRow;
-                    nomineeScoreType = scorerRow.Tag as InterviewCriterion;
-                    if (nomineeScoreType.Score != scorerRow.Score)
+                    interviewCriterion = scorerRow.Tag as InterviewCriterion;
+                    if (interviewCriterion.Score != scorerRow.Score)
                     {
-                        nomineeScoreType.Score = scorerRow.Score;
-                        nomineeScoreType.DateTime = DateTime.Now;
+                        interviewCriterion.Score = scorerRow.Score;
+                        interviewCriterion.DateTime = DateTime.Now;
                     }
 
-                    output.Add(nomineeScoreType);
+                    output.Add(interviewCriterion);
                 }
             }
 

@@ -36,7 +36,7 @@ namespace Recruitment_System.UI
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox_PD = new System.Windows.Forms.GroupBox();
-            this.checkBox_Sex = new System.Windows.Forms.CheckBox();
+            this.checkBox_Gender = new System.Windows.Forms.CheckBox();
             this.panel_Positions = new System.Windows.Forms.Panel();
             this.textBox_Positions = new System.Windows.Forms.TextBox();
             this.button_ShowPositions = new System.Windows.Forms.Button();
@@ -165,7 +165,7 @@ namespace Recruitment_System.UI
             // groupBox_PD
             // 
             this.groupBox_PD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_PD.Controls.Add(this.checkBox_Sex);
+            this.groupBox_PD.Controls.Add(this.checkBox_Gender);
             this.groupBox_PD.Controls.Add(this.panel_Positions);
             this.groupBox_PD.Controls.Add(this.button_Show_Log);
             this.groupBox_PD.Controls.Add(this.label_BirthYear);
@@ -194,15 +194,15 @@ namespace Recruitment_System.UI
             this.groupBox_PD.TabStop = false;
             this.groupBox_PD.Text = "פרטים אישיים";
             // 
-            // checkBox_Sex
+            // checkBox_Gender
             // 
-            this.checkBox_Sex.AutoSize = true;
-            this.checkBox_Sex.Location = new System.Drawing.Point(514, 482);
-            this.checkBox_Sex.Name = "checkBox_Sex";
-            this.checkBox_Sex.Size = new System.Drawing.Size(119, 41);
-            this.checkBox_Sex.TabIndex = 23;
-            this.checkBox_Sex.Text = "זכר?";
-            this.checkBox_Sex.UseVisualStyleBackColor = true;
+            this.checkBox_Gender.AutoSize = true;
+            this.checkBox_Gender.Location = new System.Drawing.Point(514, 482);
+            this.checkBox_Gender.Name = "checkBox_Gender";
+            this.checkBox_Gender.Size = new System.Drawing.Size(119, 41);
+            this.checkBox_Gender.TabIndex = 23;
+            this.checkBox_Gender.Text = "זכר?";
+            this.checkBox_Gender.UseVisualStyleBackColor = true;
             // 
             // panel_Positions
             // 
@@ -1070,7 +1070,7 @@ namespace Recruitment_System.UI
             this.listView_Interviews.Name = "listView_Interviews";
             this.listView_Interviews.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.listView_Interviews.RightToLeftLayout = true;
-            this.listView_Interviews.Size = new System.Drawing.Size(1669, 917);
+            this.listView_Interviews.Size = new System.Drawing.Size(1543, 917);
             this.listView_Interviews.TabIndex = 26;
             this.listView_Interviews.UseCompatibleStateImageBehavior = false;
             this.listView_Interviews.View = System.Windows.Forms.View.Details;
@@ -1487,7 +1487,7 @@ namespace Recruitment_System.UI
         private System.Windows.Forms.ToolStripMenuItem יחסגבריםנשיםToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem כמותמועמדיםלעירToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ממוצעקריטריוניםלאורךזמןToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBox_Sex;
+        private System.Windows.Forms.CheckBox checkBox_Gender;
         private System.Windows.Forms.ListView listView_PositionNominee;
         private ScorerViewer scorer_View;
         private System.Windows.Forms.ToolStripMenuItem נשיםוגבריםלעירToolStripMenuItem;

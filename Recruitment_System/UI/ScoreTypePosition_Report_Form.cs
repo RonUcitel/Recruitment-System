@@ -11,13 +11,13 @@ using Recruitment_System.BL;
 
 namespace Recruitment_System.UI
 {
-    public partial class ScoreTypePosition_Report_Form : Form
+    public partial class CriterionPosition_Report_Form : Form
     {
-        public ScoreTypePosition_Report_Form()
+        public CriterionPosition_Report_Form()
         {
             InitializeComponent();
             PositionArrToForm();
-            ScoreTypeArrToTable(PositionType.Empty);
+            CriterionArrToTable(PositionType.Empty);
         }
 
         private Bitmap m_bitmap;
@@ -52,20 +52,20 @@ namespace Recruitment_System.UI
 
 
 
-        public void ScoreTypeArrToTable(PositionType position)
+        public void CriterionArrToTable(PositionType position)
         {
             //listView_Nominee
-            CriterionArr scoreTypeArr = new CriterionArr();
-            scoreTypeArr.Fill();
-            scoreTypeArr = scoreTypeArr.Filter(position, "");
+            CriterionArr criterionArr = new CriterionArr();
+            criterionArr.Fill();
+            criterionArr = criterionArr.Filter(position, "");
 
-            SortedDictionary<string, string> dictionary = scoreTypeArr.GetSortedDictionary();
+            SortedDictionary<string, string> dictionary = criterionArr.GetSortedDictionary();
 
-            UpdateListView_ScoreType_Position(dictionary);
+            UpdateListView_Criterion_Position(dictionary);
         }
 
 
-        private void UpdateListView_ScoreType_Position(SortedDictionary<string, string> dictionary)
+        private void UpdateListView_Criterion_Position(SortedDictionary<string, string> dictionary)
         {
             listView1.Clear();
 
@@ -123,7 +123,7 @@ namespace Recruitment_System.UI
 
         private void comboBox_Position_SelectedValueChanged(object sender, EventArgs e)
         {
-            ScoreTypeArrToTable(comboBox_Position.SelectedItem as PositionType);
+            CriterionArrToTable(comboBox_Position.SelectedItem as PositionType);
         }
 
 

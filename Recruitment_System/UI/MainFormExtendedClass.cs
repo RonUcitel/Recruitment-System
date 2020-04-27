@@ -273,11 +273,11 @@ namespace Recruitment_System.UI
             }
 
 
-            InterviewCriterionArr nomineeScoreTypeArr = new InterviewCriterionArr();
-            nomineeScoreTypeArr.Fill();
-            nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewerFilter, nomineeFilter, positionFilter, dateTimePicker_FromFilter.Value, dateTimePicker_ToFilter.Value);
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+            interviewCriterionArr.Fill();
+            interviewCriterionArr = interviewCriterionArr.Filter(interviewerFilter, nomineeFilter, positionFilter, dateTimePicker_FromFilter.Value, dateTimePicker_ToFilter.Value);
 
-            scorer_View.SetDataSource(nomineeScoreTypeArr, interviewerFilter);
+            scorer_View.SetDataSource(interviewCriterionArr, interviewerFilter);
         }
 
 
@@ -289,11 +289,11 @@ namespace Recruitment_System.UI
 
         private void FilterArrsToForm()
         {
-            PositionTypeArr positionArr = new PositionTypeArr();
-            positionArr.Fill();
-            positionArr.Insert(0, PositionType.Empty);
+            PositionTypeArr positionTypeArr = new PositionTypeArr();
+            positionTypeArr.Fill();
+            positionTypeArr.Insert(0, PositionType.Empty);
 
-            comboBox_PositionFilter.DataSource = positionArr;
+            comboBox_PositionFilter.DataSource = positionTypeArr;
             comboBox_PositionFilter.ValueMember = "Id";
             comboBox_PositionFilter.DisplayMember = "Name";
             comboBox_PositionFilter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;

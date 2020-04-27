@@ -153,7 +153,7 @@ namespace Recruitment_System.BL
         }
 
 
-        public InterviewCriterionArr Filter(Interviewer interviewer, Nominee nominee, PositionType position, DateTime dateTimeFrom, DateTime dateTimeTo)
+        public InterviewCriterionArr Filter(Interviewer interviewer, Nominee nominee, Position position, DateTime dateTimeFrom, DateTime dateTimeTo)
         {
             InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
 
@@ -163,7 +163,7 @@ namespace Recruitment_System.BL
                 interviewCriterion = this[i] as InterviewCriterion;
                 if ((interviewer == Interviewer.Empty || interviewer.DBId == interviewCriterion.Interview.Interviewer.DBId) &&
                     (nominee == Nominee.Empty || nominee.DBId == interviewCriterion.Interview.Nominee.DBId) &&
-                    (position == PositionType.Empty || position.Id == interviewCriterion.Interview.Position.Id) &&
+                    (position == Position.Empty || position.Id == interviewCriterion.Interview.Position.Id) &&
                     (dateTimeFrom <= interviewCriterion.DateTime && interviewCriterion.DateTime <= dateTimeTo))
                 {
                     interviewCriterionArr.Add(interviewCriterion);
@@ -229,7 +229,7 @@ namespace Recruitment_System.BL
 
         public bool IsContains(InterviewCriterion interviewCriterion)
         {
-            //finds out whether this interviewCriterionArr contains the given NomineeScoreType.
+            //finds out whether this interviewCriterionArr contains the given InterviewCriterion.
             InterviewCriterion x;
             for (int i = 0; i < this.Count; i++)
             {
@@ -313,7 +313,7 @@ namespace Recruitment_System.BL
             return false;
         }
 
-        public InterviewCriterion MaxNomineeScoreTypeDBId()
+        public InterviewCriterion MaxInterviewCriterionDBId()
         {
             InterviewCriterion max = InterviewCriterion.Empty;
             for (int i = 0; i < this.Count; i++)
@@ -364,9 +364,9 @@ namespace Recruitment_System.BL
         }
 
 
-        public CriterionArr ToScoreTypeArr()
+        public CriterionArr ToCriterionArr()
         {
-            CriterionArr scoreTypeArr = new CriterionArr();
+            CriterionArr criterionArr = new CriterionArr();
 
             InterviewCriterion interviewCriterion;
             Criterion criterion;
@@ -374,13 +374,13 @@ namespace Recruitment_System.BL
             {
                 interviewCriterion = this[i] as InterviewCriterion;
                 criterion = interviewCriterion.Criterion;
-                if (!scoreTypeArr.IsContains(criterion.Id))
+                if (!criterionArr.IsContains(criterion.Id))
                 {
-                    scoreTypeArr.Add(criterion);
+                    criterionArr.Add(criterion);
                 }
             }
 
-            return scoreTypeArr;
+            return criterionArr;
         }
 
 
@@ -438,24 +438,24 @@ namespace Recruitment_System.BL
             return dictionary;
         }
 
-        public SortedDictionary<string, float> GetSortedDictionaryScore(Criterion scoreType, DateTime from, DateTime to)
+        public SortedDictionary<string, float> GetSortedDictionaryScore(Criterion criterion, DateTime from, DateTime to)
         {
 
             // מחזירה משתנה מסוג מילון ממוין עם ערכים רלוונטיים לדוח
             SortedDictionary<string, float> dictionary = new SortedDictionary<string, float>();
 
-            InterviewCriterionArr nomineeScoreTypeArr;
+            InterviewCriterionArr interviewCriterionArr;
             int sum = 0;
             int count = 0;
             int x = 0;
             string key = "";
             for (DateTime d = from; d <= to; d = d.AddMonths(1))
             {
-                nomineeScoreTypeArr = this.FilterMonth(scoreType, d);
+                interviewCriterionArr = this.FilterMonth(criterion, d);
 
-                for (int i = 0; i < nomineeScoreTypeArr.Count; i++)
+                for (int i = 0; i < interviewCriterionArr.Count; i++)
                 {
-                    x = (nomineeScoreTypeArr[i] as InterviewCriterion).Score;
+                    x = (interviewCriterionArr[i] as InterviewCriterion).Score;
                     if (x > 0)
                     {
                         sum += x;

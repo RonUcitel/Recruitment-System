@@ -51,23 +51,21 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Interviewers = new System.Windows.Forms.TabPage();
-            this.tabPage_ScoreType = new System.Windows.Forms.TabPage();
-            this.groupBox_FilterScoreType = new System.Windows.Forms.GroupBox();
-            this.button_ClearFilterScoreType = new System.Windows.Forms.Button();
+            this.tabPage_Criterion = new System.Windows.Forms.TabPage();
+            this.groupBox_FilterCriterion = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox_PositionTypeFilter = new System.Windows.Forms.ComboBox();
+            this.button_ClearFilterCriterion = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox_FilterScoreType = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBox_FilterPosition = new System.Windows.Forms.ComboBox();
-            this.groupBox_ScoreType = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBox_ScoreTypePosition = new System.Windows.Forms.ComboBox();
-            this.label_ScoreTypeId = new System.Windows.Forms.Label();
+            this.textBox_FilterCriterion = new System.Windows.Forms.TextBox();
+            this.groupBox_Criterion = new System.Windows.Forms.GroupBox();
+            this.label_CriterionId = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox_ScoreTypeName = new System.Windows.Forms.TextBox();
-            this.button_SaveScoreType = new System.Windows.Forms.Button();
-            this.button_ClearScoreType = new System.Windows.Forms.Button();
-            this.button_DeleteScoreType = new System.Windows.Forms.Button();
-            this.listBox_ScoreType = new System.Windows.Forms.ListBox();
+            this.textBox_CriterionName = new System.Windows.Forms.TextBox();
+            this.button_SaveCriterion = new System.Windows.Forms.Button();
+            this.button_ClearCriterion = new System.Windows.Forms.Button();
+            this.button_DeleteCriterion = new System.Windows.Forms.Button();
+            this.listBox_Criterion = new System.Windows.Forms.ListBox();
             this.groupBox_Sign = new System.Windows.Forms.GroupBox();
             this.label_Language = new System.Windows.Forms.Label();
             this.label_CapsLk = new System.Windows.Forms.Label();
@@ -76,9 +74,9 @@
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage_Interviewers.SuspendLayout();
-            this.tabPage_ScoreType.SuspendLayout();
-            this.groupBox_FilterScoreType.SuspendLayout();
-            this.groupBox_ScoreType.SuspendLayout();
+            this.tabPage_Criterion.SuspendLayout();
+            this.groupBox_FilterCriterion.SuspendLayout();
+            this.groupBox_Criterion.SuspendLayout();
             this.groupBox_Sign.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,10 +87,10 @@
             this.groupBox_Credentials.Controls.Add(this.textBox_InterviewerPassword);
             this.groupBox_Credentials.Controls.Add(this.label4);
             this.groupBox_Credentials.Controls.Add(this.textBox_InterviewerUserName);
-            this.groupBox_Credentials.Location = new System.Drawing.Point(933, 33);
+            this.groupBox_Credentials.Location = new System.Drawing.Point(393, 39);
             this.groupBox_Credentials.Name = "groupBox_Credentials";
             this.groupBox_Credentials.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox_Credentials.Size = new System.Drawing.Size(731, 211);
+            this.groupBox_Credentials.Size = new System.Drawing.Size(731, 220);
             this.groupBox_Credentials.TabIndex = 33;
             this.groupBox_Credentials.TabStop = false;
             this.groupBox_Credentials.Text = "פרטי התחברות";
@@ -141,9 +139,8 @@
             // 
             this.checkBox_InterviewerAdmin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox_InterviewerAdmin.AutoSize = true;
-            this.checkBox_InterviewerAdmin.Location = new System.Drawing.Point(457, 266);
+            this.checkBox_InterviewerAdmin.Location = new System.Drawing.Point(306, 267);
             this.checkBox_InterviewerAdmin.Name = "checkBox_InterviewerAdmin";
-            this.checkBox_InterviewerAdmin.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox_InterviewerAdmin.Size = new System.Drawing.Size(219, 41);
             this.checkBox_InterviewerAdmin.TabIndex = 27;
             this.checkBox_InterviewerAdmin.Text = "אדמיניסטרטור";
@@ -160,7 +157,7 @@
             this.groupBox_PD.Controls.Add(this.textBox_InterviewerLastName);
             this.groupBox_PD.Controls.Add(this.label_FirstName);
             this.groupBox_PD.Controls.Add(this.textBox_InterviewerFirstName);
-            this.groupBox_PD.Location = new System.Drawing.Point(933, 271);
+            this.groupBox_PD.Location = new System.Drawing.Point(393, 301);
             this.groupBox_PD.Name = "groupBox_PD";
             this.groupBox_PD.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.groupBox_PD.Size = new System.Drawing.Size(731, 332);
@@ -172,7 +169,7 @@
             // 
             this.label_InterviewerDBID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_InterviewerDBID.AutoSize = true;
-            this.label_InterviewerDBID.Location = new System.Drawing.Point(648, 40);
+            this.label_InterviewerDBID.Location = new System.Drawing.Point(648, 52);
             this.label_InterviewerDBID.Name = "label_InterviewerDBID";
             this.label_InterviewerDBID.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_InterviewerDBID.Size = new System.Drawing.Size(35, 37);
@@ -183,7 +180,7 @@
             // 
             this.label_ID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_ID.AutoSize = true;
-            this.label_ID.Location = new System.Drawing.Point(611, 188);
+            this.label_ID.Location = new System.Drawing.Point(611, 200);
             this.label_ID.Name = "label_ID";
             this.label_ID.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_ID.Size = new System.Drawing.Size(72, 37);
@@ -192,7 +189,7 @@
             // 
             // textBox_InterviewerID
             // 
-            this.textBox_InterviewerID.Location = new System.Drawing.Point(65, 185);
+            this.textBox_InterviewerID.Location = new System.Drawing.Point(65, 197);
             this.textBox_InterviewerID.MaxLength = 9;
             this.textBox_InterviewerID.Name = "textBox_InterviewerID";
             this.textBox_InterviewerID.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -203,7 +200,7 @@
             // 
             this.label_LastName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_LastName.AutoSize = true;
-            this.label_LastName.Location = new System.Drawing.Point(531, 138);
+            this.label_LastName.Location = new System.Drawing.Point(531, 150);
             this.label_LastName.Name = "label_LastName";
             this.label_LastName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_LastName.Size = new System.Drawing.Size(152, 37);
@@ -213,7 +210,7 @@
             // textBox_InterviewerLastName
             // 
             this.textBox_InterviewerLastName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_InterviewerLastName.Location = new System.Drawing.Point(65, 135);
+            this.textBox_InterviewerLastName.Location = new System.Drawing.Point(65, 147);
             this.textBox_InterviewerLastName.Name = "textBox_InterviewerLastName";
             this.textBox_InterviewerLastName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_InterviewerLastName.Size = new System.Drawing.Size(460, 44);
@@ -223,7 +220,7 @@
             // 
             this.label_FirstName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_FirstName.AutoSize = true;
-            this.label_FirstName.Location = new System.Drawing.Point(561, 88);
+            this.label_FirstName.Location = new System.Drawing.Point(561, 100);
             this.label_FirstName.Name = "label_FirstName";
             this.label_FirstName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_FirstName.Size = new System.Drawing.Size(122, 37);
@@ -233,7 +230,7 @@
             // textBox_InterviewerFirstName
             // 
             this.textBox_InterviewerFirstName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_InterviewerFirstName.Location = new System.Drawing.Point(65, 85);
+            this.textBox_InterviewerFirstName.Location = new System.Drawing.Point(65, 97);
             this.textBox_InterviewerFirstName.Name = "textBox_InterviewerFirstName";
             this.textBox_InterviewerFirstName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_InterviewerFirstName.Size = new System.Drawing.Size(460, 44);
@@ -241,12 +238,13 @@
             // 
             // button_InterViewerSave
             // 
-            this.button_InterViewerSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_InterViewerSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.button_InterViewerSave.BackColor = System.Drawing.Color.Green;
             this.button_InterViewerSave.Location = new System.Drawing.Point(0, 212);
             this.button_InterViewerSave.Name = "button_InterViewerSave";
             this.button_InterViewerSave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_InterViewerSave.Size = new System.Drawing.Size(415, 184);
+            this.button_InterViewerSave.Size = new System.Drawing.Size(332, 184);
             this.button_InterViewerSave.TabIndex = 30;
             this.button_InterViewerSave.Text = "שמור";
             this.button_InterViewerSave.UseVisualStyleBackColor = false;
@@ -255,10 +253,10 @@
             // button_InterviewerClear
             // 
             this.button_InterviewerClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_InterviewerClear.Location = new System.Drawing.Point(933, 609);
+            this.button_InterviewerClear.Location = new System.Drawing.Point(393, 639);
             this.button_InterviewerClear.Name = "button_InterviewerClear";
             this.button_InterviewerClear.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_InterviewerClear.Size = new System.Drawing.Size(731, 94);
+            this.button_InterviewerClear.Size = new System.Drawing.Size(731, 103);
             this.button_InterviewerClear.TabIndex = 31;
             this.button_InterviewerClear.Text = "נקה";
             this.button_InterviewerClear.UseVisualStyleBackColor = true;
@@ -266,12 +264,13 @@
             // 
             // button_InterviewerDelete
             // 
-            this.button_InterviewerDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_InterviewerDelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.button_InterviewerDelete.BackColor = System.Drawing.Color.Red;
-            this.button_InterviewerDelete.Location = new System.Drawing.Point(0, 593);
+            this.button_InterviewerDelete.Location = new System.Drawing.Point(226, 619);
             this.button_InterviewerDelete.Name = "button_InterviewerDelete";
             this.button_InterviewerDelete.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_InterviewerDelete.Size = new System.Drawing.Size(189, 114);
+            this.button_InterviewerDelete.Size = new System.Drawing.Size(106, 84);
             this.button_InterviewerDelete.TabIndex = 18;
             this.button_InterviewerDelete.Text = "מחק";
             this.button_InterviewerDelete.UseVisualStyleBackColor = false;
@@ -279,11 +278,12 @@
             // 
             // button_InterviewerSearch
             // 
-            this.button_InterviewerSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_InterviewerSearch.Location = new System.Drawing.Point(6, 467);
+            this.button_InterviewerSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_InterviewerSearch.Location = new System.Drawing.Point(0, 467);
             this.button_InterviewerSearch.Name = "button_InterviewerSearch";
             this.button_InterviewerSearch.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_InterviewerSearch.Size = new System.Drawing.Size(403, 94);
+            this.button_InterviewerSearch.Size = new System.Drawing.Size(332, 94);
             this.button_InterviewerSearch.TabIndex = 29;
             this.button_InterviewerSearch.Text = "חפש";
             this.button_InterviewerSearch.UseVisualStyleBackColor = true;
@@ -291,10 +291,10 @@
             // 
             // listBox_Interviewers
             // 
-            this.listBox_Interviewers.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listBox_Interviewers.Dock = System.Windows.Forms.DockStyle.Right;
             this.listBox_Interviewers.FormattingEnabled = true;
             this.listBox_Interviewers.ItemHeight = 37;
-            this.listBox_Interviewers.Location = new System.Drawing.Point(3, 3);
+            this.listBox_Interviewers.Location = new System.Drawing.Point(1167, 3);
             this.listBox_Interviewers.Name = "listBox_Interviewers";
             this.listBox_Interviewers.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.listBox_Interviewers.Size = new System.Drawing.Size(500, 760);
@@ -307,10 +307,10 @@
             this.groupBox1.Controls.Add(this.button_InterviewerDelete);
             this.groupBox1.Controls.Add(this.button_InterViewerSave);
             this.groupBox1.Controls.Add(this.button_InterviewerSearch);
-            this.groupBox1.Location = new System.Drawing.Point(512, 6);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox1.Size = new System.Drawing.Size(415, 703);
+            this.groupBox1.Size = new System.Drawing.Size(332, 754);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "פעולות";
@@ -318,7 +318,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage_Interviewers);
-            this.tabControl1.Controls.Add(this.tabPage_ScoreType);
+            this.tabControl1.Controls.Add(this.tabPage_Criterion);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -345,51 +345,76 @@
             this.tabPage_Interviewers.Text = "מראיינים";
             this.tabPage_Interviewers.UseVisualStyleBackColor = true;
             // 
-            // tabPage_ScoreType
+            // tabPage_Criterion
             // 
-            this.tabPage_ScoreType.Controls.Add(this.groupBox_FilterScoreType);
-            this.tabPage_ScoreType.Controls.Add(this.groupBox_ScoreType);
-            this.tabPage_ScoreType.Controls.Add(this.button_DeleteScoreType);
-            this.tabPage_ScoreType.Controls.Add(this.listBox_ScoreType);
-            this.tabPage_ScoreType.Controls.Add(this.groupBox_Sign);
-            this.tabPage_ScoreType.Location = new System.Drawing.Point(12, 58);
-            this.tabPage_ScoreType.Name = "tabPage_ScoreType";
-            this.tabPage_ScoreType.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_ScoreType.Size = new System.Drawing.Size(1670, 766);
-            this.tabPage_ScoreType.TabIndex = 0;
-            this.tabPage_ScoreType.Text = "עריכת קריטריונים";
-            this.tabPage_ScoreType.UseVisualStyleBackColor = true;
+            this.tabPage_Criterion.Controls.Add(this.groupBox_FilterCriterion);
+            this.tabPage_Criterion.Controls.Add(this.groupBox_Criterion);
+            this.tabPage_Criterion.Controls.Add(this.button_DeleteCriterion);
+            this.tabPage_Criterion.Controls.Add(this.listBox_Criterion);
+            this.tabPage_Criterion.Controls.Add(this.groupBox_Sign);
+            this.tabPage_Criterion.Location = new System.Drawing.Point(12, 58);
+            this.tabPage_Criterion.Name = "tabPage_Criterion";
+            this.tabPage_Criterion.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Criterion.Size = new System.Drawing.Size(1670, 766);
+            this.tabPage_Criterion.TabIndex = 0;
+            this.tabPage_Criterion.Text = "עריכת קריטריונים";
+            this.tabPage_Criterion.UseVisualStyleBackColor = true;
             // 
-            // groupBox_FilterScoreType
+            // groupBox_FilterCriterion
             // 
-            this.groupBox_FilterScoreType.Controls.Add(this.button_ClearFilterScoreType);
-            this.groupBox_FilterScoreType.Controls.Add(this.label7);
-            this.groupBox_FilterScoreType.Controls.Add(this.textBox_FilterScoreType);
-            this.groupBox_FilterScoreType.Controls.Add(this.label5);
-            this.groupBox_FilterScoreType.Controls.Add(this.comboBox_FilterPosition);
-            this.groupBox_FilterScoreType.Location = new System.Drawing.Point(7, 6);
-            this.groupBox_FilterScoreType.Name = "groupBox_FilterScoreType";
-            this.groupBox_FilterScoreType.Size = new System.Drawing.Size(468, 373);
-            this.groupBox_FilterScoreType.TabIndex = 36;
-            this.groupBox_FilterScoreType.TabStop = false;
-            this.groupBox_FilterScoreType.Text = "סינון";
+            this.groupBox_FilterCriterion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox_FilterCriterion.Controls.Add(this.label1);
+            this.groupBox_FilterCriterion.Controls.Add(this.comboBox_PositionTypeFilter);
+            this.groupBox_FilterCriterion.Controls.Add(this.button_ClearFilterCriterion);
+            this.groupBox_FilterCriterion.Controls.Add(this.label7);
+            this.groupBox_FilterCriterion.Controls.Add(this.textBox_FilterCriterion);
+            this.groupBox_FilterCriterion.Location = new System.Drawing.Point(7, 6);
+            this.groupBox_FilterCriterion.Name = "groupBox_FilterCriterion";
+            this.groupBox_FilterCriterion.Size = new System.Drawing.Size(567, 373);
+            this.groupBox_FilterCriterion.TabIndex = 36;
+            this.groupBox_FilterCriterion.TabStop = false;
+            this.groupBox_FilterCriterion.Text = "סינון";
             // 
-            // button_ClearFilterScoreType
+            // label1
             // 
-            this.button_ClearFilterScoreType.Location = new System.Drawing.Point(113, 296);
-            this.button_ClearFilterScoreType.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.button_ClearFilterScoreType.Name = "button_ClearFilterScoreType";
-            this.button_ClearFilterScoreType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_ClearFilterScoreType.Size = new System.Drawing.Size(238, 65);
-            this.button_ClearFilterScoreType.TabIndex = 34;
-            this.button_ClearFilterScoreType.Text = "נקה";
-            this.button_ClearFilterScoreType.UseVisualStyleBackColor = true;
-            this.button_ClearFilterScoreType.Click += new System.EventHandler(this.button_ClearFilterScoreType_Click);
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(403, 143);
+            this.label1.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label1.Size = new System.Drawing.Size(151, 37);
+            this.label1.TabIndex = 36;
+            this.label1.Text = "סוג המשרה:";
+            // 
+            // comboBox_PositionTypeFilter
+            // 
+            this.comboBox_PositionTypeFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_PositionTypeFilter.FormattingEnabled = true;
+            this.comboBox_PositionTypeFilter.Location = new System.Drawing.Point(49, 140);
+            this.comboBox_PositionTypeFilter.Name = "comboBox_PositionTypeFilter";
+            this.comboBox_PositionTypeFilter.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.comboBox_PositionTypeFilter.Size = new System.Drawing.Size(344, 45);
+            this.comboBox_PositionTypeFilter.TabIndex = 35;
+            // 
+            // button_ClearFilterCriterion
+            // 
+            this.button_ClearFilterCriterion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_ClearFilterCriterion.Location = new System.Drawing.Point(160, 296);
+            this.button_ClearFilterCriterion.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.button_ClearFilterCriterion.Name = "button_ClearFilterCriterion";
+            this.button_ClearFilterCriterion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.button_ClearFilterCriterion.Size = new System.Drawing.Size(238, 65);
+            this.button_ClearFilterCriterion.TabIndex = 34;
+            this.button_ClearFilterCriterion.Text = "נקה";
+            this.button_ClearFilterCriterion.UseVisualStyleBackColor = true;
+            this.button_ClearFilterCriterion.Click += new System.EventHandler(this.button_ClearFilterCriterion_Click);
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(349, 197);
+            this.label7.Location = new System.Drawing.Point(465, 63);
             this.label7.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.label7.Name = "label7";
             this.label7.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -397,91 +422,54 @@
             this.label7.TabIndex = 33;
             this.label7.Text = "שם:";
             // 
-            // textBox_FilterScoreType
+            // textBox_FilterCriterion
             // 
-            this.textBox_FilterScoreType.Location = new System.Drawing.Point(33, 194);
-            this.textBox_FilterScoreType.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.textBox_FilterScoreType.Name = "textBox_FilterScoreType";
-            this.textBox_FilterScoreType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox_FilterScoreType.Size = new System.Drawing.Size(280, 44);
-            this.textBox_FilterScoreType.TabIndex = 32;
-            this.textBox_FilterScoreType.TextChanged += new System.EventHandler(this.textBox_FilterScoreType_TextChanged);
-            this.textBox_FilterScoreType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_FilterScoreType_KeyPress);
+            this.textBox_FilterCriterion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_FilterCriterion.Location = new System.Drawing.Point(49, 60);
+            this.textBox_FilterCriterion.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.textBox_FilterCriterion.Name = "textBox_FilterCriterion";
+            this.textBox_FilterCriterion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.textBox_FilterCriterion.Size = new System.Drawing.Size(349, 44);
+            this.textBox_FilterCriterion.TabIndex = 32;
+            this.textBox_FilterCriterion.TextChanged += new System.EventHandler(this.textBox_FilterCriterion_TextChanged);
+            this.textBox_FilterCriterion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_FilterCriterion_KeyPress);
             // 
-            // label5
+            // groupBox_Criterion
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(349, 40);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 37);
-            this.label5.TabIndex = 31;
-            this.label5.Text = "משרה:";
+            this.groupBox_Criterion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox_Criterion.Controls.Add(this.label_CriterionId);
+            this.groupBox_Criterion.Controls.Add(this.label2);
+            this.groupBox_Criterion.Controls.Add(this.textBox_CriterionName);
+            this.groupBox_Criterion.Controls.Add(this.button_SaveCriterion);
+            this.groupBox_Criterion.Controls.Add(this.button_ClearCriterion);
+            this.groupBox_Criterion.Location = new System.Drawing.Point(1085, 50);
+            this.groupBox_Criterion.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.groupBox_Criterion.Name = "groupBox_Criterion";
+            this.groupBox_Criterion.Padding = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.groupBox_Criterion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.groupBox_Criterion.Size = new System.Drawing.Size(542, 458);
+            this.groupBox_Criterion.TabIndex = 33;
+            this.groupBox_Criterion.TabStop = false;
+            this.groupBox_Criterion.Text = "הוסף קריטריון חדש";
             // 
-            // comboBox_FilterPosition
+            // label_CriterionId
             // 
-            this.comboBox_FilterPosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_FilterPosition.FormattingEnabled = true;
-            this.comboBox_FilterPosition.Location = new System.Drawing.Point(33, 37);
-            this.comboBox_FilterPosition.Name = "comboBox_FilterPosition";
-            this.comboBox_FilterPosition.Size = new System.Drawing.Size(289, 45);
-            this.comboBox_FilterPosition.TabIndex = 30;
-            this.comboBox_FilterPosition.SelectedIndexChanged += new System.EventHandler(this.comboBox_FilterPosition_SelectedIndexChanged);
-            // 
-            // groupBox_ScoreType
-            // 
-            this.groupBox_ScoreType.Controls.Add(this.label6);
-            this.groupBox_ScoreType.Controls.Add(this.comboBox_ScoreTypePosition);
-            this.groupBox_ScoreType.Controls.Add(this.label_ScoreTypeId);
-            this.groupBox_ScoreType.Controls.Add(this.label2);
-            this.groupBox_ScoreType.Controls.Add(this.textBox_ScoreTypeName);
-            this.groupBox_ScoreType.Controls.Add(this.button_SaveScoreType);
-            this.groupBox_ScoreType.Controls.Add(this.button_ClearScoreType);
-            this.groupBox_ScoreType.Location = new System.Drawing.Point(994, 50);
-            this.groupBox_ScoreType.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.groupBox_ScoreType.Name = "groupBox_ScoreType";
-            this.groupBox_ScoreType.Padding = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.groupBox_ScoreType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox_ScoreType.Size = new System.Drawing.Size(633, 458);
-            this.groupBox_ScoreType.TabIndex = 33;
-            this.groupBox_ScoreType.TabStop = false;
-            this.groupBox_ScoreType.Text = "הוסף קריטריון חדש";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(532, 126);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(90, 37);
-            this.label6.TabIndex = 33;
-            this.label6.Text = "משרה:";
-            // 
-            // comboBox_ScoreTypePosition
-            // 
-            this.comboBox_ScoreTypePosition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_ScoreTypePosition.FormattingEnabled = true;
-            this.comboBox_ScoreTypePosition.Location = new System.Drawing.Point(157, 123);
-            this.comboBox_ScoreTypePosition.Name = "comboBox_ScoreTypePosition";
-            this.comboBox_ScoreTypePosition.Size = new System.Drawing.Size(348, 45);
-            this.comboBox_ScoreTypePosition.TabIndex = 32;
-            // 
-            // label_ScoreTypeId
-            // 
-            this.label_ScoreTypeId.AutoSize = true;
-            this.label_ScoreTypeId.Location = new System.Drawing.Point(587, 46);
-            this.label_ScoreTypeId.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.label_ScoreTypeId.Name = "label_ScoreTypeId";
-            this.label_ScoreTypeId.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label_ScoreTypeId.Size = new System.Drawing.Size(35, 37);
-            this.label_ScoreTypeId.TabIndex = 0;
-            this.label_ScoreTypeId.Text = "0";
-            this.label_ScoreTypeId.TextChanged += new System.EventHandler(this.label_ScoreTypeId_TextChanged);
+            this.label_CriterionId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_CriterionId.AutoSize = true;
+            this.label_CriterionId.Location = new System.Drawing.Point(496, 46);
+            this.label_CriterionId.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.label_CriterionId.Name = "label_CriterionId";
+            this.label_CriterionId.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label_CriterionId.Size = new System.Drawing.Size(35, 37);
+            this.label_CriterionId.TabIndex = 0;
+            this.label_CriterionId.Text = "0";
+            this.label_CriterionId.TextChanged += new System.EventHandler(this.label_CriterionId_TextChanged);
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(561, 226);
+            this.label2.Location = new System.Drawing.Point(461, 156);
             this.label2.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -489,72 +477,78 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "שם:";
             // 
-            // textBox_ScoreTypeName
+            // textBox_CriterionName
             // 
-            this.textBox_ScoreTypeName.Location = new System.Drawing.Point(157, 223);
-            this.textBox_ScoreTypeName.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.textBox_ScoreTypeName.Name = "textBox_ScoreTypeName";
-            this.textBox_ScoreTypeName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox_ScoreTypeName.Size = new System.Drawing.Size(348, 44);
-            this.textBox_ScoreTypeName.TabIndex = 1;
-            this.textBox_ScoreTypeName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Name_KeyPress);
-            this.textBox_ScoreTypeName.Leave += new System.EventHandler(this.textBox_Name_Leave);
+            this.textBox_CriterionName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_CriterionName.Location = new System.Drawing.Point(57, 153);
+            this.textBox_CriterionName.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.textBox_CriterionName.Name = "textBox_CriterionName";
+            this.textBox_CriterionName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.textBox_CriterionName.Size = new System.Drawing.Size(348, 44);
+            this.textBox_CriterionName.TabIndex = 1;
+            this.textBox_CriterionName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Name_KeyPress);
+            this.textBox_CriterionName.Leave += new System.EventHandler(this.textBox_Name_Leave);
             // 
-            // button_SaveScoreType
+            // button_SaveCriterion
             // 
-            this.button_SaveScoreType.BackColor = System.Drawing.Color.Green;
-            this.button_SaveScoreType.Location = new System.Drawing.Point(377, 366);
-            this.button_SaveScoreType.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.button_SaveScoreType.Name = "button_SaveScoreType";
-            this.button_SaveScoreType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_SaveScoreType.Size = new System.Drawing.Size(238, 65);
-            this.button_SaveScoreType.TabIndex = 3;
-            this.button_SaveScoreType.Text = "שמור";
-            this.button_SaveScoreType.UseVisualStyleBackColor = false;
-            this.button_SaveScoreType.Click += new System.EventHandler(this.button_SaveScoreType_Click);
+            this.button_SaveCriterion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_SaveCriterion.BackColor = System.Drawing.Color.Green;
+            this.button_SaveCriterion.Location = new System.Drawing.Point(286, 366);
+            this.button_SaveCriterion.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.button_SaveCriterion.Name = "button_SaveCriterion";
+            this.button_SaveCriterion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.button_SaveCriterion.Size = new System.Drawing.Size(238, 65);
+            this.button_SaveCriterion.TabIndex = 3;
+            this.button_SaveCriterion.Text = "שמור";
+            this.button_SaveCriterion.UseVisualStyleBackColor = false;
+            this.button_SaveCriterion.Click += new System.EventHandler(this.button_SaveCriterion_Click);
             // 
-            // button_ClearScoreType
+            // button_ClearCriterion
             // 
-            this.button_ClearScoreType.Location = new System.Drawing.Point(28, 366);
-            this.button_ClearScoreType.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.button_ClearScoreType.Name = "button_ClearScoreType";
-            this.button_ClearScoreType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_ClearScoreType.Size = new System.Drawing.Size(238, 65);
-            this.button_ClearScoreType.TabIndex = 4;
-            this.button_ClearScoreType.Text = "נקה";
-            this.button_ClearScoreType.UseVisualStyleBackColor = true;
-            this.button_ClearScoreType.Click += new System.EventHandler(this.button_ClearScoreType_Click);
+            this.button_ClearCriterion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_ClearCriterion.Location = new System.Drawing.Point(19, 366);
+            this.button_ClearCriterion.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.button_ClearCriterion.Name = "button_ClearCriterion";
+            this.button_ClearCriterion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.button_ClearCriterion.Size = new System.Drawing.Size(238, 65);
+            this.button_ClearCriterion.TabIndex = 4;
+            this.button_ClearCriterion.Text = "נקה";
+            this.button_ClearCriterion.UseVisualStyleBackColor = true;
+            this.button_ClearCriterion.Click += new System.EventHandler(this.button_ClearCriterion_Click);
             // 
-            // button_DeleteScoreType
+            // button_DeleteCriterion
             // 
-            this.button_DeleteScoreType.BackColor = System.Drawing.Color.Red;
-            this.button_DeleteScoreType.Location = new System.Drawing.Point(1389, 641);
-            this.button_DeleteScoreType.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.button_DeleteScoreType.Name = "button_DeleteScoreType";
-            this.button_DeleteScoreType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_DeleteScoreType.Size = new System.Drawing.Size(238, 65);
-            this.button_DeleteScoreType.TabIndex = 34;
-            this.button_DeleteScoreType.Text = "מחק";
-            this.button_DeleteScoreType.UseVisualStyleBackColor = false;
-            this.button_DeleteScoreType.Click += new System.EventHandler(this.button_DeleteScoreType_Click);
+            this.button_DeleteCriterion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_DeleteCriterion.BackColor = System.Drawing.Color.Red;
+            this.button_DeleteCriterion.Location = new System.Drawing.Point(1439, 641);
+            this.button_DeleteCriterion.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.button_DeleteCriterion.Name = "button_DeleteCriterion";
+            this.button_DeleteCriterion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.button_DeleteCriterion.Size = new System.Drawing.Size(188, 65);
+            this.button_DeleteCriterion.TabIndex = 34;
+            this.button_DeleteCriterion.Text = "מחק";
+            this.button_DeleteCriterion.UseVisualStyleBackColor = false;
+            this.button_DeleteCriterion.Click += new System.EventHandler(this.button_DeleteCriterion_Click);
             // 
-            // listBox_ScoreType
+            // listBox_Criterion
             // 
-            this.listBox_ScoreType.FormattingEnabled = true;
-            this.listBox_ScoreType.ItemHeight = 37;
-            this.listBox_ScoreType.Location = new System.Drawing.Point(501, 9);
-            this.listBox_ScoreType.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.listBox_ScoreType.Name = "listBox_ScoreType";
-            this.listBox_ScoreType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.listBox_ScoreType.Size = new System.Drawing.Size(413, 744);
-            this.listBox_ScoreType.TabIndex = 30;
-            this.listBox_ScoreType.DoubleClick += new System.EventHandler(this.listBox_ScoreType_DoubleClick);
+            this.listBox_Criterion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBox_Criterion.FormattingEnabled = true;
+            this.listBox_Criterion.ItemHeight = 37;
+            this.listBox_Criterion.Location = new System.Drawing.Point(587, 16);
+            this.listBox_Criterion.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.listBox_Criterion.Name = "listBox_Criterion";
+            this.listBox_Criterion.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.listBox_Criterion.Size = new System.Drawing.Size(478, 744);
+            this.listBox_Criterion.TabIndex = 30;
+            this.listBox_Criterion.DoubleClick += new System.EventHandler(this.listBox_Criterion_DoubleClick);
             // 
             // groupBox_Sign
             // 
+            this.groupBox_Sign.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox_Sign.Controls.Add(this.label_Language);
             this.groupBox_Sign.Controls.Add(this.label_CapsLk);
-            this.groupBox_Sign.Location = new System.Drawing.Point(994, 541);
+            this.groupBox_Sign.Location = new System.Drawing.Point(1085, 541);
             this.groupBox_Sign.Name = "groupBox_Sign";
             this.groupBox_Sign.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.groupBox_Sign.Size = new System.Drawing.Size(348, 165);
@@ -563,6 +557,7 @@
             // 
             // label_Language
             // 
+            this.label_Language.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_Language.AutoSize = true;
             this.label_Language.Location = new System.Drawing.Point(35, 80);
             this.label_Language.Name = "label_Language";
@@ -573,6 +568,7 @@
             // 
             // label_CapsLk
             // 
+            this.label_CapsLk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_CapsLk.AutoSize = true;
             this.label_CapsLk.Location = new System.Drawing.Point(35, 40);
             this.label_CapsLk.Name = "label_CapsLk";
@@ -602,11 +598,11 @@
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage_Interviewers.ResumeLayout(false);
-            this.tabPage_ScoreType.ResumeLayout(false);
-            this.groupBox_FilterScoreType.ResumeLayout(false);
-            this.groupBox_FilterScoreType.PerformLayout();
-            this.groupBox_ScoreType.ResumeLayout(false);
-            this.groupBox_ScoreType.PerformLayout();
+            this.tabPage_Criterion.ResumeLayout(false);
+            this.groupBox_FilterCriterion.ResumeLayout(false);
+            this.groupBox_FilterCriterion.PerformLayout();
+            this.groupBox_Criterion.ResumeLayout(false);
+            this.groupBox_Criterion.PerformLayout();
             this.groupBox_Sign.ResumeLayout(false);
             this.groupBox_Sign.PerformLayout();
             this.ResumeLayout(false);
@@ -636,26 +632,24 @@
         private System.Windows.Forms.ListBox listBox_Interviewers;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage_ScoreType;
+        private System.Windows.Forms.TabPage tabPage_Criterion;
         private System.Windows.Forms.TabPage tabPage_Interviewers;
-        private System.Windows.Forms.GroupBox groupBox_ScoreType;
-        private System.Windows.Forms.Label label_ScoreTypeId;
+        private System.Windows.Forms.GroupBox groupBox_Criterion;
+        private System.Windows.Forms.Label label_CriterionId;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox_ScoreTypeName;
-        private System.Windows.Forms.Button button_SaveScoreType;
-        private System.Windows.Forms.Button button_ClearScoreType;
-        private System.Windows.Forms.Button button_DeleteScoreType;
-        private System.Windows.Forms.ListBox listBox_ScoreType;
+        private System.Windows.Forms.TextBox textBox_CriterionName;
+        private System.Windows.Forms.Button button_SaveCriterion;
+        private System.Windows.Forms.Button button_ClearCriterion;
+        private System.Windows.Forms.Button button_DeleteCriterion;
+        private System.Windows.Forms.ListBox listBox_Criterion;
         private System.Windows.Forms.GroupBox groupBox_Sign;
         private System.Windows.Forms.Label label_Language;
         private System.Windows.Forms.Label label_CapsLk;
-        private System.Windows.Forms.GroupBox groupBox_FilterScoreType;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox_FilterPosition;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox_ScoreTypePosition;
-        private System.Windows.Forms.Button button_ClearFilterScoreType;
+        private System.Windows.Forms.GroupBox groupBox_FilterCriterion;
+        private System.Windows.Forms.Button button_ClearFilterCriterion;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox_FilterScoreType;
+        private System.Windows.Forms.TextBox textBox_FilterCriterion;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox_PositionTypeFilter;
     }
 }

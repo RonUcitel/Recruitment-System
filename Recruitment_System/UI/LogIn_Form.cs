@@ -47,11 +47,13 @@ namespace Recruitment_System.UI
                 Interviewer = interviewerArr.GetInterviewerByCredentials(cred);
                 if (Interviewer == Interviewer.Empty)
                 {
+                    label_Error.Visible = true;
                     return;
                 }
             }
             else
             {
+                label_Error.Visible = true;
                 return;
             }
 

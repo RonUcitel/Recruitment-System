@@ -33,10 +33,14 @@ namespace Recruitment_System.BL
         public CriterionArr Filter(PositionType positionType, string name, int id = 0)
         {
             PositionTypeCriterionArr positionTypeCriterionArr = new PositionTypeCriterionArr();
-            positionTypeCriterionArr.Fill();
-            positionTypeCriterionArr = positionTypeCriterionArr.Filter(positionType, Criterion.Empty);
 
-            CriterionArr criterionArr = new CriterionArr();
+            if (positionType != PositionType.Empty)
+            {
+                positionTypeCriterionArr.Fill();
+            }
+
+
+            CriterionArr criterionArr = positionTypeCriterionArr.Filter(positionType, Criterion.Empty).ToCriterionArr();
 
             Criterion criterion;
 
@@ -44,7 +48,7 @@ namespace Recruitment_System.BL
             {
                 criterion = (this[i] as Criterion);
                 if ((name == "" || criterion.Name.StartsWith(name)) && (id == 0 || criterion.Id == id) &&
-                    (positionType == PositionType.Empty || positionType.Id == positionType.Id))
+                    (positionType == PositionType.Empty || positionTypeCriterionArr.DoesExist(criterion)))
                 {
                     criterionArr.Add(criterion);
                 }
@@ -54,22 +58,22 @@ namespace Recruitment_System.BL
         }
 
 
-        public bool IsContains(string scoreType)
+        public bool IsContains(string criterion)
         {
             for (int i = 0; i < this.Count; i++)
             {
-                if ((this[i] as Criterion).ToString() == scoreType)
+                if ((this[i] as Criterion).ToString() == criterion)
                     return true;
             }
             return false;
         }
 
 
-        public bool IsContains(int scoreTypeId)
+        public bool IsContains(int criterionId)
         {
             for (int i = 0; i < this.Count; i++)
             {
-                if ((this[i] as Criterion).Id == scoreTypeId)
+                if ((this[i] as Criterion).Id == criterionId)
                     return true;
             }
             return false;
@@ -78,13 +82,13 @@ namespace Recruitment_System.BL
 
         public void Remove(int id)
         {
-            Criterion scoreType = GetScoreTypeById(id);
-            if (scoreType != Criterion.Empty)
+            Criterion criterion = GetCriterionById(id);
+            if (criterion != Criterion.Empty)
             {
                 try
                 {
 
-                    base.Remove(scoreType);
+                    base.Remove(criterion);
                 }
                 catch
                 {
@@ -109,30 +113,30 @@ namespace Recruitment_System.BL
             return positionTypeArr;
         }
 
-        public Criterion GetScoreTypeWithMaxId()
+        public Criterion GetCriterionWithMaxId()
         {
-            Criterion maxScoreType = new Criterion();
+            Criterion maxCriterion = new Criterion();
 
             for (int i = 0; i < this.Count; i++)
             {
-                if ((this[i] as Criterion).Id > maxScoreType.Id)
+                if ((this[i] as Criterion).Id > maxCriterion.Id)
                 {
-                    maxScoreType = (this[i] as Criterion);
+                    maxCriterion = (this[i] as Criterion);
                 }
             }
-            return maxScoreType;
+            return maxCriterion;
         }
 
-        public Criterion GetScoreTypeById(int id)
+        public Criterion GetCriterionById(int id)
         {
-            Criterion scoreType;
+            Criterion criterion;
 
             for (int i = 0; i < this.Count; i++)
             {
-                scoreType = (this[i] as Criterion);
-                if (scoreType.Id == id)
+                criterion = (this[i] as Criterion);
+                if (criterion.Id == id)
                 {
-                    return scoreType;
+                    return criterion;
                 }
             }
             return Criterion.Empty;
@@ -144,17 +148,17 @@ namespace Recruitment_System.BL
             SortedDictionary<string, string> dictionary = new SortedDictionary<string, string>();
             string y = "";
             PositionTypeArr positionTypeArr = this.ToPositionTypeArr();
-            CriterionArr scoreTypeArr;
+            CriterionArr criterionArr;
 
             foreach (PositionType curPosition in positionTypeArr)
             {
-                scoreTypeArr = this.Filter(curPosition, "");
+                criterionArr = this.Filter(curPosition, "");
 
-                y += (scoreTypeArr[0] as Criterion).ToString();
+                y += (criterionArr[0] as Criterion).ToString();
 
-                for (int i = 1; i < scoreTypeArr.Count; i++)
+                for (int i = 1; i < criterionArr.Count; i++)
                 {
-                    y += "\n" + (scoreTypeArr[i] as Criterion).ToString();
+                    y += "\n" + (criterionArr[i] as Criterion).ToString();
                 }
 
                 dictionary.Add(curPosition.ToString(), y);

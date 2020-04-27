@@ -22,12 +22,13 @@ namespace Recruitment_System.UI
 
         public Interviewer CurInterviewer;
 
+        #region tab interviewers
         private void button_InterviewerClear_Click(object sender, EventArgs e)
         {
             InterviewerToForm(Interviewer.Empty);
         }
 
-        #region tab interviewers
+
         private Interviewer FormToInterviewer()
         {
             Interviewer interviewer = new Interviewer();
@@ -219,11 +220,11 @@ namespace Recruitment_System.UI
                     }
                 }
 
-                InterviewCriterionArr nomineeScoreTypeArr = new InterviewCriterionArr();
-                nomineeScoreTypeArr.Fill();
-                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(interviewer, Nominee.Empty, PositionType.Empty, DateTime.MinValue, DateTime.MaxValue);
+                InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+                interviewCriterionArr.Fill();
+                interviewCriterionArr = interviewCriterionArr.Filter(interviewer, Nominee.Empty, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
 
-                if (nomineeScoreTypeArr.DeleteArr())
+                if (interviewCriterionArr.DeleteArr())
                 {
                     if (interviewer.Delete())
                     {
@@ -273,57 +274,66 @@ namespace Recruitment_System.UI
         }
         #endregion
 
-        #region tabScoretype
+        #region tabCriterion
+        private void button_ClearFilterCriterion_Click(object sender, EventArgs e)
+        {
+            comboBox_PositionTypeFilter.SelectedIndex = 0;
+            textBox_FilterCriterion.Clear();
+            listBox_Criterion.SelectedValue = 0;
+        }
+
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == tabPage_ScoreType)
+            if (tabControl1.SelectedTab == tabPage_Criterion)
             {
-                InitializeScoreTypeTab();
+                InitializeCriterionTab();
             }
         }
 
-        private void InitializeScoreTypeTab()
+
+        private void InitializeCriterionTab()
         {
-            PositionArrToForm(PositionType.Empty);
-            ScoreTypeArrToForm(Criterion.Empty);
+            PositionTypeArrToForm();
+            CriterionArrToForm(Criterion.Empty);
             KeyDown += Control_KeyDown;//Add the Control_KeyDown event to the form.
             AddKeyDownEvent(this.Controls);//Add the Control_KeyDown event to all of the controls on the form.
             AdminTools_Form_InputLanguageChanged(null, null);//Check the current language.
             CapsLockCheck(); //Check for the state of the CapsLk.
         }
 
-        private void button_ClearScoreType_Click(object sender, EventArgs e)
+        private void button_ClearCriterion_Click(object sender, EventArgs e)
         {
             CriterionToForm(null);
-            listBox_ScoreType.ClearSelected();
+            listBox_Criterion.ClearSelected();
         }
 
-        private void listBox_ScoreType_DoubleClick(object sender, EventArgs e)
+        private void listBox_Criterion_DoubleClick(object sender, EventArgs e)
         {
-            CriterionArr scoreTypearr = new CriterionArr();
-            scoreTypearr.Fill();
+            CriterionArr criterionarr = new CriterionArr();
+            criterionarr.Fill();
 
-            if (!scoreTypearr.IsContains(textBox_ScoreTypeName.Text) && CheckScoreTypeForm())
+            if (!criterionarr.IsContains(textBox_CriterionName.Text) && CheckCriterionForm())
             {
 
-                //There is a valid scoreType to insert that will be erased.
+                //There is a valid criterion to insert that will be erased.
                 DialogResult dr = MessageBox.Show("המידע שהכנסת יכול להתווסף כקריטריון\nהאם אתה רוצה לשמור אותו?", "אזהרה!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                 if (dr == DialogResult.No)
                 {
-                    CriterionToForm(listBox_ScoreType.SelectedItem as Criterion);
-                    CheckScoreTypeForm();
+                    CriterionToForm(listBox_Criterion.SelectedItem as Criterion);
+                    CheckCriterionForm();
                 }
                 else if (dr == DialogResult.Yes)
                 {
-                    button_SaveScoreType_Click(button_InterViewerSave, EventArgs.Empty);
-                    CriterionToForm(listBox_ScoreType.SelectedItem as Criterion);
-                    CheckScoreTypeForm();
+                    button_SaveCriterion_Click(button_InterViewerSave, EventArgs.Empty);
+                    CriterionToForm(listBox_Criterion.SelectedItem as Criterion);
+                    CheckCriterionForm();
                 }
             }
             else
             {
-                CriterionToForm(listBox_ScoreType.SelectedItem as Criterion);
-                CheckScoreTypeForm();
+                CriterionToForm(listBox_Criterion.SelectedItem as Criterion);
+                CheckCriterionForm();
             }
         }
 
@@ -336,10 +346,10 @@ namespace Recruitment_System.UI
             }
         }
 
-        private void button_SaveScoreType_Click(object sender, EventArgs e)
+        private void button_SaveCriterion_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult;
-            if (!CheckScoreTypeForm())
+            if (!CheckCriterionForm())
             {
                 //The entered information is not valid.
                 dialogResult = MessageBox.Show("המידע שסיפקת אינו תקין.\nאנא תקן את השדות האדומים על מנת להמשיך", "אזהרה", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
@@ -349,22 +359,22 @@ namespace Recruitment_System.UI
             {
                 //The information was valid
 
-                Criterion scoreType = FormToScoreType();//Make a scoreType object from the information on the form.
+                Criterion criterion = FormToCriterion();//Make a criterion object from the information on the form.
 
-                if (scoreType.Id == 0)
+                if (criterion.Id == 0)
                 {
                     //insert
-                    CriterionArr oldScoreTypeArr = new CriterionArr();
-                    oldScoreTypeArr.Fill();
-                    if (!oldScoreTypeArr.IsContains(scoreType.Id))
+                    CriterionArr oldCriterionArr = new CriterionArr();
+                    oldCriterionArr.Fill();
+                    if (!oldCriterionArr.IsContains(criterion.Id))
                     {
-                        if (scoreType.Insert())//Try to insert the new scoreType to the database.
+                        if (criterion.Insert())//Try to insert the new criterion to the database.
                         {
-                            //The insertion of the scoreType data was successfull.
-                            CriterionArr scoreTypeArr = new CriterionArr();
-                            scoreTypeArr.Fill();
-                            scoreType = scoreTypeArr.GetScoreTypeWithMaxId();
-                            ScoreTypeArrToForm(scoreType);
+                            //The insertion of the criterion data was successfull.
+                            CriterionArr criterionArr = new CriterionArr();
+                            criterionArr.Fill();
+                            criterion = criterionArr.GetCriterionWithMaxId();
+                            CriterionArrToForm(criterion);
 
 
                             dialogResult = MessageBox.Show("הקריטריון נוסף בהצלחה", "יאי!", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
@@ -383,16 +393,16 @@ namespace Recruitment_System.UI
                 else
                 {
                     //update
-                    CriterionArr scoreTypeArr = new CriterionArr();
-                    scoreTypeArr.Fill();
-                    if (scoreType != scoreTypeArr.GetScoreTypeById(scoreType.Id))
+                    CriterionArr criterionArr = new CriterionArr();
+                    criterionArr.Fill();
+                    if (criterion != criterionArr.GetCriterionById(criterion.Id))
                     {
                         //if there is any change
-                        if (scoreType.Update())
+                        if (criterion.Update())
                         {
-                            scoreTypeArr = new CriterionArr();
-                            scoreTypeArr.Fill();
-                            ScoreTypeArrToForm(scoreTypeArr.GetScoreTypeById(scoreType.Id));
+                            criterionArr = new CriterionArr();
+                            criterionArr.Fill();
+                            CriterionArrToForm(criterionArr.GetCriterionById(criterion.Id));
                             dialogResult = MessageBox.Show("הקריטריון עודכן בהצלחה", "יאי!", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                         }
                         else
@@ -425,7 +435,7 @@ namespace Recruitment_System.UI
 
                 case DialogResult.Retry:
                     {
-                        button_SaveScoreType_Click(null, null);//Try again.
+                        button_SaveCriterion_Click(null, null);//Try again.
                         break;
                     }
 
@@ -459,7 +469,7 @@ namespace Recruitment_System.UI
             }
         }
 
-        private void textBox_FilterScoreType_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox_FilterCriterion_KeyPress(object sender, KeyPressEventArgs e)
 
         {
             if (!IsHeLetter(e.KeyChar) && !IsEnLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ' ')
@@ -470,18 +480,18 @@ namespace Recruitment_System.UI
             }
         }
 
-        private void textBox_FilterScoreType_TextChanged(object sender, EventArgs e)
+        private void textBox_FilterCriterion_TextChanged(object sender, EventArgs e)
 
         {
-            CriterionArr scoreTypeArr = new CriterionArr();
-            scoreTypeArr.Fill();
+            CriterionArr criterionArr = new CriterionArr();
+            criterionArr.Fill();
 
-            scoreTypeArr = scoreTypeArr.Filter(
-                comboBox_FilterPosition.SelectedItem != null ? comboBox_FilterPosition.SelectedItem as PositionType : PositionType.Empty, textBox_FilterScoreType.Text);
+            criterionArr = criterionArr.Filter(
+                comboBox_PositionTypeFilter.SelectedItem != null ? comboBox_PositionTypeFilter.SelectedItem as PositionType : PositionType.Empty, textBox_FilterCriterion.Text);
 
-            listBox_ScoreType.DataSource = scoreTypeArr;
-            listBox_ScoreType.ValueMember = "Id";
-            listBox_ScoreType.DisplayMember = "NameWithPosition";
+            listBox_Criterion.DataSource = criterionArr;
+            listBox_Criterion.ValueMember = "Id";
+            listBox_Criterion.DisplayMember = "NameWithPosition";
         }
 
         private void textBox_Name_Leave(object sender, EventArgs e)
@@ -500,7 +510,7 @@ namespace Recruitment_System.UI
                 }
                 t.Text = output.Remove(output.Length - 1);
             }
-            CheckScoreTypeForm();
+            CheckCriterionForm();
         }
 
 
@@ -509,71 +519,55 @@ namespace Recruitment_System.UI
 
             if (criterion != null && criterion != Criterion.Empty)
             {
-                label_ScoreTypeId.Text = criterion.Id.ToString();
-                textBox_ScoreTypeName.Text = criterion.Name;
-                /*comboBox_ScoreTypePosition.SelectedValue = criterion.Position.Id;*/
+                label_CriterionId.Text = criterion.Id.ToString();
+                textBox_CriterionName.Text = criterion.Name;
+                /*comboBox_CriterionPosition.SelectedValue = criterion.Position.Id;*/
             }
             else
             {
                 //Reset the text and flags of the input fields.
-                label_ScoreTypeId.Text = "0";
-                textBox_ScoreTypeName.Text = "";
-                comboBox_ScoreTypePosition.SelectedValue = 0;
+                label_CriterionId.Text = "0";
+                textBox_CriterionName.Text = "";
+                comboBox_PositionTypeFilter.SelectedValue = 0;
 
-                textBox_ScoreTypeName.BackColor = Color.White;
+                textBox_CriterionName.BackColor = Color.White;
             }
         }
 
-        public void PositionArrToForm(PositionType curPosition)
+        public void PositionTypeArrToForm()
         {
-            PositionTypeArr positionArr = new PositionTypeArr();
-            positionArr.Fill();
-            positionArr.Insert(0, PositionType.Empty);
+            PositionTypeArr positionTypeArr = new PositionTypeArr();
+            positionTypeArr.Fill();
+            positionTypeArr.Insert(0, PositionType.Empty);
 
-            comboBox_ScoreTypePosition.DataSource = positionArr;
-            comboBox_ScoreTypePosition.ValueMember = "Id";
-            comboBox_ScoreTypePosition.DisplayMember = "Name";
-            comboBox_ScoreTypePosition.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_ScoreTypePosition.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_PositionTypeFilter.DataSource = positionTypeArr;
+            comboBox_PositionTypeFilter.ValueMember = "Id";
+            comboBox_PositionTypeFilter.DisplayMember = "Name";
+            comboBox_PositionTypeFilter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_PositionTypeFilter.AutoCompleteSource = AutoCompleteSource.ListItems;
 
-            if (curPosition != null)
-            {
-                comboBox_ScoreTypePosition.SelectedValue = curPosition.Id;
-            }
-            else
-            {
-                comboBox_ScoreTypePosition.SelectedValue = 0;
-            }
-
-            PositionTypeArr filterPositionArr = new PositionTypeArr();
-            filterPositionArr.Fill();
-            filterPositionArr.Insert(0, PositionType.Empty);
-            comboBox_FilterPosition.DataSource = filterPositionArr;
-            comboBox_FilterPosition.ValueMember = "Id";
-            comboBox_FilterPosition.DisplayMember = "Name";
-            comboBox_FilterPosition.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_FilterPosition.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_PositionTypeFilter.SelectedValue = 0;
 
         }
 
-        private void ScoreTypeArrToForm(Criterion curScoreType)
+        private void CriterionArrToForm(Criterion curCriterion)
         {
-            CriterionArr scoreTypeArr = new CriterionArr();
-            scoreTypeArr.Fill();
+            CriterionArr criterionArr = new CriterionArr();
+            criterionArr.Fill();
 
-            listBox_ScoreType.DataSource = scoreTypeArr;
-            listBox_ScoreType.ValueMember = "Id";
-            listBox_ScoreType.DisplayMember = "NameWithPosition";
+            listBox_Criterion.DataSource = criterionArr;
+            listBox_Criterion.ValueMember = "Id";
+            listBox_Criterion.DisplayMember = "NameWithPosition";
 
-            if (curScoreType != null)
+            if (curCriterion != null)
             {
-                listBox_ScoreType.SelectedValue = curScoreType.Id;
+                listBox_Criterion.SelectedValue = curCriterion.Id;
             }
             else
             {
-                listBox_ScoreType.ClearSelected();
+                listBox_Criterion.ClearSelected();
             }
-            CriterionToForm(curScoreType);
+            CriterionToForm(curCriterion);
         }
 
         private bool Text_Check_Length(Control sender, bool isBiggerThan, int num)
@@ -621,9 +615,9 @@ namespace Recruitment_System.UI
             }
         }
 
-        private bool CheckScoreTypeForm()
+        private bool CheckCriterionForm()
         {                                                       //מחזירה האם הטופס תקין מבחינת שדות החובה
-            return Text_Check_Length(textBox_ScoreTypeName, true, 2);
+            return Text_Check_Length(textBox_CriterionName, true, 2);
         }
 
         private bool IsEnLetter(char c)
@@ -652,47 +646,47 @@ namespace Recruitment_System.UI
             }
         }
 
-        public Criterion FormToScoreType()
+        public Criterion FormToCriterion()
         {
             Criterion criterion = new Criterion();
             //insert the data to the object
-            criterion.Id = int.Parse(label_ScoreTypeId.Text);
-            criterion.Name = textBox_ScoreTypeName.Text;
-            //scoreType.Position = comboBox_ScoreTypePosition.SelectedItem as PositionType;
+            criterion.Id = int.Parse(label_CriterionId.Text);
+            criterion.Name = textBox_CriterionName.Text;
+            //criterion.Position = comboBox_CriterionPosition.SelectedItem as PositionType;
 
             return criterion;
         }
 
-        private void label_ScoreTypeId_TextChanged(object sender, EventArgs e)
+        private void label_CriterionId_TextChanged(object sender, EventArgs e)
 
         {
-            int id = int.Parse(label_ScoreTypeId.Text);
+            int id = int.Parse(label_CriterionId.Text);
             if (id != 0)
             {
-                groupBox_ScoreType.Text = "ערוך קריטריון קיים";
+                groupBox_Criterion.Text = "ערוך קריטריון קיים";
             }
             else
             {
-                groupBox_ScoreType.Text = "הוסף קריטריון חדש";
+                groupBox_Criterion.Text = "הוסף קריטריון חדש";
             }
         }
 
-        private void button_DeleteScoreType_Click(object sender, EventArgs e)
+        private void button_DeleteCriterion_Click(object sender, EventArgs e)
 
         {
-            if (label_ScoreTypeId.Text == "0")
+            if (label_CriterionId.Text == "0")
             {
                 MessageBox.Show("לא נבחר קריטריון למחיקה.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                 return;
             }
 
 
-            //remove the scoreType
-            CriterionArr scoreTypeArr = new CriterionArr();
-            scoreTypeArr.Fill();
-            Criterion scoreType = scoreTypeArr.GetScoreTypeById(int.Parse(label_ScoreTypeId.Text));
+            //remove the criterion
+            CriterionArr criterionArr = new CriterionArr();
+            criterionArr.Fill();
+            Criterion criterion = criterionArr.GetCriterionById(int.Parse(label_CriterionId.Text));
 
-            if (scoreType == Criterion.Empty)
+            if (criterion == Criterion.Empty)
             {
                 MessageBox.Show("קרתה תקלה במציאת הקריטריון בבסיס הנתונים.\nאנא סגור והדלק את התוכנה.", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                 return;
@@ -703,15 +697,15 @@ namespace Recruitment_System.UI
                 //delete from the connection table
                 InterviewCriterionArr nomineeScoeTypeArr = new InterviewCriterionArr();
                 nomineeScoeTypeArr.Fill();
-                nomineeScoeTypeArr = nomineeScoeTypeArr.Filter(Interviewer.Empty, Nominee.Empty, scoreType, 0, DateTime.MinValue, DateTime.MaxValue);
+                nomineeScoeTypeArr = nomineeScoeTypeArr.Filter(Interviewer.Empty, Nominee.Empty, criterion, 0, DateTime.MinValue, DateTime.MaxValue);
 
                 nomineeScoeTypeArr.DeleteArr();
 
                 //delete from it's table
-                if (scoreType.Delete())
+                if (criterion.Delete())
                 {
                     CriterionToForm(null);
-                    ScoreTypeArrToForm(null);
+                    CriterionArrToForm(null);
                     MessageBox.Show("הקריטריון נמחק בהצלחה", "הצלחה", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                 }
                 else
@@ -723,24 +717,5 @@ namespace Recruitment_System.UI
         }
         #endregion
 
-        private void comboBox_FilterPosition_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CriterionArr scoreTypeArr = new CriterionArr();
-            scoreTypeArr.Fill();
-
-            scoreTypeArr = scoreTypeArr.Filter(
-                comboBox_FilterPosition.SelectedItem != null ? comboBox_FilterPosition.SelectedItem as PositionType : PositionType.Empty, textBox_FilterScoreType.Text);
-
-            listBox_ScoreType.DataSource = scoreTypeArr;
-            listBox_ScoreType.ValueMember = "Id";
-            listBox_ScoreType.DisplayMember = "NameWithPosition";
-        }
-
-        private void button_ClearFilterScoreType_Click(object sender, EventArgs e)
-        {
-            comboBox_FilterPosition.SelectedValue = 0;
-            textBox_FilterScoreType.Clear();
-            listBox_ScoreType.SelectedValue = 0;
-        }
     }
 }

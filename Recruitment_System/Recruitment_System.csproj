@@ -119,6 +119,12 @@
     <Compile Include="UI\AdminTools_Form.Designer.cs">
       <DependentUpon>AdminTools_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\AltarnateMain_From.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AltarnateMain_From.Designer.cs">
+      <DependentUpon>AltarnateMain_From.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\City_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AdminTools_Form.resx">
       <DependentUpon>AdminTools_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AltarnateMain_From.resx">
+      <DependentUpon>AltarnateMain_From.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\City_Form.resx">
       <DependentUpon>City_Form.cs</DependentUpon>

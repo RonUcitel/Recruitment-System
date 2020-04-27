@@ -13,7 +13,7 @@ namespace Recruitment_System.UI
 {
     public partial class PositionType_Form : Form
     {
-        public PositionType_Form(/*Position selectedPosition*/)
+        public PositionType_Form()
         {
             InitializeComponent();
             SelectedPositionType = PositionType.Empty/*selectedPosition*/;
@@ -54,7 +54,7 @@ namespace Recruitment_System.UI
 
         private void ToolStripMenuItem_Remove_Click(object sender, EventArgs e)
         {
-            //remove the position
+            //remove the positionType
 
             PositionType positionType = listBox_PositionType.SelectedItem as PositionType;
 
@@ -100,7 +100,7 @@ namespace Recruitment_System.UI
             if (!positionTypeArr.IsContains(textBox_Name.Text) && CheckForm())
             {
 
-                //There is a valid position to insert that will be erased.
+                //There is a valid positionType to insert that will be erased.
                 DialogResult dr = MessageBox.Show("המידע שהכנסת יכול להתווסף כסוג משרה.\nהאם אתה רוצה לשמור אותוה?", "אזהרה!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                 if (dr == DialogResult.No)
                 {
@@ -151,17 +151,17 @@ namespace Recruitment_System.UI
             {
                 //The information was valid
 
-                PositionType position = FormToPositionType();//Make a position object from the information on the form.
+                PositionType positionType = FormToPositionType();
 
-                if (position.Id == 0)
+                if (positionType.Id == 0)
                 {
-                    PositionTypeArr oldPositionArr = new PositionTypeArr();
-                    oldPositionArr.Fill();
-                    if (!oldPositionArr.IsContains(position.Name))
+                    PositionTypeArr oldPositionTypeArr = new PositionTypeArr();
+                    oldPositionTypeArr.Fill();
+                    if (!oldPositionTypeArr.IsContains(positionType.Name))
                     {
-                        if (position.Insert())//Try to insert the new position to the database.
+                        if (positionType.Insert())//Try to insert the new positionType to the database.
                         {
-                            //The insertion of the position data was successfull.
+                            //The insertion of the positionType data was successfull.
                             PositionTypeArr positionTypeArr = new PositionTypeArr();
                             positionTypeArr.Fill();
                             PositionTypeArrToForm(positionTypeArr.GetPositionTypeWithMaxId());
@@ -182,7 +182,7 @@ namespace Recruitment_System.UI
                 {
                     if (textBox_Name.Text != SelectedPositionType.Name)
                     {
-                        if (position.Update())
+                        if (positionType.Update())
                         {
                             PositionTypeArr positionTypeArr = new PositionTypeArr();
                             positionTypeArr.Fill();
@@ -469,9 +469,9 @@ namespace Recruitment_System.UI
 
 
         /// <summary>
-        /// Create a Position object with the information from the form.
+        /// Create a PositionType object with the information from the form.
         /// </summary>
-        /// <returns>Position object with the information from the form.</returns>
+        /// <returns>PositionType object with the information from the form.</returns>
         public PositionType FormToPositionType()
         {
             PositionType positionType = new PositionType();
@@ -515,7 +515,7 @@ namespace Recruitment_System.UI
             }
 
 
-            //remove the position
+            //remove the positionType
             PositionType positionType;
             PositionTypeArr positionTypeArr = new PositionTypeArr();
             positionTypeArr.Fill();

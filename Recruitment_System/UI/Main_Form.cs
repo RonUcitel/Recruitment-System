@@ -69,17 +69,17 @@ namespace Recruitment_System.UI
 
 
 
-            InterviewCriterionArr newNomineeScoreTypeArr = scoreKeeping.FormToNomineeScoreTypeArr();
+            InterviewCriterionArr newInterviewCriterionArr = scoreKeeping.FormToInterviewCriterionArr();
 
 
-            InterviewCriterionArr OldNomineeScoreTypeArr = new InterviewCriterionArr();
-            OldNomineeScoreTypeArr.Fill();
-            OldNomineeScoreTypeArr = OldNomineeScoreTypeArr.Filter(curInterviewer, curNominee, Criterion.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
+            InterviewCriterionArr OldInterviewCriterionArr = new InterviewCriterionArr();
+            OldInterviewCriterionArr.Fill();
+            OldInterviewCriterionArr = OldInterviewCriterionArr.Filter(curInterviewer, curNominee, Criterion.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
 
-            OldNomineeScoreTypeArr.DeleteArr();
+            OldInterviewCriterionArr.DeleteArr();
 
 
-            newNomineeScoreTypeArr.InsertArr();
+            newInterviewCriterionArr.InsertArr();
         }
 
 
@@ -802,7 +802,7 @@ namespace Recruitment_System.UI
             nominee.CellAreaCode = comboBox_CellAreaCode.Text;
             nominee.CellPhone = textBox_Cel.Text;
             nominee.City = comboBox_City.SelectedItem != null ? comboBox_City.SelectedItem as City : City.Empty;
-            nominee.Male = checkBox_Sex.Checked;
+            nominee.Gender = checkBox_Gender.Checked;
 
             return nominee;
         }
@@ -1059,7 +1059,7 @@ namespace Recruitment_System.UI
                 comboBox_CellAreaCode.Text = nominee.CellAreaCode;
                 textBox_Cel.Text = nominee.CellPhone;
                 comboBox_City.SelectedValue = nominee.City.Id;
-                checkBox_Sex.Checked = nominee.Male;
+                checkBox_Gender.Checked = nominee.Gender;
 
                 PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
                 positionNomineeArr.Fill();
@@ -1125,7 +1125,7 @@ namespace Recruitment_System.UI
                 textBox_Positions.Tag = new PositionTypeArr();
                 SetPositionTextBoxAndToolTip(textBox_Positions.Tag as PositionArr);
 
-                checkBox_Sex.Checked = false;
+                checkBox_Gender.Checked = false;
 
                 //Reset the text and flags of the input fields.
                 foreach (Control item in groupBox_PD.Controls)
@@ -1296,7 +1296,7 @@ namespace Recruitment_System.UI
 
         private void קריטריוניםלמשרותToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ScoreTypePosition_Report_Form form = new ScoreTypePosition_Report_Form();
+            CriterionPosition_Report_Form form = new CriterionPosition_Report_Form();
 
             form.ShowDialog();
 
@@ -1328,7 +1328,7 @@ namespace Recruitment_System.UI
 
         private void ממוצעקריטריוניםלאורךזמןToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ScoreTypeDate_Graph_Form form = new ScoreTypeDate_Graph_Form();
+            CriterionDate_Graph_Form form = new CriterionDate_Graph_Form();
             form.ShowDialog();
         }
 

@@ -7,6 +7,10 @@ using System;
 
 namespace Recruitment_System.BL
 {
+    public enum Gender
+    {
+        Male, Female, Else
+    }
     public class Nominee
     {
         /// <summary>
@@ -39,7 +43,7 @@ namespace Recruitment_System.BL
             m_CellAreaCode = nominee_prop["CellAreaCode"].ToString();
             m_CellPhoneNumber = nominee_prop["CellPhoneNumber"].ToString();
             m_City = new City(nominee_prop.GetParentRow("NomineeCity"));
-            m_Male = (bool)nominee_prop["Male"];
+            m_Gender = (Gender)nominee_prop["Gender"];
         }
 
         #region Private containers
@@ -64,7 +68,7 @@ namespace Recruitment_System.BL
 
         private City m_City;
 
-        private bool m_Male;
+        private Gender m_Gender;
         #endregion
 
 
@@ -84,7 +88,7 @@ namespace Recruitment_System.BL
         public int BirthYear { get => m_BirthYear; set => m_BirthYear = value; }
         public string Email { get => m_Email; set => m_Email = value; }
         public bool Disabled { get => m_Disabled; set => m_Disabled = value; }
-        public bool Male { get => m_Male; set => m_Male = value; }
+        public Gender Gender { get => m_Gender; set => m_Gender = value; }
 
         public static readonly Nominee Empty = new Nominee();
         #endregion
@@ -98,7 +102,7 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            if (Nominee_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_Male))
+            if (Nominee_Dal.Insert(m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, (int)m_Gender))
             {
                 NomineeArr nomineeArr = new NomineeArr();
                 nomineeArr.FillEnabled();
@@ -114,7 +118,7 @@ namespace Recruitment_System.BL
 
         public bool Update()
         {
-            if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, m_Male))
+            if (Nominee_Dal.Update(m_DBId, m_FirstName, m_LastName, m_Id, m_Email, m_BirthYear, m_CellAreaCode, m_CellPhoneNumber, m_City.Id, (int)m_Gender))
             {
                 NomineeArr nomineeArr = new NomineeArr();
                 nomineeArr.FillEnabled();
@@ -136,22 +140,22 @@ namespace Recruitment_System.BL
 
             if (logEntryArr.DeleteArr())
             {
-                InterviewCriterionArr nomineeScoreTypeArr = new InterviewCriterionArr();
+                InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
                 PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
                 if (this.Disabled)
                 {
-                    nomineeScoreTypeArr.FillDisabled();
+                    interviewCriterionArr.FillDisabled();
                     positionNomineeArr.FillDisabled();
                 }
                 else
                 {
-                    nomineeScoreTypeArr.FillEnabled();
+                    interviewCriterionArr.FillEnabled();
                     positionNomineeArr.FillEnabled();
                 }
 
-                nomineeScoreTypeArr = nomineeScoreTypeArr.Filter(Interviewer.Empty, this, PositionType.Empty, DateTime.MinValue, DateTime.MaxValue);
+                interviewCriterionArr = interviewCriterionArr.Filter(Interviewer.Empty, this, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
 
-                if (nomineeScoreTypeArr.DeleteArr())
+                if (interviewCriterionArr.DeleteArr())
                 {
 
                     positionNomineeArr = positionNomineeArr.Filter(this, Position.Empty);

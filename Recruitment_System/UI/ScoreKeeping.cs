@@ -68,7 +68,7 @@ namespace Recruitment_System.UI
             return interviewCriterionArr;
         }
 
-        public InterviewCriterionArr FormToNomineeScoreTypeArr()
+        public InterviewCriterionArr FormToInterviewCriterionArr()
         {
             return scorer1.GetData();
         }

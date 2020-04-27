@@ -18,11 +18,11 @@ namespace Recruitment_System.UI
         {
             InitializeComponent();
             CityArrToForm();
-            PositionArrToForm();
+            PositionTypeArrToForm();
             DataToChart(PositionType.Empty, City.Empty);
         }
 
-        public void DataToChart(PositionType position, City city)
+        public void DataToChart(PositionType positionType, City city)
         {
             //פלטת הצבעים -אפשר גם להגדיר מראש במאפיינים )לא בקוד(
             chart1.Palette = ChartColorPalette.Excel;
@@ -34,7 +34,7 @@ namespace Recruitment_System.UI
             //הוספת הערכים למשתנה מסוג מילון ממוין
             NomineeArr curNomineeArr = new NomineeArr();
             curNomineeArr.FillEnabled();
-            curNomineeArr = curNomineeArr.Filter(position, city);
+            curNomineeArr = curNomineeArr.Filter(positionType, city);
 
             SortedDictionary<string, int> dictionary = curNomineeArr.GetSortedDictionaryMaleFemaleProportion();
 
@@ -74,21 +74,21 @@ namespace Recruitment_System.UI
 
         private void button_Filter_Click(object sender, EventArgs e)
         {
-            DataToChart(comboBox_Position.SelectedItem as PositionType, comboBox_City.SelectedItem as City);
+            DataToChart(comboBox_PositionType.SelectedItem as PositionType, comboBox_City.SelectedItem as City);
         }
 
-        private void PositionArrToForm()
+        private void PositionTypeArrToForm()
         {
-            PositionTypeArr positionArr = new PositionTypeArr();
-            positionArr.Fill();
-            positionArr.Insert(0, PositionType.Empty);
+            PositionTypeArr positionTypeArr = new PositionTypeArr();
+            positionTypeArr.Fill();
+            positionTypeArr.Insert(0, PositionType.Empty);
 
-            comboBox_Position.DataSource = positionArr;
-            comboBox_Position.ValueMember = "Id";
-            comboBox_Position.DisplayMember = "Name";
-            comboBox_Position.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_Position.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBox_Position.SelectedValue = 0;
+            comboBox_PositionType.DataSource = positionTypeArr;
+            comboBox_PositionType.ValueMember = "Id";
+            comboBox_PositionType.DisplayMember = "Name";
+            comboBox_PositionType.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_PositionType.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_PositionType.SelectedValue = 0;
         }
 
         private void CityArrToForm()
@@ -107,9 +107,9 @@ namespace Recruitment_System.UI
 
         private void button_Clear_Click(object sender, EventArgs e)
         {
-            comboBox_Position.SelectedIndex = 0;
+            comboBox_PositionType.SelectedIndex = 0;
             comboBox_City.SelectedIndex = 0;
-            DataToChart(comboBox_Position.SelectedItem as PositionType, comboBox_City.SelectedItem as City);
+            DataToChart(comboBox_PositionType.SelectedItem as PositionType, comboBox_City.SelectedItem as City);
         }
     }
 }

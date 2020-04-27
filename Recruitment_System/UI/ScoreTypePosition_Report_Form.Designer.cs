@@ -1,6 +1,6 @@
 ﻿namespace Recruitment_System.UI
 {
-    partial class ScoreTypePosition_Report_Form
+    partial class CriterionPosition_Report_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreTypePosition_Report_Form));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CriterionPosition_Report_Form));
             this.printPreviewDialog_Reports = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument_Reports = new System.Drawing.Printing.PrintDocument();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -128,7 +128,7 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             // 
-            // ScoreTypePosition_Report_Form
+            // CriterionPosition_Report_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -137,7 +137,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "ScoreTypePosition_Report_Form";
+            this.Name = "CriterionPosition_Report_Form";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.Text = "דוח קריטריונים למשרות";

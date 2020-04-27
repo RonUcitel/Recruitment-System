@@ -124,19 +124,28 @@ namespace Recruitment_System.BL
         {
             for (int i = 0; i < this.Count; i++)
             {
-                if ((this[i] as PositionType) == positionType)
+                if ((this[i] as Position).PositionType == positionType)
                     return true;
             }
             return false;
         }
 
+        public bool IsContains(Position position)
+        {
+            for (int i = 0; i < this.Count; i++)
+            {
+                if ((this[i] as Position) == position)
+                    return true;
+            }
+            return false;
+        }
 
-        public void Remove(PositionTypeArr positionTypeArr)
+        public void Remove(PositionArr positionArr)
         {
             //מסירה מהאוסף הנוכחי את האוסף המתקבל
 
-            for (int i = 0; i < positionTypeArr.Count; i++)
-                this.Remove(positionTypeArr[i] as PositionType);
+            for (int i = 0; i < positionArr.Count; i++)
+                this.Remove(positionArr[i] as Position);
         }
 
 

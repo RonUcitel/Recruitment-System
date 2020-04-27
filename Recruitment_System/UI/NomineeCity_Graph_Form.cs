@@ -17,12 +17,12 @@ namespace Recruitment_System.UI
         public NomineeCity_Graph_Form()
         {
             InitializeComponent();
-            PositionArrToForm();
+            PositionTypeArrToForm();
             NomineeArrStateToForm();
             DataToChart(PositionType.Empty, 0, 100, NomineeArrState.ShowEnabledOnly);
         }
 
-        public void DataToChart(PositionType position, int from, int to, NomineeArrState state)
+        public void DataToChart(PositionType positionType, int from, int to, NomineeArrState state)
         {
             //פלטת הצבעים -אפשר גם להגדיר מראש במאפיינים )לא בקוד(
             chart1.Palette = ChartColorPalette.Excel;
@@ -34,7 +34,7 @@ namespace Recruitment_System.UI
             //הוספת הערכים למשתנה מסוג מילון ממוין
             NomineeArr curNomineeArr = new NomineeArr();
             curNomineeArr.Fill(state);
-            curNomineeArr = curNomineeArr.Filter(position, City.Empty, from, to);
+            curNomineeArr = curNomineeArr.Filter(positionType, City.Empty, from, to);
 
             SortedDictionary<string, int> dictionary = curNomineeArr.GetSortedDictionaryCity();
 
@@ -72,18 +72,18 @@ namespace Recruitment_System.UI
             chart1.Series.Add(series);
         }
 
-        private void PositionArrToForm()
+        private void PositionTypeArrToForm()
         {
-            PositionTypeArr positionArr = new PositionTypeArr();
-            positionArr.Fill();
-            positionArr.Insert(0, PositionType.Empty);
+            PositionTypeArr positionTypeArr = new PositionTypeArr();
+            positionTypeArr.Fill();
+            positionTypeArr.Insert(0, PositionType.Empty);
 
-            comboBox_Position.DataSource = positionArr;
-            comboBox_Position.ValueMember = "Id";
-            comboBox_Position.DisplayMember = "Name";
-            comboBox_Position.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_Position.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBox_Position.SelectedValue = 0;
+            comboBox_PositionType.DataSource = positionTypeArr;
+            comboBox_PositionType.ValueMember = "Id";
+            comboBox_PositionType.DisplayMember = "Name";
+            comboBox_PositionType.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_PositionType.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_PositionType.SelectedValue = 0;
         }
 
         private void NomineeArrStateToForm()
@@ -98,7 +98,7 @@ namespace Recruitment_System.UI
 
         private void button_Filter_Click(object sender, EventArgs e)
         {
-            DataToChart(comboBox_Position.SelectedItem as PositionType, (int)numericUpDown_From.Value, (int)numericUpDown_To.Value, (NomineeArrState)comboBox_NomineeState.SelectedIndex);
+            DataToChart(comboBox_PositionType.SelectedItem as PositionType, (int)numericUpDown_From.Value, (int)numericUpDown_To.Value, (NomineeArrState)comboBox_NomineeState.SelectedIndex);
         }
 
         private void numericUpDown_From_ValueChanged(object sender, EventArgs e)
@@ -113,12 +113,12 @@ namespace Recruitment_System.UI
 
         private void button_Clear_Click(object sender, EventArgs e)
         {
-            comboBox_Position.SelectedIndex = 0;
+            comboBox_PositionType.SelectedIndex = 0;
             comboBox_NomineeState.SelectedIndex = (int)NomineeArrState.ShowEnabledOnly;
             numericUpDown_From.Value = 0;
             numericUpDown_To.Value = 100;
 
-            DataToChart(comboBox_Position.SelectedItem as PositionType, (int)numericUpDown_From.Value, (int)numericUpDown_To.Value, (NomineeArrState)comboBox_NomineeState.SelectedIndex);
+            DataToChart(comboBox_PositionType.SelectedItem as PositionType, (int)numericUpDown_From.Value, (int)numericUpDown_To.Value, (NomineeArrState)comboBox_NomineeState.SelectedIndex);
         }
     }
 }

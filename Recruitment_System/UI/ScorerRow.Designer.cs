@@ -41,7 +41,7 @@
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label1.Size = new System.Drawing.Size(170, 37);
             this.label1.TabIndex = 0;
-            this.label1.Text = "ScoreType";
+            this.label1.Text = "Criterion";
             // 
             // numericUpDown1
             // 

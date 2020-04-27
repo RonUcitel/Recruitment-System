@@ -142,7 +142,7 @@ namespace Recruitment_System.BL
             return nomineeArr;
         }
 
-        public NomineeArr Filter(string firstName, string lastName, string email, string phone, PositionType position)
+        public NomineeArr Filter(string firstName, string lastName, string email, string phone, PositionType positionType)
         {
             NomineeArr nomineeArr = new NomineeArr();
 
@@ -166,7 +166,41 @@ namespace Recruitment_System.BL
                     (lastName == "" || nominee.LastName.StartsWith(lastName)) &&
                     (email == "" || nominee.Email.Contains(email)) &&
                     (phone == "" || (nominee.CellAreaCode + nominee.CellPhone).Contains(phone)) &&
-                    (position == PositionType.Empty || positionArr.Count == 0 || positionArr.IsContains(position))
+                    (positionType == PositionType.Empty || positionArr.Count == 0 || positionArr.IsContains(positionType))
+                    )
+                {
+                    nomineeArr.Add(nominee);
+                }
+            }
+
+            return nomineeArr;
+        }
+
+        public NomineeArr Filter(string firstName, string lastName, string email, string phone, Position position)
+        {
+            NomineeArr nomineeArr = new NomineeArr();
+
+            //check if each nominee in the database stands in the filters args. if it doe's
+            //then it is added to the new NomineeArr.
+            Nominee nominee;
+
+            PositionNomineeArr positionNomineeArr;
+            PositionArr positionArr;
+
+            for (int i = 0; i < this.Count; i++)
+            {
+                positionNomineeArr = new PositionNomineeArr();
+                positionNomineeArr.Fill();
+                nominee = (this[i] as Nominee);
+                positionNomineeArr = positionNomineeArr.Filter(nominee, Position.Empty);
+                positionArr = positionNomineeArr.ToPositionArr();
+
+                if (
+                    (firstName == "" || nominee.FirstName.StartsWith(firstName)) &&
+                    (lastName == "" || nominee.LastName.StartsWith(lastName)) &&
+                    (email == "" || nominee.Email.Contains(email)) &&
+                    (phone == "" || (nominee.CellAreaCode + nominee.CellPhone).Contains(phone)) &&
+                    (position == Position.Empty || positionArr.Count == 0 || positionArr.IsContains(position))
                     )
                 {
                     nomineeArr.Add(nominee);

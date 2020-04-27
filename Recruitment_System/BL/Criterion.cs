@@ -49,7 +49,7 @@ namespace Recruitment_System.BL
         #region Public methods
 
         /// <summary>
-        /// Inserts the scoreType's information to the database
+        /// Inserts the criterion's information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()

@@ -76,7 +76,7 @@
             // 
             this.listBox_PositionType.FormattingEnabled = true;
             this.listBox_PositionType.ItemHeight = 37;
-            this.listBox_PositionType.Location = new System.Drawing.Point(775, 106);
+            this.listBox_PositionType.Location = new System.Drawing.Point(19, 106);
             this.listBox_PositionType.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
             this.listBox_PositionType.Name = "listBox_PositionType";
             this.listBox_PositionType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -132,7 +132,7 @@
             // 
             this.groupBox_Sign.Controls.Add(this.label_Language);
             this.groupBox_Sign.Controls.Add(this.label_CapsLk);
-            this.groupBox_Sign.Location = new System.Drawing.Point(43, 396);
+            this.groupBox_Sign.Location = new System.Drawing.Point(757, 389);
             this.groupBox_Sign.Name = "groupBox_Sign";
             this.groupBox_Sign.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.groupBox_Sign.Size = new System.Drawing.Size(348, 165);
@@ -161,7 +161,7 @@
             // 
             // textBox_Filter
             // 
-            this.textBox_Filter.Location = new System.Drawing.Point(775, 32);
+            this.textBox_Filter.Location = new System.Drawing.Point(19, 32);
             this.textBox_Filter.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
             this.textBox_Filter.Name = "textBox_Filter";
             this.textBox_Filter.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -188,7 +188,7 @@
             this.groupBox_PositionType.Controls.Add(this.textBox_Name);
             this.groupBox_PositionType.Controls.Add(this.button_Save);
             this.groupBox_PositionType.Controls.Add(this.button_Clear);
-            this.groupBox_PositionType.Location = new System.Drawing.Point(43, 32);
+            this.groupBox_PositionType.Location = new System.Drawing.Point(472, 32);
             this.groupBox_PositionType.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
             this.groupBox_PositionType.Name = "groupBox_PositionType";
             this.groupBox_PositionType.Padding = new System.Windows.Forms.Padding(10, 9, 10, 9);
@@ -201,7 +201,7 @@
             // button_Delete
             // 
             this.button_Delete.BackColor = System.Drawing.Color.Red;
-            this.button_Delete.Location = new System.Drawing.Point(438, 489);
+            this.button_Delete.Location = new System.Drawing.Point(472, 489);
             this.button_Delete.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
             this.button_Delete.Name = "button_Delete";
             this.button_Delete.RightToLeft = System.Windows.Forms.RightToLeft.Yes;

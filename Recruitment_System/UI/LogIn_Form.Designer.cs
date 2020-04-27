@@ -37,6 +37,7 @@
             this.groupBox_Sign = new System.Windows.Forms.GroupBox();
             this.label_Language = new System.Windows.Forms.Label();
             this.label_CapsLk = new System.Windows.Forms.Label();
+            this.label_Error = new System.Windows.Forms.Label();
             this.groupBox_Sign.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -124,11 +125,23 @@
             this.label_CapsLk.TabIndex = 12;
             this.label_CapsLk.Text = "CapsLk";
             // 
+            // label_Error
+            // 
+            this.label_Error.AutoSize = true;
+            this.label_Error.ForeColor = System.Drawing.Color.Red;
+            this.label_Error.Location = new System.Drawing.Point(169, 267);
+            this.label_Error.Name = "label_Error";
+            this.label_Error.Size = new System.Drawing.Size(374, 37);
+            this.label_Error.TabIndex = 21;
+            this.label_Error.Text = "שם המשתמש או הסיסמה שגויים";
+            this.label_Error.Visible = false;
+            // 
             // LogIn_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label_Error);
             this.Controls.Add(this.groupBox_Sign);
             this.Controls.Add(this.button_LogIn);
             this.Controls.Add(this.label2);
@@ -161,5 +174,6 @@
         private System.Windows.Forms.GroupBox groupBox_Sign;
         private System.Windows.Forms.Label label_Language;
         private System.Windows.Forms.Label label_CapsLk;
+        private System.Windows.Forms.Label label_Error;
     }
 }
