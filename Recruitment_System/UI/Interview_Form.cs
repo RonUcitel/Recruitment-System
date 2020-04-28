@@ -11,9 +11,9 @@ using Recruitment_System.BL;
 
 namespace Recruitment_System.UI
 {
-    public partial class ScoreKeeping : Form
+    public partial class Interview_Form : Form
     {
-        public ScoreKeeping(Interview interview)
+        public Interview_Form(Interview interview)
         {
             InitializeComponent();
             Text = "ציונים עבור " + interview.Nominee.ToString();

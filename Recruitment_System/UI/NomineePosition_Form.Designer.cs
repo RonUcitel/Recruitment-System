@@ -1,6 +1,6 @@
 ﻿namespace Recruitment_System.UI
 {
-    partial class NomineesPosition_Form
+    partial class NomineePosition_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NomineesPosition_Form));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NomineePosition_Form));
             this.listBox_AvailablePositions = new System.Windows.Forms.ListBox();
             this.contextMenuStrip_City = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem_Remove = new System.Windows.Forms.ToolStripMenuItem();

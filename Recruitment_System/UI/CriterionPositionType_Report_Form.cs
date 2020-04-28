@@ -11,12 +11,12 @@ using Recruitment_System.BL;
 
 namespace Recruitment_System.UI
 {
-    public partial class CriterionPosition_Report_Form : Form
+    public partial class CriterionPositionType_Report_Form : Form
     {
-        public CriterionPosition_Report_Form()
+        public CriterionPositionType_Report_Form()
         {
             InitializeComponent();
-            PositionArrToForm();
+            PositionTypeArrToForm();
             CriterionArrToTable(PositionType.Empty);
         }
 
@@ -52,12 +52,12 @@ namespace Recruitment_System.UI
 
 
 
-        public void CriterionArrToTable(PositionType position)
+        public void CriterionArrToTable(PositionType positionType)
         {
             //listView_Nominee
             CriterionArr criterionArr = new CriterionArr();
             criterionArr.Fill();
-            criterionArr = criterionArr.Filter(position, "");
+            criterionArr = criterionArr.Filter(positionType, "");
 
             SortedDictionary<string, string> dictionary = criterionArr.GetSortedDictionary();
 
@@ -104,26 +104,26 @@ namespace Recruitment_System.UI
         }
 
 
-        private void PositionArrToForm()
+        private void PositionTypeArrToForm()
         {
-            PositionTypeArr positionArr = new PositionTypeArr();
-            positionArr.Fill();
-            positionArr.Insert(0, PositionType.Empty);
+            PositionTypeArr positionTypeArr = new PositionTypeArr();
+            positionTypeArr.Fill();
+            positionTypeArr.Insert(0, PositionType.Empty);
 
-            comboBox_Position.SelectedValueChanged -= comboBox_Position_SelectedValueChanged;
-            comboBox_Position.DataSource = positionArr;
-            comboBox_Position.ValueMember = "Id";
-            comboBox_Position.DisplayMember = "Name";
-            comboBox_Position.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_Position.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBox_Position.SelectedValue = 0;
-            comboBox_Position.SelectedValueChanged += comboBox_Position_SelectedValueChanged;
+            comboBox_PositionType.SelectedValueChanged -= comboBox_Position_SelectedValueChanged;
+            comboBox_PositionType.DataSource = positionTypeArr;
+            comboBox_PositionType.ValueMember = "Id";
+            comboBox_PositionType.DisplayMember = "Name";
+            comboBox_PositionType.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_PositionType.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_PositionType.SelectedValue = 0;
+            comboBox_PositionType.SelectedValueChanged += comboBox_Position_SelectedValueChanged;
         }
 
 
         private void comboBox_Position_SelectedValueChanged(object sender, EventArgs e)
         {
-            CriterionArrToTable(comboBox_Position.SelectedItem as PositionType);
+            CriterionArrToTable(comboBox_PositionType.SelectedItem as PositionType);
         }
 
 

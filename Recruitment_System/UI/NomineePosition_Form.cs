@@ -11,9 +11,9 @@ using Recruitment_System.BL;
 
 namespace Recruitment_System.UI
 {
-    public partial class NomineesPosition_Form : Form
+    public partial class NomineePosition_Form : Form
     {
-        public NomineesPosition_Form(Nominee nominee)
+        public NomineePosition_Form(Nominee nominee)
         {
             InitializeComponent();
 
@@ -72,7 +72,7 @@ namespace Recruitment_System.UI
         }
 
 
-        public NomineesPosition_Form(PositionArr positionArr)
+        public NomineePosition_Form(PositionArr positionArr)
         {
             InitializeComponent();
 

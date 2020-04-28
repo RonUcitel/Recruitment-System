@@ -32,9 +32,9 @@ namespace Recruitment_System.UI
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox_PD = new System.Windows.Forms.GroupBox();
             this.checkBox_Gender = new System.Windows.Forms.CheckBox();
             this.panel_Positions = new System.Windows.Forms.Panel();
@@ -97,7 +97,7 @@ namespace Recruitment_System.UI
             this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AdminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button_OpenScoreKeeping = new System.Windows.Forms.Button();
+            this.button_NewInterview = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_ChangeDisabled = new System.Windows.Forms.Button();
             this.PDF_CV_Viewer = new AxAcroPDFLib.AxAcroPDF();
@@ -816,7 +816,7 @@ namespace Recruitment_System.UI
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.button_OpenScoreKeeping);
+            this.panel1.Controls.Add(this.button_NewInterview);
             this.panel1.Controls.Add(this.label_ShowDisabled);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.groupBox_PD);
@@ -833,16 +833,16 @@ namespace Recruitment_System.UI
             this.panel1.Size = new System.Drawing.Size(2260, 917);
             this.panel1.TabIndex = 20;
             // 
-            // button_OpenScoreKeeping
+            // button_NewInterview
             // 
-            this.button_OpenScoreKeeping.Enabled = false;
-            this.button_OpenScoreKeeping.Location = new System.Drawing.Point(449, 75);
-            this.button_OpenScoreKeeping.Name = "button_OpenScoreKeeping";
-            this.button_OpenScoreKeeping.Size = new System.Drawing.Size(304, 155);
-            this.button_OpenScoreKeeping.TabIndex = 22;
-            this.button_OpenScoreKeeping.Text = "פתח גיליון ציונים";
-            this.button_OpenScoreKeeping.UseVisualStyleBackColor = true;
-            this.button_OpenScoreKeeping.Click += new System.EventHandler(this.button_OpenScoreKeeping_Click);
+            this.button_NewInterview.Enabled = false;
+            this.button_NewInterview.Location = new System.Drawing.Point(449, 75);
+            this.button_NewInterview.Name = "button_NewInterview";
+            this.button_NewInterview.Size = new System.Drawing.Size(304, 155);
+            this.button_NewInterview.TabIndex = 22;
+            this.button_NewInterview.Text = "החל ראיון חדש";
+            this.button_NewInterview.UseVisualStyleBackColor = true;
+            this.button_NewInterview.Click += new System.EventHandler(this.button_OpenScoreKeeping_Click);
             // 
             // groupBox1
             // 
@@ -883,8 +883,8 @@ namespace Recruitment_System.UI
             // tabControl_Main
             // 
             this.tabControl_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl_Main.Controls.Add(this.tabPage_Interviews);
             this.tabControl_Main.Controls.Add(this.tabPage_EditNominee);
+            this.tabControl_Main.Controls.Add(this.tabPage_Interviews);
             this.tabControl_Main.Controls.Add(this.tabPage_Score);
             this.tabControl_Main.Controls.Add(this.tabPage_PositionNomineeTable);
             this.tabControl_Main.Controls.Add(this.tabPage_PositionNomineeChart);
@@ -906,7 +906,7 @@ namespace Recruitment_System.UI
             this.tabPage_Interviews.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_Interviews.Size = new System.Drawing.Size(2266, 923);
             this.tabPage_Interviews.TabIndex = 4;
-            this.tabPage_Interviews.Text = "ראיונות";
+            this.tabPage_Interviews.Text = "ראיונות 🗃️";
             this.tabPage_Interviews.UseVisualStyleBackColor = true;
             // 
             // groupBox2
@@ -1323,17 +1323,17 @@ namespace Recruitment_System.UI
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(2260, 917);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -1476,7 +1476,7 @@ namespace Recruitment_System.UI
         private System.Windows.Forms.ComboBox comboBox_InterviewerFilter;
         private System.Windows.Forms.Button button_SearchScoreFilter;
         private System.Windows.Forms.Button button_ClearScoreFilter;
-        private System.Windows.Forms.Button button_OpenScoreKeeping;
+        private System.Windows.Forms.Button button_NewInterview;
         private System.Windows.Forms.Button button_PrintScoreTable;
         private System.Windows.Forms.ToolStripMenuItem דוחותToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem תיעודאירועיםToolStripMenuItem;

@@ -1,6 +1,6 @@
 ﻿namespace Recruitment_System.UI
 {
-    partial class CriterionPosition_Report_Form
+    partial class CriterionPositionType_Report_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CriterionPosition_Report_Form));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CriterionPositionType_Report_Form));
             this.printPreviewDialog_Reports = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument_Reports = new System.Drawing.Printing.PrintDocument();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.button_Print = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox_Position = new System.Windows.Forms.ComboBox();
+            this.comboBox_PositionType = new System.Windows.Forms.ComboBox();
             this.listView1 = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -68,7 +68,7 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.button_Print);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.comboBox_Position);
+            this.splitContainer1.Panel1.Controls.Add(this.comboBox_PositionType);
             this.splitContainer1.Panel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.splitContainer1.Panel1MinSize = 455;
             // 
@@ -94,21 +94,21 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(354, 201);
+            this.label1.Location = new System.Drawing.Point(309, 201);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 37);
+            this.label1.Size = new System.Drawing.Size(135, 37);
             this.label1.TabIndex = 35;
-            this.label1.Text = "משרה:";
+            this.label1.Text = "סוג משרה:";
             // 
-            // comboBox_Position
+            // comboBox_PositionType
             // 
-            this.comboBox_Position.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_Position.FormattingEnabled = true;
-            this.comboBox_Position.Location = new System.Drawing.Point(40, 241);
-            this.comboBox_Position.Name = "comboBox_Position";
-            this.comboBox_Position.Size = new System.Drawing.Size(397, 45);
-            this.comboBox_Position.TabIndex = 34;
-            this.comboBox_Position.SelectedValueChanged += new System.EventHandler(this.comboBox_Position_SelectedValueChanged);
+            this.comboBox_PositionType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_PositionType.FormattingEnabled = true;
+            this.comboBox_PositionType.Location = new System.Drawing.Point(40, 241);
+            this.comboBox_PositionType.Name = "comboBox_PositionType";
+            this.comboBox_PositionType.Size = new System.Drawing.Size(397, 45);
+            this.comboBox_PositionType.TabIndex = 34;
+            this.comboBox_PositionType.SelectedValueChanged += new System.EventHandler(this.comboBox_Position_SelectedValueChanged);
             // 
             // listView1
             // 
@@ -140,7 +140,7 @@
             this.Name = "CriterionPosition_Report_Form";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
-            this.Text = "דוח קריטריונים למשרות";
+            this.Text = "דוח קריטריונים לסוגי משרות";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -155,7 +155,7 @@
         private System.Drawing.Printing.PrintDocument printDocument_Reports;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox_Position;
+        private System.Windows.Forms.ComboBox comboBox_PositionType;
         private System.Windows.Forms.Button button_Print;
         private System.Windows.Forms.ListView listView1;
     }

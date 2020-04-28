@@ -64,7 +64,7 @@ namespace Recruitment_System.UI
             Interview interview = new Interview();
             interview.Interviewer = curInterviewer;
             interview.Nominee = curNominee;
-            ScoreKeeping scoreKeeping = new ScoreKeeping(interview/*curInterviewer, curNominee*/);
+            Interview_Form scoreKeeping = new Interview_Form(interview/*curInterviewer, curNominee*/);
             scoreKeeping.ShowDialog();
 
 
@@ -202,15 +202,15 @@ namespace Recruitment_System.UI
             }
 
 
-            NomineesPosition_Form npForm;
+            NomineePosition_Form npForm;
 
             if ((textBox_Positions.Tag as PositionTypeArr).Count == 0)
             {
-                npForm = new NomineesPosition_Form(nom);
+                npForm = new NomineePosition_Form(nom);
             }
             else
             {
-                npForm = new NomineesPosition_Form(positionArr);
+                npForm = new NomineePosition_Form(positionArr);
             }
 
             npForm.ShowDialog();
@@ -1072,7 +1072,7 @@ namespace Recruitment_System.UI
 
                 //scores
 
-                button_OpenScoreKeeping.Enabled = true;
+                button_NewInterview.Enabled = true;
 
                 //end scores
 
@@ -1154,7 +1154,7 @@ namespace Recruitment_System.UI
                 label_ShowDisabled.Visible = false;
 
                 //scores
-                button_OpenScoreKeeping.Enabled = false;
+                button_NewInterview.Enabled = false;
 
 
                 //end scores
@@ -1296,7 +1296,7 @@ namespace Recruitment_System.UI
 
         private void קריטריוניםלמשרותToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CriterionPosition_Report_Form form = new CriterionPosition_Report_Form();
+            CriterionPositionType_Report_Form form = new CriterionPositionType_Report_Form();
 
             form.ShowDialog();
 

@@ -161,17 +161,17 @@
     <Compile Include="UI\NomineeCity_Graph_Form.Designer.cs">
       <DependentUpon>NomineeCity_Graph_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ScoreTypeDate_Graph_Form.cs">
+    <Compile Include="UI\CriterionDate_Graph_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ScoreTypeDate_Graph_Form.Designer.cs">
-      <DependentUpon>ScoreTypeDate_Graph_Form.cs</DependentUpon>
+    <Compile Include="UI\CriterionDate_Graph_Form.Designer.cs">
+      <DependentUpon>CriterionDate_Graph_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ScoreTypePosition_Report_Form.cs">
+    <Compile Include="UI\CriterionPositionType_Report_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ScoreTypePosition_Report_Form.Designer.cs">
-      <DependentUpon>ScoreTypePosition_Report_Form.cs</DependentUpon>
+    <Compile Include="UI\CriterionPositionType_Report_Form.Designer.cs">
+      <DependentUpon>CriterionPositionType_Report_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\LogIn_Form.cs">
       <SubType>Form</SubType>
@@ -182,11 +182,11 @@
     <Compile Include="UI\MainFormExtendedClass.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\NomineesPosition_Form.cs">
+    <Compile Include="UI\NomineePosition_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\NomineesPosition_Form.Designer.cs">
-      <DependentUpon>NomineesPosition_Form.cs</DependentUpon>
+    <Compile Include="UI\NomineePosition_Form.Designer.cs">
+      <DependentUpon>NomineePosition_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\PositionType_Form.cs">
       <SubType>Form</SubType>
@@ -208,11 +208,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\ScoreKeeping.cs">
+    <Compile Include="UI\Interview_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ScoreKeeping.Designer.cs">
-      <DependentUpon>ScoreKeeping.cs</DependentUpon>
+    <Compile Include="UI\Interview_Form.Designer.cs">
+      <DependentUpon>Interview_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Scorer.cs">
       <SubType>UserControl</SubType>
@@ -259,17 +259,17 @@
     <EmbeddedResource Include="UI\NomineeCity_Graph_Form.resx">
       <DependentUpon>NomineeCity_Graph_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ScoreTypeDate_Graph_Form.resx">
-      <DependentUpon>ScoreTypeDate_Graph_Form.cs</DependentUpon>
+    <EmbeddedResource Include="UI\CriterionDate_Graph_Form.resx">
+      <DependentUpon>CriterionDate_Graph_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ScoreTypePosition_Report_Form.resx">
-      <DependentUpon>ScoreTypePosition_Report_Form.cs</DependentUpon>
+    <EmbeddedResource Include="UI\CriterionPositionType_Report_Form.resx">
+      <DependentUpon>CriterionPositionType_Report_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\LogIn_Form.resx">
       <DependentUpon>LogIn_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\NomineesPosition_Form.resx">
-      <DependentUpon>NomineesPosition_Form.cs</DependentUpon>
+    <EmbeddedResource Include="UI\NomineePosition_Form.resx">
+      <DependentUpon>NomineePosition_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\PositionType_Form.resx">
       <DependentUpon>PositionType_Form.cs</DependentUpon>
@@ -290,8 +290,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\ScoreKeeping.resx">
-      <DependentUpon>ScoreKeeping.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Interview_Form.resx">
+      <DependentUpon>Interview_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Scorer.resx">
       <DependentUpon>Scorer.cs</DependentUpon>
