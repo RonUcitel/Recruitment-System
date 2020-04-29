@@ -131,7 +131,7 @@ namespace Recruitment_System.BL
                     (filter.Email == "" || nominee.Email.Contains(filter.Email)) &&
                     (filter.BirthYear == 0 || nominee.BirthYear == filter.BirthYear) &&
                     (filter.CellPhone == "" || (nominee.CellAreaCode + nominee.CellPhone).Contains(filter.CellPhone)) &&
-                    (filter.City.ToString() == "" || nominee.City.Name.StartsWith(filter.City.ToString())) &&
+                    (filter.City.Id == 0 || nominee.City.Name.StartsWith(filter.City.ToString())) &&
                     (positionArr.Count == 0 || positionArr.IsContains(filterPositionArr))
                     )
                 {
@@ -241,7 +241,7 @@ namespace Recruitment_System.BL
             return nomineeArr;
         }
 
-        public NomineeArr Filter(bool male)
+        public NomineeArr Filter(Gender gender)
         {
             NomineeArr nomineeArr = new NomineeArr();
 
@@ -253,7 +253,7 @@ namespace Recruitment_System.BL
             {
                 nominee = (this[i] as Nominee);
 
-                if (!male ^ nominee.Male)
+                if (gender == nominee.Gender)
                 {
                     nomineeArr.Add(nominee);
                 }
@@ -354,9 +354,25 @@ namespace Recruitment_System.BL
             // מחזירה משתנה מסוג מילון ממוין עם ערכים רלוונטיים לדוח
             SortedDictionary<string, int> dictionary = new SortedDictionary<string, int>();
 
-            dictionary.Add("גברים", this.Filter(true).Count);
+            int count;
 
-            dictionary.Add("נשים", this.Filter(false).Count);
+            count = this.Filter(Gender.Male).Count;
+            if (count > 0)
+            {
+                dictionary.Add("גברים", count);
+            }
+
+            count = this.Filter(Gender.Female).Count;
+            if (count > 0)
+            {
+                dictionary.Add("נשים", count);
+            }
+
+            count = this.Filter(Gender.Else).Count;
+            if (count > 0)
+            {
+                dictionary.Add("אחר", count);
+            }
 
             return dictionary;
         }
@@ -376,7 +392,7 @@ namespace Recruitment_System.BL
         }
 
 
-        public SortedDictionary<string, int> GetSortedDictionaryMaleFemaleCity(bool male)
+        public SortedDictionary<string, int> GetSortedDictionaryMaleFemaleCity(Gender gender)
         {
 
             // מחזירה משתנה מסוג מילון ממוין עם ערכים רלוונטיים לדוח
@@ -385,7 +401,7 @@ namespace Recruitment_System.BL
             CityArr cityArr = new CityArr();
             cityArr.Fill();
 
-            NomineeArr nomineeArr = this.Filter(male);
+            NomineeArr nomineeArr = this.Filter(gender);
 
             foreach (City curCity in cityArr)
                 dictionary.Add(curCity.Name, nomineeArr.Filter(PositionType.Empty, curCity).Count);

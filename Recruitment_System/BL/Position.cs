@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Data;
+using System.Windows.Forms;
 
 namespace Recruitment_System.BL
 {
@@ -17,7 +18,7 @@ namespace Recruitment_System.BL
             m_Name = "";
             m_PositionType = PositionType.Empty;
             m_CreationDate = DateTime.Now;
-            m_DeadLine = DateTime.MaxValue;
+            m_DeadLine = DateTimePicker.MaximumDateTime;
         }
         public Position(DataRow Position_prop)
         {
@@ -65,6 +66,7 @@ namespace Recruitment_System.BL
             return Position_Dal.Insert(m_Name, m_PositionType.Id, m_CreationDate, m_DeadLine);
         }
 
+
         public bool Update()
         {
             return Position_Dal.Update(m_Id, m_Name, m_PositionType.Id, m_CreationDate, m_DeadLine);
@@ -73,7 +75,20 @@ namespace Recruitment_System.BL
 
         public bool Delete()
         {
-            return PositionType_Dal.Delete(m_Id);
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+            interviewCriterionArr.Fill();
+            interviewCriterionArr = interviewCriterionArr.Filter(this);
+            if (interviewCriterionArr.DeleteArr())
+            {
+                PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
+                positionNomineeArr.Fill();
+                positionNomineeArr = positionNomineeArr.Filter(Nominee.Empty, this);
+                if (positionNomineeArr.DeleteArr())
+                {
+                    return PositionType_Dal.Delete(m_Id);
+                }
+            }
+            return false;
         }
 
 

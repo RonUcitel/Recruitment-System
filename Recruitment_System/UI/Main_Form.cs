@@ -11,6 +11,7 @@ using Recruitment_System.BL;
 using System.IO;
 using System.Diagnostics;
 
+
 namespace Recruitment_System.UI
 {
     public partial class MainForm : Form
@@ -18,6 +19,7 @@ namespace Recruitment_System.UI
         private City lastSelectedcomboBox_CityIndex = City.Empty;
 
         private Interviewer curInterviewer;
+        private Interview curInterview = Interview.Empty;
         public MainForm()
         {
             LogIn_Form loginForm = new LogIn_Form();
@@ -36,6 +38,9 @@ namespace Recruitment_System.UI
             if (curInterviewer.DBId == -1)
             {
                 tabControl_Main.Enabled = false;
+                עריכהToolStripMenuItem.Enabled = false;
+                הצגToolStripMenuItem.Enabled = false;
+                עזרהToolStripMenuItem.Enabled = false;
             }
             Icon = Properties.Resources.allnet;
             tabControl_Main_SelectedIndexChanged(tabControl_Main, EventArgs.Empty);
@@ -48,23 +53,95 @@ namespace Recruitment_System.UI
             textBox_Positions.Tag = new PositionTypeArr();
             /*<<<<<<<<<<<<<<<<--------------------------*/
             SetPositionTextBoxAndToolTip(new PositionArr());
+            PDF_CV_Viewer.src = GetCV(0).path;
+            PDF_CV_Viewer.Update();
         }
 
 
         #region events
+        private void radioButton_Gender_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb == radioButton_Male)
+            {
+
+            }
+            else if (rb == radioButton_Female)
+            {
+
+            }
+            else if (rb == radioButton_Else)
+            {
+
+            }
+        }
+
+
+        private void קריטריוניםלמשרותToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CriterionPositionType_Report_Form form = new CriterionPositionType_Report_Form();
+
+            form.ShowDialog();
+
+        }
+
+
+        private void מומעמדיםלמראייןToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InterviewerNominee_Report_Form form = new InterviewerNominee_Report_Form();
+            form.ShowDialog();
+        }
+
+
+        private void פרטיקשרToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ContactInformation_Report_Form form = new ContactInformation_Report_Form();
+            form.ShowDialog();
+        }
+
+
+        private void יחסגבריםנשיםToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MaleFemale_Graph_Form form = new MaleFemale_Graph_Form();
+            form.ShowDialog();
+        }
+
+
+        private void כמותמועמדיםלעירToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NomineeCity_Graph_Form form = new NomineeCity_Graph_Form();
+            form.ShowDialog();
+        }
+
+
+        private void ממוצעקריטריוניםלאורךזמןToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CriterionDate_Graph_Form form = new CriterionDate_Graph_Form();
+            form.ShowDialog();
+        }
+
+
+        private void נשיםוגבריםלעירToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MaleFemaleCity_Graph_Form form = new MaleFemaleCity_Graph_Form();
+            form.ShowDialog();
+        }
+
+
         private void button_OpenScoreKeeping_Click(object sender, EventArgs e)
         {
             if (label_DBID.Text == "0")
             {
                 return;
             }
-            NomineeArr nomineeArr = new NomineeArr();
+            tabControl_Main.SelectedTab = tabPage_Interview;
+            /*NomineeArr nomineeArr = new NomineeArr();
             nomineeArr.Fill();
             Nominee curNominee = nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text));
             Interview interview = new Interview();
             interview.Interviewer = curInterviewer;
             interview.Nominee = curNominee;
-            Interview_Form scoreKeeping = new Interview_Form(interview/*curInterviewer, curNominee*/);
+            Interview_Form scoreKeeping = new Interview_Form(interview);
             scoreKeeping.ShowDialog();
 
 
@@ -74,12 +151,13 @@ namespace Recruitment_System.UI
 
             InterviewCriterionArr OldInterviewCriterionArr = new InterviewCriterionArr();
             OldInterviewCriterionArr.Fill();
-            OldInterviewCriterionArr = OldInterviewCriterionArr.Filter(curInterviewer, curNominee, Criterion.Empty, 0, DateTime.MinValue, DateTime.MaxValue);
+            OldInterviewCriterionArr = OldInterviewCriterionArr.Filter(curInterviewer, curNominee, Criterion.Empty, 0, DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
 
             OldInterviewCriterionArr.DeleteArr();
 
 
             newInterviewCriterionArr.InsertArr();
+            */
         }
 
 
@@ -229,7 +307,7 @@ namespace Recruitment_System.UI
         }
 
 
-        private void PositoinToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PositoinTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PositionType_Form pF = new PositionType_Form();
             pF.StartPosition = FormStartPosition.CenterParent;
@@ -635,23 +713,26 @@ namespace Recruitment_System.UI
         private void button_Search_Click(object sender, EventArgs e)
         {
             Nominee filter = FormToNominee();
-            NomineeArr nomineeArr = new NomineeArr();
-            nomineeArr.Fill(GetCurNomineeArrState());
-            nomineeArr = nomineeArr.Filter(filter, null);
-            listBox_Nominee.DataSource = nomineeArr;
-            if (nomineeArr.Count > 0)
+            if (filter != Nominee.Empty)
             {
-                //There is a nominee standing by the filter
-                NomineeToForm(nomineeArr[0] as Nominee);
-            }
-            else
-            {
-                //No nominee was found by the filter
-                if (MessageBox.Show("אין אף מועמד התואם לנתונים שהכנסת.", "לא נמצא מועמד", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading) != DialogResult.OK)
+                NomineeArr nomineeArr = new NomineeArr();
+                nomineeArr.Fill(GetCurNomineeArrState());
+                nomineeArr = nomineeArr.Filter(filter, null);
+                listBox_Nominee.DataSource = nomineeArr;
+                if (nomineeArr.Count > 0)
                 {
-                    NomineeToForm(null);
+                    //There is a nominee standing by the filter
+                    NomineeToForm(nomineeArr[0] as Nominee);
                 }
+                else
+                {
+                    //No nominee was found by the filter
+                    if (MessageBox.Show("אין אף מועמד התואם לנתונים שהכנסת.", "לא נמצא מועמד", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading) != DialogResult.OK)
+                    {
+                        NomineeToForm(null);
+                    }
 
+                }
             }
         }
 
@@ -787,6 +868,51 @@ namespace Recruitment_System.UI
 
 
         #region private methods
+        private void GenderToForm(Gender gender)
+        {
+            RadioButton rb;
+            foreach (Control item in groupBox_PD.Controls)
+            {
+                if (item is RadioButton)
+                {
+                    rb = item as RadioButton;
+                    if (rb.Tag.ToString() == gender.ToString())
+                    {
+                        rb.Checked = true;
+                    }
+                    else
+                    {
+                        rb.Checked = false;
+                    }
+                }
+            }
+        }
+
+        private void GenderEmptyToForm()
+        {
+            radioButton_Male.Checked = false;
+            radioButton_Female.Checked = false;
+            radioButton_Else.Checked = false;
+        }
+
+
+        private Gender FormToGender()
+        {
+            if (radioButton_Male.Checked)
+            {
+                return Gender.Male;
+            }
+            else if (radioButton_Female.Checked)
+            {
+                return Gender.Female;
+            }
+            else
+            {
+                return Gender.Else;
+            }
+        }
+
+
         private Nominee FormToNominee()
         {
             Nominee nominee = new Nominee();//Create a new instance of the Nominee class.
@@ -802,7 +928,7 @@ namespace Recruitment_System.UI
             nominee.CellAreaCode = comboBox_CellAreaCode.Text;
             nominee.CellPhone = textBox_Cel.Text;
             nominee.City = comboBox_City.SelectedItem != null ? comboBox_City.SelectedItem as City : City.Empty;
-            nominee.Gender = checkBox_Gender.Checked;
+            nominee.Gender = FormToGender();
 
             return nominee;
         }
@@ -835,7 +961,7 @@ namespace Recruitment_System.UI
 
         private void SetAdminOptions(bool to)
         {
-            PositionToolStripMenuItem.Visible = to;
+            PositionTypeToolStripMenuItem.Visible = to;
             AdminToolStripMenuItem.Visible = to;
         }
 
@@ -971,7 +1097,7 @@ namespace Recruitment_System.UI
             {
                 LogEntryArr logEntryArr = new LogEntryArr();
                 logEntryArr.Fill();
-                logEntryArr = logEntryArr.Filter(nomineeDBId, DateTime.MinValue, "");
+                logEntryArr = logEntryArr.Filter(nomineeDBId, DateTimePicker.MinimumDateTime, "");
 
                 LogEntry logEntry = logEntryArr.GetLogEntryWithMaxId();
                 textBox_Last_Change.Text = logEntry.DateTime.ToString();
@@ -1047,7 +1173,7 @@ namespace Recruitment_System.UI
 
         private void NomineeToForm(Nominee nominee)
         {
-            if (nominee != null)
+            if (nominee != null && nominee != Nominee.Empty)
             {
                 SetLastChangedTextbox(nominee.DBId);
                 label_ShowDisabled.Visible = nominee.Disabled;
@@ -1059,7 +1185,7 @@ namespace Recruitment_System.UI
                 comboBox_CellAreaCode.Text = nominee.CellAreaCode;
                 textBox_Cel.Text = nominee.CellPhone;
                 comboBox_City.SelectedValue = nominee.City.Id;
-                checkBox_Gender.Checked = nominee.Gender;
+                GenderToForm(nominee.Gender);
 
                 PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
                 positionNomineeArr.Fill();
@@ -1125,7 +1251,7 @@ namespace Recruitment_System.UI
                 textBox_Positions.Tag = new PositionTypeArr();
                 SetPositionTextBoxAndToolTip(textBox_Positions.Tag as PositionArr);
 
-                checkBox_Gender.Checked = false;
+                GenderEmptyToForm();
 
                 //Reset the text and flags of the input fields.
                 foreach (Control item in groupBox_PD.Controls)
@@ -1197,7 +1323,8 @@ namespace Recruitment_System.UI
                     //There is already a CV in the diractory
                     for (int i = 0; i < files.Length; i++)
                     {
-                        File.Delete(files[i]);
+                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(files[i], Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                        //File.Delete(files[i]);
                     }
                     try
                     {
@@ -1220,7 +1347,8 @@ namespace Recruitment_System.UI
                     string[] files = Directory.GetFiles(path);
                     for (int i = 0; i < files.Length; i++)
                     {
-                        File.Delete(files[i]);
+                        Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(files[i], Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs, Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                        //File.Delete(files[i]);
                     }
                 }
                 else
@@ -1289,53 +1417,15 @@ namespace Recruitment_System.UI
             return (Encoding.UTF8.GetByteCount(new char[] { c }) != new char[] { c }.Length);
         }
 
-
-
-
         #endregion
 
-        private void קריטריוניםלמשרותToolStripMenuItem_Click(object sender, EventArgs e)
+        private void listView_Interviews_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CriterionPositionType_Report_Form form = new CriterionPositionType_Report_Form();
-
-            form.ShowDialog();
-
-        }
-
-        private void מומעמדיםלמראייןToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InterviewerNominee_Report_Form form = new InterviewerNominee_Report_Form();
-            form.ShowDialog();
-        }
-
-        private void פרטיקשרToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ContactInformation_Report_Form form = new ContactInformation_Report_Form();
-            form.ShowDialog();
-        }
-
-        private void יחסגבריםנשיםToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MaleFemale_Graph_Form form = new MaleFemale_Graph_Form();
-            form.ShowDialog();
-        }
-
-        private void כמותמועמדיםלעירToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NomineeCity_Graph_Form form = new NomineeCity_Graph_Form();
-            form.ShowDialog();
-        }
-
-        private void ממוצעקריטריוניםלאורךזמןToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CriterionDate_Graph_Form form = new CriterionDate_Graph_Form();
-            form.ShowDialog();
-        }
-
-        private void נשיםוגבריםלעירToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MaleFemaleCity_Graph_Form form = new MaleFemaleCity_Graph_Form();
-            form.ShowDialog();
+            if (listView_Interviews.SelectedItems.Count > 0)
+            {
+                ListViewItem item = listView_Interviews.SelectedItems[0];
+                curInterview = item.Tag as Interview;
+            }
         }
     }
 }

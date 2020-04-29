@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Data;
+using System.Windows.Forms;
 
 namespace Recruitment_System.BL
 {
@@ -15,7 +16,7 @@ namespace Recruitment_System.BL
         {
             m_Id = 0;
             m_Nominee = Nominee.Empty;
-            m_DateTime = DateTime.MinValue;
+            m_DateTime = DateTimePicker.MinimumDateTime;
             m_Entry = "";
         }
 

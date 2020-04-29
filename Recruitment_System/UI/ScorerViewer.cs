@@ -66,7 +66,7 @@ namespace Recruitment_System.UI
                 NomineeArr nomineeArr = interviewCriterionArr.ToNomineeArr();
                 for (int i = 0; i < nomineeArr.Count; i++)
                 {
-                    filter = interviewCriterionArr.Filter(interviewer, nomineeArr[i] as Nominee, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
+                    filter = interviewCriterionArr.Filter(interviewer, nomineeArr[i] as Nominee, Position.Empty, DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
 
                     filter.SortByPositions();
                     AddNominee(filter, nomineeArr[i] as Nominee);

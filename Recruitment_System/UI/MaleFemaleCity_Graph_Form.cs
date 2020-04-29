@@ -37,7 +37,7 @@ namespace Recruitment_System.UI
             curNomineeArr.Fill(state);
             curNomineeArr = curNomineeArr.Filter(positionType, City.Empty, from, to);
 
-            SortedDictionary<string, int> dictionaryMale = curNomineeArr.GetSortedDictionaryMaleFemaleCity(true);
+            SortedDictionary<string, int> dictionaryMale = curNomineeArr.GetSortedDictionaryMaleFemaleCity(Gender.Male);
 
             //הגדרת סדרה וערכיה - שם הסדרה מועבר למקרא - 2
             Series seriesMale = new Series("גברים");
@@ -66,7 +66,7 @@ namespace Recruitment_System.UI
             }
 
 
-            SortedDictionary<string, int> dictionaryFemale = curNomineeArr.GetSortedDictionaryMaleFemaleCity(false);
+            SortedDictionary<string, int> dictionaryFemale = curNomineeArr.GetSortedDictionaryMaleFemaleCity(Gender.Female);
 
             Series seriesFemale = new Series("נשים");
             {
@@ -92,6 +92,35 @@ namespace Recruitment_System.UI
                 seriesFemale.Points.DataBindXY(dictionaryFemale.Keys, dictionaryFemale.Values);
                 seriesFemale.SmartLabelStyle.Enabled = true;
             }
+
+
+            SortedDictionary<string, int> dictionaryElse = curNomineeArr.GetSortedDictionaryMaleFemaleCity(Gender.Else);
+
+            Series seriesElse = new Series("אחר");
+            {
+                seriesElse.Color = Color.Gray;
+
+                //סוג הגרף
+
+                seriesElse.ChartType = SeriesChartType.Column;
+
+                //המידע שיוצג לכל רכיב ערך בגרף - 3
+
+                //שם - VALX
+                //הערך - VAL//#
+                //אחוז עם אפס אחרי הנקודה - {P0} PERCENT
+
+                seriesElse.Label = "#VAL";
+
+                seriesElse.LegendText = "אחר";
+
+
+                //הוספת הערכים מתוך משתנה המילון לסדרה
+
+                seriesElse.Points.DataBindXY(dictionaryElse.Keys, dictionaryElse.Values);
+                seriesFemale.SmartLabelStyle.Enabled = true;
+            }
+
 
             //מחיקת סדרות קיימות - אם יש ולא בכוונה
 

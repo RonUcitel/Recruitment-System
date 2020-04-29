@@ -32,11 +32,15 @@ namespace Recruitment_System.UI
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox_PD = new System.Windows.Forms.GroupBox();
-            this.checkBox_Gender = new System.Windows.Forms.CheckBox();
+            this.radioButton_Else = new System.Windows.Forms.RadioButton();
+            this.radioButton_Female = new System.Windows.Forms.RadioButton();
+            this.label_ShowDisabled = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.radioButton_Male = new System.Windows.Forms.RadioButton();
             this.panel_Positions = new System.Windows.Forms.Panel();
             this.textBox_Positions = new System.Windows.Forms.TextBox();
             this.button_ShowPositions = new System.Windows.Forms.Button();
@@ -59,7 +63,6 @@ namespace Recruitment_System.UI
             this.textBox_LastName = new System.Windows.Forms.TextBox();
             this.label_FirstName = new System.Windows.Forms.Label();
             this.textBox_FirstName = new System.Windows.Forms.TextBox();
-            this.label_ShowDisabled = new System.Windows.Forms.Label();
             this.button_Add_CV = new System.Windows.Forms.Button();
             this.button_Save = new System.Windows.Forms.Button();
             this.button_Clear = new System.Windows.Forms.Button();
@@ -68,9 +71,9 @@ namespace Recruitment_System.UI
             this.button_Remove_CV = new System.Windows.Forms.Button();
             this.button_Delete = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.פתחToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.עריכהToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PositionTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.הצגToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.מועמדיםזמיניםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.כלהמועמדיםToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,12 +100,14 @@ namespace Recruitment_System.UI
             this.logOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AdminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button_NewInterview = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_ChangeDisabled = new System.Windows.Forms.Button();
             this.PDF_CV_Viewer = new AxAcroPDFLib.AxAcroPDF();
             this.toolTip_Last_Changed = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl_Main = new System.Windows.Forms.TabControl();
+            this.tabPage_EditNominee = new System.Windows.Forms.TabPage();
             this.tabPage_Interviews = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_interviewsClear = new System.Windows.Forms.Button();
@@ -118,23 +123,27 @@ namespace Recruitment_System.UI
             this.label10 = new System.Windows.Forms.Label();
             this.comboBox_InterviewsPosition = new System.Windows.Forms.ComboBox();
             this.listView_Interviews = new System.Windows.Forms.ListView();
-            this.tabPage_EditNominee = new System.Windows.Forms.TabPage();
-            this.tabPage_Score = new System.Windows.Forms.TabPage();
+            this.tabPage_Interview = new System.Windows.Forms.TabPage();
+            this.panel_Interview_Buttons = new System.Windows.Forms.Panel();
             this.button_PrintScoreTable = new System.Windows.Forms.Button();
-            this.scorer_View = new Recruitment_System.UI.ScorerViewer();
-            this.groupBox_FilterScore = new System.Windows.Forms.GroupBox();
-            this.button_ClearScoreFilter = new System.Windows.Forms.Button();
-            this.button_SearchScoreFilter = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.dateTimePicker_ToFilter = new System.Windows.Forms.DateTimePicker();
-            this.label4 = new System.Windows.Forms.Label();
-            this.dateTimePicker_FromFilter = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBox_NomineeFilter = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBox_InterviewerFilter = new System.Windows.Forms.ComboBox();
+            this.button_Interview_Edit = new System.Windows.Forms.Button();
+            this.button_Interview_Delete = new System.Windows.Forms.Button();
+            this.scorer_Interview = new Recruitment_System.UI.Scorer();
+            this.button_Interview_Clear = new System.Windows.Forms.Button();
+            this.groupBox_Interview = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label_Interview_Id = new System.Windows.Forms.Label();
+            this.comboBox_Interview_Position = new System.Windows.Forms.ComboBox();
+            this.button_Interview_Save = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox_PositionFilter = new System.Windows.Forms.ComboBox();
+            this.comboBox_Interview_Co_Interviewer = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dateTimePicker_Interview_Date = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox_Interview_Nominee = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBox_Interview_Interviewer = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabPage_PositionNomineeTable = new System.Windows.Forms.TabPage();
             this.listView_PositionNominee = new System.Windows.Forms.ListView();
             this.contextMenuStrip_Table = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -148,14 +157,16 @@ namespace Recruitment_System.UI
             this.panel_Positions.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).BeginInit();
             this.tabControl_Main.SuspendLayout();
+            this.tabPage_EditNominee.SuspendLayout();
             this.tabPage_Interviews.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.tabPage_EditNominee.SuspendLayout();
-            this.tabPage_Score.SuspendLayout();
-            this.groupBox_FilterScore.SuspendLayout();
+            this.tabPage_Interview.SuspendLayout();
+            this.panel_Interview_Buttons.SuspendLayout();
+            this.groupBox_Interview.SuspendLayout();
             this.tabPage_PositionNomineeTable.SuspendLayout();
             this.contextMenuStrip_Table.SuspendLayout();
             this.tabPage_PositionNomineeChart.SuspendLayout();
@@ -165,7 +176,11 @@ namespace Recruitment_System.UI
             // groupBox_PD
             // 
             this.groupBox_PD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_PD.Controls.Add(this.checkBox_Gender);
+            this.groupBox_PD.Controls.Add(this.radioButton_Else);
+            this.groupBox_PD.Controls.Add(this.radioButton_Female);
+            this.groupBox_PD.Controls.Add(this.label_ShowDisabled);
+            this.groupBox_PD.Controls.Add(this.label12);
+            this.groupBox_PD.Controls.Add(this.radioButton_Male);
             this.groupBox_PD.Controls.Add(this.panel_Positions);
             this.groupBox_PD.Controls.Add(this.button_Show_Log);
             this.groupBox_PD.Controls.Add(this.label_BirthYear);
@@ -186,23 +201,81 @@ namespace Recruitment_System.UI
             this.groupBox_PD.Controls.Add(this.textBox_LastName);
             this.groupBox_PD.Controls.Add(this.label_FirstName);
             this.groupBox_PD.Controls.Add(this.textBox_FirstName);
-            this.groupBox_PD.Location = new System.Drawing.Point(866, 35);
+            this.groupBox_PD.Location = new System.Drawing.Point(1176, 13);
             this.groupBox_PD.Name = "groupBox_PD";
             this.groupBox_PD.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox_PD.Size = new System.Drawing.Size(646, 555);
+            this.groupBox_PD.Size = new System.Drawing.Size(642, 744);
             this.groupBox_PD.TabIndex = 0;
             this.groupBox_PD.TabStop = false;
             this.groupBox_PD.Text = "פרטים אישיים";
             // 
-            // checkBox_Gender
+            // radioButton_Else
             // 
-            this.checkBox_Gender.AutoSize = true;
-            this.checkBox_Gender.Location = new System.Drawing.Point(514, 482);
-            this.checkBox_Gender.Name = "checkBox_Gender";
-            this.checkBox_Gender.Size = new System.Drawing.Size(119, 41);
-            this.checkBox_Gender.TabIndex = 23;
-            this.checkBox_Gender.Text = "זכר?";
-            this.checkBox_Gender.UseVisualStyleBackColor = true;
+            this.radioButton_Else.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButton_Else.AutoSize = true;
+            this.radioButton_Else.Location = new System.Drawing.Point(29, 498);
+            this.radioButton_Else.Name = "radioButton_Else";
+            this.radioButton_Else.Size = new System.Drawing.Size(109, 41);
+            this.radioButton_Else.TabIndex = 31;
+            this.radioButton_Else.TabStop = true;
+            this.radioButton_Else.Tag = "Else";
+            this.radioButton_Else.Text = "אחר";
+            this.radioButton_Else.UseVisualStyleBackColor = true;
+            this.radioButton_Else.CheckedChanged += new System.EventHandler(this.radioButton_Gender_CheckedChanged);
+            // 
+            // radioButton_Female
+            // 
+            this.radioButton_Female.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButton_Female.AutoSize = true;
+            this.radioButton_Female.Location = new System.Drawing.Point(198, 498);
+            this.radioButton_Female.Name = "radioButton_Female";
+            this.radioButton_Female.Size = new System.Drawing.Size(117, 41);
+            this.radioButton_Female.TabIndex = 30;
+            this.radioButton_Female.TabStop = true;
+            this.radioButton_Female.Tag = "Female";
+            this.radioButton_Female.Text = "נקבה";
+            this.radioButton_Female.UseVisualStyleBackColor = true;
+            this.radioButton_Female.CheckedChanged += new System.EventHandler(this.radioButton_Gender_CheckedChanged);
+            // 
+            // label_ShowDisabled
+            // 
+            this.label_ShowDisabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_ShowDisabled.AutoSize = true;
+            this.label_ShowDisabled.BackColor = System.Drawing.SystemColors.Control;
+            this.label_ShowDisabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_ShowDisabled.ForeColor = System.Drawing.Color.Red;
+            this.label_ShowDisabled.Location = new System.Drawing.Point(150, 619);
+            this.label_ShowDisabled.Name = "label_ShowDisabled";
+            this.label_ShowDisabled.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label_ShowDisabled.Size = new System.Drawing.Size(338, 55);
+            this.label_ShowDisabled.TabIndex = 21;
+            this.label_ShowDisabled.Text = "המועמד לא זמין";
+            this.label_ShowDisabled.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label_ShowDisabled.Visible = false;
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(577, 500);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(59, 37);
+            this.label12.TabIndex = 29;
+            this.label12.Text = "מין:";
+            // 
+            // radioButton_Male
+            // 
+            this.radioButton_Male.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButton_Male.AutoSize = true;
+            this.radioButton_Male.Location = new System.Drawing.Point(375, 498);
+            this.radioButton_Male.Name = "radioButton_Male";
+            this.radioButton_Male.Size = new System.Drawing.Size(100, 41);
+            this.radioButton_Male.TabIndex = 28;
+            this.radioButton_Male.TabStop = true;
+            this.radioButton_Male.Tag = "Male";
+            this.radioButton_Male.Text = "זכר";
+            this.radioButton_Male.UseVisualStyleBackColor = true;
+            this.radioButton_Male.CheckedChanged += new System.EventHandler(this.radioButton_Gender_CheckedChanged);
             // 
             // panel_Positions
             // 
@@ -211,7 +284,7 @@ namespace Recruitment_System.UI
             this.panel_Positions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_Positions.Controls.Add(this.textBox_Positions);
             this.panel_Positions.Controls.Add(this.button_ShowPositions);
-            this.panel_Positions.Location = new System.Drawing.Point(22, 385);
+            this.panel_Positions.Location = new System.Drawing.Point(18, 385);
             this.panel_Positions.Name = "panel_Positions";
             this.panel_Positions.Size = new System.Drawing.Size(460, 44);
             this.panel_Positions.TabIndex = 22;
@@ -239,7 +312,7 @@ namespace Recruitment_System.UI
             // button_Show_Log
             // 
             this.button_Show_Log.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Show_Log.Location = new System.Drawing.Point(22, 37);
+            this.button_Show_Log.Location = new System.Drawing.Point(18, 37);
             this.button_Show_Log.Name = "button_Show_Log";
             this.button_Show_Log.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.button_Show_Log.Size = new System.Drawing.Size(44, 44);
@@ -252,7 +325,7 @@ namespace Recruitment_System.UI
             // 
             this.label_BirthYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_BirthYear.AutoSize = true;
-            this.label_BirthYear.Location = new System.Drawing.Point(507, 440);
+            this.label_BirthYear.Location = new System.Drawing.Point(503, 440);
             this.label_BirthYear.Name = "label_BirthYear";
             this.label_BirthYear.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_BirthYear.Size = new System.Drawing.Size(133, 37);
@@ -262,7 +335,7 @@ namespace Recruitment_System.UI
             // textBox_Last_Change
             // 
             this.textBox_Last_Change.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Last_Change.Location = new System.Drawing.Point(72, 37);
+            this.textBox_Last_Change.Location = new System.Drawing.Point(68, 37);
             this.textBox_Last_Change.Name = "textBox_Last_Change";
             this.textBox_Last_Change.ReadOnly = true;
             this.textBox_Last_Change.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -272,7 +345,7 @@ namespace Recruitment_System.UI
             // textBox_BirthYear
             // 
             this.textBox_BirthYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_BirthYear.Location = new System.Drawing.Point(22, 437);
+            this.textBox_BirthYear.Location = new System.Drawing.Point(18, 437);
             this.textBox_BirthYear.Name = "textBox_BirthYear";
             this.textBox_BirthYear.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_BirthYear.Size = new System.Drawing.Size(460, 44);
@@ -283,7 +356,7 @@ namespace Recruitment_System.UI
             // 
             this.label_Position.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_Position.AutoSize = true;
-            this.label_Position.Location = new System.Drawing.Point(550, 389);
+            this.label_Position.Location = new System.Drawing.Point(546, 389);
             this.label_Position.Name = "label_Position";
             this.label_Position.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_Position.Size = new System.Drawing.Size(90, 37);
@@ -304,7 +377,7 @@ namespace Recruitment_System.UI
             "055",
             "058",
             "059"});
-            this.comboBox_CellAreaCode.Location = new System.Drawing.Point(22, 285);
+            this.comboBox_CellAreaCode.Location = new System.Drawing.Point(18, 285);
             this.comboBox_CellAreaCode.Name = "comboBox_CellAreaCode";
             this.comboBox_CellAreaCode.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.comboBox_CellAreaCode.Size = new System.Drawing.Size(121, 45);
@@ -316,7 +389,7 @@ namespace Recruitment_System.UI
             // 
             this.label_DBID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_DBID.AutoSize = true;
-            this.label_DBID.Location = new System.Drawing.Point(605, 40);
+            this.label_DBID.Location = new System.Drawing.Point(545, 40);
             this.label_DBID.Name = "label_DBID";
             this.label_DBID.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_DBID.Size = new System.Drawing.Size(35, 37);
@@ -328,7 +401,7 @@ namespace Recruitment_System.UI
             // 
             this.label_City.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_City.AutoSize = true;
-            this.label_City.Location = new System.Drawing.Point(575, 338);
+            this.label_City.Location = new System.Drawing.Point(571, 338);
             this.label_City.Name = "label_City";
             this.label_City.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_City.Size = new System.Drawing.Size(65, 37);
@@ -339,7 +412,7 @@ namespace Recruitment_System.UI
             // 
             this.comboBox_City.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_City.FormattingEnabled = true;
-            this.comboBox_City.Location = new System.Drawing.Point(22, 336);
+            this.comboBox_City.Location = new System.Drawing.Point(18, 336);
             this.comboBox_City.Name = "comboBox_City";
             this.comboBox_City.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.comboBox_City.Size = new System.Drawing.Size(460, 45);
@@ -352,7 +425,7 @@ namespace Recruitment_System.UI
             // 
             this.label_Phone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_Phone.AutoSize = true;
-            this.label_Phone.Location = new System.Drawing.Point(551, 288);
+            this.label_Phone.Location = new System.Drawing.Point(547, 288);
             this.label_Phone.Name = "label_Phone";
             this.label_Phone.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_Phone.Size = new System.Drawing.Size(89, 37);
@@ -362,7 +435,7 @@ namespace Recruitment_System.UI
             // textBox_Cel
             // 
             this.textBox_Cel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Cel.Location = new System.Drawing.Point(149, 285);
+            this.textBox_Cel.Location = new System.Drawing.Point(145, 285);
             this.textBox_Cel.MaxLength = 7;
             this.textBox_Cel.Name = "textBox_Cel";
             this.textBox_Cel.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -374,7 +447,7 @@ namespace Recruitment_System.UI
             // 
             this.label_Email.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_Email.AutoSize = true;
-            this.label_Email.Location = new System.Drawing.Point(543, 238);
+            this.label_Email.Location = new System.Drawing.Point(539, 238);
             this.label_Email.Name = "label_Email";
             this.label_Email.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_Email.Size = new System.Drawing.Size(97, 37);
@@ -384,7 +457,7 @@ namespace Recruitment_System.UI
             // textBox_Email
             // 
             this.textBox_Email.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Email.Location = new System.Drawing.Point(22, 235);
+            this.textBox_Email.Location = new System.Drawing.Point(18, 235);
             this.textBox_Email.Name = "textBox_Email";
             this.textBox_Email.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_Email.Size = new System.Drawing.Size(460, 44);
@@ -396,7 +469,7 @@ namespace Recruitment_System.UI
             // 
             this.label_ID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_ID.AutoSize = true;
-            this.label_ID.Location = new System.Drawing.Point(568, 188);
+            this.label_ID.Location = new System.Drawing.Point(564, 188);
             this.label_ID.Name = "label_ID";
             this.label_ID.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_ID.Size = new System.Drawing.Size(72, 37);
@@ -406,7 +479,7 @@ namespace Recruitment_System.UI
             // textBox_ID
             // 
             this.textBox_ID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_ID.Location = new System.Drawing.Point(22, 185);
+            this.textBox_ID.Location = new System.Drawing.Point(18, 185);
             this.textBox_ID.MaxLength = 9;
             this.textBox_ID.Name = "textBox_ID";
             this.textBox_ID.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -418,7 +491,7 @@ namespace Recruitment_System.UI
             // 
             this.label_LastName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_LastName.AutoSize = true;
-            this.label_LastName.Location = new System.Drawing.Point(488, 138);
+            this.label_LastName.Location = new System.Drawing.Point(484, 138);
             this.label_LastName.Name = "label_LastName";
             this.label_LastName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_LastName.Size = new System.Drawing.Size(152, 37);
@@ -428,7 +501,7 @@ namespace Recruitment_System.UI
             // textBox_LastName
             // 
             this.textBox_LastName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_LastName.Location = new System.Drawing.Point(22, 135);
+            this.textBox_LastName.Location = new System.Drawing.Point(18, 135);
             this.textBox_LastName.Name = "textBox_LastName";
             this.textBox_LastName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_LastName.Size = new System.Drawing.Size(460, 44);
@@ -438,7 +511,7 @@ namespace Recruitment_System.UI
             // 
             this.label_FirstName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_FirstName.AutoSize = true;
-            this.label_FirstName.Location = new System.Drawing.Point(518, 88);
+            this.label_FirstName.Location = new System.Drawing.Point(514, 88);
             this.label_FirstName.Name = "label_FirstName";
             this.label_FirstName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_FirstName.Size = new System.Drawing.Size(122, 37);
@@ -448,36 +521,20 @@ namespace Recruitment_System.UI
             // textBox_FirstName
             // 
             this.textBox_FirstName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_FirstName.Location = new System.Drawing.Point(22, 85);
+            this.textBox_FirstName.Location = new System.Drawing.Point(18, 85);
             this.textBox_FirstName.Name = "textBox_FirstName";
             this.textBox_FirstName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_FirstName.Size = new System.Drawing.Size(460, 44);
             this.textBox_FirstName.TabIndex = 1;
             // 
-            // label_ShowDisabled
-            // 
-            this.label_ShowDisabled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_ShowDisabled.AutoSize = true;
-            this.label_ShowDisabled.BackColor = System.Drawing.SystemColors.Control;
-            this.label_ShowDisabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_ShowDisabled.ForeColor = System.Drawing.Color.Red;
-            this.label_ShowDisabled.Location = new System.Drawing.Point(425, 370);
-            this.label_ShowDisabled.Name = "label_ShowDisabled";
-            this.label_ShowDisabled.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label_ShowDisabled.Size = new System.Drawing.Size(338, 55);
-            this.label_ShowDisabled.TabIndex = 21;
-            this.label_ShowDisabled.Text = "המועמד לא זמין";
-            this.label_ShowDisabled.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.label_ShowDisabled.Visible = false;
-            // 
             // button_Add_CV
             // 
             this.button_Add_CV.AllowDrop = true;
             this.button_Add_CV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Add_CV.Location = new System.Drawing.Point(1331, 596);
+            this.button_Add_CV.Location = new System.Drawing.Point(193, 43);
             this.button_Add_CV.Name = "button_Add_CV";
             this.button_Add_CV.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_Add_CV.Size = new System.Drawing.Size(181, 184);
+            this.button_Add_CV.Size = new System.Drawing.Size(508, 103);
             this.button_Add_CV.TabIndex = 13;
             this.button_Add_CV.Text = "הוסף קורות חיים";
             this.button_Add_CV.UseVisualStyleBackColor = true;
@@ -490,10 +547,11 @@ namespace Recruitment_System.UI
             // 
             this.button_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Save.BackColor = System.Drawing.Color.Green;
-            this.button_Save.Location = new System.Drawing.Point(643, 724);
+            this.button_Save.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Save.Location = new System.Drawing.Point(739, 537);
             this.button_Save.Name = "button_Save";
             this.button_Save.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_Save.Size = new System.Drawing.Size(289, 94);
+            this.button_Save.Size = new System.Drawing.Size(408, 191);
             this.button_Save.TabIndex = 16;
             this.button_Save.Text = "שמור";
             this.button_Save.UseVisualStyleBackColor = false;
@@ -502,10 +560,10 @@ namespace Recruitment_System.UI
             // button_Clear
             // 
             this.button_Clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Clear.Location = new System.Drawing.Point(1068, 596);
+            this.button_Clear.Location = new System.Drawing.Point(1176, 761);
             this.button_Clear.Name = "button_Clear";
             this.button_Clear.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_Clear.Size = new System.Drawing.Size(198, 69);
+            this.button_Clear.Size = new System.Drawing.Size(642, 151);
             this.button_Clear.TabIndex = 17;
             this.button_Clear.Text = "נקה";
             this.button_Clear.UseVisualStyleBackColor = true;
@@ -514,10 +572,10 @@ namespace Recruitment_System.UI
             // button_Search
             // 
             this.button_Search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Search.Location = new System.Drawing.Point(43, 564);
+            this.button_Search.Location = new System.Drawing.Point(1849, 763);
             this.button_Search.Name = "button_Search";
             this.button_Search.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_Search.Size = new System.Drawing.Size(299, 94);
+            this.button_Search.Size = new System.Drawing.Size(408, 151);
             this.button_Search.TabIndex = 15;
             this.button_Search.Text = "חפש";
             this.button_Search.UseVisualStyleBackColor = true;
@@ -529,10 +587,10 @@ namespace Recruitment_System.UI
             this.listBox_Nominee.Cursor = System.Windows.Forms.Cursors.Hand;
             this.listBox_Nominee.FormattingEnabled = true;
             this.listBox_Nominee.ItemHeight = 37;
-            this.listBox_Nominee.Location = new System.Drawing.Point(43, 36);
+            this.listBox_Nominee.Location = new System.Drawing.Point(1849, 13);
             this.listBox_Nominee.Name = "listBox_Nominee";
             this.listBox_Nominee.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.listBox_Nominee.Size = new System.Drawing.Size(299, 522);
+            this.listBox_Nominee.Size = new System.Drawing.Size(408, 744);
             this.listBox_Nominee.TabIndex = 0;
             this.listBox_Nominee.TabStop = false;
             this.listBox_Nominee.DoubleClick += new System.EventHandler(this.listBox_Nominee_DoubleClick);
@@ -542,7 +600,7 @@ namespace Recruitment_System.UI
             this.button_Remove_CV.AllowDrop = true;
             this.button_Remove_CV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Remove_CV.BackColor = System.Drawing.Color.DarkOrange;
-            this.button_Remove_CV.Location = new System.Drawing.Point(1331, 786);
+            this.button_Remove_CV.Location = new System.Drawing.Point(6, 48);
             this.button_Remove_CV.Name = "button_Remove_CV";
             this.button_Remove_CV.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.button_Remove_CV.Size = new System.Drawing.Size(181, 93);
@@ -566,10 +624,9 @@ namespace Recruitment_System.UI
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.פתחToolStripMenuItem,
+            this.עריכהToolStripMenuItem,
             this.הצגToolStripMenuItem,
             this.עזרהToolStripMenuItem,
             this.toolStripMenuItem_TableDesign,
@@ -581,32 +638,32 @@ namespace Recruitment_System.UI
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // פתחToolStripMenuItem
+            // עריכהToolStripMenuItem
             // 
-            this.פתחToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.עריכהToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CityToolStripMenuItem,
-            this.PositionToolStripMenuItem});
-            this.פתחToolStripMenuItem.Name = "פתחToolStripMenuItem";
-            this.פתחToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.פתחToolStripMenuItem.RightToLeftAutoMirrorImage = true;
-            this.פתחToolStripMenuItem.Size = new System.Drawing.Size(144, 52);
-            this.פתחToolStripMenuItem.Text = "עריכה";
+            this.PositionTypeToolStripMenuItem});
+            this.עריכהToolStripMenuItem.Name = "עריכהToolStripMenuItem";
+            this.עריכהToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.עריכהToolStripMenuItem.RightToLeftAutoMirrorImage = true;
+            this.עריכהToolStripMenuItem.Size = new System.Drawing.Size(144, 52);
+            this.עריכהToolStripMenuItem.Text = "עריכה";
             // 
             // CityToolStripMenuItem
             // 
             this.CityToolStripMenuItem.Name = "CityToolStripMenuItem";
             this.CityToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.CityToolStripMenuItem.Size = new System.Drawing.Size(326, 66);
+            this.CityToolStripMenuItem.Size = new System.Drawing.Size(396, 66);
             this.CityToolStripMenuItem.Text = "ערים";
             this.CityToolStripMenuItem.Click += new System.EventHandler(this.CityToolStripMenuItem_Click);
             // 
-            // PositionToolStripMenuItem
+            // PositionTypeToolStripMenuItem
             // 
-            this.PositionToolStripMenuItem.Name = "PositionToolStripMenuItem";
-            this.PositionToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.PositionToolStripMenuItem.Size = new System.Drawing.Size(326, 66);
-            this.PositionToolStripMenuItem.Text = "משרות";
-            this.PositionToolStripMenuItem.Click += new System.EventHandler(this.PositoinToolStripMenuItem_Click);
+            this.PositionTypeToolStripMenuItem.Name = "PositionTypeToolStripMenuItem";
+            this.PositionTypeToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.PositionTypeToolStripMenuItem.Size = new System.Drawing.Size(396, 66);
+            this.PositionTypeToolStripMenuItem.Text = "סוגי משרות";
+            this.PositionTypeToolStripMenuItem.Click += new System.EventHandler(this.PositoinTypeToolStripMenuItem_Click);
             // 
             // הצגToolStripMenuItem
             // 
@@ -816,12 +873,10 @@ namespace Recruitment_System.UI
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.button_NewInterview);
-            this.panel1.Controls.Add(this.label_ShowDisabled);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.groupBox_PD);
-            this.panel1.Controls.Add(this.button_Remove_CV);
-            this.panel1.Controls.Add(this.button_Add_CV);
             this.panel1.Controls.Add(this.button_Save);
             this.panel1.Controls.Add(this.button_Clear);
             this.panel1.Controls.Add(this.listBox_Nominee);
@@ -833,14 +888,26 @@ namespace Recruitment_System.UI
             this.panel1.Size = new System.Drawing.Size(2260, 917);
             this.panel1.TabIndex = 20;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.button_Add_CV);
+            this.groupBox3.Controls.Add(this.button_Remove_CV);
+            this.groupBox3.Location = new System.Drawing.Point(3, 11);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(707, 146);
+            this.groupBox3.TabIndex = 23;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "קו\"ח";
+            // 
             // button_NewInterview
             // 
             this.button_NewInterview.Enabled = false;
-            this.button_NewInterview.Location = new System.Drawing.Point(449, 75);
+            this.button_NewInterview.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_NewInterview.Location = new System.Drawing.Point(739, 163);
             this.button_NewInterview.Name = "button_NewInterview";
-            this.button_NewInterview.Size = new System.Drawing.Size(304, 155);
+            this.button_NewInterview.Size = new System.Drawing.Size(408, 341);
             this.button_NewInterview.TabIndex = 22;
-            this.button_NewInterview.Text = "החל ראיון חדש";
+            this.button_NewInterview.Text = "החל ראיון חדש 📁";
             this.button_NewInterview.UseVisualStyleBackColor = true;
             this.button_NewInterview.Click += new System.EventHandler(this.button_OpenScoreKeeping_Click);
             // 
@@ -848,7 +915,7 @@ namespace Recruitment_System.UI
             // 
             this.groupBox1.Controls.Add(this.button_Delete);
             this.groupBox1.Controls.Add(this.button_ChangeDisabled);
-            this.groupBox1.Location = new System.Drawing.Point(49, 664);
+            this.groupBox1.Location = new System.Drawing.Point(739, 734);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.groupBox1.Size = new System.Drawing.Size(408, 178);
@@ -873,10 +940,10 @@ namespace Recruitment_System.UI
             // 
             this.PDF_CV_Viewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PDF_CV_Viewer.Enabled = true;
-            this.PDF_CV_Viewer.Location = new System.Drawing.Point(1518, 36);
+            this.PDF_CV_Viewer.Location = new System.Drawing.Point(3, 163);
             this.PDF_CV_Viewer.Name = "PDF_CV_Viewer";
             this.PDF_CV_Viewer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("PDF_CV_Viewer.OcxState")));
-            this.PDF_CV_Viewer.Size = new System.Drawing.Size(707, 843);
+            this.PDF_CV_Viewer.Size = new System.Drawing.Size(707, 749);
             this.PDF_CV_Viewer.TabIndex = 0;
             this.PDF_CV_Viewer.TabStop = false;
             // 
@@ -885,7 +952,7 @@ namespace Recruitment_System.UI
             this.tabControl_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl_Main.Controls.Add(this.tabPage_EditNominee);
             this.tabControl_Main.Controls.Add(this.tabPage_Interviews);
-            this.tabControl_Main.Controls.Add(this.tabPage_Score);
+            this.tabControl_Main.Controls.Add(this.tabPage_Interview);
             this.tabControl_Main.Controls.Add(this.tabPage_PositionNomineeTable);
             this.tabControl_Main.Controls.Add(this.tabPage_PositionNomineeChart);
             this.tabControl_Main.Location = new System.Drawing.Point(0, 56);
@@ -896,6 +963,17 @@ namespace Recruitment_System.UI
             this.tabControl_Main.Size = new System.Drawing.Size(2290, 993);
             this.tabControl_Main.TabIndex = 21;
             this.tabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl_Main_SelectedIndexChanged);
+            // 
+            // tabPage_EditNominee
+            // 
+            this.tabPage_EditNominee.Controls.Add(this.panel1);
+            this.tabPage_EditNominee.Location = new System.Drawing.Point(12, 58);
+            this.tabPage_EditNominee.Name = "tabPage_EditNominee";
+            this.tabPage_EditNominee.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_EditNominee.Size = new System.Drawing.Size(2266, 923);
+            this.tabPage_EditNominee.TabIndex = 0;
+            this.tabPage_EditNominee.Text = "עריכת מועמדים";
+            this.tabPage_EditNominee.UseVisualStyleBackColor = true;
             // 
             // tabPage_Interviews
             // 
@@ -957,7 +1035,7 @@ namespace Recruitment_System.UI
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(482, 376);
+            this.label6.Location = new System.Drawing.Point(513, 376);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 37);
             this.label6.TabIndex = 32;
@@ -980,7 +1058,7 @@ namespace Recruitment_System.UI
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(482, 298);
+            this.label7.Location = new System.Drawing.Point(528, 298);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(42, 37);
             this.label7.TabIndex = 30;
@@ -1003,7 +1081,7 @@ namespace Recruitment_System.UI
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(482, 223);
+            this.label8.Location = new System.Drawing.Point(481, 223);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(89, 37);
             this.label8.TabIndex = 28;
@@ -1041,7 +1119,7 @@ namespace Recruitment_System.UI
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(482, 75);
+            this.label10.Location = new System.Drawing.Point(489, 75);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(81, 37);
             this.label10.TabIndex = 24;
@@ -1074,194 +1152,241 @@ namespace Recruitment_System.UI
             this.listView_Interviews.TabIndex = 26;
             this.listView_Interviews.UseCompatibleStateImageBehavior = false;
             this.listView_Interviews.View = System.Windows.Forms.View.Details;
+            this.listView_Interviews.SelectedIndexChanged += new System.EventHandler(this.listView_Interviews_SelectedIndexChanged);
             this.listView_Interviews.DoubleClick += new System.EventHandler(this.listView_Interviews_DoubleClick);
             // 
-            // tabPage_EditNominee
+            // tabPage_Interview
             // 
-            this.tabPage_EditNominee.Controls.Add(this.panel1);
-            this.tabPage_EditNominee.Location = new System.Drawing.Point(12, 58);
-            this.tabPage_EditNominee.Name = "tabPage_EditNominee";
-            this.tabPage_EditNominee.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_EditNominee.Size = new System.Drawing.Size(2266, 923);
-            this.tabPage_EditNominee.TabIndex = 0;
-            this.tabPage_EditNominee.Text = "עריכת מועמדים";
-            this.tabPage_EditNominee.UseVisualStyleBackColor = true;
+            this.tabPage_Interview.Controls.Add(this.panel_Interview_Buttons);
+            this.tabPage_Interview.Controls.Add(this.scorer_Interview);
+            this.tabPage_Interview.Controls.Add(this.button_Interview_Clear);
+            this.tabPage_Interview.Controls.Add(this.groupBox_Interview);
+            this.tabPage_Interview.Location = new System.Drawing.Point(12, 58);
+            this.tabPage_Interview.Name = "tabPage_Interview";
+            this.tabPage_Interview.Size = new System.Drawing.Size(2266, 923);
+            this.tabPage_Interview.TabIndex = 3;
+            this.tabPage_Interview.Text = "ראיון 📁";
+            this.tabPage_Interview.UseVisualStyleBackColor = true;
             // 
-            // tabPage_Score
+            // panel_Interview_Buttons
             // 
-            this.tabPage_Score.Controls.Add(this.button_PrintScoreTable);
-            this.tabPage_Score.Controls.Add(this.scorer_View);
-            this.tabPage_Score.Controls.Add(this.groupBox_FilterScore);
-            this.tabPage_Score.Location = new System.Drawing.Point(12, 58);
-            this.tabPage_Score.Name = "tabPage_Score";
-            this.tabPage_Score.Size = new System.Drawing.Size(2266, 923);
-            this.tabPage_Score.TabIndex = 3;
-            this.tabPage_Score.Text = "ניקוד";
-            this.tabPage_Score.UseVisualStyleBackColor = true;
+            this.panel_Interview_Buttons.Controls.Add(this.button_PrintScoreTable);
+            this.panel_Interview_Buttons.Controls.Add(this.button_Interview_Edit);
+            this.panel_Interview_Buttons.Controls.Add(this.button_Interview_Delete);
+            this.panel_Interview_Buttons.Location = new System.Drawing.Point(244, 329);
+            this.panel_Interview_Buttons.Name = "panel_Interview_Buttons";
+            this.panel_Interview_Buttons.Size = new System.Drawing.Size(397, 414);
+            this.panel_Interview_Buttons.TabIndex = 39;
             // 
             // button_PrintScoreTable
             // 
-            this.button_PrintScoreTable.Location = new System.Drawing.Point(109, 272);
+            this.button_PrintScoreTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_PrintScoreTable.Location = new System.Drawing.Point(0, 0);
             this.button_PrintScoreTable.Name = "button_PrintScoreTable";
-            this.button_PrintScoreTable.Size = new System.Drawing.Size(276, 251);
+            this.button_PrintScoreTable.Size = new System.Drawing.Size(397, 251);
             this.button_PrintScoreTable.TabIndex = 27;
             this.button_PrintScoreTable.Text = "הדפס";
             this.button_PrintScoreTable.UseVisualStyleBackColor = true;
             this.button_PrintScoreTable.Click += new System.EventHandler(this.button_PrintScoreTable_Click);
             // 
-            // scorer_View
+            // button_Interview_Edit
             // 
-            this.scorer_View.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.scorer_View.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.scorer_View.Location = new System.Drawing.Point(771, 3);
-            this.scorer_View.Name = "scorer_View";
-            this.scorer_View.Size = new System.Drawing.Size(703, 917);
-            this.scorer_View.TabIndex = 28;
+            this.button_Interview_Edit.BackColor = System.Drawing.Color.Gold;
+            this.button_Interview_Edit.Location = new System.Drawing.Point(201, 318);
+            this.button_Interview_Edit.Name = "button_Interview_Edit";
+            this.button_Interview_Edit.Size = new System.Drawing.Size(196, 96);
+            this.button_Interview_Edit.TabIndex = 38;
+            this.button_Interview_Edit.Text = "ערוך";
+            this.button_Interview_Edit.UseVisualStyleBackColor = false;
+            this.button_Interview_Edit.Click += new System.EventHandler(this.button_Interview_Edit_Click);
             // 
-            // groupBox_FilterScore
+            // button_Interview_Delete
             // 
-            this.groupBox_FilterScore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox_FilterScore.Controls.Add(this.button_ClearScoreFilter);
-            this.groupBox_FilterScore.Controls.Add(this.button_SearchScoreFilter);
-            this.groupBox_FilterScore.Controls.Add(this.label5);
-            this.groupBox_FilterScore.Controls.Add(this.dateTimePicker_ToFilter);
-            this.groupBox_FilterScore.Controls.Add(this.label4);
-            this.groupBox_FilterScore.Controls.Add(this.dateTimePicker_FromFilter);
-            this.groupBox_FilterScore.Controls.Add(this.label3);
-            this.groupBox_FilterScore.Controls.Add(this.comboBox_NomineeFilter);
-            this.groupBox_FilterScore.Controls.Add(this.label2);
-            this.groupBox_FilterScore.Controls.Add(this.comboBox_InterviewerFilter);
-            this.groupBox_FilterScore.Controls.Add(this.label1);
-            this.groupBox_FilterScore.Controls.Add(this.comboBox_PositionFilter);
-            this.groupBox_FilterScore.Location = new System.Drawing.Point(1631, 3);
-            this.groupBox_FilterScore.Name = "groupBox_FilterScore";
-            this.groupBox_FilterScore.Size = new System.Drawing.Size(632, 917);
-            this.groupBox_FilterScore.TabIndex = 24;
-            this.groupBox_FilterScore.TabStop = false;
-            this.groupBox_FilterScore.Text = "סינון";
+            this.button_Interview_Delete.BackColor = System.Drawing.Color.Red;
+            this.button_Interview_Delete.Location = new System.Drawing.Point(0, 318);
+            this.button_Interview_Delete.Name = "button_Interview_Delete";
+            this.button_Interview_Delete.Size = new System.Drawing.Size(195, 96);
+            this.button_Interview_Delete.TabIndex = 37;
+            this.button_Interview_Delete.Text = "מחק";
+            this.button_Interview_Delete.UseVisualStyleBackColor = false;
+            this.button_Interview_Delete.Click += new System.EventHandler(this.button_Interview_Delete_Click);
             // 
-            // button_ClearScoreFilter
+            // scorer_Interview
             // 
-            this.button_ClearScoreFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ClearScoreFilter.Location = new System.Drawing.Point(105, 781);
-            this.button_ClearScoreFilter.Name = "button_ClearScoreFilter";
-            this.button_ClearScoreFilter.Size = new System.Drawing.Size(397, 107);
-            this.button_ClearScoreFilter.TabIndex = 34;
-            this.button_ClearScoreFilter.Text = "נקה";
-            this.button_ClearScoreFilter.UseVisualStyleBackColor = true;
-            this.button_ClearScoreFilter.Click += new System.EventHandler(this.button_ClearScoreFilter_Click);
+            this.scorer_Interview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.scorer_Interview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scorer_Interview.CanEdit = true;
+            this.scorer_Interview.Location = new System.Drawing.Point(869, 6);
+            this.scorer_Interview.Name = "scorer_Interview";
+            this.scorer_Interview.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.scorer_Interview.Size = new System.Drawing.Size(740, 917);
+            this.scorer_Interview.TabIndex = 36;
+            this.scorer_Interview.ScoreChanged += new System.EventHandler<Recruitment_System.UI.ScoreChangedEventArgs>(this.scorer_Interview_ScoreChanged);
             // 
-            // button_SearchScoreFilter
+            // button_Interview_Clear
             // 
-            this.button_SearchScoreFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_SearchScoreFilter.Location = new System.Drawing.Point(105, 486);
-            this.button_SearchScoreFilter.Name = "button_SearchScoreFilter";
-            this.button_SearchScoreFilter.Size = new System.Drawing.Size(397, 233);
-            this.button_SearchScoreFilter.TabIndex = 33;
-            this.button_SearchScoreFilter.Text = "חפש";
-            this.button_SearchScoreFilter.UseVisualStyleBackColor = true;
-            this.button_SearchScoreFilter.Click += new System.EventHandler(this.button_SearchScoreFilter_Click);
+            this.button_Interview_Clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Interview_Clear.Location = new System.Drawing.Point(244, 197);
+            this.button_Interview_Clear.Name = "button_Interview_Clear";
+            this.button_Interview_Clear.Size = new System.Drawing.Size(397, 126);
+            this.button_Interview_Clear.TabIndex = 34;
+            this.button_Interview_Clear.Text = "נקה בחירה";
+            this.button_Interview_Clear.UseVisualStyleBackColor = true;
+            this.button_Interview_Clear.Click += new System.EventHandler(this.button_Interview_Clear_Click);
             // 
-            // label5
+            // groupBox_Interview
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(529, 376);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 37);
-            this.label5.TabIndex = 32;
-            this.label5.Text = "עד:";
+            this.groupBox_Interview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox_Interview.Controls.Add(this.label11);
+            this.groupBox_Interview.Controls.Add(this.label_Interview_Id);
+            this.groupBox_Interview.Controls.Add(this.comboBox_Interview_Position);
+            this.groupBox_Interview.Controls.Add(this.button_Interview_Save);
+            this.groupBox_Interview.Controls.Add(this.label1);
+            this.groupBox_Interview.Controls.Add(this.comboBox_Interview_Co_Interviewer);
+            this.groupBox_Interview.Controls.Add(this.label2);
+            this.groupBox_Interview.Controls.Add(this.dateTimePicker_Interview_Date);
+            this.groupBox_Interview.Controls.Add(this.label3);
+            this.groupBox_Interview.Controls.Add(this.comboBox_Interview_Nominee);
+            this.groupBox_Interview.Controls.Add(this.label4);
+            this.groupBox_Interview.Controls.Add(this.comboBox_Interview_Interviewer);
+            this.groupBox_Interview.Controls.Add(this.label5);
+            this.groupBox_Interview.Location = new System.Drawing.Point(1615, 3);
+            this.groupBox_Interview.Name = "groupBox_Interview";
+            this.groupBox_Interview.Size = new System.Drawing.Size(651, 917);
+            this.groupBox_Interview.TabIndex = 35;
+            this.groupBox_Interview.TabStop = false;
+            this.groupBox_Interview.Text = "סינון";
             // 
-            // dateTimePicker_ToFilter
+            // label11
             // 
-            this.dateTimePicker_ToFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker_ToFilter.CustomFormat = "dd/MM/yyyy HH:mm:ss";
-            this.dateTimePicker_ToFilter.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_ToFilter.Location = new System.Drawing.Point(105, 370);
-            this.dateTimePicker_ToFilter.Name = "dateTimePicker_ToFilter";
-            this.dateTimePicker_ToFilter.RightToLeftLayout = true;
-            this.dateTimePicker_ToFilter.Size = new System.Drawing.Size(397, 44);
-            this.dateTimePicker_ToFilter.TabIndex = 31;
-            this.dateTimePicker_ToFilter.Value = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(462, 71);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(164, 37);
+            this.label11.TabIndex = 37;
+            this.label11.Text = "מספר סידורי:";
             // 
-            // label4
+            // label_Interview_Id
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(529, 298);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 37);
-            this.label4.TabIndex = 30;
-            this.label4.Text = "מ:";
+            this.label_Interview_Id.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_Interview_Id.AutoSize = true;
+            this.label_Interview_Id.Location = new System.Drawing.Point(318, 71);
+            this.label_Interview_Id.Name = "label_Interview_Id";
+            this.label_Interview_Id.Size = new System.Drawing.Size(69, 37);
+            this.label_Interview_Id.TabIndex = 36;
+            this.label_Interview_Id.Text = "100";
             // 
-            // dateTimePicker_FromFilter
+            // comboBox_Interview_Position
             // 
-            this.dateTimePicker_FromFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker_FromFilter.CustomFormat = "dd/MM/yyyy HH:mm:ss";
-            this.dateTimePicker_FromFilter.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_FromFilter.Location = new System.Drawing.Point(105, 292);
-            this.dateTimePicker_FromFilter.Name = "dateTimePicker_FromFilter";
-            this.dateTimePicker_FromFilter.RightToLeftLayout = true;
-            this.dateTimePicker_FromFilter.Size = new System.Drawing.Size(397, 44);
-            this.dateTimePicker_FromFilter.TabIndex = 29;
-            this.dateTimePicker_FromFilter.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.comboBox_Interview_Position.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_Interview_Position.FormattingEnabled = true;
+            this.comboBox_Interview_Position.Location = new System.Drawing.Point(52, 137);
+            this.comboBox_Interview_Position.Name = "comboBox_Interview_Position";
+            this.comboBox_Interview_Position.Size = new System.Drawing.Size(397, 45);
+            this.comboBox_Interview_Position.TabIndex = 35;
             // 
-            // label3
+            // button_Interview_Save
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(529, 223);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 37);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "מועמד";
-            // 
-            // comboBox_NomineeFilter
-            // 
-            this.comboBox_NomineeFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_NomineeFilter.FormattingEnabled = true;
-            this.comboBox_NomineeFilter.Location = new System.Drawing.Point(105, 220);
-            this.comboBox_NomineeFilter.Name = "comboBox_NomineeFilter";
-            this.comboBox_NomineeFilter.Size = new System.Drawing.Size(397, 45);
-            this.comboBox_NomineeFilter.TabIndex = 27;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(529, 147);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 37);
-            this.label2.TabIndex = 26;
-            this.label2.Text = "מראיין";
-            // 
-            // comboBox_InterviewerFilter
-            // 
-            this.comboBox_InterviewerFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_InterviewerFilter.FormattingEnabled = true;
-            this.comboBox_InterviewerFilter.Location = new System.Drawing.Point(105, 144);
-            this.comboBox_InterviewerFilter.Name = "comboBox_InterviewerFilter";
-            this.comboBox_InterviewerFilter.Size = new System.Drawing.Size(397, 45);
-            this.comboBox_InterviewerFilter.TabIndex = 25;
+            this.button_Interview_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Interview_Save.BackColor = System.Drawing.Color.Green;
+            this.button_Interview_Save.Location = new System.Drawing.Point(51, 646);
+            this.button_Interview_Save.Name = "button_Interview_Save";
+            this.button_Interview_Save.Size = new System.Drawing.Size(568, 197);
+            this.button_Interview_Save.TabIndex = 34;
+            this.button_Interview_Save.Text = "שמור";
+            this.button_Interview_Save.UseVisualStyleBackColor = false;
+            this.button_Interview_Save.Click += new System.EventHandler(this.button_Interview_Save_Click);
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(529, 75);
+            this.label1.Location = new System.Drawing.Point(469, 281);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 37);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "משרה";
+            this.label1.Size = new System.Drawing.Size(157, 37);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "מראיין משני:";
             // 
-            // comboBox_PositionFilter
+            // comboBox_Interview_Co_Interviewer
             // 
-            this.comboBox_PositionFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_PositionFilter.FormattingEnabled = true;
-            this.comboBox_PositionFilter.Location = new System.Drawing.Point(105, 72);
-            this.comboBox_PositionFilter.Name = "comboBox_PositionFilter";
-            this.comboBox_PositionFilter.Size = new System.Drawing.Size(397, 45);
-            this.comboBox_PositionFilter.TabIndex = 23;
+            this.comboBox_Interview_Co_Interviewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_Interview_Co_Interviewer.FormattingEnabled = true;
+            this.comboBox_Interview_Co_Interviewer.Location = new System.Drawing.Point(52, 278);
+            this.comboBox_Interview_Co_Interviewer.Name = "comboBox_Interview_Co_Interviewer";
+            this.comboBox_Interview_Co_Interviewer.Size = new System.Drawing.Size(397, 45);
+            this.comboBox_Interview_Co_Interviewer.TabIndex = 32;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(526, 423);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 37);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "נוצר ב:";
+            // 
+            // dateTimePicker_Interview_Date
+            // 
+            this.dateTimePicker_Interview_Date.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker_Interview_Date.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePicker_Interview_Date.Enabled = false;
+            this.dateTimePicker_Interview_Date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_Interview_Date.Location = new System.Drawing.Point(51, 417);
+            this.dateTimePicker_Interview_Date.Name = "dateTimePicker_Interview_Date";
+            this.dateTimePicker_Interview_Date.RightToLeftLayout = true;
+            this.dateTimePicker_Interview_Date.Size = new System.Drawing.Size(397, 44);
+            this.dateTimePicker_Interview_Date.TabIndex = 29;
+            this.dateTimePicker_Interview_Date.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(528, 348);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(98, 37);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "מועמד:";
+            // 
+            // comboBox_Interview_Nominee
+            // 
+            this.comboBox_Interview_Nominee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_Interview_Nominee.FormattingEnabled = true;
+            this.comboBox_Interview_Nominee.Location = new System.Drawing.Point(51, 345);
+            this.comboBox_Interview_Nominee.Name = "comboBox_Interview_Nominee";
+            this.comboBox_Interview_Nominee.Size = new System.Drawing.Size(397, 45);
+            this.comboBox_Interview_Nominee.TabIndex = 27;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(529, 212);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(97, 37);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "מראיין:";
+            // 
+            // comboBox_Interview_Interviewer
+            // 
+            this.comboBox_Interview_Interviewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_Interview_Interviewer.Enabled = false;
+            this.comboBox_Interview_Interviewer.FormattingEnabled = true;
+            this.comboBox_Interview_Interviewer.Location = new System.Drawing.Point(52, 209);
+            this.comboBox_Interview_Interviewer.Name = "comboBox_Interview_Interviewer";
+            this.comboBox_Interview_Interviewer.Size = new System.Drawing.Size(397, 45);
+            this.comboBox_Interview_Interviewer.TabIndex = 25;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(536, 140);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(90, 37);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "משרה:";
             // 
             // tabPage_PositionNomineeTable
             // 
@@ -1323,17 +1448,17 @@ namespace Recruitment_System.UI
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chart1.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(2260, 917);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -1376,17 +1501,18 @@ namespace Recruitment_System.UI
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PDF_CV_Viewer)).EndInit();
             this.tabControl_Main.ResumeLayout(false);
+            this.tabPage_EditNominee.ResumeLayout(false);
             this.tabPage_Interviews.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.tabPage_EditNominee.ResumeLayout(false);
-            this.tabPage_Score.ResumeLayout(false);
-            this.groupBox_FilterScore.ResumeLayout(false);
-            this.groupBox_FilterScore.PerformLayout();
+            this.tabPage_Interview.ResumeLayout(false);
+            this.panel_Interview_Buttons.ResumeLayout(false);
+            this.groupBox_Interview.ResumeLayout(false);
+            this.groupBox_Interview.PerformLayout();
             this.tabPage_PositionNomineeTable.ResumeLayout(false);
             this.contextMenuStrip_Table.ResumeLayout(false);
             this.tabPage_PositionNomineeChart.ResumeLayout(false);
@@ -1424,10 +1550,10 @@ namespace Recruitment_System.UI
         private System.Windows.Forms.Label label_BirthYear;
         private System.Windows.Forms.TextBox textBox_BirthYear;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem פתחToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem עריכהToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem CityToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem PositionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PositionTypeToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox_Last_Change;
         private System.Windows.Forms.ToolTip toolTip_Last_Changed;
         private System.Windows.Forms.Button button_Show_Log;
@@ -1462,20 +1588,8 @@ namespace Recruitment_System.UI
         private System.Windows.Forms.ToolStripMenuItem שינויפרטיכניסהToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AdminToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabPage_Score;
-        private System.Windows.Forms.GroupBox groupBox_FilterScore;
-        private System.Windows.Forms.ComboBox comboBox_PositionFilter;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DateTimePicker dateTimePicker_ToFilter;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker_FromFilter;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox_NomineeFilter;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox_InterviewerFilter;
-        private System.Windows.Forms.Button button_SearchScoreFilter;
-        private System.Windows.Forms.Button button_ClearScoreFilter;
+        private System.Windows.Forms.TabPage tabPage_Interview;
+        private System.Windows.Forms.Button button_Interview_Clear;
         private System.Windows.Forms.Button button_NewInterview;
         private System.Windows.Forms.Button button_PrintScoreTable;
         private System.Windows.Forms.ToolStripMenuItem דוחותToolStripMenuItem;
@@ -1487,9 +1601,7 @@ namespace Recruitment_System.UI
         private System.Windows.Forms.ToolStripMenuItem יחסגבריםנשיםToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem כמותמועמדיםלעירToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ממוצעקריטריוניםלאורךזמןToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBox_Gender;
         private System.Windows.Forms.ListView listView_PositionNominee;
-        private ScorerViewer scorer_View;
         private System.Windows.Forms.ToolStripMenuItem נשיםוגבריםלעירToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPage_Interviews;
         private System.Windows.Forms.ListView listView_Interviews;
@@ -1507,6 +1619,29 @@ namespace Recruitment_System.UI
         private System.Windows.Forms.ComboBox comboBox_InterviewsInterviewer;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboBox_InterviewsPosition;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton radioButton_Else;
+        private System.Windows.Forms.RadioButton radioButton_Female;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.RadioButton radioButton_Male;
+        private System.Windows.Forms.GroupBox groupBox_Interview;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox_Interview_Co_Interviewer;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_Interview_Date;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox_Interview_Nominee;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBox_Interview_Interviewer;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button_Interview_Save;
+        private System.Windows.Forms.ComboBox comboBox_Interview_Position;
+        private Scorer scorer_Interview;
+        private System.Windows.Forms.Button button_Interview_Delete;
+        private System.Windows.Forms.Button button_Interview_Edit;
+        private System.Windows.Forms.Panel panel_Interview_Buttons;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label_Interview_Id;
     }
 }
 

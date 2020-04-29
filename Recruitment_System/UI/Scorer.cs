@@ -13,7 +13,7 @@ namespace Recruitment_System.UI
 {
     public partial class Scorer : UserControl
     {
-
+        public event EventHandler<ScoreChangedEventArgs> ScoreChanged;
         public Scorer()
         {
             InitializeComponent();
@@ -66,6 +66,7 @@ namespace Recruitment_System.UI
             scorerRow.Width = tableLayoutPanel.Width - 2;
             scorerRow.Location = new Point(0, 0);
             scorerRow.Tag = interviewCriterion;
+            scorerRow.ScoreChanged += ScorerRow_ScoreChanged;
 
             tableLayoutPanel.Controls.Add(scorerRow);
             tableLayoutPanel.SetRow(scorerRow, tableLayoutPanel.RowCount);
@@ -106,6 +107,25 @@ namespace Recruitment_System.UI
                         AddLabel(last.Name);
                     }
 
+                    AddScorerRow(interviewCriterion);
+                }
+            }
+        }
+
+
+        public void SetDataSource(Interview interview)
+        {
+            Clear();
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+            interviewCriterionArr.Fill();
+            interviewCriterionArr = interviewCriterionArr.Filter(interview);
+            if (interviewCriterionArr != null)
+            {
+                interviewCriterionArr.SortByPositions();
+                InterviewCriterion interviewCriterion;
+                for (int i = 0; i < interviewCriterionArr.Count; i++)
+                {
+                    interviewCriterion = interviewCriterionArr[i] as InterviewCriterion;
                     AddScorerRow(interviewCriterion);
                 }
             }
@@ -163,5 +183,22 @@ namespace Recruitment_System.UI
                 }
             }
         }
+
+
+        private void ScorerRow_ScoreChanged(object sender, ScoreChangedEventArgs e)
+        {
+            OnScoreChanged(e);
+        }
+
+        protected virtual void OnScoreChanged(ScoreChangedEventArgs e)
+        {
+            EventHandler<ScoreChangedEventArgs> handler = ScoreChanged;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+
     }
 }

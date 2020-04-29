@@ -72,7 +72,7 @@ namespace Recruitment_System.UI
             //listView_Nominee
             InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
             interviewCriterionArr.Fill();
-            interviewCriterionArr = interviewCriterionArr.Filter(interviewer, nominee, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
+            interviewCriterionArr = interviewCriterionArr.Filter(interviewer, nominee, Position.Empty, DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
 
             SortedDictionary<string, string> dictionary = interviewCriterionArr.GetSortedDictionary();
 

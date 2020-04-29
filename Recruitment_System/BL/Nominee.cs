@@ -4,6 +4,7 @@ using System.Data;
 using System.Reflection;
 using System.IO;
 using System;
+using System.Windows.Forms;
 
 namespace Recruitment_System.BL
 {
@@ -136,7 +137,7 @@ namespace Recruitment_System.BL
         {
             LogEntryArr logEntryArr = new LogEntryArr();
             logEntryArr.Fill();
-            logEntryArr = logEntryArr.Filter(this.DBId, DateTime.MinValue, "");
+            logEntryArr = logEntryArr.Filter(this.DBId, DateTimePicker.MinimumDateTime, "");
 
             if (logEntryArr.DeleteArr())
             {
@@ -153,7 +154,7 @@ namespace Recruitment_System.BL
                     positionNomineeArr.FillEnabled();
                 }
 
-                interviewCriterionArr = interviewCriterionArr.Filter(Interviewer.Empty, this, Position.Empty, DateTime.MinValue, DateTime.MaxValue);
+                interviewCriterionArr = interviewCriterionArr.Filter(Interviewer.Empty, this, Position.Empty, DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
 
                 if (interviewCriterionArr.DeleteArr())
                 {

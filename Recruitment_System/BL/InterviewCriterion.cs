@@ -4,6 +4,7 @@ using System.Data;
 using System.Reflection;
 using System.IO;
 using System;
+using System.Windows.Forms;
 
 namespace Recruitment_System.BL
 {
@@ -22,7 +23,7 @@ namespace Recruitment_System.BL
 
             m_Score = 0;
 
-            m_DateTime = DateTime.MinValue;
+            m_DateTime = DateTimePicker.MinimumDateTime;
         }
         public InterviewCriterion(DataRow InterviewCriterion_prop)
         {

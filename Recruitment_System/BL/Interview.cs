@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Recruitment_System.DAL;
+using System.Windows.Forms;
 
 namespace Recruitment_System.BL
 {
@@ -23,7 +24,7 @@ namespace Recruitment_System.BL
 
             m_Nominee = Nominee.Empty;
             m_Position = Position.Empty;
-            m_Date = DateTime.MinValue;
+            m_Date = DateTimePicker.MinimumDateTime;
         }
         public Interview(DataRow interviewer_prop)
         {
@@ -80,7 +81,14 @@ namespace Recruitment_System.BL
 
         public bool Delete()
         {
-            return Interviewer_Dal.Delete(m_Id);
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+            interviewCriterionArr.Fill();
+            interviewCriterionArr = interviewCriterionArr.Filter(this);
+            if (interviewCriterionArr.DeleteArr())
+            {
+                return Interviewer_Dal.Delete(m_Id);
+            }
+            return false;
         }
 
 

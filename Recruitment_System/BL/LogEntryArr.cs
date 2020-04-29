@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Data;
 using Recruitment_System.DAL;
+using System.Windows.Forms;
 
 namespace Recruitment_System.BL
 {
@@ -39,7 +40,7 @@ namespace Recruitment_System.BL
             {
                 logEntry = (this[i] as LogEntry);
                 if ((nomineeDBId <= 0 || logEntry.Nominee.DBId == nomineeDBId) &
-                    (dateTime == DateTime.MinValue || logEntry.DateTime.ToString("dd-MM-yyyy") == dateTime.ToString("dd-MM-yyyy")) &&
+                    (dateTime == DateTimePicker.MinimumDateTime || logEntry.DateTime.ToString("dd-MM-yyyy") == dateTime.ToString("dd-MM-yyyy")) &&
                     (entry == null || entry == "" || logEntry.Entry.Contains(entry)))
                 {
                     logEntryArr.Add(logEntry);

@@ -34,11 +34,12 @@ namespace Recruitment_System.UI
                 PositionNomineeArrToTable(GetCurNomineeArrState());
                 toolStripMenuItem_TableDesign.Visible = true;
             }
-            else if (tabControl_Main.SelectedTab == tabPage_Score)
+            else if (tabControl_Main.SelectedTab == tabPage_Interview)
             {
                 toolStripMenuItem_TableDesign.Visible = false;
-                FilterArrsToForm();
-                scorer_View.SetDataSource(new InterviewCriterionArr(), Interviewer.Empty);
+                ArrsToForm();
+                InterviewToForm(curInterview);
+
 
             }
             else if (tabControl_Main.SelectedTab == tabPage_Interviews)
@@ -248,67 +249,193 @@ namespace Recruitment_System.UI
         #endregion
 
 
-        #region tabPageScore
-
-
-        private void DataToScorerViewer()
+        #region tabInterview
+        private void button_Interview_Delete_Click(object sender, EventArgs e)
         {
-            PositionType positionFilter = comboBox_PositionFilter.SelectedItem as PositionType;
-            if (positionFilter == null)
+            if (curInterview != Interview.Empty)
             {
-                positionFilter = PositionType.Empty;
+                if (curInterview.Delete())
+                {
+                    //MessageBox.Show();
+                }
+                else
+                {
+                    //MessageBox.Show();
+                }
             }
-
-
-            Interviewer interviewerFilter = comboBox_InterviewerFilter.SelectedItem as Interviewer;
-            if (interviewerFilter == null)
-            {
-                interviewerFilter = Interviewer.Empty;
-            }
-
-            Nominee nomineeFilter = comboBox_NomineeFilter.SelectedItem as Nominee;
-            if (nomineeFilter == null)
-            {
-                nomineeFilter = Nominee.Empty;
-            }
-
-
-            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
-            interviewCriterionArr.Fill();
-            interviewCriterionArr = interviewCriterionArr.Filter(interviewerFilter, nomineeFilter, positionFilter, dateTimePicker_FromFilter.Value, dateTimePicker_ToFilter.Value);
-
-            scorer_View.SetDataSource(interviewCriterionArr, interviewerFilter);
         }
 
 
-        private void button_SearchScoreFilter_Click(object sender, EventArgs e)
+        private void button_Interview_Clear_Click(object sender, EventArgs e)
         {
-            DataToScorerViewer();
+            NomineeToForm(Nominee.Empty);
+            InterviewToForm(Interview.Empty);
         }
 
 
-        private void FilterArrsToForm()
+        private void scorer_Interview_ScoreChanged(object sender, ScoreChangedEventArgs e)
         {
-            PositionTypeArr positionTypeArr = new PositionTypeArr();
-            positionTypeArr.Fill();
-            positionTypeArr.Insert(0, PositionType.Empty);
+            InterviewCriterion interviewCriterion = e.InterviewCriterion;
+        }
 
-            comboBox_PositionFilter.DataSource = positionTypeArr;
-            comboBox_PositionFilter.ValueMember = "Id";
-            comboBox_PositionFilter.DisplayMember = "Name";
-            comboBox_PositionFilter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_PositionFilter.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+        private void InterviewToForm(Interview interview)
+        {
+            bool isNew = interview == Interview.Empty;
+
+            SetInterviewPage(isNew);
+
+            comboBox_Interview_Interviewer.SelectedValue = isNew ? curInterviewer.DBId : interview.Interviewer.DBId;
+
+            if (isNew)
+            {
+                comboBox_Interview_Nominee.SelectedValue = int.Parse(label_DBID.Text);
+            }
+            else
+            {
+                comboBox_Interview_Nominee.SelectedValue = interview.Nominee.Id;
+            }
+
+            comboBox_Interview_Co_Interviewer.SelectedValue = interview.Co_Interviewer.DBId;
+
+            comboBox_Interview_Position.SelectedValue = interview.Position.Id;
+
+            dateTimePicker_Interview_Date.Value = interview.Date;
+
+            label_Interview_Id.Text = interview.Id.ToString();
+
+            scorer_Interview.SetDataSource(interview);
+        }
+
+
+        private Interview FormToInterview()
+        {
+            Interview interview = new Interview();
+            interview.Id = int.Parse(label_Interview_Id.Text);
+
+            interview.Position = comboBox_Interview_Position.SelectedItem != null ? comboBox_Interview_Position.SelectedItem as Position : Position.Empty;
+
+            interview.Interviewer = comboBox_Interview_Interviewer.SelectedItem != null ? comboBox_Interview_Interviewer.SelectedItem as Interviewer : Interviewer.Empty;
+
+            interview.Co_Interviewer = comboBox_Interview_Co_Interviewer.SelectedItem != null ? comboBox_Interview_Co_Interviewer.SelectedItem as Interviewer : Interviewer.Empty;
+
+            interview.Nominee = comboBox_Interview_Nominee.SelectedItem != null ? comboBox_Interview_Nominee.SelectedItem as Nominee : Nominee.Empty;
+
+            interview.Date = dateTimePicker_Interview_Date.Value;
+
+            return interview;
+        }
+
+
+        private bool InterviewCheckForm()
+        {
+            bool isOk = true;
+
+            isOk &= (comboBox_Interview_Interviewer.SelectedItem as Interviewer) != Interviewer.Empty;
+
+            isOk &= (comboBox_Interview_Nominee.SelectedItem as Nominee) != Nominee.Empty;
+
+            isOk &= (comboBox_Interview_Position.SelectedItem as Position) != Position.Empty;
+
+            return isOk;
+        }
+
+
+        private void button_Interview_Save_Click(object sender, EventArgs e)
+        {
+            Interview interview = FormToInterview();
+            if (curInterview == Interview.Empty)
+            {
+                //insert
+                if (!InterviewCheckForm())
+                {
+                    //fail
+                }
+                else
+                {
+                    if (interview.Insert())
+                    {
+                        InterviewArr interviewArr = new InterviewArr();
+                        interviewArr.Fill();
+                        curInterview = interviewArr.GetInterviewWithMaxId();
+                        InterviewToForm(curInterview);
+                    }
+                }
+            }
+            else
+            {
+                //update
+                if (!InterviewCheckForm())
+                {
+                    //fail
+                }
+                else
+                {
+                    if (interview.Update())
+                    {
+                        InterviewArr interviewArr = new InterviewArr();
+                        interviewArr.Fill();
+                        curInterview = interviewArr.GetInterviewById(interview.Id);
+                        InterviewToForm(curInterview);
+                    }
+                }
+            }
+
+
+        }
+
+
+        private void button_Interview_Edit_Click(object sender, EventArgs e)
+        {
+            SetInterviewPage(true);
+        }
+
+
+        private void SetInterviewPage(bool isNewOrEdit)
+        {
+            panel_Interview_Buttons.Enabled = !isNewOrEdit;
+            scorer_Interview.Enabled = !isNewOrEdit;
+            comboBox_InterviewsPosition.Enabled = isNewOrEdit;
+            comboBox_Interview_Co_Interviewer.Enabled = isNewOrEdit;
+            comboBox_Interview_Nominee.Enabled = isNewOrEdit;
+            button_Interview_Save.Visible = isNewOrEdit;
+        }
+
+
+        private void ArrsToForm()
+        {
+            PositionArr positionArr = new PositionArr();
+            positionArr.Fill();
+            positionArr.Insert(0, Position.Empty);
+
+            comboBox_Interview_Position.DataSource = positionArr;
+            comboBox_Interview_Position.ValueMember = "Id";
+            comboBox_Interview_Position.DisplayMember = "Name";
+            comboBox_Interview_Position.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_Interview_Position.AutoCompleteSource = AutoCompleteSource.ListItems;
 
 
 
             InterviewerArr interviewerArr = new InterviewerArr();
             interviewerArr.Fill();
 
-            comboBox_InterviewerFilter.DataSource = interviewerArr;
-            comboBox_InterviewerFilter.ValueMember = "Id";
-            comboBox_InterviewerFilter.DisplayMember = "FullName";
-            comboBox_InterviewerFilter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_InterviewerFilter.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_Interview_Interviewer.DataSource = interviewerArr;
+            comboBox_Interview_Interviewer.ValueMember = "DBId";
+            comboBox_Interview_Interviewer.DisplayMember = "FullName";
+            comboBox_Interview_Interviewer.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_Interview_Interviewer.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+
+
+            interviewerArr = new InterviewerArr();
+            interviewerArr.Fill();
+            interviewerArr.Insert(0, Interviewer.Empty);
+
+            comboBox_Interview_Co_Interviewer.DataSource = interviewerArr;
+            comboBox_Interview_Co_Interviewer.ValueMember = "DBId";
+            comboBox_Interview_Co_Interviewer.DisplayMember = "FullName";
+            comboBox_Interview_Co_Interviewer.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_Interview_Co_Interviewer.AutoCompleteSource = AutoCompleteSource.ListItems;
 
 
 
@@ -316,40 +443,33 @@ namespace Recruitment_System.UI
             nomineeArr.Fill();
             nomineeArr.Insert(0, Nominee.Empty);
 
-            comboBox_NomineeFilter.DataSource = nomineeArr;
-            comboBox_NomineeFilter.ValueMember = "Id";
-            comboBox_NomineeFilter.DisplayMember = "FullName";
-            comboBox_NomineeFilter.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_NomineeFilter.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_Interview_Nominee.DataSource = nomineeArr;
+            comboBox_Interview_Nominee.ValueMember = "DBId";
+            comboBox_Interview_Nominee.DisplayMember = "FullName";
+            comboBox_Interview_Nominee.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_Interview_Nominee.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+
+            dateTimePicker_Interview_Date.Value = DateTime.Now;
         }
-
-
-        private void button_ClearScoreFilter_Click(object sender, EventArgs e)
-        {
-            comboBox_PositionFilter.SelectedIndex = 0;
-            comboBox_InterviewerFilter.SelectedIndex = 0;
-            comboBox_NomineeFilter.SelectedIndex = 0;
-            scorer_View.SetDataSource(new InterviewCriterionArr(), Interviewer.Empty);
-        }
-
 
         private void button_PrintScoreTable_Click(object sender, EventArgs e)
         {
-            CaptureScreen(scorer_View);
+            CaptureScreen(scorer_Interview);
             printPreviewDialog_Reports.Document = printDocument_Reports;
             printPreviewDialog_Reports.ShowDialog();
         }
 
 
-        private void CaptureScreen(ScorerViewer scorerViewer)
+        private void CaptureScreen(Scorer scorer)
         {
             Size page = printDocument_Reports.DefaultPageSettings.PrintableArea.Size.ToSize();
 
-            Bitmap cap = new Bitmap(scorerViewer.Width, scorerViewer.Height);
+            Bitmap cap = new Bitmap(scorer.Width, scorer.Height);
 
-            scorerViewer.DrawToBitmap(cap, new Rectangle(Point.Empty, scorerViewer.Size));
+            scorer.DrawToBitmap(cap, new Rectangle(Point.Empty, scorer.Size));
 
-            cap = cap.Clone(new Rectangle(new Point(cap.Width - scorerViewer.Width, 0), scorerViewer.Size), cap.PixelFormat);
+            cap = cap.Clone(new Rectangle(new Point(cap.Width - scorer.Width, 0), scorer.Size), cap.PixelFormat);
 
 
             Rectangle recZoomSize = new Rectangle(0, 100, page.Width, cap.Height * page.Width / cap.Width);
@@ -361,12 +481,13 @@ namespace Recruitment_System.UI
                 //add the title
                 Font font = new Font("Microsoft Sans Serif", 20F, FontStyle.Regular, GraphicsUnit.Point);
 
-                g.DrawString("ציונים ע" + '"' + "י " + (comboBox_InterviewerFilter.SelectedItem as Interviewer).FullName, font, new SolidBrush(Color.Black), new Rectangle(Point.Empty, page), new StringFormat(StringFormatFlags.DirectionRightToLeft)); ;
+                g.DrawString("ציונים ע" + '"' + "י " + (comboBox_Interview_Interviewer.SelectedItem as Interviewer).FullName, font, new SolidBrush(Color.Black), new Rectangle(Point.Empty, page), new StringFormat(StringFormatFlags.DirectionRightToLeft)); ;
 
                 g.DrawImage(cap, recZoomSize);
             }
         }
         #endregion
+
 
         #region Interviews
 

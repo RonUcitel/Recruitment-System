@@ -38,8 +38,8 @@ namespace Recruitment_System.UI
             }
             catch
             {
-                minDate = DateTime.MinValue;
-                maxDate = DateTime.MaxValue;
+                minDate = DateTimePicker.MinimumDateTime;
+                maxDate = DateTimePicker.MaximumDateTime;
             }
 
 

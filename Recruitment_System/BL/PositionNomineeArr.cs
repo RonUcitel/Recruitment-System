@@ -145,6 +145,8 @@ namespace Recruitment_System.BL
 
             return positionnomineeArr;
         }
+
+
         public PositionNomineeArr Filter(PositionType positionType)
         {
             PositionNomineeArr positionnomineeArr = new PositionNomineeArr();
@@ -279,10 +281,11 @@ namespace Recruitment_System.BL
 
             // מחזירה משתנה מסוג מילון ממוין עם ערכים רלוונטיים לדוח
             SortedDictionary<string, int> dictionary = new SortedDictionary<string, int>();
+            PositionTypeArr positionTypeArr = this.ToPositionArr().ToPositionTypeArr();
 
-            PositionArr positionArr = this.ToPositionArr();
-            foreach (Position curPosition in positionArr)
-                dictionary.Add(curPosition.Name, this.Filter(Nominee.Empty, curPosition).Count);
+            foreach (PositionType positionType in positionTypeArr)
+                dictionary.Add(positionType.Name, this.Filter(positionType).Count);
+
             return dictionary;
         }
 

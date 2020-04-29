@@ -25,7 +25,7 @@ namespace Recruitment_System.UI
             listView_Log.ListViewItemSorter = lvwColumnSorter;
             NomineeArrToForm(nomineeDBId);
             dateTimePicker_To.Value = DateTime.Now;
-            UpdateListView_Log(nomineeDBId, DateTime.MinValue, DateTime.MaxValue);
+            UpdateListView_Log(nomineeDBId, DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
         }
 
         private ListViewColumnSorter lvwColumnSorter;
@@ -213,7 +213,7 @@ namespace Recruitment_System.UI
                 }
                 else
                 {
-                    UpdateListView_Log((int)comboBox_Nominee.SelectedValue, DateTime.MinValue, DateTime.MaxValue);
+                    UpdateListView_Log((int)comboBox_Nominee.SelectedValue, DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
                 }
 
             }
@@ -243,7 +243,7 @@ namespace Recruitment_System.UI
 
         private void button_CleaerFilter_Click(object sender, EventArgs e)
         {
-            UpdateListView_Log(0, DateTime.MinValue, DateTime.Now);
+            UpdateListView_Log(0, DateTimePicker.MinimumDateTime, DateTime.Now);
             lvwColumnSorter.SortColumn = 0;
             lvwColumnSorter.Order = SortOrder.Ascending;
             listView_Log.Sort();

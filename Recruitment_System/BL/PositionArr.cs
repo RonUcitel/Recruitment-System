@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Data;
 using Recruitment_System.DAL;
+using System.Windows.Forms;
 
 namespace Recruitment_System.BL
 {
@@ -44,8 +45,8 @@ namespace Recruitment_System.BL
                 if ((id == 0 || position.Id == id) &&
                     (name == "" || position.Name.StartsWith(name)) &&
                     (positionType == PositionType.Empty || positionType == position.PositionType) &&
-                    (creationDate == DateTime.MinValue || creationDate == null || position.CreationDate == creationDate) &&
-                    (deadLine == DateTime.MinValue || deadLine == null || position.DeadLine == deadLine))
+                    (creationDate == DateTimePicker.MinimumDateTime || creationDate == null || position.CreationDate == creationDate) &&
+                    (deadLine == DateTimePicker.MinimumDateTime || deadLine == null || position.DeadLine == deadLine))
                 {
                     positionArr.Add(position);
                 }
@@ -201,6 +202,25 @@ namespace Recruitment_System.BL
                 }
             }
             return maxPosition;
+        }
+
+        public PositionTypeArr ToPositionTypeArr()
+        {
+            PositionTypeArr positionTypeArr = new PositionTypeArr();
+
+            Position position;
+            PositionType positionType;
+            for (int i = 0; i < this.Count; i++)
+            {
+                position = this[i] as Position;
+                positionType = position.PositionType;
+                if (!positionTypeArr.IsContains(positionType.Name))
+                {
+                    positionTypeArr.Add(positionType);
+                }
+            }
+
+            return positionTypeArr;
         }
     }
 }

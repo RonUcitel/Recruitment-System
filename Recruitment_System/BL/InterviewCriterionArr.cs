@@ -131,6 +131,58 @@ namespace Recruitment_System.BL
         }
 
 
+        public InterviewCriterionArr Filter(Interview interview)
+        {
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+
+            InterviewCriterion interviewCriterion;
+            for (int i = 0; i < this.Count; i++)
+            {
+                interviewCriterion = this[i] as InterviewCriterion;
+                if (interview.Id == interviewCriterion.Interview.Id)
+                {
+                    interviewCriterionArr.Add(interviewCriterion);
+                }
+            }
+
+            return interviewCriterionArr;
+        }
+
+
+        public InterviewCriterionArr Filter(Criterion criterion)
+        {
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+
+            InterviewCriterion interviewCriterion;
+            for (int i = 0; i < this.Count; i++)
+            {
+                interviewCriterion = this[i] as InterviewCriterion;
+                if (criterion.Id == interviewCriterion.Criterion.Id)
+                {
+                    interviewCriterionArr.Add(interviewCriterion);
+                }
+            }
+
+            return interviewCriterionArr;
+        }
+
+        public InterviewCriterionArr Filter(Position position)
+        {
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+
+            InterviewCriterion interviewCriterion;
+            for (int i = 0; i < this.Count; i++)
+            {
+                interviewCriterion = this[i] as InterviewCriterion;
+                if (position.Id == interviewCriterion.Interview.Position.Id)
+                {
+                    interviewCriterionArr.Add(interviewCriterion);
+                }
+            }
+
+            return interviewCriterionArr;
+        }
+
         public InterviewCriterionArr Filter(Interviewer interviewer, Nominee nominee, Criterion criterion, int score, DateTime dateTimeFrom, DateTime dateTimeTo)
         {
             InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
@@ -151,6 +203,8 @@ namespace Recruitment_System.BL
 
             return interviewCriterionArr;
         }
+
+
 
 
         public InterviewCriterionArr Filter(Interviewer interviewer, Nominee nominee, Position position, DateTime dateTimeFrom, DateTime dateTimeTo)

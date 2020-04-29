@@ -39,7 +39,7 @@
             this.label1.Location = new System.Drawing.Point(319, 3);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label1.Size = new System.Drawing.Size(170, 37);
+            this.label1.Size = new System.Drawing.Size(138, 37);
             this.label1.TabIndex = 0;
             this.label1.Text = "Criterion";
             // 
@@ -66,6 +66,8 @@
             this.Name = "ScorerRow";
             this.Size = new System.Drawing.Size(498, 44);
             this.SizeChanged += new System.EventHandler(this.ScorerRow_SizeChanged);
+            this.Enter += new System.EventHandler(this.ScorerRow_Enter);
+            this.Leave += new System.EventHandler(this.ScorerRow_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
