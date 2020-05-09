@@ -54,12 +54,12 @@ namespace Recruitment_System.UI
 
         public void CriterionArrToTable(PositionType positionType)
         {
-            //listView_Nominee
-            CriterionArr criterionArr = new CriterionArr();
-            criterionArr.Fill();
-            criterionArr = criterionArr.Filter(positionType, "");
 
-            SortedDictionary<string, string> dictionary = criterionArr.GetSortedDictionary();
+            PositionTypeCriterionArr positionTypeCriterionArr = new PositionTypeCriterionArr();
+            positionTypeCriterionArr.Fill();
+            positionTypeCriterionArr = positionTypeCriterionArr.Filter(positionType, Criterion.Empty);
+
+            SortedDictionary<string, string> dictionary = positionTypeCriterionArr.GetSortedDictionary(positionType);
 
             UpdateListView_Criterion_Position(dictionary);
         }

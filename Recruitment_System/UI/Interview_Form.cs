@@ -20,7 +20,7 @@ namespace Recruitment_System.UI
 
             InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
             interviewCriterionArr.Fill();
-            interviewCriterionArr = interviewCriterionArr.Filter(interview.Interviewer, interview.Nominee, Criterion.Empty, 0, DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
+            interviewCriterionArr = interviewCriterionArr.Filter(interview.Interviewer, interview.Nominee);
 
             interviewCriterionArr = FillData(interviewCriterionArr, interview);
 

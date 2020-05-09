@@ -43,7 +43,6 @@ namespace Recruitment_System.UI
                 עזרהToolStripMenuItem.Enabled = false;
             }
             Icon = Properties.Resources.allnet;
-            tabControl_Main_SelectedIndexChanged(tabControl_Main, EventArgs.Empty);
             SetUpNomineeArrShowMenu();
             ChangeShowNomineeArrCurState(NomineeArrState.ShowEnabledOnly);
             NomineeArrToForm();
@@ -55,6 +54,8 @@ namespace Recruitment_System.UI
             SetPositionTextBoxAndToolTip(new PositionArr());
             PDF_CV_Viewer.src = GetCV(0).path;
             PDF_CV_Viewer.Update();
+
+            textBox_Positions.Tag = new PositionArr();
         }
 
 
@@ -281,8 +282,7 @@ namespace Recruitment_System.UI
 
 
             NomineePosition_Form npForm;
-
-            if ((textBox_Positions.Tag as PositionTypeArr).Count == 0)
+            if (positionArr.Count == 0)
             {
                 npForm = new NomineePosition_Form(nom);
             }
@@ -586,12 +586,6 @@ namespace Recruitment_System.UI
                         //מוסיפים את הפריטים החדשים להזמנה
 
                         positionNomineeArr_New.InsertArr();
-
-
-
-
-                        //Check the cv file:
-                        SetCV(nominee.DBId);
 
 
                         dialogResult = MessageBox.Show("המועמד התעדכן בהצלחה", "יאי!", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
@@ -1062,7 +1056,7 @@ namespace Recruitment_System.UI
             //יצירת אוסף המוצרים להזמנה מהטופס
             //מייצרים זוגות של הזמנה-מוצר, ההזמנה - תמיד אותה הזמנה )הרי מדובר על הזמנה אחת(, המוצר - מגיע מרשימת
             //המוצרים שנבחרו
-            PositionTypeArr positionArr = (textBox_Positions.Tag as PositionTypeArr);
+            PositionArr positionArr = (textBox_Positions.Tag as PositionArr);
 
             PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
             //יצירת אוסף הזוגות הזמנה-מוצר

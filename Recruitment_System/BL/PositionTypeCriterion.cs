@@ -55,18 +55,42 @@ namespace Recruitment_System.BL
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
         {
-            return PositionTypeCriterion_Dal.Insert(m_PositionType.Id, m_Criterion.Id);
-        }
+            InterviewArr interviewArr = new InterviewArr();
+            interviewArr.Fill();
+            interviewArr = interviewArr.Filter(m_PositionType);
 
-        public bool Update()
-        {
-            return PositionTypeCriterion_Dal.Update(m_Id, m_PositionType.Id, m_Criterion.Id);
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+
+            InterviewCriterion interviewCriterion;
+
+            for (int i = 0; i < interviewArr.Count; i++)
+            {
+                interviewCriterion = new InterviewCriterion();
+                interviewCriterion.Interview = interviewArr[i] as Interview;
+                interviewCriterion.Criterion = m_Criterion;
+                interviewCriterion.Score = 0;
+                interviewCriterion.DateTime = DateTime.Now;
+                interviewCriterionArr.Add(interviewCriterion);
+            }
+            if (interviewCriterionArr.InsertArr())
+            {
+                return PositionTypeCriterion_Dal.Insert(m_PositionType.Id, m_Criterion.Id);
+            }
+            return false;
         }
 
 
         public bool Delete()
         {
-            return PositionNominee_Dal.Delete(m_Id);
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+            interviewCriterionArr.Fill();
+            interviewCriterionArr = interviewCriterionArr.Filter(m_PositionType, m_Criterion);
+
+            if (interviewCriterionArr.DeleteArr())
+            {
+                return PositionTypeCriterion_Dal.Delete(m_Id);
+            }
+            return false;
         }
 
 
@@ -90,7 +114,7 @@ namespace Recruitment_System.BL
             //checks if the nominee's properties matches the Empty Nominee's properties.
             //AKA it finds out if the nominee is an empty nominee.
             bool output = true;
-            foreach (PropertyInfo item in typeof(PositionNominee).GetProperties())
+            foreach (PropertyInfo item in typeof(PositionTypeCriterion).GetProperties())
             {
                 if (true)
                 {

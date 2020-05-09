@@ -22,6 +22,11 @@ namespace Recruitment_System.UI
             CapsLockCheck(); //Check for the state of the CapsLk.
             InterviewerArrToForm();
             CurInterviewer = interviewer;
+            if (CurInterviewer.DBId == -1)
+            {
+                tabControl1.Enabled = false;
+            }
+            PositionTypeArrToCriterionForm();
         }
 
 
@@ -139,6 +144,7 @@ namespace Recruitment_System.UI
         #region tab interviewers
         private void button_InterviewerClear_Click(object sender, EventArgs e)
         {
+            InterviewerArrToForm();
             InterviewerToForm(Interviewer.Empty);
         }
 
@@ -470,10 +476,15 @@ namespace Recruitment_System.UI
                 if (criterion.Id == 0)
                 {
                     //insert
-                    if (criterion.Insert())//Try to insert the new criterion to the database.
+                    CriterionArr criterionArr = new CriterionArr();
+                    criterionArr.Fill();
+                    if (criterionArr.IsContains(criterion.Name))
+                    {
+                        dialogResult = MessageBox.Show("כבר קיים קריטריון בשם הזה", "שגיאה", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                    }
+                    else if (criterion.Insert())//Try to insert the new criterion to the database.
                     {
                         //The insertion of the criterion data was successfull.
-                        CriterionArr criterionArr = new CriterionArr();
                         criterionArr.Fill();
                         criterion = criterionArr.GetCriterionWithMaxId();
                         CriterionArrToForm(criterion);
@@ -654,7 +665,7 @@ namespace Recruitment_System.UI
 
             listBox_Criterion.DataSource = criterionArr;
             listBox_Criterion.ValueMember = "Id";
-            listBox_Criterion.DisplayMember = "NameWithPosition";
+            listBox_Criterion.DisplayMember = "Name";
 
             if (curCriterion != null)
             {
@@ -727,18 +738,37 @@ namespace Recruitment_System.UI
             if (MessageBox.Show("האם אתה בטוח שאתה רוצה למחוק את הקריטריון שבחרת?\nפעולה זאת הינה בלתי הפיכה!", "אזהרה", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 //delete from the connection table
-                InterviewCriterionArr nomineeScoeTypeArr = new InterviewCriterionArr();
-                nomineeScoeTypeArr.Fill();
-                nomineeScoeTypeArr = nomineeScoeTypeArr.Filter(Interviewer.Empty, Nominee.Empty, criterion, 0, DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
+                InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+                interviewCriterionArr.Fill();
+                interviewCriterionArr = interviewCriterionArr.Filter(criterion);
 
-                nomineeScoeTypeArr.DeleteArr();
+
+
+                PositionTypeCriterionArr positionTypeCriterionArr = new PositionTypeCriterionArr();
+                positionTypeCriterionArr.Fill();
+                positionTypeCriterionArr = positionTypeCriterionArr.Filter(PositionType.Empty, criterion);
+
 
                 //delete from it's table
-                if (criterion.Delete())
+                if (interviewCriterionArr.DeleteArr())
                 {
-                    CriterionToForm(null);
-                    CriterionArrToForm(null);
-                    MessageBox.Show("הקריטריון נמחק בהצלחה", "הצלחה", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                    if (positionTypeCriterionArr.DeleteArr())
+                    {
+                        if (criterion.Delete())
+                        {
+                            CriterionToForm(null);
+                            CriterionArrToForm(null);
+                            MessageBox.Show("הקריטריון נמחק בהצלחה", "הצלחה", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                        }
+                        else
+                        {
+                            MessageBox.Show("ישנה תקלה במחיקת הקריטריון מבסיס הנתונים.\n הקריטריון לא נמחק כלל.", "תקלה!", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("ישנה תקלה במחיקת הקריטריון מבסיס הנתונים.\n הקריטריון לא נמחק כלל.", "תקלה!", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                    }
                 }
                 else
                 {
@@ -751,12 +781,6 @@ namespace Recruitment_System.UI
 
 
         #region tabPosition
-        private void button_Position_ClearFilter_Click(object sender, EventArgs e)
-        {
-            comboBox_Position_FilterPositionType.SelectedIndex = 0;
-            textBox_Position_FilterName.Clear();
-            listBox_Position.SelectedValue = 0;
-        }
 
 
         private void InitializePositionTab()
@@ -775,30 +799,33 @@ namespace Recruitment_System.UI
 
         private void listBox_Position_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PositionArr positionArr = new PositionArr();
-            positionArr.Fill();
-
-            if (!positionArr.IsContains(textBox_Position_Name.Text) && CheckPositionForm())
+            if (listBox_Position.SelectedItem != null)
             {
+                PositionArr positionArr = new PositionArr();
+                positionArr.Fill();
 
-                //There is a valid criterion to insert that will be erased.
-                DialogResult dr = MessageBox.Show("המידע שהכנסת יכול להתווסף כמשרה\nהאם אתה רוצה לשמור אותה?", "אזהרה!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
-                if (dr == DialogResult.No)
+                if (!positionArr.IsContains(textBox_Position_Name.Text) && CheckPositionForm())
+                {
+
+                    //There is a valid criterion to insert that will be erased.
+                    DialogResult dr = MessageBox.Show("המידע שהכנסת יכול להתווסף כמשרה\nהאם אתה רוצה לשמור אותה?", "אזהרה!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                    if (dr == DialogResult.No)
+                    {
+                        PositionToForm(listBox_Position.SelectedItem as Position);
+                        CheckPositionForm();
+                    }
+                    else if (dr == DialogResult.Yes)
+                    {
+                        button_Position_Save_Click(button_InterViewerSave, EventArgs.Empty);
+                        PositionToForm(listBox_Position.SelectedItem as Position);
+                        CheckPositionForm();
+                    }
+                }
+                else
                 {
                     PositionToForm(listBox_Position.SelectedItem as Position);
                     CheckPositionForm();
                 }
-                else if (dr == DialogResult.Yes)
-                {
-                    button_Position_Save_Click(button_InterViewerSave, EventArgs.Empty);
-                    PositionToForm(listBox_Position.SelectedItem as Position);
-                    CheckPositionForm();
-                }
-            }
-            else
-            {
-                PositionToForm(listBox_Position.SelectedItem as Position);
-                CheckPositionForm();
             }
         }
 
@@ -979,9 +1006,9 @@ namespace Recruitment_System.UI
                 dateTimePicker_Position_Creation.Value = DateTime.Now;
                 dateTimePicker_Position_DeadLine.MinDate = dateTimePicker_Position_Creation.Value;
                 dateTimePicker_Position_DeadLine.Value = DateTime.Now.AddDays(1);
-                label_Position_Id.Text = "0";
 
                 textBox_Position_Name.BackColor = Color.White;
+                label_Position_Id.Text = "0";
             }
         }
 
@@ -999,16 +1026,6 @@ namespace Recruitment_System.UI
             comboBox_Position_PositionType.AutoCompleteSource = AutoCompleteSource.ListItems;
 
             comboBox_Position_PositionType.SelectedValue = 0;
-
-
-
-            comboBox_Position_FilterPositionType.DataSource = positionTypeArr;
-            comboBox_Position_FilterPositionType.ValueMember = "Id";
-            comboBox_Position_FilterPositionType.DisplayMember = "Name";
-            comboBox_Position_FilterPositionType.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox_Position_FilterPositionType.AutoCompleteSource = AutoCompleteSource.ListItems;
-
-            comboBox_Position_FilterPositionType.SelectedValue = 0;
         }
 
 
@@ -1018,12 +1035,11 @@ namespace Recruitment_System.UI
             positionArr.Fill();
 
             listBox_Position.DataSource = positionArr;
-            listBox_Position.ValueMember = "Id";
-            listBox_Position.DisplayMember = "Name";
+
 
             if (curPosition != null)
             {
-                listBox_Position.SelectedValue = curPosition.Id;
+                listBox_Position.SelectedItem = curPosition;
             }
             else
             {
@@ -1036,7 +1052,7 @@ namespace Recruitment_System.UI
         private bool CheckPositionForm()
         {                                                       //מחזירה האם הטופס תקין מבחינת שדות החובה
             bool isOk = true;
-            isOk &= Text_Check_Length(textBox_CriterionName, true, 2);
+            isOk &= Text_Check_Length(textBox_Position_Name, true, 2);
 
             isOk &= (comboBox_Position_PositionType.SelectedItem as PositionType) != PositionType.Empty;
 

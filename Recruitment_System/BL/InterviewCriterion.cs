@@ -36,7 +36,7 @@ namespace Recruitment_System.BL
 
             m_Score = (byte)InterviewCriterion_prop["Score"];
 
-            m_DateTime = (DateTime)InterviewCriterion_prop["DateTime"];
+            m_DateTime = (DateTime)InterviewCriterion_prop["Date"];
         }
 
 

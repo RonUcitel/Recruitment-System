@@ -76,12 +76,12 @@ namespace Recruitment_System.DAL
         {
             Dal.FillDataSet(dataSet, tableName, orderBy);
 
-            PositionType_Dal.FillDataSet(dataSet);
+            Position_Dal.FillDataSet(dataSet);
 
 
             DataRelation dataRelationPosition_NomineePosition = new DataRelation(
                 "PositionNominee_Position"
-                , dataSet.Tables[PositionType_Dal.tableName].Columns["ID"]
+                , dataSet.Tables[Position_Dal.tableName].Columns["ID"]
                 , dataSet.Tables[tableName].Columns["Position"]);
 
 

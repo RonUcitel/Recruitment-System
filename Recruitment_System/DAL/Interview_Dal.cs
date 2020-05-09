@@ -49,11 +49,11 @@ namespace Recruitment_System.DAL
 
             string str = "UPDATE " + tableName + " SET"
 
-            + " " + "[Interviewer]" + "" + interviewerDBId + ""
-            + "," + "[Co-Interviewer]" + "" + co_InterviewerDBId + ""
-            + "," + "[Nominee]" + "" + nomineeDBId + ""
-            + "," + "[Position]" + "" + positionId + ""
-            + "," + "[Date]" + "'" + date.ToString("yyyy-MM-dd") + "'"
+            + " " + "[Interviewer] = " + "" + interviewerDBId + ""
+            + "," + "[Co-Interviewer] = " + "" + co_InterviewerDBId + ""
+            + "," + "[Nominee] = " + "" + nomineeDBId + ""
+            + "," + "[Position] = " + "" + positionId + ""
+            + "," + "[Date] = " + "'" + date.ToString("yyyy-MM-dd") + "'"
 
             + " WHERE ID = " + id;
 

@@ -28,11 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NomineePosition_Form));
             this.listBox_AvailablePositions = new System.Windows.Forms.ListBox();
-            this.contextMenuStrip_City = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem_Remove = new System.Windows.Forms.ToolStripMenuItem();
             this.button_Add = new System.Windows.Forms.Button();
             this.button_Remove = new System.Windows.Forms.Button();
             this.label_AvailablePositions = new System.Windows.Forms.Label();
@@ -46,7 +43,6 @@
             this.textBox_FilterChosen = new System.Windows.Forms.TextBox();
             this.label_ChosenPosition = new System.Windows.Forms.Label();
             this.listBox_ChosenPositions = new System.Windows.Forms.ListBox();
-            this.contextMenuStrip_City.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_AvailableDisableFilter)).BeginInit();
@@ -69,27 +65,10 @@
             this.listBox_AvailablePositions.SelectedValueChanged += new System.EventHandler(this.listBox_AvailablePositions_SelectedValueChanged);
             this.listBox_AvailablePositions.Enter += new System.EventHandler(this.listBox_AvailablePositions_Enter);
             // 
-            // contextMenuStrip_City
-            // 
-            this.contextMenuStrip_City.ImageScalingSize = new System.Drawing.Size(48, 48);
-            this.contextMenuStrip_City.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem_Remove});
-            this.contextMenuStrip_City.Name = "contextMenuStrip_City";
-            this.contextMenuStrip_City.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.contextMenuStrip_City.Size = new System.Drawing.Size(229, 60);
-            // 
-            // toolStripMenuItem_Remove
-            // 
-            this.toolStripMenuItem_Remove.BackColor = System.Drawing.Color.Red;
-            this.toolStripMenuItem_Remove.Name = "toolStripMenuItem_Remove";
-            this.toolStripMenuItem_Remove.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.toolStripMenuItem_Remove.Size = new System.Drawing.Size(228, 56);
-            this.toolStripMenuItem_Remove.Text = "Remove";
-            // 
             // button_Add
             // 
             this.button_Add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Add.Location = new System.Drawing.Point(438, 203);
+            this.button_Add.Location = new System.Drawing.Point(450, 201);
             this.button_Add.Name = "button_Add";
             this.button_Add.Size = new System.Drawing.Size(238, 77);
             this.button_Add.TabIndex = 29;
@@ -100,7 +79,7 @@
             // button_Remove
             // 
             this.button_Remove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Remove.Location = new System.Drawing.Point(438, 286);
+            this.button_Remove.Location = new System.Drawing.Point(450, 284);
             this.button_Remove.Name = "button_Remove";
             this.button_Remove.Size = new System.Drawing.Size(238, 77);
             this.button_Remove.TabIndex = 30;
@@ -236,7 +215,7 @@
             this.listBox_ChosenPositions.Size = new System.Drawing.Size(371, 448);
             this.listBox_ChosenPositions.TabIndex = 43;
             // 
-            // NomineesPosition_Form
+            // NomineePosition_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 37F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -254,11 +233,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "NomineesPosition_Form";
+            this.Name = "NomineePosition_Form";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.Text = "עריכת משרות למועמד";
-            this.contextMenuStrip_City.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -274,8 +252,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox listBox_AvailablePositions;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_City;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_Remove;
         private System.Windows.Forms.Button button_Add;
         private System.Windows.Forms.Button button_Remove;
         private System.Windows.Forms.Label label_AvailablePositions;

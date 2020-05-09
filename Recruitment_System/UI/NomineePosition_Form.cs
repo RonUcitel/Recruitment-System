@@ -233,11 +233,11 @@ namespace Recruitment_System.UI
 
             if (listBox == listBox_AvailablePositions)
             {
-                availablePosArr = positionArr;
+                availablePosArr = positionArr == null ? new PositionArr() : positionArr;
             }
             else
             {
-                chosenPosArr = positionArr;
+                chosenPosArr = positionArr == null ? new PositionArr() : positionArr;
             }
         }
 
@@ -287,6 +287,16 @@ namespace Recruitment_System.UI
 
         private void MoveSelectedItemBetweenListBox(ListBox listBox_From, ListBox listBox_To)
         {
+            object selectedPositionava = listBox_AvailablePositions.SelectedValue;
+            object selectedPositioncho = listBox_ChosenPositions.SelectedValue;
+
+            pictureBox_ChosenDisableFilter_Click(pictureBox_ChosenDisableFilter, EventArgs.Empty);
+
+            pictureBox_AvailableDisableFilter_Click(pictureBox_AvailableDisableFilter, EventArgs.Empty);
+
+            listBox_AvailablePositions.SelectedItem = selectedPositionava;
+            listBox_ChosenPositions.SelectedItem = selectedPositioncho;
+
             PositionArr positionArr;
 
             //מוצאים את הפריט הנבחר

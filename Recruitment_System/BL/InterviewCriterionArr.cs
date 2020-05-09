@@ -183,7 +183,7 @@ namespace Recruitment_System.BL
             return interviewCriterionArr;
         }
 
-        public InterviewCriterionArr Filter(Interviewer interviewer, Nominee nominee, Criterion criterion, int score, DateTime dateTimeFrom, DateTime dateTimeTo)
+        public InterviewCriterionArr Filter(PositionType positionType)
         {
             InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
 
@@ -191,11 +191,25 @@ namespace Recruitment_System.BL
             for (int i = 0; i < this.Count; i++)
             {
                 interviewCriterion = this[i] as InterviewCriterion;
-                if ((interviewer == Interviewer.Empty || interviewer == interviewCriterion.Interview.Interviewer) &&
-                    (nominee == Nominee.Empty || nominee == interviewCriterion.Interview.Nominee) &&
-                    (criterion == Criterion.Empty || criterion == interviewCriterion.Criterion) &&
-                    (score == 0 || score == interviewCriterion.Score) &&
-                    (dateTimeFrom <= interviewCriterion.DateTime && interviewCriterion.DateTime <= dateTimeTo))
+                if (positionType == interviewCriterion.Interview.Position.PositionType)
+                {
+                    interviewCriterionArr.Add(interviewCriterion);
+                }
+            }
+
+            return interviewCriterionArr;
+        }
+
+        public InterviewCriterionArr Filter(PositionType positionType, Criterion criterion)
+        {
+            InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
+
+            InterviewCriterion interviewCriterion;
+            for (int i = 0; i < this.Count; i++)
+            {
+                interviewCriterion = this[i] as InterviewCriterion;
+                if ((positionType == PositionType.Empty || positionType == interviewCriterion.Interview.Position.PositionType) &&
+                    (criterion == Criterion.Empty || criterion == interviewCriterion.Criterion))
                 {
                     interviewCriterionArr.Add(interviewCriterion);
                 }

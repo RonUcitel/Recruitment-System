@@ -26,14 +26,14 @@ namespace Recruitment_System.BL
             m_Position = Position.Empty;
             m_Date = DateTimePicker.MinimumDateTime;
         }
-        public Interview(DataRow interviewer_prop)
+        public Interview(DataRow interview_prop)
         {
-            m_Id = (int)interviewer_prop["ID"];
-            m_Interviewer = new Interviewer(interviewer_prop.GetParentRow("InterviewInterviewer"));
-            m_Co_Interviewer = new Interviewer(interviewer_prop.GetParentRow("InterviewCo_Interviewer"));
-            m_Nominee = new Nominee(interviewer_prop.GetParentRow("InterviewNominee"));
-            m_Position = new Position(interviewer_prop.GetParentRow("InterviewPosition"));
-            m_Date = (DateTime)interviewer_prop["Date"];
+            m_Id = (int)interview_prop["ID"];
+            m_Interviewer = new Interviewer(interview_prop.GetParentRow("InterviewInterviewer"));
+            m_Co_Interviewer = new Interviewer(interview_prop.GetParentRow("InterviewCo_Interviewer"));
+            m_Nominee = new Nominee(interview_prop.GetParentRow("InterviewNominee"));
+            m_Position = new Position(interview_prop.GetParentRow("InterviewPosition"));
+            m_Date = (DateTime)interview_prop["Date"];
         }
 
         #endregion
@@ -66,7 +66,7 @@ namespace Recruitment_System.BL
         #region Public methods
 
         /// <summary>
-        /// Inserts the interviewer's information to the database
+        /// Inserts the interview's information to the database
         /// </summary>
         /// <returns>Whether the operation was successful</returns>
         public bool Insert()
@@ -84,9 +84,10 @@ namespace Recruitment_System.BL
             InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
             interviewCriterionArr.Fill();
             interviewCriterionArr = interviewCriterionArr.Filter(this);
+
             if (interviewCriterionArr.DeleteArr())
             {
-                return Interviewer_Dal.Delete(m_Id);
+                return Interview_Dal.Delete(m_Id);
             }
             return false;
         }

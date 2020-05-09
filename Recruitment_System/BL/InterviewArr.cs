@@ -30,6 +30,25 @@ namespace Recruitment_System.BL
             }
         }
 
+
+        public InterviewArr Filter(int nomineeDBId)
+        {
+            InterviewArr interviewArr = new InterviewArr();
+
+            Interview interview;
+
+            for (int i = 0; i < this.Count; i++)
+            {
+                interview = (this[i] as Interview);
+                if (interview.Nominee.DBId == nomineeDBId || nomineeDBId == 0)
+                {
+                    interviewArr.Add(interview);
+                }
+            }
+
+            return interviewArr;
+        }
+
         public InterviewArr Filter(Interviewer interviewer, Interviewer co_Interviewer, Nominee nominee, Position position, DateTime from, DateTime to, int id = 0)
         {
             InterviewArr interviewArr = new InterviewArr();
@@ -54,7 +73,7 @@ namespace Recruitment_System.BL
         }
 
 
-        public InterviewArr Filter(Interviewer interviewer, Interviewer co_Interviewer, Nominee nominee, Position position, int id = 0)
+        public InterviewArr Filter(PositionType positionType)
         {
             InterviewArr interviewArr = new InterviewArr();
 
@@ -63,11 +82,7 @@ namespace Recruitment_System.BL
             for (int i = 0; i < this.Count; i++)
             {
                 interview = (this[i] as Interview);
-                if ((interviewer == Interviewer.Empty || interview.Interviewer == interviewer) &&
-                    (co_Interviewer == Interviewer.Empty || interview.Co_Interviewer == co_Interviewer) &&
-                    (nominee == Nominee.Empty || interview.Nominee == nominee) &&
-                    (position == Position.Empty || interview.Position == position) &&
-                    (id == 0 || interview.Id == id))
+                if (positionType == PositionType.Empty || interview.Position.PositionType == positionType)
                 {
                     interviewArr.Add(interview);
                 }

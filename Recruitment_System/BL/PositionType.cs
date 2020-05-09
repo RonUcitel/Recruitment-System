@@ -60,7 +60,15 @@ namespace Recruitment_System.BL
 
         public bool Delete()
         {
-            return PositionType_Dal.Delete(m_Id);
+            PositionTypeCriterionArr positionTypeCriterionArr = new PositionTypeCriterionArr();
+            positionTypeCriterionArr.Fill();
+            positionTypeCriterionArr = positionTypeCriterionArr.Filter(this, Criterion.Empty);
+
+            if (positionTypeCriterionArr.DeleteArr())
+            {
+                return PositionType_Dal.Delete(m_Id);
+            }
+            return false;
         }
 
 

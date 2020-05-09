@@ -142,7 +142,7 @@ namespace Recruitment_System.BL
             return nomineeArr;
         }
 
-        public NomineeArr Filter(string firstName, string lastName, string email, string phone, PositionType positionType)
+        public NomineeArr Filter(string firstName, string lastName, string email, string phone, PositionType positionType, int dBId = 0)
         {
             NomineeArr nomineeArr = new NomineeArr();
 
@@ -166,7 +166,8 @@ namespace Recruitment_System.BL
                     (lastName == "" || nominee.LastName.StartsWith(lastName)) &&
                     (email == "" || nominee.Email.Contains(email)) &&
                     (phone == "" || (nominee.CellAreaCode + nominee.CellPhone).Contains(phone)) &&
-                    (positionType == PositionType.Empty || positionArr.Count == 0 || positionArr.IsContains(positionType))
+                    (positionType == PositionType.Empty || positionArr.Count == 0 || positionArr.IsContains(positionType)) &&
+                    (dBId == 0 || nominee.DBId == dBId)
                     )
                 {
                     nomineeArr.Add(nominee);

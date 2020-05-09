@@ -110,6 +110,9 @@ namespace Recruitment_System.UI
             this.tabPage_EditNominee = new System.Windows.Forms.TabPage();
             this.tabPage_Interviews = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.comboBox_Interviews_Interviewer = new System.Windows.Forms.ComboBox();
+            this.button_Interviews_NewInterview = new System.Windows.Forms.Button();
             this.button_interviewsClear = new System.Windows.Forms.Button();
             this.button_InterviewsFilter = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -118,8 +121,6 @@ namespace Recruitment_System.UI
             this.dateTimePicker_Interviews_From = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox_InterviewsNominee = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboBox_InterviewsInterviewer = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBox_InterviewsPosition = new System.Windows.Forms.ComboBox();
             this.listView_Interviews = new System.Windows.Forms.ListView();
@@ -128,7 +129,6 @@ namespace Recruitment_System.UI
             this.button_PrintScoreTable = new System.Windows.Forms.Button();
             this.button_Interview_Edit = new System.Windows.Forms.Button();
             this.button_Interview_Delete = new System.Windows.Forms.Button();
-            this.scorer_Interview = new Recruitment_System.UI.Scorer();
             this.button_Interview_Clear = new System.Windows.Forms.Button();
             this.groupBox_Interview = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -153,6 +153,7 @@ namespace Recruitment_System.UI
             this.toolTip_Positions = new System.Windows.Forms.ToolTip(this.components);
             this.printPreviewDialog_Reports = new System.Windows.Forms.PrintPreviewDialog();
             this.printDocument_Reports = new System.Drawing.Printing.PrintDocument();
+            this.scorer_Interview = new Recruitment_System.UI.Scorer();
             this.groupBox_PD.SuspendLayout();
             this.panel_Positions.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -624,6 +625,7 @@ namespace Recruitment_System.UI
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.עריכהToolStripMenuItem,
@@ -634,7 +636,7 @@ namespace Recruitment_System.UI
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.menuStrip1.Size = new System.Drawing.Size(2290, 56);
+            this.menuStrip1.Size = new System.Drawing.Size(2290, 72);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -646,7 +648,7 @@ namespace Recruitment_System.UI
             this.עריכהToolStripMenuItem.Name = "עריכהToolStripMenuItem";
             this.עריכהToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.עריכהToolStripMenuItem.RightToLeftAutoMirrorImage = true;
-            this.עריכהToolStripMenuItem.Size = new System.Drawing.Size(144, 52);
+            this.עריכהToolStripMenuItem.Size = new System.Drawing.Size(144, 60);
             this.עריכהToolStripMenuItem.Text = "עריכה";
             // 
             // CityToolStripMenuItem
@@ -678,7 +680,7 @@ namespace Recruitment_System.UI
             this.גרפיםToolStripMenuItem});
             this.הצגToolStripMenuItem.Name = "הצגToolStripMenuItem";
             this.הצגToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.הצגToolStripMenuItem.Size = new System.Drawing.Size(109, 52);
+            this.הצגToolStripMenuItem.Size = new System.Drawing.Size(109, 60);
             this.הצגToolStripMenuItem.Text = "הצג";
             // 
             // מועמדיםזמיניםToolStripMenuItem
@@ -809,7 +811,7 @@ namespace Recruitment_System.UI
             this.עזרהToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.עלתוכנהזוToolStripMenuItem});
             this.עזרהToolStripMenuItem.Name = "עזרהToolStripMenuItem";
-            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 52);
+            this.עזרהToolStripMenuItem.Size = new System.Drawing.Size(126, 60);
             this.עזרהToolStripMenuItem.Text = "עזרה";
             // 
             // עלתוכנהזוToolStripMenuItem
@@ -844,7 +846,7 @@ namespace Recruitment_System.UI
             this.AdminToolStripMenuItem});
             this.interviewerToolStripMenuItem.Name = "interviewerToolStripMenuItem";
             this.interviewerToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.interviewerToolStripMenuItem.Size = new System.Drawing.Size(225, 52);
+            this.interviewerToolStripMenuItem.Size = new System.Drawing.Size(225, 60);
             this.interviewerToolStripMenuItem.Text = "Interviewer";
             // 
             // שינויפרטיכניסהToolStripMenuItem
@@ -962,7 +964,7 @@ namespace Recruitment_System.UI
             this.tabControl_Main.SelectedIndex = 0;
             this.tabControl_Main.Size = new System.Drawing.Size(2290, 993);
             this.tabControl_Main.TabIndex = 21;
-            this.tabControl_Main.SelectedIndexChanged += new System.EventHandler(this.tabControl_Main_SelectedIndexChanged);
+            this.tabControl_Main.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl_Main_Selecting);
             // 
             // tabPage_EditNominee
             // 
@@ -989,6 +991,9 @@ namespace Recruitment_System.UI
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.comboBox_Interviews_Interviewer);
+            this.groupBox2.Controls.Add(this.button_Interviews_NewInterview);
             this.groupBox2.Controls.Add(this.button_interviewsClear);
             this.groupBox2.Controls.Add(this.button_InterviewsFilter);
             this.groupBox2.Controls.Add(this.label6);
@@ -997,8 +1002,6 @@ namespace Recruitment_System.UI
             this.groupBox2.Controls.Add(this.dateTimePicker_Interviews_From);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.comboBox_InterviewsNominee);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.comboBox_InterviewsInterviewer);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.comboBox_InterviewsPosition);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Right;
@@ -1009,10 +1012,40 @@ namespace Recruitment_System.UI
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "סינון";
             // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(481, 177);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(88, 37);
+            this.label9.TabIndex = 37;
+            this.label9.Text = "מראיין";
+            // 
+            // comboBox_Interviews_Interviewer
+            // 
+            this.comboBox_Interviews_Interviewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_Interviews_Interviewer.FormattingEnabled = true;
+            this.comboBox_Interviews_Interviewer.Location = new System.Drawing.Point(58, 174);
+            this.comboBox_Interviews_Interviewer.Name = "comboBox_Interviews_Interviewer";
+            this.comboBox_Interviews_Interviewer.Size = new System.Drawing.Size(397, 45);
+            this.comboBox_Interviews_Interviewer.TabIndex = 36;
+            // 
+            // button_Interviews_NewInterview
+            // 
+            this.button_Interviews_NewInterview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Interviews_NewInterview.Location = new System.Drawing.Point(58, 705);
+            this.button_Interviews_NewInterview.Name = "button_Interviews_NewInterview";
+            this.button_Interviews_NewInterview.Size = new System.Drawing.Size(397, 165);
+            this.button_Interviews_NewInterview.TabIndex = 35;
+            this.button_Interviews_NewInterview.Text = "חדש";
+            this.button_Interviews_NewInterview.UseVisualStyleBackColor = true;
+            this.button_Interviews_NewInterview.Click += new System.EventHandler(this.button_Interviews_NewInterview_Click);
+            // 
             // button_interviewsClear
             // 
             this.button_interviewsClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_interviewsClear.Location = new System.Drawing.Point(58, 781);
+            this.button_interviewsClear.Location = new System.Drawing.Point(58, 568);
             this.button_interviewsClear.Name = "button_interviewsClear";
             this.button_interviewsClear.Size = new System.Drawing.Size(397, 107);
             this.button_interviewsClear.TabIndex = 34;
@@ -1023,9 +1056,9 @@ namespace Recruitment_System.UI
             // button_InterviewsFilter
             // 
             this.button_InterviewsFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_InterviewsFilter.Location = new System.Drawing.Point(58, 486);
+            this.button_InterviewsFilter.Location = new System.Drawing.Point(58, 375);
             this.button_InterviewsFilter.Name = "button_InterviewsFilter";
-            this.button_InterviewsFilter.Size = new System.Drawing.Size(397, 233);
+            this.button_InterviewsFilter.Size = new System.Drawing.Size(397, 165);
             this.button_InterviewsFilter.TabIndex = 33;
             this.button_InterviewsFilter.Text = "חפש";
             this.button_InterviewsFilter.UseVisualStyleBackColor = true;
@@ -1035,7 +1068,7 @@ namespace Recruitment_System.UI
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(513, 376);
+            this.label6.Location = new System.Drawing.Point(513, 281);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 37);
             this.label6.TabIndex = 32;
@@ -1046,7 +1079,7 @@ namespace Recruitment_System.UI
             this.dateTimePicker_Interviews_To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker_Interviews_To.CustomFormat = "dd/MM/yyyy";
             this.dateTimePicker_Interviews_To.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_Interviews_To.Location = new System.Drawing.Point(58, 370);
+            this.dateTimePicker_Interviews_To.Location = new System.Drawing.Point(58, 275);
             this.dateTimePicker_Interviews_To.Name = "dateTimePicker_Interviews_To";
             this.dateTimePicker_Interviews_To.RightToLeftLayout = true;
             this.dateTimePicker_Interviews_To.Size = new System.Drawing.Size(397, 44);
@@ -1058,7 +1091,7 @@ namespace Recruitment_System.UI
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(528, 298);
+            this.label7.Location = new System.Drawing.Point(528, 231);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(42, 37);
             this.label7.TabIndex = 30;
@@ -1069,7 +1102,7 @@ namespace Recruitment_System.UI
             this.dateTimePicker_Interviews_From.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker_Interviews_From.CustomFormat = "dd/MM/yyyy";
             this.dateTimePicker_Interviews_From.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_Interviews_From.Location = new System.Drawing.Point(58, 292);
+            this.dateTimePicker_Interviews_From.Location = new System.Drawing.Point(58, 225);
             this.dateTimePicker_Interviews_From.Name = "dateTimePicker_Interviews_From";
             this.dateTimePicker_Interviews_From.RightToLeftLayout = true;
             this.dateTimePicker_Interviews_From.Size = new System.Drawing.Size(397, 44);
@@ -1081,7 +1114,7 @@ namespace Recruitment_System.UI
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(481, 223);
+            this.label8.Location = new System.Drawing.Point(481, 126);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(89, 37);
             this.label8.TabIndex = 28;
@@ -1091,29 +1124,10 @@ namespace Recruitment_System.UI
             // 
             this.comboBox_InterviewsNominee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_InterviewsNominee.FormattingEnabled = true;
-            this.comboBox_InterviewsNominee.Location = new System.Drawing.Point(58, 220);
+            this.comboBox_InterviewsNominee.Location = new System.Drawing.Point(58, 123);
             this.comboBox_InterviewsNominee.Name = "comboBox_InterviewsNominee";
             this.comboBox_InterviewsNominee.Size = new System.Drawing.Size(397, 45);
             this.comboBox_InterviewsNominee.TabIndex = 27;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(482, 147);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(88, 37);
-            this.label9.TabIndex = 26;
-            this.label9.Text = "מראיין";
-            // 
-            // comboBox_InterviewsInterviewer
-            // 
-            this.comboBox_InterviewsInterviewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_InterviewsInterviewer.FormattingEnabled = true;
-            this.comboBox_InterviewsInterviewer.Location = new System.Drawing.Point(58, 144);
-            this.comboBox_InterviewsInterviewer.Name = "comboBox_InterviewsInterviewer";
-            this.comboBox_InterviewsInterviewer.Size = new System.Drawing.Size(397, 45);
-            this.comboBox_InterviewsInterviewer.TabIndex = 25;
             // 
             // label10
             // 
@@ -1158,9 +1172,9 @@ namespace Recruitment_System.UI
             // tabPage_Interview
             // 
             this.tabPage_Interview.Controls.Add(this.panel_Interview_Buttons);
-            this.tabPage_Interview.Controls.Add(this.scorer_Interview);
             this.tabPage_Interview.Controls.Add(this.button_Interview_Clear);
             this.tabPage_Interview.Controls.Add(this.groupBox_Interview);
+            this.tabPage_Interview.Controls.Add(this.scorer_Interview);
             this.tabPage_Interview.Location = new System.Drawing.Point(12, 58);
             this.tabPage_Interview.Name = "tabPage_Interview";
             this.tabPage_Interview.Size = new System.Drawing.Size(2266, 923);
@@ -1211,18 +1225,6 @@ namespace Recruitment_System.UI
             this.button_Interview_Delete.UseVisualStyleBackColor = false;
             this.button_Interview_Delete.Click += new System.EventHandler(this.button_Interview_Delete_Click);
             // 
-            // scorer_Interview
-            // 
-            this.scorer_Interview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.scorer_Interview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.scorer_Interview.CanEdit = true;
-            this.scorer_Interview.Location = new System.Drawing.Point(869, 6);
-            this.scorer_Interview.Name = "scorer_Interview";
-            this.scorer_Interview.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.scorer_Interview.Size = new System.Drawing.Size(740, 917);
-            this.scorer_Interview.TabIndex = 36;
-            this.scorer_Interview.ScoreChanged += new System.EventHandler<Recruitment_System.UI.ScoreChangedEventArgs>(this.scorer_Interview_ScoreChanged);
-            // 
             // button_Interview_Clear
             // 
             this.button_Interview_Clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1255,7 +1257,7 @@ namespace Recruitment_System.UI
             this.groupBox_Interview.Size = new System.Drawing.Size(651, 917);
             this.groupBox_Interview.TabIndex = 35;
             this.groupBox_Interview.TabStop = false;
-            this.groupBox_Interview.Text = "סינון";
+            this.groupBox_Interview.Text = "פרטי ראיון";
             // 
             // label11
             // 
@@ -1352,6 +1354,7 @@ namespace Recruitment_System.UI
             // comboBox_Interview_Nominee
             // 
             this.comboBox_Interview_Nominee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_Interview_Nominee.Enabled = false;
             this.comboBox_Interview_Nominee.FormattingEnabled = true;
             this.comboBox_Interview_Nominee.Location = new System.Drawing.Point(51, 345);
             this.comboBox_Interview_Nominee.Name = "comboBox_Interview_Nominee";
@@ -1476,6 +1479,18 @@ namespace Recruitment_System.UI
             // printDocument_Reports
             // 
             this.printDocument_Reports.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_Table_PrintPage);
+            // 
+            // scorer_Interview
+            // 
+            this.scorer_Interview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.scorer_Interview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scorer_Interview.CanEdit = true;
+            this.scorer_Interview.Location = new System.Drawing.Point(763, 3);
+            this.scorer_Interview.Name = "scorer_Interview";
+            this.scorer_Interview.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.scorer_Interview.Size = new System.Drawing.Size(740, 917);
+            this.scorer_Interview.TabIndex = 41;
+            this.scorer_Interview.ScoreChanged += new System.EventHandler<Recruitment_System.UI.ScoreChangedEventArgs>(this.scorer_Interview_ScoreChanged);
             // 
             // MainForm
             // 
@@ -1615,8 +1630,6 @@ namespace Recruitment_System.UI
         private System.Windows.Forms.DateTimePicker dateTimePicker_Interviews_From;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBox_InterviewsNominee;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox comboBox_InterviewsInterviewer;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboBox_InterviewsPosition;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -1636,12 +1649,15 @@ namespace Recruitment_System.UI
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button_Interview_Save;
         private System.Windows.Forms.ComboBox comboBox_Interview_Position;
-        private Scorer scorer_Interview;
         private System.Windows.Forms.Button button_Interview_Delete;
         private System.Windows.Forms.Button button_Interview_Edit;
         private System.Windows.Forms.Panel panel_Interview_Buttons;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label_Interview_Id;
+        private System.Windows.Forms.Button button_Interviews_NewInterview;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox comboBox_Interviews_Interviewer;
+        private Scorer scorer_Interview;
     }
 }
 

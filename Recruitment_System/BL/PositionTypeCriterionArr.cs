@@ -11,6 +11,21 @@ namespace Recruitment_System.BL
 {
     public class PositionTypeCriterionArr : ArrayList
     {
+        public PositionTypeCriterionArr() : base()
+        {
+        }
+        public PositionTypeCriterionArr(CriterionArr criterionArr, PositionType positionType)
+        {
+            PositionTypeCriterion x;
+            for (int i = 0; i < criterionArr.Count; i++)
+            {
+                x = new PositionTypeCriterion();
+                x.PositionType = positionType;
+                x.Criterion = criterionArr[i] as Criterion;
+                this.Add(x);
+            }
+        }
+
         public void Fill()
         {
             this.Clear();
@@ -71,6 +86,24 @@ namespace Recruitment_System.BL
             {
                 positionTypeCriterion = this[i] as PositionTypeCriterion;
                 if ((positionType == PositionType.Empty || positionType == positionTypeCriterion.PositionType) && (criterion == Criterion.Empty || positionTypeCriterion.Criterion == criterion))
+                {
+                    positionTypeCriterionArr.Add(positionTypeCriterion);
+                }
+            }
+
+            return positionTypeCriterionArr;
+        }
+
+        public PositionTypeCriterionArr Filter(CriterionArr criterionArr)
+        {
+            PositionTypeCriterionArr positionTypeCriterionArr = new PositionTypeCriterionArr();
+
+            PositionTypeCriterion positionTypeCriterion;
+            for (int i = 0; i < this.Count; i++)
+            {
+                positionTypeCriterion = this[i] as PositionTypeCriterion;
+
+                if (criterionArr.IsContains(positionTypeCriterion.Criterion.Name))
                 {
                     positionTypeCriterionArr.Add(positionTypeCriterion);
                 }
@@ -204,6 +237,34 @@ namespace Recruitment_System.BL
             PositionTypeArr positionTypeArr = this.ToPositionTypeArr();
             foreach (PositionType curPositionType in positionTypeArr)
                 dictionary.Add(curPositionType.Name, this.Filter(curPositionType, Criterion.Empty).Count);
+            return dictionary;
+        }
+
+
+        public SortedDictionary<string, string> GetSortedDictionary(PositionType positionType)
+        {
+            SortedDictionary<string, string> dictionary = new SortedDictionary<string, string>();
+
+            string y = "";
+
+            PositionTypeCriterionArr positionTypeCriterionArr = this.Filter(positionType, Criterion.Empty);
+            PositionTypeArr positionTypeArr = positionTypeCriterionArr.ToPositionTypeArr();
+            CriterionArr criterionArr;
+
+            foreach (PositionType curPositionType in positionTypeArr)
+            {
+                criterionArr = this.Filter(curPositionType, Criterion.Empty).ToCriterionArr();
+
+                y += (criterionArr[0] as Criterion).ToString();
+
+                for (int i = 1; i < criterionArr.Count; i++)
+                {
+                    y += "\n" + (criterionArr[i] as Criterion).ToString();
+                }
+
+                dictionary.Add(curPositionType.ToString(), y);
+                y = "";
+            }
             return dictionary;
         }
 

@@ -23,12 +23,6 @@ namespace Recruitment_System.UI
 
         public PositionType SelectedPositionType { get; private set; }
 
-        #region Events
-
-
-        /// <summary>
-        /// The first event to fire ofter the form loads.
-        /// </summary>
         private void Form_PositionType_Load(object sender, EventArgs e)
         {
             KeyDown += Control_KeyDown;//Add the Control_KeyDown event to the form.
@@ -38,61 +32,48 @@ namespace Recruitment_System.UI
         }
 
 
-        private void listBox_Position_MouseDown(object sender, MouseEventArgs e)
+        private void Control_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.KeyCode == Keys.CapsLock)
             {
-                int index = listBox_PositionType.IndexFromPoint(e.Location);
-                if (index != ListBox.NoMatches)
-                {
-                    listBox_PositionType.SelectedIndex = index;
-                    contextMenuStrip_Position.Show(listBox_PositionType, e.Location);
-                }
+                //Only if the CapsLK key was pressed, then call the method.
+                CapsLockCheck();
             }
         }
 
 
-        private void ToolStripMenuItem_Remove_Click(object sender, EventArgs e)
+        private void Form_positionType_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)
         {
-            //remove the positionType
-
-            PositionType positionType = listBox_PositionType.SelectedItem as PositionType;
-
-            if (MessageBox.Show("האם אתה בטוח שאתה רוצה למחוק את סוג המשרה שבחרת?\nפעולה זאת הינה בלתי הפיכה!", "אזהרה", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, MessageBoxOptions.RtlReading) == DialogResult.Yes)
-            {
-                PositionNomineeArr positionNomineeArr = new PositionNomineeArr();
-                positionNomineeArr.Fill();
-                positionNomineeArr = positionNomineeArr.Filter(positionType);
-
-                if (positionNomineeArr.Count > 0)
-                {
-                    MessageBox.Show("לא ניתן למחוק את סוג המשרה.\n סוג המשרה שנבחר משוייך למועמדים קיימים במערכת.", "הפעולה לא ניתן לביצוע", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
-                }
-                else
-                {
-                    if (positionType.Delete())
-                    {
-                        PositionTypeToForm(null);
-                        PositionTypeArrToForm(null);
-                        MessageBox.Show("סוג המשרה נמחק בהצלחה", "הצלחה", MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
-                    }
-                    else
-                    {
-                        MessageBox.Show("ישנה תקלה במחיקת סוג המשרה מבסיס הנתונים.\n סוג המשרה לא נמחק כלל.", "תקלה!", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
-                    }
-                }
-            }
+            InputLanguage myCurrentLang = InputLanguage.CurrentInputLanguage;
+            label_Language.Text = myCurrentLang.Culture.Name.ToLower();
         }
 
 
-        private void Button_Clear_Click(object sender, EventArgs e)
+        private void tabControl_PositionType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl_PositionType.SelectedTab == tabPage_PositionTypeCriterion)
+            {
+                PositionTypeArrToCriterionTabPage(SelectedPositionType);
+                UpdateTabPage_Criterion(SelectedPositionType);
+            }
+        }
+
+        #region PositionType
+        #region Events
+
+
+        /// <summary>
+        /// The first event to fire ofter the form loads.
+        /// </summary>
+
+        private void button_Clear_Click(object sender, EventArgs e)
         {
             PositionTypeToForm(null);
             listBox_PositionType.ClearSelected();
         }
 
 
-        private void listBox_Position_DoubleClick(object sender, EventArgs e)
+        private void listBox_PositionType_DoubleClick(object sender, EventArgs e)
         {
             PositionTypeArr positionTypeArr = new PositionTypeArr();
             positionTypeArr.Fill();
@@ -101,7 +82,7 @@ namespace Recruitment_System.UI
             {
 
                 //There is a valid positionType to insert that will be erased.
-                DialogResult dr = MessageBox.Show("המידע שהכנסת יכול להתווסף כסוג משרה.\nהאם אתה רוצה לשמור אותוה?", "אזהרה!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                DialogResult dr = MessageBox.Show("המידע שהכנסת יכול להתווסף כסוג משרה.\nהאם אתה רוצה לשמור אותה?", "אזהרה!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                 if (dr == DialogResult.No)
                 {
                     PositionTypeToForm(listBox_PositionType.SelectedItem as PositionType);
@@ -109,7 +90,7 @@ namespace Recruitment_System.UI
                 }
                 else if (dr == DialogResult.Yes)
                 {
-                    Button_Save_Click(button_Save, EventArgs.Empty);
+                    button_Save_Click(button_Save, EventArgs.Empty);
                     PositionTypeToForm(listBox_PositionType.SelectedItem as PositionType);
                     CheckForm();
                 }
@@ -122,23 +103,11 @@ namespace Recruitment_System.UI
         }
 
 
-        /// <summary>
-        /// Attached to all of the controls and checks when to call the CapsLockCheck method.
-        /// </summary>
-        private void Control_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.CapsLock)
-            {
-                //Only if the CapsLK key was pressed, then call the method.
-                CapsLockCheck();
-            }
-        }
-
 
         /// <summary>
         /// Check the final data on the form and if it is ok, then it sends the data to the database.
         /// </summary>
-        private void Button_Save_Click(object sender, EventArgs e)
+        private void button_Save_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult;
             if (!CheckForm())
@@ -217,7 +186,7 @@ namespace Recruitment_System.UI
 
                 case DialogResult.Retry:
                     {
-                        Button_Save_Click(null, null);//Try again.
+                        button_Save_Click(null, null);//Try again.
                         break;
                     }
 
@@ -231,20 +200,11 @@ namespace Recruitment_System.UI
         }//<<<<<<<<<<<<<<<<<<-------------------------
 
 
-        /// <summary>
-        /// Checks the current language and updating the label_Language.
-        /// </summary>
-        private void Form_positionType_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)
-        {
-            InputLanguage myCurrentLang = InputLanguage.CurrentInputLanguage;
-            label_Language.Text = myCurrentLang.Culture.Name.ToLower();
-        }
-
 
         /// <summary>
         /// Check if the pressed key is valid for a letter based textBox.
         /// </summary>
-        private void TextBox_Name_Letter_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox_Name_Letter_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!IsHeLetter(e.KeyChar) && !IsEnLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ' ')
             {
@@ -263,7 +223,7 @@ namespace Recruitment_System.UI
         /// <summary>
         /// Filter the listbox
         /// </summary>
-        private void TextBox_Filter_Letter_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox_Filter_Letter_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!IsHeLetter(e.KeyChar) && !IsEnLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ' ')
             {
@@ -288,7 +248,7 @@ namespace Recruitment_System.UI
         /// <summary>
         /// Checks if the length of the text in the name textBoxes is valid (one textbox at a fire).
         /// </summary>
-        private void TextBox_Name_Leave(object sender, EventArgs e)
+        private void textBox_Name_Leave(object sender, EventArgs e)
         {
             if ((sender as TextBox).Text != "")
             {
@@ -534,10 +494,17 @@ namespace Recruitment_System.UI
                 positionNomineeArr.Fill();
                 positionNomineeArr = positionNomineeArr.Filter(positionType);
 
+                PositionArr positionArr = new PositionArr();
+                positionArr.Fill();
+                positionArr = positionArr.Filter("", positionType, DateTimePicker.MinimumDateTime, DateTimePicker.MinimumDateTime);
 
                 if (positionNomineeArr.Count > 0)
                 {
                     MessageBox.Show("לא ניתן למחוק את סוג המשרה.\n סוג המשרה שנבחר משוייך למועמדים קיימים במערכת.", "בעיה", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
+                }
+                else if (positionArr.Count > 0)
+                {
+                    MessageBox.Show("לא ניתן למחוק את סוג המשרה.\n סוג המשרה שנבחר משוייך למשרות במערכת.", "בעיה", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RtlReading);
                 }
                 else
                 {
@@ -555,5 +522,286 @@ namespace Recruitment_System.UI
             }
 
         }
+        #endregion
+
+
+        #region Criterion
+
+        private void PositionTypeArrToCriterionTabPage(PositionType positionType)
+        {
+            PositionTypeArr positionTypeArr = new PositionTypeArr();
+            positionTypeArr.Fill();
+            positionTypeArr.Insert(0, PositionType.Empty);
+
+            comboBox_Criterion_PositionType.SelectedIndexChanged -= comboBox_Criterion_PositionType_SelectedIndexChanged;
+            comboBox_Criterion_PositionType.DataSource = positionTypeArr;
+            comboBox_Criterion_PositionType.ValueMember = "Id";
+            comboBox_Criterion_PositionType.DisplayMember = "Name";
+            comboBox_Criterion_PositionType.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox_Criterion_PositionType.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox_Criterion_PositionType.SelectedIndexChanged += comboBox_Criterion_PositionType_SelectedIndexChanged;
+            if (positionType != null)
+            {
+                comboBox_Criterion_PositionType.SelectedValue = positionType.Id;
+            }
+            else
+            {
+                comboBox_Criterion_PositionType.Text = "";
+            }
+        }
+
+        public void UpdateTabPage_Criterion(PositionType positionType)
+        {
+            if (positionType != PositionType.Empty)
+            {
+                PositionTypeCriterionArr positionTypeCriterionArr = new PositionTypeCriterionArr();
+                positionTypeCriterionArr.Fill();
+
+                //סינון לפי הזמנה נוכחית
+
+                positionTypeCriterionArr = positionTypeCriterionArr.Filter(positionType, Criterion.Empty);
+
+                //רק אוסף הפריטים מתוך אוסף הזוגות פריט -הזמנה
+
+                CriterionArr criterionArrInPositionType = positionTypeCriterionArr.ToCriterionArr();
+                CriterionArrToForm(criterionArrInPositionType, listBox_Criterion_Chosen);
+
+
+                //תיבת רשימה - פריטים פוטנציאלים
+                //כל הפריטים - פחות אלו שכבר נבחרו
+
+                CriterionArr criterionArrNotInPositionType = new CriterionArr();
+                criterionArrNotInPositionType.Fill();
+
+                //הורדת הפריטים שכבר קיימים בהזמנה
+
+                criterionArrNotInPositionType.Remove(criterionArrInPositionType);
+                CriterionArrToForm(criterionArrNotInPositionType, listBox_Criterion_Available);
+
+
+            }
+            else
+            {
+                CriterionArrToForm(new CriterionArr(), listBox_Criterion_Chosen);
+
+                CriterionArr criterionArrNotInPositionType = new CriterionArr();
+                criterionArrNotInPositionType.Fill();
+
+                //הורדת הפריטים שכבר קיימים בהזמנה
+                CriterionArrToForm(criterionArrNotInPositionType, listBox_Criterion_Available);
+            }
+
+
+
+
+
+            button_Criterion_Add.Enabled = false;
+            button_Criterion_Remove.Enabled = false;
+
+            listBox_Criterion_Available.ClearSelected();
+            listBox_Criterion_Chosen.ClearSelected();
+        }
+
+
+        public CriterionArr ChosenCriterionArr => chosenCriterionArr;
+        private CriterionArr availableCriterionArr, chosenCriterionArr;
+
+
+
+        #region not interesting events for buttons managment
+        private void listBox_Criterion_Available_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (listBox_Criterion_Available.SelectedItem != null)
+            {
+                button_Criterion_Add.Enabled = true;
+            }
+            else
+            {
+                button_Criterion_Add.Enabled = false;
+            }
+        }
+
+
+        private void listBox_Criterion_Chosen_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (listBox_Criterion_Chosen.SelectedItem != null)
+            {
+                button_Criterion_Remove.Enabled = true;
+            }
+            else
+            {
+                button_Criterion_Remove.Enabled = false;
+            }
+        }
+
+
+        private void listBox_Criterion_Available_Enter(object sender, EventArgs e)
+        {
+            button_Criterion_Remove.Enabled = false;
+        }
+
+
+        private void listBox_Criterion_Chosen_Enter(object sender, EventArgs e)
+        {
+            button_Criterion_Add.Enabled = false;
+        }
+        #endregion
+
+
+
+
+        #region Events
+
+        private void button_Criterion_Remove_Click(object sender, EventArgs e)
+        {
+            MoveSelectedItemBetweenListBox(listBox_Criterion_Chosen, listBox_Criterion_Available);
+
+            listBox_Criterion_Available.Focus();
+
+            listBox_Criterion_Chosen.ClearSelected();
+            listBox_Criterion_Available.SetSelected(0, true);
+        }
+
+
+        private void pictureBox_Criterion_ChosenDisableFilter_Click(object sender, EventArgs e)
+        {
+            textBox_Criterion_FilterChosen.Clear();
+            pictureBox_Criterion_ChosenDisableFilter.Visible = false;
+        }
+
+
+        private void pictureBox_Criterion_AvailableDisableFilter_Click(object sender, EventArgs e)
+        {
+            textBox_Criterion_FilterAvailable.Clear();
+        }
+
+
+        private void button_Criterion_Add_Click(object sender, EventArgs e)
+        {
+            MoveSelectedItemBetweenListBox(listBox_Criterion_Available, listBox_Criterion_Chosen);
+
+            listBox_Criterion_Chosen.Focus();
+
+            listBox_Criterion_Available.ClearSelected();
+            listBox_Criterion_Chosen.SetSelected(0, true);
+        }
+
+
+        private void textBox_Criterion_FilterAvailable_TextChanged(object sender, EventArgs e)
+        {
+            string text = textBox_Criterion_FilterAvailable.Text;
+            listBox_Criterion_Available.DataSource = availableCriterionArr.Filter(PositionType.Empty, text);
+
+            if (text == "")
+            {
+                pictureBox_Criterion_AvailableDisableFilter.Visible = false;
+            }
+            else
+            {
+                pictureBox_Criterion_AvailableDisableFilter.Visible = true;
+            }
+        }
+
+
+        private void textBox_Criterion_FilterChosen_TextChanged(object sender, EventArgs e)
+        {
+            string text = textBox_Criterion_FilterChosen.Text;
+            listBox_Criterion_Chosen.DataSource = chosenCriterionArr.Filter(PositionType.Empty, text);
+
+            if (text == "")
+            {
+                pictureBox_Criterion_ChosenDisableFilter.Visible = false;
+            }
+            else
+            {
+                pictureBox_Criterion_ChosenDisableFilter.Visible = true;
+            }
+        }
+
+
+        #endregion
+
+
+        //----------------------------------------------------------------------------------------------------
+
+        private void CriterionArrToForm(CriterionArr criterionArr, ListBox listBox)
+        {
+
+            //מקבלת אוסף פריטים ותיבת רשימה לפריטים ומציבה את האוסף בתוך התיבה
+            //אם האוסף ריק - מייצרת אוסף חדש מלא בכל הערכים מהטבלה
+
+            listBox.DataSource = null;
+            if (criterionArr == null)
+            {
+                criterionArr = new CriterionArr();
+                criterionArr.Fill();
+            }
+            listBox.DataSource = criterionArr;
+            if (listBox == listBox_Criterion_Available)
+            {
+                availableCriterionArr = criterionArr;
+            }
+            else
+            {
+                chosenCriterionArr = criterionArr;
+            }
+        }
+
+        private void comboBox_Criterion_PositionType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateTabPage_Criterion(comboBox_Criterion_PositionType.SelectedItem as PositionType);
+        }
+
+        private void MoveSelectedItemBetweenListBox(ListBox listBox_From, ListBox listBox_To)
+        {
+            object selectedCriterionava = listBox_Criterion_Available.SelectedValue;
+            object selectedCriterioncho = listBox_Criterion_Chosen.SelectedValue;
+
+            pictureBox_Criterion_ChosenDisableFilter_Click(pictureBox_Criterion_ChosenDisableFilter, EventArgs.Empty);
+
+            pictureBox_Criterion_AvailableDisableFilter_Click(pictureBox_Criterion_AvailableDisableFilter, EventArgs.Empty);
+
+            listBox_Criterion_Available.SelectedItem = selectedCriterionava;
+            listBox_Criterion_Chosen.SelectedItem = selectedCriterioncho;
+
+
+            CriterionArr criterionArr;
+
+            //מוצאים את הפריט הנבחר
+
+            object selectedItem = listBox_From.SelectedItem;
+
+            //מוסיפים את הפריט הנבחר לרשימת הפריטים הפוטנציאליים
+            //אם כבר יש פריטים ברשימת הפוטנציאליים
+
+            if (listBox_To.DataSource != null)
+                criterionArr = listBox_To.DataSource as CriterionArr;
+            else
+                criterionArr = new CriterionArr();
+
+            criterionArr.Insert(0, selectedItem);
+            CriterionArrToForm(criterionArr, listBox_To);
+
+            ///הסרת הפריט הנבחרים מרשימת הפריטים הנבחרים
+
+            criterionArr = listBox_From.DataSource as CriterionArr;
+            criterionArr.Remove(selectedItem);
+            CriterionArrToForm(criterionArr, listBox_From);
+
+            PositionType positionType = (comboBox_Criterion_PositionType.SelectedItem as PositionType);
+            if (positionType.Id > 0)
+            {
+                PositionTypeCriterionArr positionTypeCriterionArr = new PositionTypeCriterionArr();
+                positionTypeCriterionArr.Fill();
+                positionTypeCriterionArr = positionTypeCriterionArr.Filter(positionType, Criterion.Empty);
+                if (positionTypeCriterionArr.DeleteArr())
+                {
+                    positionTypeCriterionArr = new PositionTypeCriterionArr(chosenCriterionArr, positionType);
+                    positionTypeCriterionArr.InsertArr();
+                }
+            }
+        }
+
+        #endregion
     }
 }

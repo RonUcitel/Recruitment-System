@@ -70,12 +70,6 @@
             this.label_Language = new System.Windows.Forms.Label();
             this.label_CapsLk = new System.Windows.Forms.Label();
             this.tabPage_Position = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBox_Position_FilterPositionType = new System.Windows.Forms.ComboBox();
-            this.button_Position_ClearFilter = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox_Position_FilterName = new System.Windows.Forms.TextBox();
             this.groupBox_Position = new System.Windows.Forms.GroupBox();
             this.label13 = new System.Windows.Forms.Label();
             this.dateTimePicker_Position_Creation = new System.Windows.Forms.DateTimePicker();
@@ -103,7 +97,6 @@
             this.groupBox_Criterion.SuspendLayout();
             this.groupBox_Sign.SuspendLayout();
             this.tabPage_Position.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox_Position.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
@@ -608,7 +601,6 @@
             // 
             // tabPage_Position
             // 
-            this.tabPage_Position.Controls.Add(this.groupBox2);
             this.tabPage_Position.Controls.Add(this.groupBox_Position);
             this.tabPage_Position.Controls.Add(this.button_Position_Delete);
             this.tabPage_Position.Controls.Add(this.listBox_Position);
@@ -620,80 +612,6 @@
             this.tabPage_Position.TabIndex = 3;
             this.tabPage_Position.Text = "עריכת משרות";
             this.tabPage_Position.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.comboBox_Position_FilterPositionType);
-            this.groupBox2.Controls.Add(this.button_Position_ClearFilter);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.textBox_Position_FilterName);
-            this.groupBox2.Location = new System.Drawing.Point(7, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(567, 373);
-            this.groupBox2.TabIndex = 36;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "סינון";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(419, 143);
-            this.label5.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.label5.Name = "label5";
-            this.label5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label5.Size = new System.Drawing.Size(135, 37);
-            this.label5.TabIndex = 36;
-            this.label5.Text = "סוג משרה:";
-            // 
-            // comboBox_Position_FilterPositionType
-            // 
-            this.comboBox_Position_FilterPositionType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox_Position_FilterPositionType.FormattingEnabled = true;
-            this.comboBox_Position_FilterPositionType.Location = new System.Drawing.Point(49, 140);
-            this.comboBox_Position_FilterPositionType.Name = "comboBox_Position_FilterPositionType";
-            this.comboBox_Position_FilterPositionType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.comboBox_Position_FilterPositionType.Size = new System.Drawing.Size(344, 45);
-            this.comboBox_Position_FilterPositionType.TabIndex = 35;
-            // 
-            // button_Position_ClearFilter
-            // 
-            this.button_Position_ClearFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Position_ClearFilter.Location = new System.Drawing.Point(160, 296);
-            this.button_Position_ClearFilter.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.button_Position_ClearFilter.Name = "button_Position_ClearFilter";
-            this.button_Position_ClearFilter.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.button_Position_ClearFilter.Size = new System.Drawing.Size(238, 65);
-            this.button_Position_ClearFilter.TabIndex = 34;
-            this.button_Position_ClearFilter.Text = "נקה";
-            this.button_Position_ClearFilter.UseVisualStyleBackColor = true;
-            this.button_Position_ClearFilter.Click += new System.EventHandler(this.button_Position_ClearFilter_Click);
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(493, 63);
-            this.label6.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.label6.Name = "label6";
-            this.label6.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label6.Size = new System.Drawing.Size(61, 37);
-            this.label6.TabIndex = 33;
-            this.label6.Text = "שם:";
-            // 
-            // textBox_Position_FilterName
-            // 
-            this.textBox_Position_FilterName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Position_FilterName.Location = new System.Drawing.Point(49, 60);
-            this.textBox_Position_FilterName.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.textBox_Position_FilterName.Name = "textBox_Position_FilterName";
-            this.textBox_Position_FilterName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox_Position_FilterName.Size = new System.Drawing.Size(349, 44);
-            this.textBox_Position_FilterName.TabIndex = 32;
-            this.textBox_Position_FilterName.TextChanged += new System.EventHandler(this.textBox_Position_FilterName_TextChanged);
-            this.textBox_Position_FilterName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Position_FilterName_KeyPress);
             // 
             // groupBox_Position
             // 
@@ -940,8 +858,6 @@
             this.groupBox_Sign.ResumeLayout(false);
             this.groupBox_Sign.PerformLayout();
             this.tabPage_Position.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox_Position.ResumeLayout(false);
             this.groupBox_Position.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -993,11 +909,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox_PositionTypeFilter;
         private System.Windows.Forms.TabPage tabPage_Position;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button_Position_ClearFilter;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox_Position_FilterName;
         private System.Windows.Forms.GroupBox groupBox_Position;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_Position_Creation;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_Position_DeadLine;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox comboBox_Position_PositionType;
         private System.Windows.Forms.Label label_Position_Id;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBox_Position_Name;
@@ -1008,13 +926,5 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox_Position_FilterPositionType;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox comboBox_Position_PositionType;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.DateTimePicker dateTimePicker_Position_Creation;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.DateTimePicker dateTimePicker_Position_DeadLine;
     }
 }

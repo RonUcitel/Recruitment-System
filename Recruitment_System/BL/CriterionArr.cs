@@ -98,20 +98,14 @@ namespace Recruitment_System.BL
         }
 
 
-        public PositionTypeArr ToPositionTypeArr()
+        public void Remove(CriterionArr criterionArr)
         {
-            PositionTypeArr positionTypeArr = new PositionTypeArr();
-            PositionType positionType;
-            for (int i = 0; i < this.Count; i++)
-            {
-                positionType = (this[i] as PositionType);
-                if (!positionTypeArr.IsContains(positionType))
-                {
-                    positionTypeArr.Add(positionType);
-                }
-            }
-            return positionTypeArr;
+            //מסירה מהאוסף הנוכחי את האוסף המתקבל
+
+            for (int i = 0; i < criterionArr.Count; i++)
+                this.Remove(criterionArr[i] as Criterion);
         }
+
 
         public Criterion GetCriterionWithMaxId()
         {
@@ -140,31 +134,6 @@ namespace Recruitment_System.BL
                 }
             }
             return Criterion.Empty;
-        }
-
-
-        public SortedDictionary<string, string> GetSortedDictionary()
-        {
-            SortedDictionary<string, string> dictionary = new SortedDictionary<string, string>();
-            string y = "";
-            PositionTypeArr positionTypeArr = this.ToPositionTypeArr();
-            CriterionArr criterionArr;
-
-            foreach (PositionType curPosition in positionTypeArr)
-            {
-                criterionArr = this.Filter(curPosition, "");
-
-                y += (criterionArr[0] as Criterion).ToString();
-
-                for (int i = 1; i < criterionArr.Count; i++)
-                {
-                    y += "\n" + (criterionArr[i] as Criterion).ToString();
-                }
-
-                dictionary.Add(curPosition.ToString(), y);
-                y = "";
-            }
-            return dictionary;
         }
     }
 }
