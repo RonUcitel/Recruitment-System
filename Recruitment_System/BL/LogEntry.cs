@@ -33,7 +33,7 @@ namespace Recruitment_System.BL
             m_Id = (int)logEntry_prop["Id"];
             m_Nominee = new Nominee(logEntry_prop.GetParentRow("LogEntryNominee"));
             m_DateTime = (DateTime)logEntry_prop["DateTime"];
-            m_Entry = logEntry_prop["Entry"].ToString().Replace("$", "'");
+            m_Entry = logEntry_prop["Entry"].ToString().Replace("&acute;", "'");
         }
 
         #endregion

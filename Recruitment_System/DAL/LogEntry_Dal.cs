@@ -30,7 +30,7 @@ namespace Recruitment_System.DAL
                 + "("
                      + "" + nomineeDBId + ""
                 + "," + "'" + dateTime.ToString("yyyy-MM-dd HH:mm:ss") + "'"
-                + "," + "N'" + entry.Replace("'", "$") + "'"
+                + "," + "N'" + entry.Replace("'", "&acute;") + "'"
                 + ")";
 
             //Running the SQL command by using the ExecuteSql method from the Dal class and return if the command succeeded

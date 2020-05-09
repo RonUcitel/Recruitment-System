@@ -33,8 +33,8 @@ namespace Recruitment_System.DAL
 
                 + " VALUES "
                 + "("
-                      + "N'" + firstName.Replace("'", "$") + "'"
-                + "," + "N'" + lastName.Replace("'", "$") + "'"
+                      + "N'" + firstName.Replace("'", "&acute;") + "'"
+                + "," + "N'" + lastName.Replace("'", "&acute;") + "'"
                 + "," + "'" + iDNum + "'"
                 + "," + "'" + email + "'"
                 + "," + "" + birthYear + ""
@@ -55,8 +55,8 @@ namespace Recruitment_System.DAL
             //מעדכנת את הלקוח במסד הנתונים
 
             string str = "UPDATE " + tableName + " SET"
-            + " " + "[FirstName] = " + "N'" + firstName.Replace("'", "$") + "'"
-            + "," + "[LastName] = " + "N'" + lastName.Replace("'", "$") + "'"
+            + " " + "[FirstName] = " + "N'" + firstName.Replace("'", "&acute;") + "'"
+            + "," + "[LastName] = " + "N'" + lastName.Replace("'", "&acute;") + "'"
             + "," + "[ID_Num] = " + "'" + iDNum + "'"
             + "," + "[Email] = " + "'" + email + "'"
             + "," + "[BirthYear] = " + "" + birthYear + ""

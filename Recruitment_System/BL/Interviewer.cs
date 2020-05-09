@@ -27,8 +27,8 @@ namespace Recruitment_System.BL
         public Interviewer(DataRow interviewer_prop)
         {
             m_DBId = (int)interviewer_prop["ID"];
-            m_FirstName = interviewer_prop["FirstName"].ToString().Replace("$", "'");
-            m_LastName = interviewer_prop["LastName"].ToString().Replace("$", "'");
+            m_FirstName = interviewer_prop["FirstName"].ToString().Replace("&acute;", "'");
+            m_LastName = interviewer_prop["LastName"].ToString().Replace("&acute;", "'");
             m_Id = interviewer_prop["Id_Num"].ToString();
             m_Credentials = new Credentials(interviewer_prop.GetParentRow("InterviewerCredentials"));
             m_Admin = (bool)interviewer_prop["Admin"];

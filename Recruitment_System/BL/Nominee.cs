@@ -36,8 +36,8 @@ namespace Recruitment_System.BL
         {
             m_DBId = (int)nominee_prop["ID"];
             m_Disabled = (bool)nominee_prop["Disabled"];
-            m_FirstName = nominee_prop["FirstName"].ToString().Replace("$", "'");
-            m_LastName = nominee_prop["LastName"].ToString().Replace("$", "'");
+            m_FirstName = nominee_prop["FirstName"].ToString().Replace("&acute;", "'");
+            m_LastName = nominee_prop["LastName"].ToString().Replace("&acute;", "'");
             m_Id = nominee_prop["ID_Num"].ToString();
             Email = nominee_prop["Email"].ToString();
             m_BirthYear = (int)nominee_prop["BirthYear"];
