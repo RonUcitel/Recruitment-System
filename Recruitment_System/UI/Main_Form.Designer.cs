@@ -625,7 +625,6 @@ namespace Recruitment_System.UI
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.עריכהToolStripMenuItem,
@@ -1038,7 +1037,7 @@ namespace Recruitment_System.UI
             this.button_Interviews_NewInterview.Name = "button_Interviews_NewInterview";
             this.button_Interviews_NewInterview.Size = new System.Drawing.Size(397, 165);
             this.button_Interviews_NewInterview.TabIndex = 35;
-            this.button_Interviews_NewInterview.Text = "חדש";
+            this.button_Interviews_NewInterview.Text = "החל ראיון חדש 📁";
             this.button_Interviews_NewInterview.UseVisualStyleBackColor = true;
             this.button_Interviews_NewInterview.Click += new System.EventHandler(this.button_Interviews_NewInterview_Click);
             // 

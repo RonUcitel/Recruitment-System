@@ -204,6 +204,5 @@ namespace Recruitment_System.UI
             printPreviewDialog_Reports.Document = printDocument_Reports;
             printPreviewDialog_Reports.ShowDialog();
         }
-
     }
 }

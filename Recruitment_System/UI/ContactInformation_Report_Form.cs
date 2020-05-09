@@ -17,7 +17,7 @@ namespace Recruitment_System.UI
         {
             InitializeComponent();
             PositionArrToForm();
-            NomineeTypeArrToTable("", "", "", "", Position.Empty);
+            NomineeTypeArrToTable("", "", Position.Empty);
         }
 
 
@@ -55,12 +55,12 @@ namespace Recruitment_System.UI
 
 
 
-        public void NomineeTypeArrToTable(string firstName, string lastName, string email, string phone, Position position)
+        public void NomineeTypeArrToTable(string firstName, string lastName, Position position)
         {
             //listView_Nominee
             NomineeArr nomineeArr = new NomineeArr();
             nomineeArr.Fill();
-            nomineeArr = nomineeArr.Filter(firstName, lastName, email, phone, position);
+            nomineeArr = nomineeArr.Filter(firstName, lastName, position);
 
             /*SortedDictionary<string, string> dictionary = nomineeArr.GetSortedDictionary();*/
 
@@ -100,7 +100,7 @@ namespace Recruitment_System.UI
 
         private void comboBox_Position_SelectedValueChanged(object sender, EventArgs e)
         {
-            NomineeTypeArrToTable(textBox_FirstName.Text, textBox_LastName.Text, textBox_Email.Text, textBox_Cel.Text, comboBox_Position.SelectedItem as Position);
+            NomineeTypeArrToTable(textBox_FirstName.Text, textBox_LastName.Text, comboBox_Position.SelectedItem as Position);
         }
 
 
@@ -115,7 +115,7 @@ namespace Recruitment_System.UI
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {
-            NomineeTypeArrToTable(textBox_FirstName.Text, textBox_LastName.Text, textBox_Email.Text, textBox_Cel.Text, comboBox_Position.SelectedItem as Position);
+            NomineeTypeArrToTable(textBox_FirstName.Text, textBox_LastName.Text, comboBox_Position.SelectedItem as Position);
         }
 
 
@@ -145,8 +145,6 @@ namespace Recruitment_System.UI
             listView1.BeginUpdate();
             textBox_FirstName.Clear();
             textBox_LastName.Clear();
-            textBox_Email.Clear();
-            textBox_Cel.Clear();
 
             comboBox_Position.SelectedIndex = 0;
             listView1.EndUpdate();

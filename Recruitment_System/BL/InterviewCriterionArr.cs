@@ -381,15 +381,6 @@ namespace Recruitment_System.BL
             return false;
         }
 
-        public InterviewCriterion MaxInterviewCriterionDBId()
-        {
-            InterviewCriterion max = InterviewCriterion.Empty;
-            for (int i = 0; i < this.Count; i++)
-            {
-                max = (this[i] as InterviewCriterion).Id > max.Id ? this[i] as InterviewCriterion : max;
-            }
-            return max;
-        }
 
 
         public InterviewerArr ToInterviewerArr()
@@ -466,22 +457,6 @@ namespace Recruitment_System.BL
         }
 
 
-        public bool DoesContainData(Interview interview, Criterion criterion)
-        {
-            InterviewCriterion interviewCriterion;
-
-            for (int i = 0; i < this.Count; i++)
-            {
-                interviewCriterion = this[i] as InterviewCriterion;
-                if (interviewCriterion.Interview.Id == interview.Id && interviewCriterion.Criterion.Id == criterion.Id)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public SortedDictionary<string, string> GetSortedDictionary()
         {
             SortedDictionary<string, string> dictionary = new SortedDictionary<string, string>();
@@ -515,7 +490,7 @@ namespace Recruitment_System.BL
             InterviewCriterionArr interviewCriterionArr;
             int sum = 0;
             int count = 0;
-            int x = 0;
+            int x;
             string key = "";
             for (DateTime d = from; d <= to; d = d.AddMonths(1))
             {
@@ -539,7 +514,6 @@ namespace Recruitment_System.BL
 
                 sum = 0;
                 count = 0;
-                x = 0;
                 key = "";
             }
             return dictionary;

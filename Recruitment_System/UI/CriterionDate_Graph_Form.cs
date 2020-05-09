@@ -39,7 +39,7 @@ namespace Recruitment_System.UI
             catch
             {
                 minDate = DateTimePicker.MinimumDateTime;
-                maxDate = DateTimePicker.MaximumDateTime;
+                maxDate = DateTime.Now;
             }
 
 
@@ -51,13 +51,13 @@ namespace Recruitment_System.UI
         }
 
         public void DataToChart(Position position, DateTime from, DateTime to, NomineeArrState state)
-        {/*
+        {
         
             //מחייב הצגת כל הערכים בציר האיקס, אם רוצים שיוצגו לסירוגין רושמים 2
             chart1.ChartAreas[0].AxisX.LabelStyle.Interval = 1;
             //כותרת הגרף -1
             chart1.Titles.Clear();
-            chart1.Titles.Add("ממוצע ציונים לחודש");
+            chart1.Titles.Add("ממוצע ציונים לחודש: " + position.Name);
             //הוספת הערכים למשתנה מסוג מילון ממוין
             InterviewCriterionArr interviewCriterionArr = new InterviewCriterionArr();
             interviewCriterionArr.Fill(state);
@@ -78,11 +78,11 @@ namespace Recruitment_System.UI
                 //הגדרת סדרה וערכיה - שם הסדרה מועבר למקרא - 2
 
 
-                series = new Series(criterion.NameWithPosition);
+                series = new Series(criterion.Name);
 
                 //סוג הגרף
 
-                series.ChartType = SeriesChartType.Line;
+                series.ChartType = SeriesChartType.FastLine;
 
                 //המידע שיוצג לכל רכיב ערך בגרף - 3
 
@@ -110,7 +110,6 @@ namespace Recruitment_System.UI
 
 
             //הוספת הסדרה לפקד הגרף
-        */
         }
 
         private void PositionArrToForm()

@@ -136,29 +136,6 @@ namespace Recruitment_System.UI
                 return;
             }
             tabControl_Main.SelectedTab = tabPage_Interview;
-            /*NomineeArr nomineeArr = new NomineeArr();
-            nomineeArr.Fill();
-            Nominee curNominee = nomineeArr.GetNomineeByDBId(int.Parse(label_DBID.Text));
-            Interview interview = new Interview();
-            interview.Interviewer = curInterviewer;
-            interview.Nominee = curNominee;
-            Interview_Form scoreKeeping = new Interview_Form(interview);
-            scoreKeeping.ShowDialog();
-
-
-
-            InterviewCriterionArr newInterviewCriterionArr = scoreKeeping.FormToInterviewCriterionArr();
-
-
-            InterviewCriterionArr OldInterviewCriterionArr = new InterviewCriterionArr();
-            OldInterviewCriterionArr.Fill();
-            OldInterviewCriterionArr = OldInterviewCriterionArr.Filter(curInterviewer, curNominee, Criterion.Empty, 0, DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
-
-            OldInterviewCriterionArr.DeleteArr();
-
-
-            newInterviewCriterionArr.InsertArr();
-            */
         }
 
 

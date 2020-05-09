@@ -38,10 +38,6 @@
             this.textBox_LastName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_FirstName = new System.Windows.Forms.TextBox();
-            this.label_Phone = new System.Windows.Forms.Label();
-            this.textBox_Cel = new System.Windows.Forms.TextBox();
-            this.label_Email = new System.Windows.Forms.Label();
-            this.textBox_Email = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox_Position = new System.Windows.Forms.ComboBox();
             this.button_Print = new System.Windows.Forms.Button();
@@ -98,10 +94,6 @@
             this.splitContainer1.Panel1.Controls.Add(this.textBox_LastName);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.textBox_FirstName);
-            this.splitContainer1.Panel1.Controls.Add(this.label_Phone);
-            this.splitContainer1.Panel1.Controls.Add(this.textBox_Cel);
-            this.splitContainer1.Panel1.Controls.Add(this.label_Email);
-            this.splitContainer1.Panel1.Controls.Add(this.textBox_Email);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.comboBox_Position);
             this.splitContainer1.Panel1.Controls.Add(this.button_Print);
@@ -130,7 +122,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(292, 137);
+            this.label3.Location = new System.Drawing.Point(292, 167);
             this.label3.Name = "label3";
             this.label3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label3.Size = new System.Drawing.Size(152, 37);
@@ -140,7 +132,7 @@
             // textBox_LastName
             // 
             this.textBox_LastName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_LastName.Location = new System.Drawing.Point(40, 177);
+            this.textBox_LastName.Location = new System.Drawing.Point(40, 207);
             this.textBox_LastName.Name = "textBox_LastName";
             this.textBox_LastName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textBox_LastName.Size = new System.Drawing.Size(397, 44);
@@ -168,54 +160,11 @@
             this.textBox_FirstName.TabIndex = 48;
             this.textBox_FirstName.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
-            // label_Phone
-            // 
-            this.label_Phone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_Phone.AutoSize = true;
-            this.label_Phone.Location = new System.Drawing.Point(355, 459);
-            this.label_Phone.Name = "label_Phone";
-            this.label_Phone.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label_Phone.Size = new System.Drawing.Size(89, 37);
-            this.label_Phone.TabIndex = 47;
-            this.label_Phone.Text = "טלפון:";
-            // 
-            // textBox_Cel
-            // 
-            this.textBox_Cel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Cel.Location = new System.Drawing.Point(40, 499);
-            this.textBox_Cel.MaxLength = 7;
-            this.textBox_Cel.Name = "textBox_Cel";
-            this.textBox_Cel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox_Cel.Size = new System.Drawing.Size(397, 44);
-            this.textBox_Cel.TabIndex = 45;
-            this.textBox_Cel.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
-            // label_Email
-            // 
-            this.label_Email.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_Email.AutoSize = true;
-            this.label_Email.Location = new System.Drawing.Point(347, 354);
-            this.label_Email.Name = "label_Email";
-            this.label_Email.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label_Email.Size = new System.Drawing.Size(97, 37);
-            this.label_Email.TabIndex = 46;
-            this.label_Email.Text = "אימייל:";
-            // 
-            // textBox_Email
-            // 
-            this.textBox_Email.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Email.Location = new System.Drawing.Point(40, 394);
-            this.textBox_Email.Name = "textBox_Email";
-            this.textBox_Email.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox_Email.Size = new System.Drawing.Size(397, 44);
-            this.textBox_Email.TabIndex = 44;
-            this.textBox_Email.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(354, 240);
+            this.label1.Location = new System.Drawing.Point(354, 306);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 37);
             this.label1.TabIndex = 43;
@@ -225,7 +174,7 @@
             // 
             this.comboBox_Position.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_Position.FormattingEnabled = true;
-            this.comboBox_Position.Location = new System.Drawing.Point(40, 280);
+            this.comboBox_Position.Location = new System.Drawing.Point(40, 346);
             this.comboBox_Position.Name = "comboBox_Position";
             this.comboBox_Position.Size = new System.Drawing.Size(397, 45);
             this.comboBox_Position.TabIndex = 42;
@@ -270,10 +219,6 @@
         private System.Drawing.Printing.PrintDocument printDocument_Reports;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button button_Print;
-        private System.Windows.Forms.Label label_Phone;
-        private System.Windows.Forms.TextBox textBox_Cel;
-        private System.Windows.Forms.Label label_Email;
-        private System.Windows.Forms.TextBox textBox_Email;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox_Position;
         private System.Windows.Forms.Label label3;

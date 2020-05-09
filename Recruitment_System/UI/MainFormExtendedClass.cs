@@ -25,12 +25,6 @@ namespace Recruitment_System.UI
             {
                 return;
             }
-            if (e.TabPage == tabPage_Interviews && label_DBID.Text == "0")
-            {
-                //no nominee selected -> cant create new interview
-
-            }
-
 
             if (e.TabPage == tabPage_PositionNomineeChart)
             {
@@ -44,12 +38,11 @@ namespace Recruitment_System.UI
             }
             else if (e.TabPage == tabPage_Interview)
             {
-                toolStripMenuItem_TableDesign.Visible = false;
-
                 int dbid = int.Parse(label_DBID.Text);
 
                 if (dbid != 0 || curInterview != Interview.Empty)
                 {
+                    toolStripMenuItem_TableDesign.Visible = false;
                     ArrsToForm(dbid);
                     InterviewToForm(curInterview);
                 }
@@ -75,7 +68,19 @@ namespace Recruitment_System.UI
                 SetUpInterviewComboBoxes(nomineeDBId);
                 InterviewArrToForm(interviewArr);
 
-                button_Interviews_NewInterview.Enabled = nomineeDBId != 0;
+                if (nomineeDBId != 0)
+                {
+                    button_Interviews_NewInterview.Enabled = true;
+                    NomineeArr nomineeArr = new NomineeArr();
+                    nomineeArr.Fill();
+
+                    button_Interviews_NewInterview.Text = "החל ראיון חדש עבור " + nomineeArr.GetNomineeByDBId(nomineeDBId).FullName + " 📁";
+                }
+                else
+                {
+                    button_Interviews_NewInterview.Enabled = false;
+                    button_Interviews_NewInterview.Text = "לא ניתן להתחיל ראיון חדש\nאנא בחר מועמד מחלון עריכת המועמדים";
+                }
             }
             else
             {
@@ -400,7 +405,6 @@ namespace Recruitment_System.UI
                         interviewArr.Fill();
                         interview = interviewArr.GetInterviewWithMaxId();
                         curInterview = interview;
-                        InterviewToForm(curInterview);
 
                         PositionTypeCriterionArr positionTypeCriterionArr = new PositionTypeCriterionArr();
                         positionTypeCriterionArr.Fill();
@@ -418,6 +422,7 @@ namespace Recruitment_System.UI
                         }
 
                         interviewCriterionArr.InsertArr();
+                        InterviewToForm(curInterview);
                     }
                 }
             }
@@ -634,7 +639,7 @@ namespace Recruitment_System.UI
 
         private void ResetInterviewDateTimePickers(InterviewArr interviewArr)
         {
-            (DateTime min, DateTime max) edge = (DateTimePicker.MinimumDateTime, DateTimePicker.MaximumDateTime);
+            (DateTime min, DateTime max) edge = (DateTimePicker.MinimumDateTime, DateTime.Now);
 
 
             DateTime x;
